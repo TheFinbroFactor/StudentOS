@@ -1,0 +1,4261 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>StudentOS — Your school, organised</title>
+<meta name="description" content="StudentOS automatically collects Google Classroom, school email and school notices into one organised dashboard.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#4f46e5">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%234f46e5'/><text x='50' y='72' font-size='62' font-family='sans-serif' font-weight='800' fill='white' text-anchor='middle'>S</text></svg>">
+
+<style>
+/* ============================================================
+   1. DESIGN TOKENS
+   ============================================================ */
+:root{
+  --indigo-50:#eef2ff; --indigo-100:#e0e7ff; --indigo-200:#c7d2fe;
+  --indigo-400:#818cf8; --indigo-500:#6366f1; --indigo-600:#4f46e5;
+  --indigo-700:#4338ca; --indigo-900:#312e81;
+
+  --gray-25:#fcfcfd; --gray-50:#f8fafc; --gray-100:#f1f5f9;
+  --gray-200:#e2e8f0; --gray-300:#cbd5e1; --gray-400:#94a3b8;
+  --gray-500:#64748b; --gray-600:#475569; --gray-700:#334155;
+  --gray-800:#1e293b; --gray-900:#0f172a;
+
+  --green-50:#ecfdf5; --green-500:#10b981; --green-600:#059669;
+  --amber-50:#fffbeb; --amber-500:#f59e0b; --amber-600:#d97706;
+  --red-50:#fef2f2;  --red-500:#ef4444;   --red-600:#dc2626;
+  --sky-50:#f0f9ff;  --sky-500:#0ea5e9;
+
+  --bg:var(--gray-50);
+  --surface:#ffffff;
+  --surface-2:var(--gray-25);
+  --border:var(--gray-200);
+  --border-strong:var(--gray-300);
+  --text:var(--gray-900);
+  --text-2:var(--gray-600);
+  --text-3:var(--gray-400);
+
+  --primary:var(--indigo-600);
+  --primary-hover:var(--indigo-700);
+  --primary-soft:var(--indigo-50);
+
+  --radius-sm:8px; --radius:12px; --radius-lg:16px; --radius-xl:22px;
+  --shadow-xs:0 1px 2px rgba(15,23,42,.05);
+  --shadow-sm:0 1px 3px rgba(15,23,42,.08),0 1px 2px rgba(15,23,42,.04);
+  --shadow:0 4px 14px rgba(15,23,42,.07),0 1px 3px rgba(15,23,42,.05);
+  --shadow-lg:0 18px 40px -12px rgba(15,23,42,.18),0 4px 12px rgba(15,23,42,.06);
+  --shadow-xl:0 32px 64px -16px rgba(15,23,42,.28);
+  --ring:0 0 0 3px rgba(99,102,241,.28);
+
+  --sidebar-w:250px;
+  --topbar-h:62px;
+  --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+
+[data-theme="dark"]{
+  --bg:#0b1020;
+  --surface:#141a2e;
+  --surface-2:#1a2138;
+  --border:#262e47;
+  --border-strong:#33405e;
+  --text:#eef2ff;
+  --text-2:#a9b4d0;
+  --text-3:#6b7796;
+  --primary:#818cf8;
+  --primary-hover:#a5b4fc;
+  --primary-soft:rgba(99,102,241,.14);
+  --shadow-xs:0 1px 2px rgba(0,0,0,.4);
+  --shadow-sm:0 1px 3px rgba(0,0,0,.45);
+  --shadow:0 4px 16px rgba(0,0,0,.45);
+  --shadow-lg:0 18px 44px -12px rgba(0,0,0,.7);
+  --shadow-xl:0 32px 64px -16px rgba(0,0,0,.8);
+  --green-50:rgba(16,185,129,.12); --amber-50:rgba(245,158,11,.12);
+  --red-50:rgba(239,68,68,.12); --sky-50:rgba(14,165,233,.12);
+}
+
+/* ============================================================
+   2. BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;font-family:var(--font);background:var(--bg);color:var(--text);
+  font-size:14.5px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4{margin:0;line-height:1.25;font-weight:700;letter-spacing:-.015em}
+p{margin:0}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none;padding:0}
+input,select,textarea{outline:none}
+img{max-width:100%;display:block}
+[hidden]{display:none !important}
+::selection{background:var(--indigo-200);color:var(--indigo-900)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:99px;border:3px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:var(--gray-400);background-clip:padding-box;border:3px solid transparent}
+
+:focus-visible{outline:none;box-shadow:var(--ring);border-radius:6px}
+
+/* ============================================================
+   3. UTILITIES
+   ============================================================ */
+.muted{color:var(--text-2)}
+.tiny{font-size:12px}
+.small{font-size:13px}
+.strong{font-weight:600}
+.center{text-align:center}
+.row{display:flex;align-items:center;gap:10px}
+.row-between{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.wrap{flex-wrap:wrap}
+.spacer{flex:1}
+.stack{display:flex;flex-direction:column;gap:14px}
+.only-mobile{display:none}
+.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ============================================================
+   4. BUTTONS
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:9px 15px;border-radius:var(--radius-sm);font-weight:600;font-size:13.5px;
+  border:1px solid transparent;transition:.16s ease;white-space:nowrap;user-select:none;
+}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow-xs)}
+.btn-primary:hover:not(:disabled){background:var(--primary-hover)}
+.btn-ghost{background:var(--surface);border-color:var(--border);color:var(--text)}
+.btn-ghost:hover:not(:disabled){background:var(--surface-2);border-color:var(--border-strong)}
+.btn-subtle{background:var(--gray-100);color:var(--text)}
+[data-theme="dark"] .btn-subtle{background:var(--surface-2)}
+.btn-subtle:hover:not(:disabled){background:var(--gray-200)}
+[data-theme="dark"] .btn-subtle:hover{background:var(--border)}
+.btn-danger{background:var(--red-500);color:#fff}
+.btn-danger:hover:not(:disabled){background:var(--red-600)}
+.btn-danger-soft{background:var(--red-50);color:var(--red-600)}
+.btn-danger-soft:hover:not(:disabled){background:rgba(239,68,68,.2)}
+.btn-block{width:100%}
+.btn-sm{padding:7px 12px;font-size:13px}
+.btn-lg{padding:13px 22px;font-size:15px;border-radius:var(--radius)}
+.btn-google{background:#fff;color:#3c4043;border:1px solid #dadce0;font-weight:600;font-size:15px;padding:13px 20px;box-shadow:var(--shadow-xs)}
+.btn-google:hover{background:#f8f9fa;border-color:#c6c9cc;box-shadow:var(--shadow-sm)}
+[data-theme="dark"] .btn-google{background:#fff;color:#202124}
+
+.icon-btn{
+  width:38px;height:38px;display:grid;place-items:center;border-radius:var(--radius-sm);
+  font-size:17px;color:var(--text-2);transition:.15s;position:relative;flex:none;
+}
+.icon-btn:hover{background:var(--surface-2);color:var(--text)}
+[data-theme="dark"] .icon-btn:hover{background:var(--surface-2)}
+
+/* ============================================================
+   5. FORM CONTROLS
+   ============================================================ */
+.field{display:flex;flex-direction:column;gap:6px}
+.label{font-size:12.5px;font-weight:600;color:var(--text-2);letter-spacing:.01em}
+.input,.select,.textarea{
+  width:100%;padding:9px 12px;border-radius:var(--radius-sm);
+  border:1px solid var(--border-strong);background:var(--surface);color:var(--text);
+  transition:.15s;font-size:14px;
+}
+.input:focus,.select:focus,.textarea:focus{border-color:var(--primary);box-shadow:var(--ring)}
+.textarea{resize:vertical;min-height:80px;font-family:inherit}
+.select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8.5L1.5 4h9z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
+.hint{font-size:12px;color:var(--text-3)}
+.checkbox{display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:13.5px;line-height:1.45}
+.checkbox input{margin-top:2px;width:16px;height:16px;accent-color:var(--primary);flex:none;cursor:pointer}
+
+/* ============================================================
+   6. CHIPS / BADGES
+   ============================================================ */
+.chip{
+  display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:99px;
+  font-size:11.5px;font-weight:600;letter-spacing:.015em;white-space:nowrap;
+  background:var(--gray-100);color:var(--text-2);border:1px solid transparent;
+}
+[data-theme="dark"] .chip{background:var(--surface-2)}
+.chip-glass{background:rgba(255,255,255,.13);color:#fff;border-color:rgba(255,255,255,.2);backdrop-filter:blur(8px)}
+.chip-indigo{background:var(--indigo-50);color:var(--indigo-700)}
+[data-theme="dark"] .chip-indigo{background:var(--primary-soft);color:var(--indigo-200)}
+.chip-green{background:var(--green-50);color:var(--green-600)}
+.chip-amber{background:var(--amber-50);color:var(--amber-600)}
+.chip-red{background:var(--red-50);color:var(--red-600)}
+.chip-sky{background:var(--sky-50);color:#0284c7}
+.chip-gray{background:var(--gray-100);color:var(--gray-600)}
+[data-theme="dark"] .chip-gray{background:var(--surface-2);color:var(--text-2)}
+
+.dot{position:absolute;top:7px;right:7px;width:8px;height:8px;border-radius:99px;background:var(--red-500);border:2px solid var(--surface)}
+
+/* ============================================================
+   7. CARDS
+   ============================================================ */
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-xs);overflow:hidden;
+}
+.card-pad{padding:18px 20px}
+.card-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:15px 20px;border-bottom:1px solid var(--border);
+}
+.card-title{font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card-body{padding:18px 20px}
+.card-hover{transition:.18s}
+.card-hover:hover{box-shadow:var(--shadow);border-color:var(--border-strong);transform:translateY(-1px)}
+
+/* ============================================================
+   8. BOOT SPLASH
+   ============================================================ */
+.boot{
+  position:fixed;inset:0;z-index:9000;display:grid;place-content:center;justify-items:center;
+  gap:18px;background:var(--bg);transition:opacity .35s ease,visibility .35s;
+}
+.boot.gone{opacity:0;visibility:hidden;pointer-events:none}
+.boot-mark{
+  width:60px;height:60px;border-radius:18px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--indigo-500),var(--indigo-700));
+  color:#fff;font-size:30px;font-weight:800;
+  box-shadow:0 16px 36px -10px rgba(79,70,229,.65);
+  animation:pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.boot-text{color:var(--text-2);font-weight:500;font-size:14px}
+
+/* ============================================================
+   9. AUTH SCREEN
+   ============================================================ */
+.auth{position:fixed;inset:0;z-index:8000;display:grid;grid-template-columns:1.05fr .95fr;background:var(--surface);overflow:auto}
+.auth-hero{
+  position:relative;padding:52px 56px;display:flex;align-items:center;
+  background:linear-gradient(150deg,#4f46e5 0%,#4338ca 45%,#312e81 100%);
+  color:#fff;overflow:hidden;
+}
+.auth-hero::before{
+  content:"";position:absolute;width:620px;height:620px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.16),transparent 68%);
+  top:-220px;right:-190px;
+}
+.auth-hero::after{
+  content:"";position:absolute;width:460px;height:460px;border-radius:50%;
+  background:radial-gradient(circle,rgba(129,140,248,.28),transparent 70%);
+  bottom:-190px;left:-130px;
+}
+.auth-hero-inner{position:relative;z-index:1;max-width:520px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;letter-spacing:-.02em;color:var(--text)}
+.brand-light{color:#fff;margin-bottom:44px}
+.brand-mark{
+  width:32px;height:32px;border-radius:10px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--indigo-500),var(--indigo-700));
+  color:#fff;font-weight:800;font-size:16px;flex:none;
+}
+.brand-light .brand-mark{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px)}
+.auth-headline{font-size:clamp(28px,3.4vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.14;margin-bottom:18px}
+.auth-sub{color:rgba(255,255,255,.82);font-size:15.5px;line-height:1.65;margin-bottom:30px;max-width:460px}
+.auth-features{list-style:none;padding:0;margin:0 0 30px;display:flex;flex-direction:column;gap:12px}
+.auth-features li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:rgba(255,255,255,.92)}
+.tick{
+  width:20px;height:20px;border-radius:99px;background:rgba(255,255,255,.2);
+  display:grid;place-items:center;font-size:11px;font-weight:800;flex:none;margin-top:1px;
+}
+.auth-badges{display:flex;gap:8px;flex-wrap:wrap}
+
+.auth-panel{display:grid;place-items:center;padding:48px 32px;background:var(--bg)}
+.auth-card{width:100%;max-width:400px}
+.auth-title{font-size:25px;margin-bottom:6px}
+.auth-lead{color:var(--text-2);font-size:14.5px;margin-bottom:26px}
+.auth-divider{display:flex;align-items:center;gap:12px;margin:22px 0;color:var(--text-3);font-size:12px;font-weight:600}
+.auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--border)}
+.auth-setup{
+  border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px;
+  background:var(--surface);font-size:13px;
+}
+.auth-setup summary{cursor:pointer;font-weight:600;color:var(--text);list-style:none;display:flex;align-items:center;gap:6px}
+.auth-setup summary::-webkit-details-marker{display:none}
+.auth-setup[open] summary{margin-bottom:10px}
+.auth-setup p{margin:0 0 8px;color:var(--text-2);line-height:1.6}
+.auth-setup p:last-child{margin-bottom:0}
+.auth-fineprint{margin-top:22px;font-size:11.5px;color:var(--text-3);line-height:1.6}
+.auth-error{margin-top:14px}
+.auth-mode-badge{
+  display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:99px;
+  background:var(--amber-50);color:var(--amber-600);font-size:11.5px;font-weight:700;
+  margin-bottom:20px;
+}
+.auth-mode-badge.live{background:var(--green-50);color:var(--green-600)}
+
+/* ============================================================
+   10. APP SHELL
+   ============================================================ */
+.app{min-height:100vh;display:flex;flex-direction:column}
+.topbar{
+  position:sticky;top:0;z-index:600;height:var(--topbar-h);flex:none;
+  display:flex;align-items:center;gap:12px;padding:0 18px;
+  background:color-mix(in srgb,var(--surface) 88%,transparent);
+  backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.topbar-spacer{flex:1}
+.topbar-search{position:relative;flex:1;max-width:420px;margin-left:8px}
+.search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:16px;pointer-events:none}
+.topbar-search .input{padding-left:34px;background:var(--surface-2);border-color:transparent;height:38px}
+.topbar-search .input:focus{background:var(--surface);border-color:var(--primary)}
+.topbar-actions{display:flex;align-items:center;gap:6px;margin-left:auto}
+
+.search-results{
+  position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);
+  max-height:400px;overflow:auto;padding:6px;z-index:700;
+}
+.search-item{padding:9px 11px;border-radius:8px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.search-item:hover{background:var(--surface-2)}
+.search-item .t{font-weight:600;font-size:13.5px}
+.search-empty{padding:20px;text-align:center;color:var(--text-3);font-size:13px}
+
+.avatar{width:32px;height:32px;border-radius:99px;object-fit:cover;background:var(--indigo-100);flex:none}
+.avatar-lg{width:42px;height:42px}
+.avatar-btn{padding:3px;width:auto;height:auto;border-radius:99px}
+
+.dropdown{position:relative}
+.dropdown-panel{
+  position:absolute;top:calc(100% + 10px);right:0;min-width:270px;background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);
+  padding:8px;z-index:700;animation:popIn .14s ease;
+}
+@keyframes popIn{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}
+.menu-item{
+  width:100%;display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;
+  font-size:13.5px;font-weight:500;color:var(--text);text-align:left;transition:.13s;
+}
+.menu-item:hover{background:var(--surface-2)}
+.menu-item.danger{color:var(--red-600)}
+.menu-item.danger:hover{background:var(--red-50)}
+.menu-sep{height:1px;background:var(--border);margin:6px 4px}
+
+.account-head{display:flex;gap:12px;align-items:center;padding:10px 11px 12px}
+.account-meta{min-width:0}
+.account-meta .small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:190px}
+
+/* Notifications panel */
+.notif-panel{width:360px;max-width:calc(100vw - 24px);padding:0;overflow:hidden}
+.notif-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.notif-list{max-height:400px;overflow:auto}
+.notif-item{display:flex;gap:11px;padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:.13s}
+.notif-item:last-child{border-bottom:none}
+.notif-item:hover{background:var(--surface-2)}
+.notif-item.unread{background:var(--primary-soft)}
+.notif-ico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:14px;flex:none;background:var(--gray-100)}
+[data-theme="dark"] .notif-ico{background:var(--surface-2)}
+.notif-body{min-width:0;flex:1}
+.notif-title{font-size:13.5px;font-weight:600;margin-bottom:2px}
+.notif-meta{font-size:11.5px;color:var(--text-3)}
+.notif-empty{padding:40px 20px;text-align:center;color:var(--text-3);font-size:13px}
+
+/* Layout */
+.layout{display:flex;flex:1;min-height:0}
+.sidebar{
+  width:var(--sidebar-w);flex:none;position:sticky;top:var(--topbar-h);
+  height:calc(100vh - var(--topbar-h));overflow-y:auto;
+  padding:18px 12px;display:flex;flex-direction:column;gap:20px;
+  border-right:1px solid var(--border);background:var(--surface);
+}
+.sidebar-group{display:flex;flex-direction:column;gap:3px}
+.sidebar-label{
+  font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
+  color:var(--text-3);padding:0 11px 7px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:9px;
+  color:var(--text-2);font-size:13.8px;font-weight:500;transition:.14s;position:relative;
+}
+.nav-item:hover{background:var(--surface-2);color:var(--text);text-decoration:none}
+.nav-item.active{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.nav-item.active .nav-ico{transform:scale(1.05)}
+.nav-ico{font-size:15px;width:19px;text-align:center;flex:none;transition:.14s}
+.nav-badge{
+  margin-left:auto;background:var(--red-500);color:#fff;font-size:10.5px;font-weight:700;
+  padding:1.5px 7px;border-radius:99px;min-width:20px;text-align:center;
+}
+.sidebar-foot{margin-top:auto;padding:0 4px}
+.sync-chip{
+  display:flex;align-items:center;gap:8px;padding:9px 11px;border-radius:9px;
+  background:var(--surface-2);font-size:11.5px;color:var(--text-2);
+}
+.sync-dot{width:7px;height:7px;border-radius:99px;background:var(--gray-400);flex:none;transition:.3s}
+.sync-chip.ok .sync-dot{background:var(--green-500);box-shadow:0 0 0 3px rgba(16,185,129,.18)}
+.sync-chip.busy .sync-dot{background:var(--amber-500);animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.3}}
+.sync-chip.err .sync-dot{background:var(--red-500)}
+
+.view{flex:1;min-width:0;padding:26px 30px 70px;max-width:1320px;width:100%}
+.scrim{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:550;backdrop-filter:blur(2px)}
+
+/* ============================================================
+   11. VIEW HEADERS & GRIDS
+   ============================================================ */
+.page-head{margin-bottom:24px}
+.page-title{font-size:25px;letter-spacing:-.025em;margin-bottom:5px}
+.page-sub{color:var(--text-2);font-size:14px}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:24px}
+.stat{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:16px 18px;position:relative;overflow:hidden;transition:.18s;
+}
+.stat:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+.stat::after{content:"";position:absolute;right:-26px;top:-26px;width:78px;height:78px;border-radius:50%;background:var(--primary-soft);opacity:.55}
+.stat-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:8px;position:relative}
+.stat-value{font-size:29px;font-weight:800;letter-spacing:-.035em;line-height:1;position:relative}
+.stat-sub{font-size:12px;color:var(--text-2);margin-top:6px;position:relative}
+.stat.warn .stat-value{color:var(--red-600)}
+.stat.warn::after{background:var(--red-50)}
+.stat.good .stat-value{color:var(--green-600)}
+.stat.good::after{background:var(--green-50)}
+
+.cols{display:grid;gap:18px}
+.cols-main{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+.cols-2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+@media(max-width:1080px){.cols-main{grid-template-columns:1fr}}
+
+/* ============================================================
+   12. LIST ITEMS (assignments, notices, tasks)
+   ============================================================ */
+.item{
+  display:flex;gap:13px;padding:14px 18px;border-bottom:1px solid var(--border);
+  transition:.13s;position:relative;
+}
+.item:last-child{border-bottom:none}
+.item:hover{background:var(--surface-2)}
+.item-check{
+  width:19px;height:19px;border-radius:6px;border:2px solid var(--border-strong);
+  flex:none;margin-top:2px;display:grid;place-items:center;cursor:pointer;transition:.15s;
+  background:var(--surface);
+}
+.item-check:hover{border-color:var(--primary)}
+.item-check.on{background:var(--green-500);border-color:var(--green-500);color:#fff;font-size:11px;font-weight:800}
+.item-main{flex:1;min-width:0}
+.item-title{font-weight:600;font-size:14.2px;margin-bottom:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.item.done .item-title{text-decoration:line-through;color:var(--text-3)}
+.item-desc{font-size:13px;color:var(--text-2);margin-bottom:7px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.item-meta{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.item-side{display:flex;flex-direction:column;align-items:flex-end;gap:7px;flex:none}
+.due{font-size:12px;font-weight:700;white-space:nowrap}
+.due.overdue{color:var(--red-600)}
+.due.soon{color:var(--amber-600)}
+.due.ok{color:var(--text-2)}
+.src-link{
+  font-size:11.5px;font-weight:600;color:var(--primary);display:inline-flex;align-items:center;gap:4px;
+  padding:3px 9px;border-radius:99px;background:var(--primary-soft);
+}
+.src-link:hover{text-decoration:none;background:var(--indigo-100)}
+[data-theme="dark"] .src-link:hover{background:rgba(99,102,241,.25)}
+
+.empty{padding:52px 24px;text-align:center;color:var(--text-3)}
+.empty-ico{font-size:36px;margin-bottom:12px;opacity:.65}
+.empty-title{font-weight:600;color:var(--text-2);margin-bottom:4px;font-size:14.5px}
+.empty-sub{font-size:13px;max-width:340px;margin:0 auto;line-height:1.6}
+
+/* ============================================================
+   13. FILTER BAR
+   ============================================================ */
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.seg{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:3px;gap:2px}
+.seg button{
+  padding:6px 13px;border-radius:7px;font-size:13px;font-weight:600;color:var(--text-2);transition:.14s;
+}
+.seg button:hover{color:var(--text)}
+.seg button.on{background:var(--primary);color:#fff;box-shadow:var(--shadow-xs)}
+.filters .input,.filters .select{width:auto;min-width:140px}
+
+/* ============================================================
+   14. CALENDAR
+   ============================================================ */
+.cal-head{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:6px}
+.cal-dow{text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);padding:6px 0}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal-day{
+  min-height:88px;border:1px solid var(--border);border-radius:10px;padding:6px;
+  background:var(--surface);display:flex;flex-direction:column;gap:3px;transition:.13s;cursor:pointer;
+}
+.cal-day:hover{border-color:var(--border-strong);box-shadow:var(--shadow-xs)}
+.cal-day.out{opacity:.35}
+.cal-day.today{border-color:var(--primary);box-shadow:0 0 0 2px var(--primary-soft)}
+.cal-num{font-size:12px;font-weight:700;color:var(--text-2)}
+.cal-day.today .cal-num{color:var(--primary)}
+.cal-ev{
+  font-size:10.5px;font-weight:600;padding:2px 6px;border-radius:5px;
+  background:var(--primary-soft);color:var(--primary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.cal-ev.test{background:var(--red-50);color:var(--red-600)}
+.cal-ev.event{background:var(--sky-50);color:#0284c7}
+.cal-ev.notice{background:var(--amber-50);color:var(--amber-600)}
+.cal-more{font-size:10px;color:var(--text-3);font-weight:600;padding-left:3px}
+
+/* ============================================================
+   15. TIMETABLE
+   ============================================================ */
+.tt-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--border);align-items:center}
+.tt-row:last-child{border-bottom:none}
+.tt-time{font-size:12px;font-weight:700;color:var(--text-3);width:74px;flex:none;font-variant-numeric:tabular-nums}
+.tt-sub{font-weight:600;font-size:13.5px}
+.tt-now{background:var(--primary-soft);border-radius:8px;padding:10px 12px;margin:0 -12px;border-bottom:none}
+
+/* ============================================================
+   16. PRIORITY / NEXT ACTIONS
+   ============================================================ */
+.next-item{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.next-item:last-child{border-bottom:none}
+.next-rank{
+  width:26px;height:26px;border-radius:8px;display:grid;place-items:center;flex:none;
+  background:var(--primary);color:#fff;font-size:12.5px;font-weight:800;
+}
+.next-item.urgent .next-rank{background:var(--red-500)}
+.next-item.high .next-rank{background:var(--amber-500)}
+.next-item.low .next-rank{background:var(--gray-400)}
+
+/* ============================================================
+   17. MODAL
+   ============================================================ */
+.modal-back{
+  position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);
+  z-index:1000;display:grid;place-items:center;padding:20px;animation:fadeIn .16s ease;
+  overflow-y:auto;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{
+  background:var(--surface);border-radius:var(--radius-xl);width:100%;max-width:560px;
+  box-shadow:var(--shadow-xl);animation:slideUp .2s cubic-bezier(.2,.9,.3,1);
+  max-height:92vh;display:flex;flex-direction:column;margin:auto;
+}
+.modal.wide{max-width:780px}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+.modal-head{padding:20px 24px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px}
+.modal-head h3{font-size:18px;flex:1}
+.modal-sub{font-size:13px;color:var(--text-2);margin-top:4px}
+.modal-body{padding:20px 24px;overflow-y:auto;flex:1}
+.modal-foot{
+  padding:14px 24px;border-top:1px solid var(--border);display:flex;gap:10px;
+  justify-content:flex-end;background:var(--surface-2);border-radius:0 0 var(--radius-xl) var(--radius-xl);
+}
+.modal-close{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--text-3);font-size:19px;flex:none}
+.modal-close:hover{background:var(--surface-2);color:var(--text)}
+
+/* ============================================================
+   18. TOASTS
+   ============================================================ */
+.toasts{position:fixed;bottom:22px;right:22px;z-index:2000;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{
+  background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--primary);
+  border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:12px 16px;min-width:270px;
+  max-width:380px;display:flex;gap:11px;align-items:flex-start;pointer-events:auto;
+  animation:toastIn .24s cubic-bezier(.2,.9,.3,1);
+}
+@keyframes toastIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.toast.out{animation:toastOut .2s ease forwards}
+@keyframes toastOut{to{opacity:0;transform:translateX(24px)}}
+.toast.success{border-left-color:var(--green-500)}
+.toast.error{border-left-color:var(--red-500)}
+.toast.warn{border-left-color:var(--amber-500)}
+.toast-ico{font-size:16px;line-height:1.3;flex:none}
+.toast-title{font-weight:600;font-size:13.5px;margin-bottom:1px}
+.toast-msg{font-size:12.5px;color:var(--text-2);line-height:1.5}
+
+/* ============================================================
+   19. ALERTS
+   ============================================================ */
+.alert{
+  padding:12px 15px;border-radius:var(--radius);font-size:13px;line-height:1.55;
+  border:1px solid transparent;display:flex;gap:10px;align-items:flex-start;
+}
+.alert-error{background:var(--red-50);color:var(--red-600);border-color:rgba(239,68,68,.22)}
+.alert-warn{background:var(--amber-50);color:var(--amber-600);border-color:rgba(245,158,11,.25)}
+.alert-info{background:var(--sky-50);color:#0284c7;border-color:rgba(14,165,233,.22)}
+.alert-success{background:var(--green-50);color:var(--green-600);border-color:rgba(16,185,129,.22)}
+.alert strong{font-weight:700}
+
+/* ============================================================
+   20. INTEGRATIONS
+   ============================================================ */
+.int-card{display:flex;gap:16px;padding:20px;align-items:flex-start}
+.int-logo{
+  width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:22px;
+  flex:none;background:var(--surface-2);border:1px solid var(--border);
+}
+.int-body{flex:1;min-width:0}
+.int-name{font-weight:700;font-size:15px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:3px}
+.int-desc{font-size:13px;color:var(--text-2);margin-bottom:12px;line-height:1.55}
+.int-stats{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--text-2);margin-bottom:13px}
+.int-stat b{display:block;font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.int-actions{display:flex;gap:8px;flex-wrap:wrap}
+.status-pill{
+  display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;
+  padding:3px 10px;border-radius:99px;background:var(--gray-100);color:var(--gray-600);
+}
+[data-theme="dark"] .status-pill{background:var(--surface-2);color:var(--text-2)}
+.status-pill.on{background:var(--green-50);color:var(--green-600)}
+.status-pill.off{background:var(--gray-100);color:var(--text-3)}
+.status-pill.warn{background:var(--amber-50);color:var(--amber-600)}
+.status-pill .pdot{width:6px;height:6px;border-radius:99px;background:currentColor}
+
+/* ============================================================
+   21. SETTINGS
+   ============================================================ */
+.set-row{display:flex;gap:16px;padding:15px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.set-row:last-child{border-bottom:none}
+.set-info{flex:1;min-width:0}
+.set-name{font-weight:600;font-size:14px;margin-bottom:3px}
+.set-desc{font-size:12.5px;color:var(--text-2);line-height:1.55}
+.set-control{flex:none;display:flex;gap:8px;align-items:center}
+@media(max-width:640px){.set-row{flex-direction:column;gap:10px}.set-control{width:100%}}
+
+.code{
+  background:var(--gray-900);color:#e2e8f0;border-radius:var(--radius);padding:15px 17px;
+  font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12px;line-height:1.65;
+  overflow-x:auto;white-space:pre;border:1px solid var(--gray-800);
+}
+[data-theme="dark"] .code{background:#080d1a;border-color:var(--border)}
+code{
+  font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5px;
+  background:var(--gray-100);padding:2px 6px;border-radius:5px;
+}
+[data-theme="dark"] code{background:var(--surface-2)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{
+  counter-increment:s;position:relative;padding-left:38px;padding-bottom:20px;
+  border-left:2px solid var(--border);margin-left:13px;
+}
+.steps li:last-child{border-left-color:transparent;padding-bottom:0}
+.steps li::before{
+  content:counter(s);position:absolute;left:-15px;top:-3px;width:28px;height:28px;border-radius:99px;
+  background:var(--primary);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:800;
+  box-shadow:0 0 0 4px var(--surface);
+}
+.steps h4{font-size:14px;margin-bottom:5px}
+.steps p{font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:7px}
+.steps .code{margin-top:8px;font-size:11.5px}
+
+/* ============================================================
+   22. MISC
+   ============================================================ */
+.divider{height:1px;background:var(--border);margin:18px 0}
+.loading-row{display:flex;align-items:center;gap:10px;color:var(--text-2);font-size:13px;padding:26px;justify-content:center}
+.spinner{
+  width:15px;height:15px;border:2px solid var(--border-strong);border-top-color:var(--primary);
+  border-radius:99px;animation:spin .7s linear infinite;flex:none;
+}
+.sync-spinner{
+  width:12px;height:12px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;
+  border-radius:99px;animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.progress{height:5px;border-radius:99px;background:var(--gray-200);overflow:hidden;margin-top:10px}
+[data-theme="dark"] .progress{background:var(--surface-2)}
+.progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--indigo-400),var(--indigo-600));border-radius:99px;transition:width .4s ease}
+
+/* ============================================================
+   23. RESPONSIVE
+   ============================================================ */
+@media(max-width:960px){
+  .auth{grid-template-columns:1fr}
+  .auth-hero{display:none}
+  .auth-panel{padding:32px 20px}
+}
+@media(max-width:900px){
+  .only-mobile{display:grid}
+  .topbar-search{display:none}
+  .sidebar{
+    position:fixed;top:var(--topbar-h);left:0;z-index:560;height:calc(100vh - var(--topbar-h));
+    transform:translateX(-100%);transition:transform .24s cubic-bezier(.2,.9,.3,1);box-shadow:var(--shadow-xl);
+  }
+  .sidebar.open{transform:none}
+  .view{padding:20px 16px 70px}
+  .brand-text{display:none}
+  .notif-panel{width:calc(100vw - 28px);right:-60px}
+}
+@media(max-width:560px){
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .stat-value{font-size:24px}
+  .page-title{font-size:21px}
+  .toasts{left:14px;right:14px;bottom:14px}
+  .toast{min-width:0;max-width:none}
+  .cal-day{min-height:62px;padding:4px}
+  .cal-ev{font-size:9.5px;padding:1px 4px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- BOOT -->
+<div id="boot" class="boot">
+  <div class="boot-mark">S</div>
+  <div class="boot-text">Loading StudentOS…</div>
+</div>
+
+<!-- AUTH -->
+<div id="auth-screen" class="auth" hidden>
+  <aside class="auth-hero">
+    <div class="auth-hero-inner">
+      <div class="brand brand-light"><span class="brand-mark">S</span><span>StudentOS</span></div>
+      <h1 class="auth-headline">Every assignment, test and notice.<br>One calm dashboard.</h1>
+      <p class="auth-sub">Connect your school accounts once. StudentOS quietly gathers what matters and tells you what to do next — no more hunting through Classroom, email and portals.</p>
+      <ul class="auth-features">
+        <li><span class="tick">✓</span> Google Classroom coursework, due dates and announcements</li>
+        <li><span class="tick">✓</span> School email turned into tests, homework and reminders</li>
+        <li><span class="tick">✓</span> Weekly notes, notices and events in one timeline</li>
+        <li><span class="tick">✓</span> Smart study planner that prioritises for you</li>
+      </ul>
+      <div class="auth-badges">
+        <span class="chip chip-glass">$0 to run</span>
+        <span class="chip chip-glass">No passwords stored</span>
+        <span class="chip chip-glass">Your data stays yours</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="auth-panel">
+    <div class="auth-card">
+      <div id="mode-badge" class="auth-mode-badge">⚡ Demo mode — data stays in this browser</div>
+      <h2 class="auth-title">Welcome</h2>
+      <p class="auth-lead">Open your dashboard to get started.</p>
+
+      <button id="enter-btn" class="btn btn-google btn-block">
+        <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.7-6.7C35.6 2.6 30.2.5 24 .5 14.6.5 6.5 5.9 2.6 13.8l7.8 6.1C12.3 13.9 17.6 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/>
+          <path fill="#FBBC05" d="M10.4 28.1c-.5-1.5-.8-3-.8-4.6s.3-3.1.8-4.6l-7.8-6.1C1 16.2 0 19.5 0 23.5s1 7.3 2.6 10.7l7.8-6.1z"/>
+          <path fill="#34A853" d="M24 47c6.2 0 11.5-2.1 15.4-5.6l-7.5-5.8c-2.1 1.4-4.8 2.2-7.9 2.2-6.4 0-11.7-4.4-13.6-10.3l-7.8 6.1C6.5 41.6 14.6 47 24 47z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div id="auth-error" class="alert alert-error" style="margin-top:14px" hidden></div>
+
+      <div class="auth-divider"><span>or</span></div>
+
+      <button class="btn btn-ghost btn-block" id="demo-btn">Explore demo mode</button>
+      <button class="btn btn-subtle btn-block" id="setup-btn" style="margin-top:9px">⚙️ Connect my own Firebase &amp; Google</button>
+
+      <p class="auth-fineprint">
+        StudentOS can read your Google Classroom coursework and (optionally) school email to build your dashboard.
+        Nothing is stored on any server we control — there isn't one. Disconnect and delete everything any time in <strong>Settings → Privacy</strong>.
+      </p>
+    </div>
+  </main>
+</div>
+
+<!-- APP -->
+<div id="app" class="app" hidden>
+  <header class="topbar">
+    <button class="icon-btn only-mobile" id="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
+    <a class="brand" href="#/dashboard"><span class="brand-mark">S</span><span class="brand-text">StudentOS</span></a>
+
+    <div class="topbar-search">
+      <span class="search-ico">⌕</span>
+      <input id="global-search" class="input" type="search" placeholder="Search assignments, tests, notices…" aria-label="Search" autocomplete="off">
+      <div id="search-results" class="search-results" hidden></div>
+    </div>
+
+    <div class="topbar-actions">
+      <button class="btn btn-primary btn-sm" id="sync-btn" title="Synchronise all connected services">
+        <span class="sync-spinner" hidden></span>
+        <span class="sync-label">Sync now</span>
+      </button>
+
+      <div class="dropdown">
+        <button class="icon-btn" id="notif-btn" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
+          🔔<span id="notif-dot" class="dot" hidden></span>
+        </button>
+        <div id="notif-panel" class="dropdown-panel notif-panel" hidden></div>
+      </div>
+
+      <div class="dropdown">
+        <button class="icon-btn avatar-btn" id="account-btn" aria-label="Account menu" aria-haspopup="true" aria-expanded="false">
+          <img id="avatar" class="avatar" alt="" referrerpolicy="no-referrer">
+        </button>
+        <div id="account-panel" class="dropdown-panel account-panel" hidden>
+          <div class="account-head">
+            <img id="avatar-lg" class="avatar avatar-lg" alt="" referrerpolicy="no-referrer">
+            <div class="account-meta">
+              <div id="account-name" class="strong"></div>
+              <div id="account-email" class="muted small"></div>
+            </div>
+          </div>
+          <div class="menu-sep"></div>
+          <button class="menu-item" data-nav="#/integrations">🔌 <span>Integrations</span></button>
+          <button class="menu-item" data-nav="#/settings">⚙️ <span>Settings</span></button>
+          <div class="menu-sep"></div>
+          <button class="menu-item danger" id="signout-btn">↩︎ <span>Sign out</span></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <div id="scrim" class="scrim" hidden></div>
+
+    <nav id="sidebar" class="sidebar" aria-label="Main">
+      <div class="sidebar-group">
+        <div class="sidebar-label">Overview</div>
+        <a class="nav-item" href="#/dashboard"><span class="nav-ico">🏠</span><span>Dashboard</span></a>
+        <a class="nav-item" href="#/assignments"><span class="nav-ico">📝</span><span>Assignments</span><span class="nav-badge" id="badge-assignments" hidden></span></a>
+        <a class="nav-item" href="#/calendar"><span class="nav-ico">📅</span><span>Calendar</span></a>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-label">Organise</div>
+        <a class="nav-item" href="#/weekly"><span class="nav-ico">🗒️</span><span>Weekly Notes</span></a>
+        <a class="nav-item" href="#/planner"><span class="nav-ico">🎯</span><span>Study Planner</span></a>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-label">Account</div>
+        <a class="nav-item" href="#/integrations"><span class="nav-ico">🔌</span><span>Integrations</span></a>
+        <a class="nav-item" href="#/settings"><span class="nav-ico">⚙️</span><span>Settings</span></a>
+      </div>
+      <div class="sidebar-foot">
+        <div class="sync-chip" id="sync-status"><span class="sync-dot"></span><span class="sync-text">Not synced yet</span></div>
+      </div>
+    </nav>
+
+    <main id="view" class="view" tabindex="-1"></main>
+  </div>
+</div>
+
+<div id="toasts" class="toasts" aria-live="polite"></div>
+<div id="modal-root"></div>
+
+<script type="module">
+/* ================================================================
+   STUDENTOS — single-file application
+   Everything below runs in the browser. No build step, no server.
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   SECTION 1 · CONFIG & CONSTANTS
+   ---------------------------------------------------------------- */
+const LS_CONFIG = 'studentos.config.v1';
+const LS_SESSION = 'studentos.session.v1';
+const LS_DATA = uid => `studentos.data.${uid}.v1`;
+
+// Your Firebase project. The API key is a public project identifier, not a
+// secret — real security comes from Firestore Rules + authorised domains.
+const DEFAULT_CONFIG = {
+  firebase: {
+    apiKey: "AIzaSyAWJ3DfVG0_4qtkbfx5Y6XVMQMKUdUxqWw",
+    authDomain: "student-os-fb.firebaseapp.com",
+    projectId: "student-os-fb",
+    storageBucket: "student-os-fb.firebasestorage.app",
+    messagingSenderId: "499752363180",
+    appId: "1:499752363180:web:0ac024f9e242caac4cab09"
+  },
+  // Paste your OAuth Client ID here later to enable Classroom + Gmail sync.
+  googleClientId: ""
+};
+
+const DEFAULT_SETTINGS = {
+  trustedDomains: [],
+  trustedSenders: [],
+  emailLookbackDays: 30,
+  notifyNewAssignment: true,
+  notifyDueSoon: true,
+  notifyNewTest: true,
+  notifyAnnouncements: true,
+  theme: 'light',
+  timetable: []
+};
+
+const CLASSROOM_SCOPES = [
+  'https://www.googleapis.com/auth/classroom.courses.readonly',
+  'https://www.googleapis.com/auth/classroom.coursework.me.readonly',
+  'https://www.googleapis.com/auth/classroom.announcements.readonly',
+  'https://www.googleapis.com/auth/classroom.student-submissions.me.readonly'
+];
+const EMAIL_SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
+
+const SUBJECTS = ['Maths','Mathematics','English','Science','Biology','Chemistry','Physics',
+  'History','Geography','Economics','Business','Accounting','Art','Music','Drama','PE',
+  'Physical Education','Health','Computing','Computer Science','ICT','Digital Technology',
+  'Technology','Languages','French','Spanish','German','Japanese','Maori','Te Reo Maori',
+  'Social Studies','Media Studies','Design','Graphics','Food Technology','Woodwork','Stats'];
+
+const STOP_WORDS = new Set(['the','and','for','with','this','that','from','your','you','are','was',
+  'have','has','will','due','the','a','an','of','to','in','on','at','by','is','it','be','or','as',
+  'please','complete','finish','submit','work','task','activity','week','term','day','new','all']);
+
+/* ----------------------------------------------------------------
+   SECTION 2 · TINY HELPERS
+   ---------------------------------------------------------------- */
+const $  = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+const uid = () => Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4);
+const now = () => Date.now();
+
+function escapeHtml(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/** Strip any HTML/script content from imported data before storing or rendering. */
+function sanitiseText(input, maxLen = 4000){
+  if (!input) return '';
+  let s = String(input);
+  s = s.replace(/<\s*(script|style|iframe|object|embed|link|meta)[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi, ' ');
+  s = s.replace(/<[^>]*>/g, ' ');
+  s = s.replace(/&nbsp;/gi,' ').replace(/&amp;/gi,'&').replace(/&lt;/gi,'<').replace(/&gt;/gi,'>');
+  s = s.replace(/\s+/g,' ').trim();
+  return s.slice(0, maxLen);
+}
+
+function fmtDate(ts){
+  if (!ts) return '';
+  const d = new Date(ts);
+  return d.toLocaleDateString(undefined, { day:'numeric', month:'short' });
+}
+function fmtDateLong(ts){
+  if (!ts) return '';
+  return new Date(ts).toLocaleDateString(undefined, { weekday:'short', day:'numeric', month:'long' });
+}
+function fmtTime(ts){
+  if (!ts) return '';
+  return new Date(ts).toLocaleTimeString(undefined, { hour:'numeric', minute:'2-digit' });
+}
+function relativeTime(ts){
+  if (!ts) return 'never';
+  const diff = now() - ts;
+  if (diff < 45_000) return 'just now';
+  const m = Math.round(diff/60_000);
+  if (m < 60) return `${m} min ago`;
+  const h = Math.round(m/60);
+  if (h < 24) return `${h} hr ago`;
+  const d = Math.round(h/24);
+  if (d < 7) return `${d} day${d>1?'s':''} ago`;
+  return fmtDate(ts);
+}
+function startOfDay(d = new Date()){
+  const x = new Date(d); x.setHours(0,0,0,0); return x.getTime();
+}
+function daysUntil(ts){
+  if (!ts) return null;
+  return Math.round((startOfDay(new Date(ts)) - startOfDay()) / 86_400_000);
+}
+function dueLabel(ts){
+  const d = daysUntil(ts);
+  if (d === null) return { text:'No due date', cls:'ok' };
+  if (d < 0)  return { text:`${Math.abs(d)} day${Math.abs(d)>1?'s':''} overdue`, cls:'overdue' };
+  if (d === 0) return { text:'Due today', cls:'overdue' };
+  if (d === 1) return { text:'Due tomorrow', cls:'soon' };
+  if (d <= 7) return { text:`Due in ${d} days`, cls:'soon' };
+  return { text:`Due ${fmtDate(ts)}`, cls:'ok' };
+}
+function isoWeekKey(ts){
+  const d = new Date(ts);
+  const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  const day = t.getUTCDay() || 7;
+  t.setUTCDate(t.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
+  const week = Math.ceil((((t - yearStart) / 86400000) + 1) / 7);
+  return { year: t.getUTCFullYear(), week, key: `${t.getUTCFullYear()}-W${String(week).padStart(2,'0')}` };
+}
+function sameDay(a, b){ return startOfDay(new Date(a)) === startOfDay(new Date(b)); }
+function monthMatrix(year, month){
+  const first = new Date(year, month, 1);
+  const start = new Date(first);
+  start.setDate(1 - ((first.getDay() + 6) % 7)); // Monday-first
+  const cells = [];
+  for (let i = 0; i < 42; i++){
+    const d = new Date(start); d.setDate(start.getDate() + i);
+    cells.push(d);
+  }
+  return cells;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 3 · TOASTS & MODALS
+   ---------------------------------------------------------------- */
+function toast(msg, type = 'info', title = ''){
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  const icons = { info:'ℹ️', success:'✅', error:'⚠️', warn:'⏳' };
+  el.innerHTML = `
+    <div class="toast-ico">${icons[type] || 'ℹ️'}</div>
+    <div>
+      ${title ? `<div class="toast-title">${escapeHtml(title)}</div>` : ''}
+      <div class="toast-msg">${escapeHtml(msg)}</div>
+    </div>`;
+  $('#toasts').appendChild(el);
+  setTimeout(() => {
+    el.classList.add('out');
+    setTimeout(() => el.remove(), 220);
+  }, type === 'error' ? 7000 : 4200);
+}
+
+function openModal({ title, subtitle = '', body, footer = '', wide = false, onMount }){
+  const root = $('#modal-root');
+  const back = document.createElement('div');
+  back.className = 'modal-back';
+  back.innerHTML = `
+    <div class="modal ${wide ? 'wide' : ''}" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <div style="flex:1">
+          <h3>${escapeHtml(title)}</h3>
+          ${subtitle ? `<div class="modal-sub">${escapeHtml(subtitle)}</div>` : ''}
+        </div>
+        <button class="modal-close" data-close aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">${body}</div>
+      ${footer ? `<div class="modal-foot">${footer}</div>` : ''}
+    </div>`;
+  root.appendChild(back);
+
+  const close = () => back.remove();
+  back.addEventListener('click', e => { if (e.target === back || e.target.closest('[data-close]')) close(); });
+  const onKey = e => { if (e.key === 'Escape'){ close(); document.removeEventListener('keydown', onKey); } };
+  document.addEventListener('keydown', onKey);
+
+  if (onMount) onMount(back, close);
+  return { el: back, close };
+}
+
+function confirmDialog(title, message, confirmLabel = 'Confirm', danger = false){
+  return new Promise(resolve => {
+    const { close } = openModal({
+      title,
+      body: `<p style="font-size:14px;line-height:1.65;color:var(--text-2)">${escapeHtml(message)}</p>`,
+      footer: `
+        <button class="btn btn-ghost" data-close>Cancel</button>
+        <button class="btn ${danger ? 'btn-danger' : 'btn-primary'}" id="cf-ok">${escapeHtml(confirmLabel)}</button>`,
+      onMount(el, closeFn){
+        $('#cf-ok', el).addEventListener('click', () => { closeFn(); resolve(true); });
+        el.addEventListener('click', e => { if (e.target === el || e.target.closest('[data-close]')) resolve(false); });
+      }
+    });
+  });
+}
+
+/* ----------------------------------------------------------------
+   SECTION 4 · CONFIG STORAGE
+   ---------------------------------------------------------------- */
+function loadConfig(){
+  try {
+    const raw = localStorage.getItem(LS_CONFIG);
+    if (raw) return JSON.parse(raw);
+  } catch {}
+  return DEFAULT_CONFIG;
+}
+function saveConfig(cfg){
+  localStorage.setItem(LS_CONFIG, JSON.stringify(cfg));
+}
+function clearConfig(){
+  localStorage.removeItem(LS_CONFIG);
+}
+function isFirebaseConfigured(cfg){
+  return !!(cfg?.firebase?.apiKey && cfg?.firebase?.projectId && cfg?.firebase?.appId);
+}
+
+/* ----------------------------------------------------------------
+   SECTION 5 · FIREBASE LAYER (loaded only when configured)
+   ---------------------------------------------------------------- */
+const FB = {
+  ready: false, app: null, auth: null, db: null, mod: {},
+  user: null, onAuth: null
+};
+
+async function initFirebase(cfg){
+  const v = '10.12.2';
+  const base = `https://www.gstatic.com/firebasejs/${v}`;
+  const [appMod, authMod, fsMod] = await Promise.all([
+    import(`${base}/firebase-app.js`),
+    import(`${base}/firebase-auth.js`),
+    import(`${base}/firebase-firestore.js`)
+  ]);
+  FB.mod = { ...appMod, ...authMod, ...fsMod };
+  FB.app  = appMod.initializeApp(cfg.firebase);
+  FB.auth = authMod.getAuth(FB.app);
+  FB.db   = fsMod.getFirestore(FB.app);
+  FB.mod.fs = fsMod;
+  FB.ready = true;
+  return FB;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 6 · DATA STORE (localStorage OR Firestore, same API)
+   ---------------------------------------------------------------- */
+const Store = {
+  uid: null,
+  mode: 'local',   // 'local' | 'firebase'
+  cache: null,
+  _saveTimer: null,
+
+  async init(user){
+    this.uid = user.uid;
+    this.mode = FB.ready && user.real ? 'firebase' : 'local';
+    if (this.mode === 'local'){
+      const raw = localStorage.getItem(LS_DATA(this.uid));
+      this.cache = raw ? JSON.parse(raw) : emptyData();
+      if (!raw) this.cache = seedDemoData();
+      this.persistNow();
+    } else {
+      this.cache = emptyData();
+    }
+    this.ensureShape();
+    return this.cache;
+  },
+
+  ensureShape(){
+    const d = this.cache;
+    for (const k of ['assignments','events','weeklyNotes','notifications','courses','studySessions']){
+      if (!Array.isArray(d[k])) d[k] = [];
+    }
+    if (!d.integrations || typeof d.integrations !== 'object') d.integrations = {};
+    if (!d.settings) d.settings = { ...DEFAULT_SETTINGS };
+    d.settings = { ...DEFAULT_SETTINGS, ...d.settings };
+    if (!d.profile) d.profile = {};
+  },
+
+  persistNow(){
+    if (this.mode === 'local' && this.uid){
+      try { localStorage.setItem(LS_DATA(this.uid), JSON.stringify(this.cache)); }
+      catch(e){ console.warn('localStorage write failed', e); }
+    }
+  },
+
+  persist(){
+    clearTimeout(this._saveTimer);
+    this._saveTimer = setTimeout(() => this.persistNow(), 220);
+  },
+
+  all(collection){ return this.cache[collection] || []; },
+
+  get(collection, id){ return this.all(collection).find(x => x.id === id) || null; },
+
+  async put(collection, doc){
+    const arr = this.cache[collection];
+    const idx = arr.findIndex(x => x.id === doc.id);
+    const record = { ...doc, updatedAt: now() };
+    if (idx >= 0) arr[idx] = { ...arr[idx], ...record };
+    else arr.push({ createdAt: now(), ...record });
+    this.persist();
+    if (this.mode === 'firebase' && FB.db){
+      try {
+        const { doc: fdoc, setDoc, serverTimestamp } = FB.mod.fs;
+        await setDoc(fdoc(FB.db, 'users', this.uid, collection, doc.id),
+          { ...record, updatedAt: serverTimestamp() }, { merge: true });
+      } catch(e){ console.warn('Firestore write failed', e); }
+    }
+    return record;
+  },
+
+  async remove(collection, id){
+    this.cache[collection] = this.all(collection).filter(x => x.id !== id);
+    this.persist();
+    if (this.mode === 'firebase' && FB.db){
+      try {
+        const { doc: fdoc, deleteDoc } = FB.mod.fs;
+        await deleteDoc(fdoc(FB.db, 'users', this.uid, collection, id));
+      } catch(e){ console.warn('Firestore delete failed', e); }
+    }
+  },
+
+  async removeAll(){
+    for (const k of ['assignments','events','weeklyNotes','notifications','courses','studySessions']){
+      this.cache[k] = [];
+    }
+    this.cache.integrations = {};
+    this.persistNow();
+    if (this.mode === 'firebase' && FB.db){
+      for (const k of ['assignments','events','weeklyNotes','notifications','courses','studySessions']){
+        for (const item of this.all(k)){
+          try {
+            const { doc: fdoc, deleteDoc } = FB.mod.fs;
+            await deleteDoc(fdoc(FB.db, 'users', this.uid, k, item.id));
+          } catch {}
+        }
+      }
+    }
+  },
+
+  async loadFromFirestore(){
+    if (this.mode !== 'firebase' || !FB.db) return this.cache;
+    const { collection, getDocs, query, limit } = FB.mod.fs;
+    const cols = ['assignments','events','weeklyNotes','notifications','courses','studySessions'];
+    for (const c of cols){
+      try {
+        const snap = await getDocs(query(collection(FB.db,'users',this.uid,c), limit(500)));
+        this.cache[c] = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      } catch(e){ console.warn(`Read ${c} failed`, e); }
+    }
+    try {
+      const { doc: fdoc, getDoc } = FB.mod.fs;
+      const s = await getDoc(fdoc(FB.db, 'users', this.uid));
+      if (s.exists()){
+        const v = s.data();
+        if (v.settings) this.cache.settings = { ...DEFAULT_SETTINGS, ...v.settings };
+        if (v.integrations) this.cache.integrations = v.integrations;
+        if (v.profile) this.cache.profile = v.profile;
+      }
+    } catch(e){ console.warn('Read user doc failed', e); }
+    this.ensureShape();
+    this.persistNow();
+    return this.cache;
+  },
+
+  async saveUserDoc(){
+    if (this.mode !== 'firebase' || !FB.db) return;
+    try {
+      const { doc: fdoc, setDoc } = FB.mod.fs;
+      await setDoc(fdoc(FB.db, 'users', this.uid), {
+        settings: this.cache.settings,
+        integrations: this.cache.integrations,
+        profile: this.cache.profile,
+        updatedAt: now()
+      }, { merge: true });
+    } catch(e){ console.warn('saveUserDoc failed', e); }
+  }
+};
+
+function emptyData(){
+  return {
+    assignments: [], events: [], weeklyNotes: [], notifications: [],
+    courses: [], studySessions: [],
+    integrations: {}, settings: { ...DEFAULT_SETTINGS }, profile: {}
+  };
+}
+
+/* ----------------------------------------------------------------
+   SECTION 7 · CLASSIFIER (the "brain")
+   ---------------------------------------------------------------- */
+function detectType(text){
+  const t = text.toLowerCase();
+  if (/\b(exam|exams|final exam|midterm|mid-term|end of year exam|assessment week)\b/.test(t)) return 'Exam';
+  if (/\b(test|tests|quiz|quizzes|spot test|unit test|topic test)\b/.test(t)) return 'Test';
+  if (/\b(project|portfolio|presentation|group project|inquiry)\b/.test(t)) return 'Project';
+  if (/\b(homework|home work|hw|worksheet|exercise|practice|revision|read chapter|reading)\b/.test(t)) return 'Homework';
+  if (/\b(assignment|coursework|task|activity|submit|hand in|hand-in|essay|report|lab report)\b/.test(t)) return 'Assignment';
+  if (/\b(assembly|mufti|mufti day|sports day|athletics|carnival|excursion|trip|concert|production|fundraiser|book week|fete|open day)\b/.test(t)) return 'Event';
+  if (/\b(newsletter|weekly notice|weekly notes|principal|school notice|reminder|important notice|bulletin)\b/.test(t)) return 'School Notice';
+  if (/\b(announcement|announcements|heads up|just a note|fyi)\b/.test(t)) return 'Announcement';
+  if (/\b(due|deadline|remember|don't forget|dont forget)\b/.test(t)) return 'Reminder';
+  return 'Other';
+}
+
+function detectSubject(text, courses = []){
+  const t = text.toLowerCase();
+  for (const c of courses){
+    const name = (c.name || '').toLowerCase();
+    if (name && t.includes(name)) return c.name;
+  }
+  for (const s of SUBJECTS){
+    const re = new RegExp(`\\b${s.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\b`, 'i');
+    if (re.test(t)) return s;
+  }
+  return '';
+}
+
+const MONTH_MAP = { jan:0,january:0,feb:1,february:1,mar:2,march:2,apr:3,april:3,may:4,
+  jun:5,june:5,jul:6,july:6,aug:7,august:7,sep:8,sept:8,september:8,oct:9,october:9,
+  nov:10,november:10,dec:11,december:11 };
+const DAY_MAP = { sunday:0,sun:0,monday:1,mon:1,tuesday:2,tue:2,tues:2,wednesday:3,wed:3,
+  thursday:4,thu:4,thur:4,thurs:4,friday:5,fri:5,saturday:6,sat:6 };
+
+function parseDate(text, ref = new Date()){
+  if (!text) return null;
+  const t = text.toLowerCase();
+
+  let m = t.match(/\b(\d{4})-(\d{2})-(\d{2})\b/);
+  if (m) return new Date(+m[1], +m[2]-1, +m[3], 23, 59).getTime();
+
+  m = t.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+(jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)\b/);
+  if (m){
+    const d = new Date(ref.getFullYear(), MONTH_MAP[m[2]], +m[1], 23, 59);
+    if (d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
+    return d.getTime();
+  }
+
+  m = t.match(/\b(jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)\s+(\d{1,2})(?:st|nd|rd|th)?\b/);
+  if (m){
+    const d = new Date(ref.getFullYear(), MONTH_MAP[m[1]], +m[2], 23, 59);
+    if (d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
+    return d.getTime();
+  }
+
+  m = t.match(/\b(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?\b/);
+  if (m){
+    let yr = m[3] ? +m[3] : ref.getFullYear();
+    if (yr < 100) yr += 2000;
+    const d = new Date(yr, +m[2]-1, +m[1], 23, 59);
+    if (!m[3] && d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
+    return d.getTime();
+  }
+
+  if (/\btoday\b|\btonight\b/.test(t)) return new Date(ref.getFullYear(), ref.getMonth(), ref.getDate(), 23, 59).getTime();
+  if (/\btomorrow\b|\btmrw\b|\btmr\b/.test(t)){
+    const d = new Date(ref); d.setDate(d.getDate() + 1); d.setHours(23,59,0,0); return d.getTime();
+  }
+  if (/\bnext week\b/.test(t)){
+    const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime();
+  }
+
+  m = t.match(/\b(sunday|sun|monday|mon|tuesday|tue|tues|wednesday|wed|thursday|thu|thur|thurs|friday|fri|saturday|sat)\b/);
+  if (m){
+    const target = DAY_MAP[m[1]];
+    const d = new Date(ref);
+    let delta = (target - d.getDay() + 7) % 7;
+    if (delta === 0) delta = 7;
+    if (/\bnext\s/.test(t) && delta < 7) delta += 7;
+    d.setDate(d.getDate() + delta);
+    d.setHours(23,59,0,0);
+    return d.getTime();
+  }
+
+  return null;
+}
+
+function computePriority(item){
+  const d = daysUntil(item.dueDate);
+  let p = 'low';
+  if (d !== null){
+    if (d < 0 || d === 0 || d === 1) p = 'urgent';
+    else if (d <= 3) p = 'high';
+    else if (d <= 7) p = 'medium';
+  }
+  if (item.type === 'Test' || item.type === 'Exam'){
+    p = p === 'urgent' ? 'urgent' : p === 'high' ? 'urgent' : p === 'medium' ? 'high' : 'medium';
+  }
+  if (item.type === 'Project' && p === 'low') p = 'medium';
+  return p;
+}
+
+function estimateMinutes(item){
+  switch(item.type){
+    case 'Exam': return 180;
+    case 'Test': return 90;
+    case 'Project': return 150;
+    case 'Assignment': return 60;
+    case 'Homework': return 40;
+    default: return 25;
+  }
+}
+
+/* ----------------------------------------------------------------
+   SECTION 8 · DUPLICATE DETECTION
+   ---------------------------------------------------------------- */
+function tokenSet(s){
+  return new Set(
+    String(s || '').toLowerCase()
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .split(/\s+/)
+      .filter(w => w.length > 2 && !STOP_WORDS.has(w))
+  );
+}
+function jaccard(a, b){
+  if (!a.size || !b.size) return 0;
+  let inter = 0;
+  for (const x of a) if (b.has(x)) inter++;
+  return inter / (a.size + b.size - inter);
+}
+
+function findDuplicate(incoming, pool){
+  const tIn = tokenSet(incoming.title);
+  for (const existing of pool){
+    if (existing.manual) continue;
+    const tEx = tokenSet(existing.title);
+    const sim = jaccard(tIn, tEx);
+    if (sim < 0.5) continue;
+
+    const subjMatch = !incoming.subject || !existing.subject ||
+      incoming.subject.toLowerCase() === existing.subject.toLowerCase();
+    if (!subjMatch) continue;
+
+    if (incoming.dueDate && existing.dueDate){
+      const diffDays = Math.abs(incoming.dueDate - existing.dueDate) / 86400000;
+      if (diffDays > 3) continue;
+    }
+    return existing;
+  }
+  return null;
+}
+
+function mergeInto(existing, incoming){
+  const sources = existing.sources || [];
+  if (!sources.some(s => s.source === incoming.source && s.url === incoming.url)){
+    sources.push({ source: incoming.source, url: incoming.url || '', addedAt: now() });
+  }
+  return {
+    ...existing,
+    sources,
+    dueDate: existing.manual && existing.dueDate ? existing.dueDate : (existing.dueDate || incoming.dueDate),
+    description: (existing.description && existing.description.length > (incoming.description||'').length)
+      ? existing.description : (incoming.description || existing.description),
+    subject: existing.subject || incoming.subject,
+    type: existing.type !== 'Other' ? existing.type : incoming.type,
+    priority: computePriority({ ...existing, dueDate: existing.dueDate || incoming.dueDate }),
+    mergedCount: (existing.mergedCount || 1) + 1
+  };
+}
+
+/* ----------------------------------------------------------------
+   SECTION 9 · IMPORTER
+   ---------------------------------------------------------------- */
+async function importItems(rawItems, sourceLabel){
+  const courses = Store.all('courses');
+  let added = 0, merged = 0;
+
+  for (const raw of rawItems){
+    const cleanTitle = sanitiseText(raw.title, 220) || 'Untitled item';
+    const cleanDesc  = sanitiseText(raw.description, 4000);
+
+    const haystack = `${cleanTitle} ${cleanDesc}`;
+    let type = raw.typeHint || detectType(haystack);
+    const subject = raw.subject || detectSubject(haystack, courses);
+    const dueDate = raw.dueDate || parseDate(haystack);
+
+    const candidate = {
+      id: raw.id || uid(),
+      title: cleanTitle,
+      description: cleanDesc,
+      type,
+      subject,
+      dueDate: dueDate || null,
+      source: sourceLabel,
+      url: raw.url || '',
+      sources: [{ source: sourceLabel, url: raw.url || '', addedAt: now() }],
+      completed: false,
+      manual: false,
+      priority: 'low',
+      externalId: raw.externalId || '',
+      courseId: raw.courseId || '',
+      createdAt: now()
+    };
+    candidate.priority = computePriority(candidate);
+
+    const dup = findDuplicate(candidate, Store.all('assignments'));
+    if (dup){
+      await Store.put('assignments', mergeInto(dup, candidate));
+      merged++;
+    } else {
+      await Store.put('assignments', candidate);
+      if (candidate.dueDate || candidate.type === 'Test' || candidate.type === 'Exam'){
+        await maybeNotify(candidate);
+      }
+      added++;
+    }
+  }
+
+  return { added, merged };
+}
+
+async function importNotices(rawItems, sourceLabel){
+  let count = 0;
+  for (const raw of rawItems){
+    const title = sanitiseText(raw.title, 220) || 'Notice';
+    const body  = sanitiseText(raw.description, 4000);
+    const date  = raw.date || parseDate(`${title} ${body}`) || now();
+    const wk = isoWeekKey(date);
+
+    const note = {
+      id: raw.id || uid(),
+      title,
+      body,
+      date,
+      weekKey: wk.key,
+      weekNumber: wk.week,
+      weekYear: wk.year,
+      source: sourceLabel,
+      url: raw.url || '',
+      kind: raw.kind || 'Notice',
+      read: false,
+      important: false,
+      saved: false,
+      createdAt: now()
+    };
+
+    const exists = Store.all('weeklyNotes').some(n =>
+      n.title === note.title && Math.abs((n.date || 0) - note.date) < 3*86400000);
+    if (!exists){
+      await Store.put('weeklyNotes', note);
+      count++;
+      if (Store.cache.settings.notifyAnnouncements){
+        await pushNotification({
+          kind: 'notice',
+          title: `New ${note.kind.toLowerCase()}: ${title}`,
+          body: body.slice(0, 140),
+          link: '#/weekly',
+          dedupeKey: `note:${note.title}:${startOfDay(new Date(date))}`
+        });
+      }
+    }
+  }
+  return count;
+}
+
+async function pushNotification({ kind, title, body = '', link = '', dedupeKey = '' }){
+  if (dedupeKey){
+    const dupe = Store.all('notifications').find(n => n.dedupeKey === dedupeKey && (now() - n.createdAt) < 7*86400000);
+    if (dupe) return null;
+  }
+  const n = {
+    id: uid(), kind, title: sanitiseText(title, 200), body: sanitiseText(body, 400),
+    link, read: false, dedupeKey, createdAt: now()
+  };
+  await Store.put('notifications', n);
+  renderNotifDot();
+  if ($('#notif-panel') && !$('#notif-panel').hidden) renderNotifPanel();
+  return n;
+}
+
+async function maybeNotify(item){
+  const s = Store.cache.settings;
+  if (item.type === 'Test' || item.type === 'Exam'){
+    if (s.notifyNewTest){
+      await pushNotification({
+        kind: 'test',
+        title: `New ${item.type.toLowerCase()}: ${item.title}`,
+        body: item.dueDate ? `On ${fmtDateLong(item.dueDate)}${item.subject ? ' · ' + item.subject : ''}` : '',
+        link: '#/assignments',
+        dedupeKey: `test:${item.title}:${item.dueDate || ''}`
+      });
+    }
+    return;
+  }
+  if (s.notifyNewAssignment){
+    await pushNotification({
+      kind: 'assignment',
+      title: `New ${item.type.toLowerCase()}: ${item.title}`,
+      body: item.dueDate ? `Due ${fmtDateLong(item.dueDate)}${item.subject ? ' · ' + item.subject : ''}` : '',
+      link: '#/assignments',
+      dedupeKey: `new:${item.title}:${item.dueDate || ''}`
+    });
+  }
+}
+
+async function checkDueSoon(){
+  if (!Store.cache.settings.notifyDueSoon) return;
+  for (const a of Store.all('assignments')){
+    if (a.completed || !a.dueDate) continue;
+    const d = daysUntil(a.dueDate);
+    if (d === 0 || d === 1){
+      await pushNotification({
+        kind: 'due',
+        title: `${a.title} is due ${d === 0 ? 'today' : 'tomorrow'}`,
+        body: a.subject ? `${a.subject} · ${a.type}` : a.type,
+        link: '#/assignments',
+        dedupeKey: `due:${a.id}:${startOfDay(new Date(a.dueDate))}`
+      });
+    }
+  }
+}
+
+/* ----------------------------------------------------------------
+   SECTION 10 · GOOGLE OAUTH (client-side token flow, no secret)
+   ---------------------------------------------------------------- */
+const GoogleAuth = {
+  tokenClient: null,
+  accessToken: null,
+  scopes: [],
+  expiresAt: 0,
+  ready: false,
+
+  async waitForLib(timeout = 10000){
+    const t0 = Date.now();
+    while (!(window.google?.accounts?.oauth2) && Date.now() - t0 < timeout){
+      await new Promise(r => setTimeout(r, 120));
+    }
+    return !!window.google?.accounts?.oauth2;
+  },
+
+  async ensureClient(clientId, scopes){
+    if (!clientId) throw new Error('No Google OAuth Client ID configured.');
+    if (!(await this.waitForLib())) throw new Error('Google Identity Services failed to load. Check your internet connection.');
+    const scopeKey = [...scopes].sort().join(' ');
+    if (this.tokenClient && this._scopeKey === scopeKey){
+      this.scopes = scopes;
+      return;
+    }
+    this.scopes = scopes;
+    this._scopeKey = scopeKey;
+    this.tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: clientId,
+      scope: scopeKey,
+      callback: () => {}
+    });
+    this.ready = true;
+  },
+
+  requestToken(){
+    return new Promise((resolve, reject) => {
+      if (!this.tokenClient) return reject(new Error('OAuth not initialised.'));
+      this.tokenClient.callback = resp => {
+        if (resp.error){ return reject(new Error(resp.error_description || resp.error)); }
+        this.accessToken = resp.access_token;
+        this.expiresAt = now() + (Number(resp.expires_in || 3600) * 1000) - 30_000;
+        try { sessionStorage.setItem('studentos.gtoken', JSON.stringify({ t: this.accessToken, e: this.expiresAt })); } catch {}
+        resolve(this.accessToken);
+      };
+      this.tokenClient.error_callback = err => reject(new Error(err?.message || 'OAuth cancelled'));
+      try { this.tokenClient.requestAccessToken({ prompt: '' }); }
+      catch (e){ reject(e); }
+    });
+  },
+
+  restore(){
+    try {
+      const raw = sessionStorage.getItem('studentos.gtoken');
+      if (!raw) return false;
+      const { t, e } = JSON.parse(raw);
+      if (e > now() + 5000){ this.accessToken = t; this.expiresAt = e; return true; }
+    } catch {}
+    return false;
+  },
+
+  async getToken(clientId, scopes, { interactive = true } = {}){
+    await this.ensureClient(clientId, scopes);
+    if (this.accessToken && this.expiresAt > now() + 5000){
+      const have = new Set(this.scopes);
+      if (scopes.every(s => have.has(s))) return this.accessToken;
+    }
+    if (!interactive) throw new Error('NEEDS_CONSENT');
+    return this.requestToken();
+  },
+
+  revoke(){
+    if (this.accessToken && window.google?.accounts?.oauth2){
+      try { google.accounts.oauth2.revoke(this.accessToken, () => {}); } catch {}
+    }
+    this.accessToken = null; this.expiresAt = 0;
+    try { sessionStorage.removeItem('studentos.gtoken'); } catch {}
+  }
+};
+
+async function gfetch(url, token){
+  const r = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+  if (!r.ok){
+    const txt = await r.text().catch(() => '');
+    throw new Error(`Google API ${r.status}: ${txt.slice(0,200)}`);
+  }
+  return r.json();
+}
+
+/* ----------------------------------------------------------------
+   SECTION 11 · GOOGLE CLASSROOM SYNC
+   ---------------------------------------------------------------- */
+async function syncClassroom({ interactive = true } = {}){
+  const cfg = loadConfig();
+  const token = await GoogleAuth.getToken(cfg.googleClientId, CLASSROOM_SCOPES, { interactive });
+  const raw = [];
+
+  const coursesResp = await gfetch('https://classroom.googleapis.com/v1/courses?courseStates=ACTIVE&pageSize=50', token);
+  const courses = coursesResp.courses || [];
+
+  Store.cache.courses = courses.map(c => ({
+    id: c.id, name: c.name, section: c.section || '',
+    room: c.room || '', ownerId: c.ownerId || '', updatedAt: now()
+  }));
+
+  for (const c of courses){
+    try {
+      const cw = await gfetch(
+        `https://classroom.googleapis.com/v1/courses/${c.id}/courseWork?pageSize=100&courseWorkStates=PUBLISHED`, token);
+      for (const w of (cw.courseWork || [])){
+        const due = w.dueDate
+          ? new Date(w.dueDate.year, (w.dueDate.month || 1) - 1, w.dueDate.day || 1,
+              w.dueTime?.hours ?? 23, w.dueTime?.minutes ?? 59).getTime()
+          : null;
+        raw.push({
+          id: `gc-cw-${w.id}`,
+          externalId: w.id,
+          courseId: c.id,
+          title: w.title || 'Coursework',
+          description: w.description || '',
+          dueDate: due,
+          subject: c.name,
+          typeHint: mapCourseWorkType(w.workType),
+          url: w.alternateLink || '',
+          source: 'Google Classroom'
+        });
+      }
+    } catch(e){ console.warn('courseWork failed for', c.name, e.message); }
+
+    try {
+      const an = await gfetch(
+        `https://classroom.googleapis.com/v1/courses/${c.id}/announcements?pageSize=50`, token);
+      for (const a of (an.announcements || [])){
+        await importNotices([{
+          id: `gc-an-${a.id}`,
+          title: `${c.name}: ${sanitiseText(a.text, 90)}`,
+          description: a.text || '',
+          date: a.creationTime ? new Date(a.creationTime).getTime() : now(),
+          url: a.alternateLink || '',
+          kind: 'Announcement'
+        }], 'Google Classroom');
+      }
+    } catch(e){ console.warn('announcements failed for', c.name, e.message); }
+  }
+
+  const result = await importItems(raw, 'Google Classroom');
+
+  Store.cache.integrations.classroom = {
+    id: 'classroom',
+    connected: true,
+    lastSync: now(),
+    imported: Store.all('assignments').filter(a => (a.sources||[]).some(s => s.source === 'Google Classroom')).length,
+    courses: courses.length,
+    account: cfg.googleClientId ? 'Google account' : ''
+  };
+  await Store.saveUserDoc();
+  return { ...result, courses: courses.length };
+}
+
+function mapCourseWorkType(w){
+  switch(w){
+    case 'ASSIGNMENT': return 'Assignment';
+    case 'SHORT_ANSWER_QUESTION':
+    case 'MULTIPLE_CHOICE_QUESTION': return 'Homework';
+    default: return null;
+  }
+}
+
+/* ----------------------------------------------------------------
+   SECTION 12 · GMAIL SYNC
+   ---------------------------------------------------------------- */
+async function syncEmail({ interactive = true } = {}){
+  const cfg = loadConfig();
+  const token = await GoogleAuth.getToken(cfg.googleClientId, EMAIL_SCOPES, { interactive });
+  const s = Store.cache.settings;
+
+  const parts = [];
+  if (s.trustedDomains.length){
+    parts.push('(' + s.trustedDomains.map(d => `from:${d}`).join(' OR ') + ')');
+  }
+  if (s.trustedSenders.length){
+    parts.push('(' + s.trustedSenders.map(d => `from:${d}`).join(' OR ') + ')');
+  }
+  const keywords = '(homework OR assignment OR test OR exam OR due OR deadline OR notice OR newsletter OR reminder OR assessment OR project)';
+  const lookback = `newer_than:${Math.max(1, Number(s.emailLookbackDays) || 30)}d`;
+  const q = [...parts, keywords, lookback].filter(Boolean).join(' ');
+
+  const listResp = await gfetch(
+    `https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=40&q=${encodeURIComponent(q)}`, token);
+  const ids = (listResp.messages || []).map(m => m.id);
+
+  const rawAssignments = [];
+  const rawNotices = [];
+
+  for (const id of ids){
+    try {
+      const msg = await gfetch(
+        `https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=full`, token);
+      const parsed = parseGmailMessage(msg);
+      if (!parsed) continue;
+
+      const haystack = `${parsed.subject} ${parsed.body}`;
+      const type = detectType(haystack);
+
+      if (type === 'School Notice' || type === 'Announcement' || type === 'Event'){
+        rawNotices.push({
+          id: `gm-note-${id}`,
+          title: parsed.subject,
+          description: parsed.body.slice(0, 900),
+          date: parsed.date,
+          url: `https://mail.google.com/mail/u/0/#inbox/${id}`,
+          kind: type === 'Event' ? 'Event' : 'Notice'
+        });
+      }
+
+      const hasDeadline = /\b(due|deadline|by \w+day|hand in|submit|exam|test)\b/i.test(haystack);
+      if (hasDeadline || ['Assignment','Homework','Test','Exam','Project','Reminder'].includes(type)){
+        rawAssignments.push({
+          id: `gm-${id}`,
+          title: parsed.subject || 'Email item',
+          description: parsed.body.slice(0, 1800),
+          dueDate: parseDate(haystack, new Date(parsed.date)),
+          url: `https://mail.google.com/mail/u/0/#inbox/${id}`,
+          typeHint: type === 'Reminder' ? null : type,
+          subject: detectSubject(haystack, Store.all('courses')),
+          source: 'Email'
+        });
+      }
+    } catch(e){ console.warn('Gmail message failed', id, e.message); }
+  }
+
+  const a = await importItems(rawAssignments, 'Email');
+  const n = await importNotices(rawNotices, 'Email');
+
+  Store.cache.integrations.email = {
+    id: 'email',
+    connected: true,
+    lastSync: now(),
+    imported: Store.all('assignments').filter(x => (x.sources||[]).some(s => s.source === 'Email')).length,
+    scanned: ids.length,
+    notices: n,
+    query: q
+  };
+  await Store.saveUserDoc();
+  return { ...a, notices: n, scanned: ids.length };
+}
+
+function parseGmailMessage(msg){
+  const headers = (msg.payload?.headers || []);
+  const get = n => headers.find(h => h.name.toLowerCase() === n.toLowerCase())?.value || '';
+  const subject = sanitiseText(get('Subject'), 220);
+  const from = get('From');
+  const date = Number(msg.internalDate) || now();
+
+  let body = '';
+  const walk = part => {
+    if (!part) return;
+    if (part.mimeType === 'text/plain' && part.body?.data){
+      body += base64UrlDecode(part.body.data) + '\n';
+    } else if (part.parts){
+      part.parts.forEach(walk);
+    }
+  };
+  walk(msg.payload);
+  if (!body && msg.payload?.body?.data) body = base64UrlDecode(msg.payload.body.data);
+  if (!body && msg.snippet) body = msg.snippet;
+
+  return { subject, from, date, body: sanitiseText(body, 3000) };
+}
+
+function base64UrlDecode(data){
+  try {
+    const s = data.replace(/-/g,'+').replace(/_/g,'/');
+    const bin = atob(s);
+    const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+    return new TextDecoder('utf-8').decode(bytes);
+  } catch { return ''; }
+}
+
+/* ----------------------------------------------------------------
+   SECTION 13 · SCHOOLBRIDGE
+   ---------------------------------------------------------------- */
+async function syncSchoolBridge({ interactive = true } = {}){
+  const cfg = loadConfig();
+  const sb = Store.cache.integrations.schoolbridge || {};
+
+  if (!sb.endpoint){
+    throw new Error(
+      'SchoolBridge: no official API endpoint configured. ' +
+      'Ask your school for API access, or use "Import official export" instead.'
+    );
+  }
+
+  const headers = { 'Accept': 'application/json' };
+  if (sb.token) headers['Authorization'] = `Bearer ${sb.token}`;
+
+  const r = await fetch(sb.endpoint, { headers });
+  if (!r.ok) throw new Error(`SchoolBridge endpoint returned ${r.status}. Check the URL and token with your school.`);
+  const data = await r.json();
+
+  const notices = Array.isArray(data.notices) ? data.notices
+    : Array.isArray(data.weeklyNotes) ? data.weeklyNotes
+    : Array.isArray(data.items) ? data.items : [];
+
+  const n = await importNotices(notices.map(x => ({
+    id: `sb-${x.id || uid()}`,
+    title: x.title || x.subject || 'School notice',
+    description: x.body || x.description || x.text || '',
+    date: x.date ? new Date(x.date).getTime() : now(),
+    url: x.url || '',
+    kind: x.type || 'School Notice'
+  })), 'SchoolBridge');
+
+  const events = Array.isArray(data.events) ? data.events : [];
+  for (const e of events){
+    await Store.put('events', {
+      id: `sb-ev-${e.id || uid()}`,
+      title: sanitiseText(e.title, 200),
+      description: sanitiseText(e.description, 2000),
+      start: e.start ? new Date(e.start).getTime() : now(),
+      end: e.end ? new Date(e.end).getTime() : null,
+      source: 'SchoolBridge',
+      url: e.url || '',
+      manual: false,
+      createdAt: now()
+    });
+  }
+
+  Store.cache.integrations.schoolbridge = {
+    ...sb, id: 'schoolbridge', connected: true, lastSync: now(),
+    imported: n + events.length, mode: 'api'
+  };
+  await Store.saveUserDoc();
+  return { added: 0, merged: 0, notices: n, events: events.length };
+}
+
+async function importSchoolBridgeExport(text, filename){
+  let notices = [], events = [];
+
+  const trimmed = text.trim();
+  if (trimmed.startsWith('{') || trimmed.startsWith('[')){
+    const parsed = JSON.parse(trimmed);
+    const arr = Array.isArray(parsed) ? parsed : (parsed.notices || parsed.items || []);
+    notices = arr.map(x => ({
+      id: `sbx-${x.id || uid()}`,
+      title: x.title || x.subject || x.name || 'School notice',
+      description: x.body || x.description || x.text || x.details || '',
+      date: x.date ? new Date(x.date).getTime() : now(),
+      url: x.url || x.link || '',
+      kind: x.type || x.kind || 'School Notice'
+    }));
+    events = (parsed.events || []).map(e => ({
+      title: e.title || e.name || 'Event',
+      description: e.description || '',
+      start: e.start ? new Date(e.start).getTime() : (e.date ? new Date(e.date).getTime() : now()),
+      source: 'SchoolBridge'
+    }));
+  } else {
+    const lines = trimmed.split(/\r?\n/).filter(Boolean);
+    const rows = lines.slice(1).map(parseCsvLine);
+    notices = rows.filter(r => r.length).map(r => ({
+      id: `sbc-${uid()}`,
+      title: r[0] || 'School notice',
+      description: r[2] || '',
+      date: r[1] ? (new Date(r[1]).getTime() || now()) : now(),
+      kind: 'School Notice'
+    }));
+  }
+
+  const n = await importNotices(notices, 'SchoolBridge');
+  for (const e of events){
+    await Store.put('events', {
+      id: uid(), ...e, manual: false, createdAt: now()
+    });
+  }
+
+  const cur = Store.cache.integrations.schoolbridge || {};
+  Store.cache.integrations.schoolbridge = {
+    ...cur,
+    id: 'schoolbridge',
+    connected: true,
+    lastSync: now(),
+    imported: (cur.imported || 0) + n + events.length,
+    mode: 'export',
+    lastFile: filename || 'export'
+  };
+  await Store.saveUserDoc();
+  return { notices: n, events: events.length };
+}
+
+function parseCsvLine(line){
+  const out = []; let cur = ''; let q = false;
+  for (let i = 0; i < line.length; i++){
+    const c = line[i];
+    if (c === '"'){
+      if (q && line[i+1] === '"'){ cur += '"'; i++; }
+      else q = !q;
+    } else if (c === ',' && !q){ out.push(cur.trim()); cur = ''; }
+    else cur += c;
+  }
+  out.push(cur.trim());
+  return out;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 14 · MASTER SYNC
+   ---------------------------------------------------------------- */
+let syncing = false;
+
+async function syncAll({ interactive = true, silent = false } = {}){
+  if (syncing) return;
+  syncing = true;
+  setSyncUI('busy', 'Syncing…');
+  const btn = $('#sync-btn');
+  if (btn){ btn.disabled = true; $('.sync-spinner', btn).hidden = false; $('.sync-label', btn).textContent = 'Syncing…'; }
+
+  const results = [];
+  const errors = [];
+  const integrations = Store.cache.integrations;
+
+  try {
+    if (integrations.classroom?.connected){
+      try {
+        const r = await syncClassroom({ interactive });
+        results.push(`Classroom: ${r.added} new, ${r.merged} merged`);
+      } catch(e){
+        if (e.message === 'NEEDS_CONSENT') errors.push('Classroom needs reconnecting.');
+        else errors.push(`Classroom: ${e.message}`);
+      }
+    }
+    if (integrations.email?.connected){
+      try {
+        const r = await syncEmail({ interactive });
+        results.push(`Email: ${r.added} new, ${r.merged} merged, ${r.notices} notices`);
+      } catch(e){
+        if (e.message === 'NEEDS_CONSENT') errors.push('Email needs reconnecting.');
+        else errors.push(`Email: ${e.message}`);
+      }
+    }
+    if (integrations.schoolbridge?.connected && integrations.schoolbridge.mode === 'api'){
+      try {
+        const r = await syncSchoolBridge({ interactive });
+        results.push(`SchoolBridge: ${r.notices} notices, ${r.events} events`);
+      } catch(e){ errors.push(`SchoolBridge: ${e.message}`); }
+    }
+  } finally {
+    syncing = false;
+    if (btn){ btn.disabled = false; $('.sync-spinner', btn).hidden = true; $('.sync-label', btn).textContent = 'Sync now'; }
+  }
+
+  await checkDueSoon();
+
+  if (results.length){
+    setSyncUI('ok', `Synced ${relativeTime(now())}`);
+    if (!silent) toast(results.join(' · '), 'success', 'Sync complete');
+  } else if (!errors.length){
+    setSyncUI('', 'Not synced yet');
+    if (!silent) toast('Nothing connected yet. Open Integrations to connect a service.', 'warn', 'No sources connected');
+  }
+
+  for (const err of errors){
+    toast(err, 'error', 'Sync problem');
+    setSyncUI('err', 'Sync error');
+  }
+
+  render();
+  return { results, errors };
+}
+
+function setSyncUI(state, text){
+  const chip = $('#sync-status');
+  const txt = $('#sync-status .sync-text');
+  if (txt) txt.textContent = text;
+  if (chip){
+    chip.classList.remove('ok','busy','err');
+    if (state) chip.classList.add(state);
+  }
+}
+
+/* ----------------------------------------------------------------
+   SECTION 15 · APPLICATION STATE
+   ---------------------------------------------------------------- */
+const App = {
+  user: null,
+  route: '#/dashboard',
+  filters: { assignments: 'all', search: '', subject: 'all', sort: 'due' },
+  calMonth: new Date().getMonth(),
+  calYear: new Date().getFullYear()
+};
+
+/* ----------------------------------------------------------------
+   SECTION 16 · RENDER — ROUTER
+   ---------------------------------------------------------------- */
+function render(){
+  const route = (location.hash || '#/dashboard').split('?')[0];
+  App.route = route;
+
+  $$('.nav-item').forEach(a => a.classList.toggle('active', a.getAttribute('href') === route));
+
+  const view = $('#view');
+  if (!view) return;
+
+  switch(route){
+    case '#/assignments': view.innerHTML = viewAssignments(); break;
+    case '#/calendar':    view.innerHTML = viewCalendar();    break;
+    case '#/weekly':      view.innerHTML = viewWeekly();      break;
+    case '#/planner':     view.innerHTML = viewPlanner();     break;
+    case '#/integrations':view.innerHTML = viewIntegrations();break;
+    case '#/settings':    view.innerHTML = viewSettings();    break;
+    default:              view.innerHTML = viewDashboard();   break;
+  }
+
+  bindViewEvents();
+  updateBadges();
+}
+
+function updateBadges(){
+  const open = Store.all('assignments').filter(a => !a.completed && a.dueDate && daysUntil(a.dueDate) >= 0).length;
+  const badge = $('#badge-assignments');
+  if (badge){
+    badge.textContent = open;
+    badge.hidden = open === 0;
+  }
+  const unread = Store.all('notifications').filter(n => !n.read).length;
+  const dot = $('#notif-dot');
+  if (dot) dot.hidden = unread === 0;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 17 · VIEW — DASHBOARD
+   ---------------------------------------------------------------- */
+function viewDashboard(){
+  const assignments = Store.all('assignments');
+  const events = Store.all('events');
+  const notes = Store.all('weeklyNotes');
+  const settings = Store.cache.settings;
+
+  const open = assignments.filter(a => !a.completed);
+  const overdue = open.filter(a => a.dueDate && daysUntil(a.dueDate) < 0);
+  const dueToday = open.filter(a => a.dueDate && daysUntil(a.dueDate) === 0);
+  const dueWeek = open.filter(a => a.dueDate && daysUntil(a.dueDate) >= 0 && daysUntil(a.dueDate) <= 7);
+  const tests = open.filter(a => a.type === 'Test' || a.type === 'Exam');
+  const completed = assignments.filter(a => a.completed);
+
+  const name = (App.user?.displayName || '').split(' ')[0] || 'there';
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+
+  const todayEvents = [
+    ...events.filter(e => e.start && sameDay(e.start, now())),
+    ...notes.filter(n => n.date && sameDay(n.date, now()))
+  ];
+  const todayItems = [...dueToday, ...overdue];
+
+  return `
+  <div class="page-head">
+    <h1 class="page-title">${greet}, ${escapeHtml(name)} 👋</h1>
+    <p class="page-sub">${new Date().toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'})} · ${open.length} open item${open.length===1?'':'s'}</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat ${overdue.length ? 'warn' : ''}">
+      <div class="stat-label">Overdue</div>
+      <div class="stat-value">${overdue.length}</div>
+      <div class="stat-sub">${overdue.length ? 'Needs attention first' : 'All clear'}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Due today</div>
+      <div class="stat-value">${dueToday.length}</div>
+      <div class="stat-sub">${dueToday.length ? 'Finish these today' : 'Nothing due today'}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Next 7 days</div>
+      <div class="stat-value">${dueWeek.length}</div>
+      <div class="stat-sub">Assignments &amp; tasks</div>
+    </div>
+    <div class="stat ${tests.length ? 'warn' : 'good'}">
+      <div class="stat-label">Tests &amp; exams</div>
+      <div class="stat-value">${tests.length}</div>
+      <div class="stat-sub">${tests.length ? 'Start revising early' : 'None scheduled'}</div>
+    </div>
+  </div>
+
+  <div class="cols cols-main">
+    <div class="stack">
+      <section class="card">
+        <div class="card-head">
+          <div class="card-title">🎯 What should I do next?</div>
+          <a class="btn btn-sm btn-ghost" href="#/planner">Study planner</a>
+        </div>
+        <div class="card-body" style="padding-top:6px;padding-bottom:10px">
+          ${renderNextActions()}
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div class="card-title">📌 Today</div>
+          <span class="chip chip-gray">${todayItems.length + todayEvents.length} item${(todayItems.length+todayEvents.length)===1?'':'s'}</span>
+        </div>
+        ${renderTodaySection(todayItems, todayEvents, settings)}
+      </section>
+    </div>
+
+    <div class="stack">
+      <section class="card">
+        <div class="card-head">
+          <div class="card-title">🗓️ Today's timetable</div>
+          <button class="btn btn-sm btn-subtle" data-action="edit-timetable">Edit</button>
+        </div>
+        <div class="card-body">
+          ${renderTimetable(settings.timetable)}
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div class="card-title">📰 Recent school information</div>
+          <a class="btn btn-sm btn-ghost" href="#/weekly">All notes</a>
+        </div>
+        ${renderRecentNotes(notes)}
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div class="card-title">📈 Progress</div>
+        </div>
+        <div class="card-body">
+          <div class="row-between" style="margin-bottom:6px">
+            <span class="small muted">Completed this term</span>
+            <span class="strong small">${completed.length} / ${assignments.length}</span>
+          </div>
+          <div class="progress"><i style="width:${assignments.length ? Math.round(completed.length/assignments.length*100) : 0}%"></i></div>
+          <div class="hint" style="margin-top:10px">Keep going — every finished task is one less thing to remember.</div>
+        </div>
+      </section>
+    </div>
+  </div>`;
+}
+
+function renderNextActions(){
+  const items = Store.all('assignments').filter(a => !a.completed);
+  if (!items.length){
+    return `<div class="empty" style="padding:32px 12px">
+      <div class="empty-ico">🌤️</div>
+      <div class="empty-title">Nothing on your plate</div>
+      <div class="empty-sub">Connect Google Classroom or your school email and StudentOS will fill this in automatically.</div>
+    </div>`;
+  }
+
+  const scored = items.map(i => ({ i, score: plannerScore(i) }))
+    .sort((a,b) => b.score - a.score)
+    .slice(0, 5);
+
+  return scored.map(({ i }, idx) => {
+    const due = dueLabel(i.dueDate);
+    const cls = i.priority === 'urgent' ? 'urgent' : i.priority === 'high' ? 'high' : i.priority === 'low' ? 'low' : '';
+    return `
+    <div class="next-item ${cls}">
+      <div class="next-rank">${idx + 1}</div>
+      <div style="flex:1;min-width:0">
+        <div class="item-title" style="margin-bottom:3px">${escapeHtml(i.title)}</div>
+        <div class="item-meta">
+          ${i.subject ? `<span class="chip chip-indigo">${escapeHtml(i.subject)}</span>` : ''}
+          <span class="chip chip-gray">${escapeHtml(i.type)}</span>
+          <span class="due ${due.cls}">${escapeHtml(due.text)}</span>
+        </div>
+      </div>
+      <button class="btn btn-sm btn-ghost" data-action="complete" data-id="${i.id}">Done</button>
+    </div>`;
+  }).join('');
+}
+
+function plannerScore(i){
+  const d = daysUntil(i.dueDate);
+  let s = 0;
+  if (d !== null && d < 0) s += 1000;
+  if (d !== null && d >= 0) s += Math.max(0, 300 - d * 30);
+  if (i.type === 'Test') s += 150;
+  if (i.type === 'Exam') s += 220;
+  s += estimateMinutes(i) * 0.35;
+  if (i.priority === 'high') s += 25;
+  if (i.priority === 'medium') s += 10;
+  return s;
+}
+
+function renderTodaySection(todayItems, todayEvents, settings){
+  if (!todayItems.length && !todayEvents.length){
+    return `<div class="empty" style="padding:34px 20px">
+      <div class="empty-ico">✅</div>
+      <div class="empty-title">Nothing due today</div>
+      <div class="empty-sub">A good moment to get ahead on something from this week.</div>
+    </div>`;
+  }
+  let html = '';
+  for (const e of todayEvents){
+    html += `
+    <div class="item">
+      <div class="item-check" style="border-color:var(--sky-500);background:var(--sky-50);cursor:default">📅</div>
+      <div class="item-main">
+        <div class="item-title">${escapeHtml(e.title || e.name)}</div>
+        <div class="item-meta">
+          <span class="chip chip-sky">Event</span>
+          ${e.source ? `<span class="chip chip-gray">${escapeHtml(e.source)}</span>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }
+  for (const a of todayItems){
+    const due = dueLabel(a.dueDate);
+    html += `
+    <div class="item ${a.completed ? 'done' : ''}">
+      <div class="item-check ${a.completed ? 'on' : ''}" data-action="complete" data-id="${a.id}">${a.completed ? '✓' : ''}</div>
+      <div class="item-main">
+        <div class="item-title">${escapeHtml(a.title)}</div>
+        ${a.description ? `<div class="item-desc">${escapeHtml(a.description)}</div>` : ''}
+        <div class="item-meta">
+          ${a.subject ? `<span class="chip chip-indigo">${escapeHtml(a.subject)}</span>` : ''}
+          <span class="chip chip-gray">${escapeHtml(a.type)}</span>
+          ${a.url ? `<a class="src-link" href="${escapeHtml(a.url)}" target="_blank" rel="noopener">↗ Open source</a>` : ''}
+        </div>
+      </div>
+      <div class="item-side"><span class="due ${due.cls}">${escapeHtml(due.text)}</span></div>
+    </div>`;
+  }
+  return html;
+}
+
+function renderTimetable(timetable){
+  if (!timetable || !timetable.length){
+    return `<div class="empty" style="padding:28px 12px">
+      <div class="empty-ico">🕘</div>
+      <div class="empty-title">No timetable yet</div>
+      <div class="empty-sub">Add your periods once and StudentOS will show today's lessons here.</div>
+      <button class="btn btn-sm btn-primary" style="margin-top:12px" data-action="edit-timetable">Add timetable</button>
+    </div>`;
+  }
+  const todayDow = new Date().getDay();
+  const todays = timetable.filter(t => Number(t.day) === todayDow).sort((a,b) => (a.start||'').localeCompare(b.start||''));
+  if (!todays.length){
+    return `<div class="empty" style="padding:28px 12px">
+      <div class="empty-ico">🎉</div>
+      <div class="empty-title">No classes today</div>
+      <div class="empty-sub">Enjoy the break — or get ahead on upcoming work.</div>
+    </div>`;
+  }
+  const nowHM = new Date().toTimeString().slice(0,5);
+  return todays.map(t => {
+    const isNow = t.start && t.end && nowHM >= t.start && nowHM <= t.end;
+    return `<div class="tt-row ${isNow ? 'tt-now' : ''}">
+      <div class="tt-time">${escapeHtml(t.start || '')}${t.end ? '–' + escapeHtml(t.end) : ''}</div>
+      <div style="flex:1;min-width:0">
+        <div class="tt-sub">${escapeHtml(t.subject || 'Class')}</div>
+        ${t.room ? `<div class="tiny muted">Room ${escapeHtml(t.room)}</div>` : ''}
+      </div>
+      ${isNow ? '<span class="chip chip-indigo">Now</span>' : ''}
+    </div>`;
+  }).join('');
+}
+
+function renderRecentNotes(notes){
+  const recent = [...notes].sort((a,b) => (b.date||0) - (a.date||0)).slice(0, 5);
+  if (!recent.length){
+    return `<div class="empty" style="padding:34px 20px">
+      <div class="empty-ico">📭</div>
+      <div class="empty-title">No notices yet</div>
+      <div class="empty-sub">Weekly notices, newsletters and announcements will appear here once a source is connected.</div>
+    </div>`;
+  }
+  const icons = { Notice:'📢', Announcement:'📣', Event:'🎪', 'School Notice':'📌' };
+  return recent.map(n => `
+    <div class="item" data-action="open-note" data-id="${n.id}" style="cursor:pointer">
+      <div class="item-check" style="border:none;background:transparent;cursor:pointer;font-size:17px">${icons[n.kind] || '📄'}</div>
+      <div class="item-main">
+        <div class="item-title" style="font-size:13.8px">${escapeHtml(n.title)}</div>
+        <div class="item-meta">
+          <span class="chip chip-gray">${escapeHtml(n.kind)}</span>
+          <span class="tiny muted">${relativeTime(n.date)}</span>
+          ${n.important ? '<span class="chip chip-amber">★ Important</span>' : ''}
+          ${!n.read ? '<span class="chip chip-indigo">New</span>' : ''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+/* ----------------------------------------------------------------
+   SECTION 18 · VIEW — ASSIGNMENTS
+   ---------------------------------------------------------------- */
+function viewAssignments(){
+  const f = App.filters;
+  let items = Store.all('assignments');
+
+  if (f.assignments === 'open')      items = items.filter(a => !a.completed);
+  else if (f.assignments === 'overdue') items = items.filter(a => !a.completed && a.dueDate && daysUntil(a.dueDate) < 0);
+  else if (f.assignments === 'week') items = items.filter(a => !a.completed && a.dueDate && daysUntil(a.dueDate) >= 0 && daysUntil(a.dueDate) <= 7);
+  else if (f.assignments === 'tests') items = items.filter(a => a.type === 'Test' || a.type === 'Exam');
+  else if (f.assignments === 'done') items = items.filter(a => a.completed);
+
+  if (f.subject !== 'all') items = items.filter(a => a.subject === f.subject);
+  if (f.search){
+    const q = f.search.toLowerCase();
+    items = items.filter(a => `${a.title} ${a.description} ${a.subject}`.toLowerCase().includes(q));
+  }
+
+  if (f.sort === 'due'){
+    items.sort((a,b) => (a.dueDate || Infinity) - (b.dueDate || Infinity));
+  } else if (f.sort === 'priority'){
+    const rank = { urgent:0, high:1, medium:2, low:3 };
+    items.sort((a,b) => (rank[a.priority] ?? 3) - (rank[b.priority] ?? 3));
+  } else {
+    items.sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+  }
+
+  const subjects = [...new Set(Store.all('assignments').map(a => a.subject).filter(Boolean))].sort();
+  const open = Store.all('assignments').filter(a => !a.completed).length;
+
+  const seg = (val, label) => `<button class="${f.assignments === val ? 'on' : ''}" data-filter="assignments" data-value="${val}">${label}</button>`;
+
+  return `
+  <div class="page-head row-between wrap">
+    <div>
+      <h1 class="page-title">Assignments</h1>
+      <p class="page-sub">${open} open · ${Store.all('assignments').length} total · collected automatically from your connected sources</p>
+    </div>
+    <button class="btn btn-primary" data-action="new-assignment">＋ New assignment</button>
+  </div>
+
+  <div class="filters">
+    <div class="seg">
+      ${seg('all','All')}${seg('open','Open')}${seg('overdue','Overdue')}${seg('week','This week')}${seg('tests','Tests')}${seg('done','Done')}
+    </div>
+    <select class="select" data-filter="subject">
+      <option value="all">All subjects</option>
+      ${subjects.map(s => `<option value="${escapeHtml(s)}" ${f.subject === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}
+    </select>
+    <select class="select" data-filter="sort">
+      <option value="due" ${f.sort === 'due' ? 'selected' : ''}>Sort: Due date</option>
+      <option value="priority" ${f.sort === 'priority' ? 'selected' : ''}>Sort: Priority</option>
+      <option value="created" ${f.sort === 'created' ? 'selected' : ''}>Sort: Recently added</option>
+    </select>
+    ${f.search || f.subject !== 'all' ? `<button class="btn btn-ghost btn-sm" data-action="clear-filters">Clear filters</button>` : ''}
+  </div>
+
+  <div class="card">
+    ${items.length ? items.map(renderAssignmentItem).join('') : `
+      <div class="empty">
+        <div class="empty-ico">📝</div>
+        <div class="empty-title">No assignments match</div>
+        <div class="empty-sub">Try a different filter, or connect a source in Integrations to import schoolwork automatically.</div>
+      </div>`}
+  </div>`;
+}
+
+function renderAssignmentItem(a){
+  const due = dueLabel(a.dueDate);
+  const prio = { urgent:['chip-red','Urgent'], high:['chip-amber','High'], medium:['chip-sky','Medium'], low:['chip-gray','Low'] }[a.priority] || ['chip-gray','Low'];
+  const sources = a.sources && a.sources.length ? a.sources : [{ source: a.source, url: a.url }];
+  const uniqueSources = [...new Map(sources.map(s => [s.source, s])).values()];
+
+  return `
+  <div class="item ${a.completed ? 'done' : ''} ${!a.completed && a.dueDate && daysUntil(a.dueDate) < 0 ? 'overdue' : ''}">
+    <div class="item-check ${a.completed ? 'on' : ''}" data-action="complete" data-id="${a.id}" role="checkbox" aria-checked="${a.completed}" tabindex="0">${a.completed ? '✓' : ''}</div>
+    <div class="item-main">
+      <div class="item-title">
+        ${escapeHtml(a.title)}
+        ${a.manual ? '<span class="chip chip-gray" title="Added by you">Manual</span>' : ''}
+        ${a.mergedCount > 1 ? `<span class="chip chip-indigo" title="Found in ${a.mergedCount} places">${a.mergedCount} sources</span>` : ''}
+      </div>
+      ${a.description ? `<div class="item-desc">${escapeHtml(a.description)}</div>` : ''}
+      <div class="item-meta">
+        ${a.subject ? `<span class="chip chip-indigo">${escapeHtml(a.subject)}</span>` : ''}
+        <span class="chip chip-gray">${escapeHtml(a.type)}</span>
+        <span class="chip ${prio[0]}">${prio[1]} priority</span>
+        ${uniqueSources.map(s => s.url
+          ? `<a class="src-link" href="${escapeHtml(s.url)}" target="_blank" rel="noopener">↗ ${escapeHtml(s.source)}</a>`
+          : `<span class="chip chip-gray">${escapeHtml(s.source || 'Manual')}</span>`).join('')}
+      </div>
+    </div>
+    <div class="item-side">
+      <span class="due ${due.cls}">${escapeHtml(due.text)}</span>
+      <div class="row" style="gap:4px">
+        <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="edit-assignment" data-id="${a.id}" title="Edit">✏️</button>
+        <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="delete-assignment" data-id="${a.id}" title="Delete">🗑️</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 19 · VIEW — CALENDAR
+   ---------------------------------------------------------------- */
+function viewCalendar(){
+  const y = App.calYear, m = App.calMonth;
+  const cells = monthMatrix(y, m);
+  const monthName = new Date(y, m, 1).toLocaleDateString(undefined, { month:'long', year:'numeric' });
+
+  const allEvents = [];
+  for (const a of Store.all('assignments')){
+    if (a.dueDate) allEvents.push({ date: a.dueDate, title: a.title, kind: (a.type === 'Test' || a.type === 'Exam') ? 'test' : 'work', id: a.id });
+  }
+  for (const e of Store.all('events')){
+    if (e.start) allEvents.push({ date: e.start, title: e.title, kind: 'event', id: e.id });
+  }
+  for (const n of Store.all('weeklyNotes')){
+    if (n.date) allEvents.push({ date: n.date, title: n.title, kind: 'notice', id: n.id });
+  }
+  for (const s of Store.all('studySessions')){
+    if (s.start) allEvents.push({ date: s.start, title: s.title, kind: 'study', id: s.id });
+  }
+
+  const todayTs = startOfDay();
+  const upcoming = allEvents
+    .filter(e => startOfDay(new Date(e.date)) >= todayTs)
+    .sort((a,b) => a.date - b.date)
+    .slice(0, 14);
+
+  return `
+  <div class="page-head row-between wrap">
+    <div>
+      <h1 class="page-title">Calendar</h1>
+      <p class="page-sub">Deadlines, tests, events and study sessions in one place</p>
+    </div>
+    <div class="row">
+      <button class="btn btn-ghost btn-sm" data-action="cal-prev">←</button>
+      <div class="strong" style="min-width:170px;text-align:center">${monthName}</div>
+      <button class="btn btn-ghost btn-sm" data-action="cal-next">→</button>
+      <button class="btn btn-subtle btn-sm" data-action="cal-today">Today</button>
+    </div>
+  </div>
+
+  <div class="cols cols-main">
+    <div class="card card-pad">
+      <div class="cal-head">
+        ${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d => `<div class="cal-dow">${d}</div>`).join('')}
+      </div>
+      <div class="cal-grid">
+        ${cells.map(d => {
+          const ts = startOfDay(d);
+          const dayEvents = allEvents.filter(e => startOfDay(new Date(e.date)) === ts);
+          const isToday = ts === todayTs;
+          const out = d.getMonth() !== m;
+          return `<div class="cal-day ${out ? 'out' : ''} ${isToday ? 'today' : ''}">
+            <div class="cal-num">${d.getDate()}</div>
+            ${dayEvents.slice(0,3).map(e => `<div class="cal-ev ${e.kind === 'test' ? 'test' : e.kind === 'event' ? 'event' : e.kind === 'notice' ? 'notice' : ''}" title="${escapeHtml(e.title)}">${escapeHtml(e.title)}</div>`).join('')}
+            ${dayEvents.length > 3 ? `<div class="cal-more">+${dayEvents.length - 3} more</div>` : ''}
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="row wrap" style="margin-top:14px;gap:14px">
+        <span class="row tiny"><span style="width:10px;height:10px;border-radius:3px;background:var(--primary)"></span> Assignment</span>
+        <span class="row tiny"><span style="width:10px;height:10px;border-radius:3px;background:var(--red-500)"></span> Test / Exam</span>
+        <span class="row tiny"><span style="width:10px;height:10px;border-radius:3px;background:#0284c7"></span> Event</span>
+        <span class="row tiny"><span style="width:10px;height:10px;border-radius:3px;background:var(--amber-500)"></span> Notice</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">⏭️ Upcoming</div></div>
+      <div class="card-body" style="padding-top:8px;padding-bottom:8px">
+        ${upcoming.length ? upcoming.map(e => {
+          const d = daysUntil(e.date);
+          const cls = d <= 1 ? 'overdue' : d <= 3 ? 'soon' : 'ok';
+          return `<div class="row" style="padding:9px 0;border-bottom:1px solid var(--border);gap:11px">
+            <div style="width:42px;flex:none;text-align:center">
+              <div style="font-size:10.5px;font-weight:700;color:var(--text-3);text-transform:uppercase">${new Date(e.date).toLocaleDateString(undefined,{month:'short'})}</div>
+              <div style="font-size:17px;font-weight:800;letter-spacing:-.03em">${new Date(e.date).getDate()}</div>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div class="small strong truncate">${escapeHtml(e.title)}</div>
+              <div class="tiny muted">${escapeHtml(e.kind === 'test' ? 'Test / Exam' : e.kind === 'event' ? 'Event' : e.kind === 'notice' ? 'Notice' : e.kind === 'study' ? 'Study session' : 'Assignment')}</div>
+            </div>
+            <span class="due ${cls}" style="font-size:11px">${d === 0 ? 'Today' : d === 1 ? 'Tomorrow' : `in ${d}d`}</span>
+          </div>`;
+        }).join('') : `<div class="empty" style="padding:30px 10px">
+          <div class="empty-ico">📅</div>
+          <div class="empty-title">Nothing upcoming</div>
+          <div class="empty-sub">Connect a source to fill your calendar automatically.</div>
+        </div>`}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 20 · VIEW — WEEKLY NOTES
+   ---------------------------------------------------------------- */
+function viewWeekly(){
+  const notes = Store.all('weeklyNotes');
+  if (!notes.length){
+    return `
+    <div class="page-head">
+      <h1 class="page-title">Weekly Notes</h1>
+      <p class="page-sub">School notices, newsletters and announcements, organised by week</p>
+    </div>
+    <div class="card"><div class="empty">
+      <div class="empty-ico">🗒️</div>
+      <div class="empty-title">No weekly notes yet</div>
+      <div class="empty-sub">Connect Google Classroom or your school email, or import a SchoolBridge export, and notices will be grouped here automatically.</div>
+    </div></div>`;
+  }
+
+  const grouped = {};
+  for (const n of notes){
+    const wk = n.weekKey || isoWeekKey(n.date || n.createdAt).key;
+    (grouped[wk] = grouped[wk] || []).push(n);
+  }
+
+  const weeks = Object.keys(grouped).sort().reverse();
+
+  return `
+  <div class="page-head">
+    <h1 class="page-title">Weekly Notes</h1>
+    <p class="page-sub">${notes.length} item${notes.length===1?'':'s'} across ${weeks.length} week${weeks.length===1?'':'s'}</p>
+  </div>
+
+  ${weeks.map(wk => {
+    const list = grouped[wk].sort((a,b) => (b.date||0) - (a.date||0));
+    const meta = isoWeekKey(list[0].date || list[0].createdAt);
+    const unread = list.filter(n => !n.read).length;
+
+    const notices = list.filter(n => ['Notice','School Notice','Announcement'].includes(n.kind));
+    const events  = list.filter(n => n.kind === 'Event');
+    const other   = list.filter(n => !notices.includes(n) && !events.includes(n));
+
+    const renderGroup = (title, arr, icon) => !arr.length ? '' : `
+      <div style="margin-bottom:16px">
+        <div class="row" style="gap:7px;margin-bottom:8px">
+          <span>${icon}</span>
+          <span class="strong small" style="text-transform:uppercase;letter-spacing:.05em;font-size:11.5px;color:var(--text-3)">${title}</span>
+        </div>
+        ${arr.map(n => renderNoteItem(n)).join('')}
+      </div>`;
+
+    return `
+    <section class="card" style="margin-bottom:18px">
+      <div class="card-head">
+        <div>
+          <div class="card-title">Week ${meta.week} · ${meta.year}</div>
+          <div class="tiny muted" style="margin-top:2px">${list.length} item${list.length===1?'':'s'}${unread ? ` · ${unread} unread` : ''}</div>
+        </div>
+        <button class="btn btn-sm btn-ghost" data-action="mark-week-read" data-week="${wk}">Mark all read</button>
+      </div>
+      <div class="card-body">
+        ${renderGroup('School Notices', notices, '📢')}
+        ${renderGroup('Events & Important Dates', events, '🎪')}
+        ${renderGroup('General Information', other, '📄')}
+      </div>
+    </section>`;
+  }).join('')}`;
+}
+
+function renderNoteItem(n){
+  const icons = { Notice:'📢', Announcement:'📣', Event:'🎪', 'School Notice':'📌' };
+  return `
+  <div class="item" style="padding-left:0;padding-right:0">
+    <div class="item-check" style="border:none;background:transparent;cursor:default;font-size:17px">${icons[n.kind] || '📄'}</div>
+    <div class="item-main">
+      <div class="item-title" style="font-size:13.9px">
+        ${escapeHtml(n.title)}
+        ${!n.read ? '<span class="chip chip-indigo">New</span>' : ''}
+        ${n.important ? '<span class="chip chip-amber">★ Important</span>' : ''}
+        ${n.saved ? '<span class="chip chip-green">🔖 Saved</span>' : ''}
+      </div>
+      ${n.body ? `<div class="item-desc">${escapeHtml(n.body)}</div>` : ''}
+      <div class="item-meta">
+        <span class="chip chip-gray">${escapeHtml(n.kind)}</span>
+        <span class="chip chip-gray">${escapeHtml(n.source)}</span>
+        <span class="tiny muted">${fmtDateLong(n.date)}</span>
+        ${n.url ? `<a class="src-link" href="${escapeHtml(n.url)}" target="_blank" rel="noopener">↗ Original</a>` : ''}
+      </div>
+    </div>
+    <div class="item-side">
+      <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-action="toggle-note-read" data-id="${n.id}" title="Mark read/unread">${n.read ? '📬' : '📭'}</button>
+      <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-action="toggle-note-important" data-id="${n.id}" title="Mark important">${n.important ? '⭐' : '☆'}</button>
+      <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-action="toggle-note-saved" data-id="${n.id}" title="Save">${n.saved ? '🔖' : '🏷️'}</button>
+    </div>
+  </div>`;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 21 · VIEW — STUDY PLANNER
+   ---------------------------------------------------------------- */
+function viewPlanner(){
+  const items = Store.all('assignments').filter(a => !a.completed);
+  const sessions = Store.all('studySessions').sort((a,b) => (a.start||0) - (b.start||0));
+
+  const ranked = items.map(i => ({ i, score: plannerScore(i) })).sort((a,b) => b.score - a.score);
+
+  const suggestions = [];
+  const usedMinutes = {};
+  for (const { i } of ranked){
+    const mins = estimateMinutes(i);
+    const d = daysUntil(i.dueDate);
+    const sessionDays = Math.min(3, Math.max(1, d === null ? 2 : d));
+    for (let k = 0; k < sessionDays; k++){
+      const dayOffset = d === null ? k : Math.max(0, d - (sessionDays - 1 - k));
+      const dayKey = startOfDay(new Date(Date.now() + dayOffset * 86400000));
+      usedMinutes[dayKey] = (usedMinutes[dayKey] || 0) + Math.round(mins / sessionDays);
+      if (usedMinutes[dayKey] > 180) continue;
+      suggestions.push({
+        title: `${k === 0 ? 'Start' : k === sessionDays - 1 ? 'Finish' : 'Continue'}: ${i.title}`,
+        subject: i.subject,
+        assignmentId: i.id,
+        minutes: Math.round(mins / sessionDays),
+        day: dayKey,
+        priority: i.priority,
+        type: i.type
+      });
+    }
+  }
+
+  const byDay = {};
+  for (const s of suggestions){
+    (byDay[s.day] = byDay[s.day] || []).push(s);
+  }
+  const days = Object.keys(byDay).map(Number).sort((a,b) => a - b).slice(0, 7);
+
+  return `
+  <div class="page-head row-between wrap">
+    <div>
+      <h1 class="page-title">Study Planner</h1>
+      <p class="page-sub">Recommended sessions built from your real deadlines — overdue first, then tests, then larger work</p>
+    </div>
+    <button class="btn btn-ghost" data-action="clear-sessions">Clear saved sessions</button>
+  </div>
+
+  <div class="cols cols-main">
+    <div class="stack">
+      <section class="card">
+        <div class="card-head"><div class="card-title">📋 Priority order</div><span class="chip chip-gray">${ranked.length} item${ranked.length===1?'':'s'}</span></div>
+        <div class="card-body" style="padding-top:8px">
+          ${ranked.length ? ranked.map(({ i }, idx) => {
+            const due = dueLabel(i.dueDate);
+            const cls = i.priority === 'urgent' ? 'urgent' : i.priority === 'high' ? 'high' : i.priority === 'low' ? 'low' : '';
+            return `<div class="next-item ${cls}">
+              <div class="next-rank">${idx+1}</div>
+              <div style="flex:1;min-width:0">
+                <div class="item-title" style="margin-bottom:3px">${escapeHtml(i.title)}</div>
+                <div class="item-meta">
+                  ${i.subject ? `<span class="chip chip-indigo">${escapeHtml(i.subject)}</span>` : ''}
+                  <span class="chip chip-gray">${escapeHtml(i.type)}</span>
+                  <span class="chip chip-gray">~${estimateMinutes(i)} min</span>
+                  <span class="due ${due.cls}">${escapeHtml(due.text)}</span>
+                </div>
+              </div>
+            </div>`;
+          }).join('') : `<div class="empty" style="padding:34px 12px">
+            <div class="empty-ico">🎯</div>
+            <div class="empty-title">Nothing to plan yet</div>
+            <div class="empty-sub">Once assignments are imported, StudentOS will rank them here automatically.</div>
+          </div>`}
+        </div>
+      </section>
+    </div>
+
+    <div class="stack">
+      <section class="card">
+        <div class="card-head"><div class="card-title">🗓️ Suggested sessions</div></div>
+        <div class="card-body">
+          ${days.length ? days.map(day => {
+            const list = byDay[day];
+            const total = list.reduce((s, x) => s + x.minutes, 0);
+            const isToday = day === startOfDay();
+            return `<div style="margin-bottom:18px">
+              <div class="row-between" style="margin-bottom:8px">
+                <div class="strong small">${isToday ? 'Today' : new Date(day).toLocaleDateString(undefined,{weekday:'long', day:'numeric', month:'short'})}</div>
+                <span class="chip chip-gray">${total} min</span>
+              </div>
+              ${list.map(s => `
+                <div class="row" style="padding:9px 11px;border:1px solid var(--border);border-radius:9px;margin-bottom:6px;gap:10px;background:var(--surface-2)">
+                  <div style="flex:1;min-width:0">
+                    <div class="small strong truncate">${escapeHtml(s.title)}</div>
+                    <div class="tiny muted">${escapeHtml(s.subject || s.type)} · ${s.minutes} min</div>
+                  </div>
+                  <button class="btn btn-sm btn-subtle" data-action="save-session" data-assignment="${s.assignmentId}" data-title="${escapeHtml(s.title)}" data-minutes="${s.minutes}" data-day="${day}">Save</button>
+                </div>`).join('')}
+            </div>`;
+          }).join('') : `<div class="empty" style="padding:30px 10px">
+            <div class="empty-ico">✨</div>
+            <div class="empty-title">No sessions needed</div>
+            <div class="empty-sub">You're all caught up. New deadlines will generate a plan here.</div>
+          </div>`}
+        </div>
+      </section>
+
+      ${sessions.length ? `
+      <section class="card">
+        <div class="card-head"><div class="card-title">🔖 Saved sessions</div></div>
+        <div class="card-body" style="padding-top:8px">
+          ${sessions.map(s => `
+            <div class="row" style="padding:10px 0;border-bottom:1px solid var(--border);gap:10px">
+              <div style="flex:1;min-width:0">
+                <div class="small strong truncate">${escapeHtml(s.title)}</div>
+                <div class="tiny muted">${fmtDateLong(s.start)} · ${s.minutes} min</div>
+              </div>
+              <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="delete-session" data-id="${s.id}">🗑️</button>
+            </div>`).join('')}
+        </div>
+      </section>` : ''}
+    </div>
+  </div>`;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 22 · VIEW — INTEGRATIONS
+   ---------------------------------------------------------------- */
+function viewIntegrations(){
+  const i = Store.cache.integrations;
+  const cfg = loadConfig();
+  const hasClientId = !!cfg?.googleClientId;
+
+  const card = (opts) => {
+    const { key, logo, name, desc, connected, lastSync, imported, extra = '', actions, warning } = opts;
+    return `
+    <section class="card card-pad int-card">
+      <div class="int-logo">${logo}</div>
+      <div class="int-body">
+        <div class="int-name">
+          ${escapeHtml(name)}
+          <span class="status-pill ${connected ? 'on' : 'off'}"><span class="pdot"></span>${connected ? 'Connected' : 'Not connected'}</span>
+        </div>
+        <div class="int-desc">${desc}</div>
+        ${connected ? `
+        <div class="int-stats">
+          <div class="int-stat"><b>${imported ?? 0}</b>items imported</div>
+          <div class="int-stat"><b>${relativeTime(lastSync)}</b>last synced</div>
+          ${extra}
+        </div>` : ''}
+        ${warning ? `<div class="alert alert-warn" style="margin-bottom:12px">${warning}</div>` : ''}
+        <div class="int-actions">${actions}</div>
+      </div>
+    </section>`;
+  };
+
+  return `
+  <div class="page-head">
+    <h1 class="page-title">Integrations</h1>
+    <p class="page-sub">Connect once — StudentOS keeps everything in sync automatically</p>
+  </div>
+
+  ${!hasClientId ? `
+  <div class="alert alert-warn" style="margin-bottom:20px">
+    <span>⚠️</span>
+    <div>
+      <strong>Google OAuth Client ID not configured.</strong>
+      Classroom and Email need your own free Google OAuth client. Open
+      <a href="#/settings">Settings</a> and follow the setup guide — it takes about 5 minutes and costs nothing.
+    </div>
+  </div>` : ''}
+
+  <div class="stack">
+    ${card({
+      key: 'classroom',
+      logo: '🎓',
+      name: 'Google Classroom',
+      desc: 'Imports your active classes, coursework, due dates, topics and teacher announcements.',
+      connected: i.classroom?.connected,
+      lastSync: i.classroom?.lastSync,
+      imported: i.classroom?.imported,
+      extra: i.classroom?.courses ? `<div class="int-stat"><b>${i.classroom.courses}</b>classes</div>` : '',
+      actions: i.classroom?.connected
+        ? `<button class="btn btn-primary btn-sm" data-sync="classroom">Synchronise now</button>
+           <button class="btn btn-danger-soft btn-sm" data-disconnect="classroom">Disconnect</button>`
+        : `<button class="btn btn-primary btn-sm" data-connect="classroom" ${!hasClientId ? 'disabled' : ''}>Connect Google Classroom</button>`
+    })}
+
+    ${card({
+      key: 'email',
+      logo: '✉️',
+      name: 'School email (Gmail)',
+      desc: 'Scans only emails from your trusted school domains for homework, tests, notices and reminders. Personal email is ignored.',
+      connected: i.email?.connected,
+      lastSync: i.email?.lastSync,
+      imported: i.email?.imported,
+      extra: i.email?.scanned ? `<div class="int-stat"><b>${i.email.scanned}</b>emails scanned</div>` : '',
+      actions: i.email?.connected
+        ? `<button class="btn btn-primary btn-sm" data-sync="email">Synchronise now</button>
+           <button class="btn btn-ghost btn-sm" data-action="edit-trusted">Trusted senders</button>
+           <button class="btn btn-danger-soft btn-sm" data-disconnect="email">Disconnect</button>`
+        : `<button class="btn btn-primary btn-sm" data-connect="email" ${!hasClientId ? 'disabled' : ''}>Connect school email</button>`
+    })}
+
+    ${card({
+      key: 'schoolbridge',
+      logo: '🌉',
+      name: 'SchoolBridge',
+      desc: 'Weekly notices, timetable and events from your school portal.',
+      connected: i.schoolbridge?.connected,
+      lastSync: i.schoolbridge?.lastSync,
+      imported: i.schoolbridge?.imported,
+      warning: `SchoolBridge does not publish a public API for third-party student apps. StudentOS will <strong>never</strong> scrape private pages, reuse your session cookies, or ask for your SchoolBridge password. Instead you can (a) paste an API endpoint if your school provides one, or (b) import an official export you downloaded yourself.`,
+      actions: i.schoolbridge?.connected
+        ? `<button class="btn btn-primary btn-sm" data-sync="schoolbridge">Synchronise now</button>
+           <button class="btn btn-ghost btn-sm" data-action="sb-import">Import official export</button>
+           <button class="btn btn-danger-soft btn-sm" data-disconnect="schoolbridge">Disconnect</button>`
+        : `<button class="btn btn-primary btn-sm" data-action="sb-setup">Set up SchoolBridge</button>
+           <button class="btn btn-ghost btn-sm" data-action="sb-import">Import official export</button>`
+    })}
+  </div>
+
+  <section class="card card-pad" style="margin-top:20px">
+    <div class="card-title" style="margin-bottom:12px">🔒 Privacy controls</div>
+    <div class="set-row">
+      <div class="set-info">
+        <div class="set-name">Delete all imported data</div>
+        <div class="set-desc">Removes every assignment, note, event and notification from StudentOS. Your Google and school accounts are untouched.</div>
+      </div>
+      <div class="set-control"><button class="btn btn-danger-soft btn-sm" data-action="wipe-data">Delete imported data</button></div>
+    </div>
+    <div class="set-row">
+      <div class="set-info">
+        <div class="set-name">Revoke Google access</div>
+        <div class="set-desc">Immediately discards the access token held in this browser tab. StudentOS never stores your Google password.</div>
+      </div>
+      <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="revoke-google">Revoke now</button></div>
+    </div>
+  </section>`;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 23 · VIEW — SETTINGS
+   ---------------------------------------------------------------- */
+function viewSettings(){
+  const cfg = loadConfig() || {};
+  const s = Store.cache.settings;
+  const fb = cfg.firebase || {};
+
+  return `
+  <div class="page-head">
+    <h1 class="page-title">Settings</h1>
+    <p class="page-sub">Account, connections, privacy and appearance</p>
+  </div>
+
+  <div class="cols cols-2">
+    <section class="card">
+      <div class="card-head"><div class="card-title">👤 Account</div></div>
+      <div class="card-body">
+        <div class="row" style="gap:14px;margin-bottom:18px">
+          <img id="settings-avatar" class="avatar avatar-lg" alt="" referrerpolicy="no-referrer">
+          <div style="min-width:0">
+            <div class="strong">${escapeHtml(App.user?.displayName || 'Student')}</div>
+            <div class="small muted truncate">${escapeHtml(App.user?.email || '')}</div>
+          </div>
+        </div>
+        <div class="set-row">
+          <div class="set-info">
+            <div class="set-name">Storage mode</div>
+            <div class="set-desc">${Store.mode === 'firebase'
+              ? 'Firebase Firestore — your data syncs across devices and is protected by security rules.'
+              : 'Local browser storage — data stays on this device only. Add Firebase config to sync across devices.'}</div>
+          </div>
+          <div class="set-control"><span class="chip ${Store.mode === 'firebase' ? 'chip-green' : 'chip-amber'}">${Store.mode === 'firebase' ? 'Cloud' : 'Local'}</span></div>
+        </div>
+        <div class="set-row">
+          <div class="set-info">
+            <div class="set-name">Appearance</div>
+            <div class="set-desc">Light or dark theme.</div>
+          </div>
+          <div class="set-control">
+            <select class="select" data-setting="theme" style="width:130px">
+              <option value="light" ${s.theme === 'light' ? 'selected' : ''}>Light</option>
+              <option value="dark"  ${s.theme === 'dark'  ? 'selected' : ''}>Dark</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><div class="card-title">🔔 Notifications</div></div>
+      <div class="card-body">
+        ${notifRow('notifyNewAssignment', 'New assignments', 'Alert when a new assignment is imported.')}
+        ${notifRow('notifyDueSoon', 'Approaching deadlines', 'Alert when work is due today or tomorrow.')}
+        ${notifRow('notifyNewTest', 'New tests and exams', 'Alert when a test or exam is detected.')}
+        ${notifRow('notifyAnnouncements', 'Announcements and notices', 'Alert for new weekly notes and school notices.')}
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><div class="card-title">✉️ Trusted school senders</div></div>
+      <div class="card-body">
+        <p class="small muted" style="margin-bottom:14px">StudentOS only scans email from these domains and addresses. Everything else is ignored — your personal inbox is never read.</p>
+        <div class="field">
+          <label class="label">School email domains</label>
+          <input class="input" id="domains-input" placeholder="myschool.edu, students.myschool.edu" value="${escapeHtml(s.trustedDomains.join(', '))}">
+          <div class="hint">Comma separated. Example: <code>school.nz</code></div>
+        </div>
+        <div class="field">
+          <label class="label">Specific senders (optional)</label>
+          <input class="input" id="senders-input" placeholder="principal@myschool.edu, notices@myschool.edu" value="${escapeHtml(s.trustedSenders.join(', '))}">
+        </div>
+        <button class="btn btn-primary btn-sm" data-action="save-senders">Save senders</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><div class="card-title">🔐 Google &amp; Firebase configuration</div></div>
+      <div class="card-body">
+        <div class="set-row">
+          <div class="set-info">
+            <div class="set-name">Google OAuth Client ID</div>
+            <div class="set-desc">${cfg.googleClientId ? `<code class="truncate" style="display:inline-block;max-width:100%">${escapeHtml(cfg.googleClientId)}</code>` : 'Not set — Classroom and Email sync are disabled.'}</div>
+          </div>
+          <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="open-setup">${cfg.googleClientId ? 'Change' : 'Set up'}</button></div>
+        </div>
+        <div class="set-row">
+          <div class="set-info">
+            <div class="set-name">Firebase project</div>
+            <div class="set-desc">${fb.projectId ? `Project: <code>${escapeHtml(fb.projectId)}</code>` : 'Not configured — running in local browser mode.'}</div>
+          </div>
+          <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="open-setup">${fb.projectId ? 'Change' : 'Set up'}</button></div>
+        </div>
+        <div class="set-row">
+          <div class="set-info">
+            <div class="set-name">Firestore security rules</div>
+            <div class="set-desc">Copy these into Firebase Console → Firestore → Rules so only you can read your own data.</div>
+          </div>
+          <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="show-rules">View rules</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><div class="card-title">🛡️ Privacy &amp; data</div></div>
+      <div class="card-body">
+        <div class="set-row">
+          <div class="set-info">
+            <div class="set-name">Export your data</div>
+            <div class="set-desc">Download everything StudentOS holds about you as a JSON file.</div>
+          </div>
+          <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="export-data">Download JSON</button></div>
+        </div>
+        <div class="set-row">
+          <div class="set-info">
+            <div class="set-name">Delete all imported data</div>
+            <div class="set-desc">Permanently removes every item StudentOS imported or you created.</div>
+          </div>
+          <div class="set-control"><button class="btn btn-danger-soft btn-sm" data-action="wipe-data">Delete</button></div>
+        </div>
+        <div class="set-row">
+          <div class="set-info">
+            <div class="set-name">Reset configuration</div>
+            <div class="set-desc">Clears your Firebase and Google OAuth settings from this browser.</div>
+          </div>
+          <div class="set-control"><button class="btn btn-danger-soft btn-sm" data-action="reset-config">Reset</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><div class="card-title">💡 How StudentOS works</div></div>
+      <div class="card-body">
+        <div class="code">Google Classroom ─┐
+                  │
+Email ────────────┼──▶  StudentOS Importer
+                  │           ↓
+SchoolBridge ─────┘      Classifier
+                              ↓
+                       Duplicate check
+                              ↓
+                    Firestore / local storage
+                              ↓
+                          Dashboard</div>
+        <p class="small muted" style="margin-top:14px;line-height:1.7">
+          Every imported item is cleaned of HTML, classified by type, matched to a subject,
+          given a priority from its due date, and checked against existing items so a
+          Classroom assignment and its email reminder become <strong>one</strong> card with two sources.
+        </p>
+      </div>
+    </section>
+  </div>`;
+}
+
+function notifRow(key, name, desc){
+  const on = Store.cache.settings[key];
+  return `
+  <div class="set-row">
+    <div class="set-info">
+      <div class="set-name">${name}</div>
+      <div class="set-desc">${desc}</div>
+    </div>
+    <div class="set-control">
+      <label class="checkbox"><input type="checkbox" data-setting="${key}" ${on ? 'checked' : ''}></label>
+    </div>
+  </div>`;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 24 · VIEW EVENT BINDING
+   ---------------------------------------------------------------- */
+function bindViewEvents(){
+  const view = $('#view');
+
+  view.addEventListener('click', async (e) => {
+    const navBtn = e.target.closest('[data-nav]');
+    if (navBtn){ location.hash = navBtn.dataset.nav; return; }
+
+    const filterBtn = e.target.closest('[data-filter="assignments"]');
+    if (filterBtn){ App.filters.assignments = filterBtn.dataset.value; render(); return; }
+
+    const action = e.target.closest('[data-action]');
+    if (!action) return;
+    const a = action.dataset.action;
+    const id = action.dataset.id;
+
+    switch(a){
+      case 'complete': {
+        const item = Store.get('assignments', id);
+        if (item){
+          item.completed = !item.completed;
+          item.completedAt = item.completed ? now() : null;
+          await Store.put('assignments', item);
+          toast(item.completed ? 'Marked complete' : 'Marked incomplete', 'success');
+          render();
+        }
+        break;
+      }
+      case 'delete-assignment': {
+        const item = Store.get('assignments', id);
+        if (!item) break;
+        if (await confirmDialog('Delete assignment?', `"${item.title}" will be removed from StudentOS. Your Classroom and email accounts are not affected.`, 'Delete', true)){
+          await Store.remove('assignments', id);
+          toast('Assignment deleted', 'success');
+          render();
+        }
+        break;
+      }
+      case 'edit-assignment': openAssignmentModal(Store.get('assignments', id)); break;
+      case 'new-assignment': openAssignmentModal(null); break;
+      case 'clear-filters': App.filters = { ...App.filters, search:'', subject:'all', assignments:'all' }; render(); break;
+      case 'cal-prev': {
+        App.calMonth--; if (App.calMonth < 0){ App.calMonth = 11; App.calYear--; } render(); break;
+      }
+      case 'cal-next': {
+        App.calMonth++; if (App.calMonth > 11){ App.calMonth = 0; App.calYear++; } render(); break;
+      }
+      case 'cal-today': App.calMonth = new Date().getMonth(); App.calYear = new Date().getFullYear(); render(); break;
+
+      case 'toggle-note-read': {
+        const n = Store.get('weeklyNotes', id);
+        if (n){ n.read = !n.read; await Store.put('weeklyNotes', n); render(); }
+        break;
+      }
+      case 'toggle-note-important': {
+        const n = Store.get('weeklyNotes', id);
+        if (n){ n.important = !n.important; await Store.put('weeklyNotes', n); render(); }
+        break;
+      }
+      case 'toggle-note-saved': {
+        const n = Store.get('weeklyNotes', id);
+        if (n){ n.saved = !n.saved; await Store.put('weeklyNotes', n); render(); }
+        break;
+      }
+      case 'open-note': {
+        const n = Store.get('weeklyNotes', id);
+        if (n && !n.read){ n.read = true; await Store.put('weeklyNotes', n); }
+        if (n) openNoteModal(n);
+        break;
+      }
+      case 'mark-week-read': {
+        const wk = action.dataset.week;
+        for (const n of Store.all('weeklyNotes')){
+          if ((n.weekKey || isoWeekKey(n.date || n.createdAt).key) === wk && !n.read){
+            n.read = true;
+            await Store.put('weeklyNotes', n);
+          }
+        }
+        toast('Week marked as read', 'success');
+        render();
+        break;
+      }
+
+      case 'save-session': {
+        await Store.put('studySessions', {
+          id: uid(),
+          title: action.dataset.title,
+          assignmentId: action.dataset.assignment,
+          minutes: Number(action.dataset.minutes),
+          start: Number(action.dataset.day) + 16 * 3600000,
+          createdAt: now()
+        });
+        toast('Study session added to your calendar', 'success');
+        render();
+        break;
+      }
+      case 'delete-session': {
+        await Store.remove('studySessions', id);
+        render();
+        break;
+      }
+      case 'clear-sessions': {
+        if (await confirmDialog('Clear saved sessions?', 'All saved study sessions will be removed from your calendar.', 'Clear', true)){
+          for (const s of Store.all('studySessions')) await Store.remove('studySessions', s.id);
+          toast('Study sessions cleared', 'success');
+          render();
+        }
+        break;
+      }
+
+      case 'edit-timetable': openTimetableModal(); break;
+      case 'edit-trusted': location.hash = '#/settings'; break;
+      case 'open-setup': openSetupModal(); break;
+      case 'show-rules': openRulesModal(); break;
+      case 'save-senders': saveSenders(); break;
+      case 'export-data': exportData(); break;
+      case 'wipe-data': {
+        if (await confirmDialog('Delete all imported data?', 'Every assignment, note, event and notification will be permanently removed. This cannot be undone.', 'Delete everything', true)){
+          await Store.removeAll();
+          toast('All imported data deleted', 'success');
+          render();
+        }
+        break;
+      }
+      case 'revoke-google': {
+        GoogleAuth.revoke();
+        toast('Google access revoked for this session', 'success');
+        break;
+      }
+      case 'reset-config': {
+        if (await confirmDialog('Reset configuration?', 'Your Firebase and Google OAuth settings will be removed from this browser. Your data will remain.', 'Reset', true)){
+          clearConfig();
+          toast('Configuration reset — reloading', 'success');
+          setTimeout(() => location.reload(), 800);
+        }
+        break;
+      }
+      case 'sb-setup': openSchoolBridgeModal(); break;
+      case 'sb-import': openSchoolBridgeImportModal(); break;
+    }
+  });
+
+  view.addEventListener('change', async (e) => {
+    const f = e.target.dataset.filter;
+    if (f){
+      App.filters[f] = e.target.value;
+      render();
+      return;
+    }
+    const setting = e.target.dataset.setting;
+    if (setting){
+      const isBool = e.target.type === 'checkbox';
+      Store.cache.settings[setting] = isBool ? e.target.checked : e.target.value;
+      await Store.saveUserDoc();
+      if (setting === 'theme'){
+        document.documentElement.dataset.theme = e.target.value;
+      }
+      toast('Setting saved', 'success');
+    }
+  });
+}
+
+function saveSenders(){
+  const domains = ($('#domains-input')?.value || '').split(',').map(s => s.trim()).filter(Boolean);
+  const senders = ($('#senders-input')?.value || '').split(',').map(s => s.trim()).filter(Boolean);
+  Store.cache.settings.trustedDomains = domains;
+  Store.cache.settings.trustedSenders = senders;
+  Store.saveUserDoc();
+  toast(`Saved ${domains.length} domain${domains.length===1?'':'s'} and ${senders.length} sender${senders.length===1?'':'s'}`, 'success', 'Trusted senders updated');
+}
+
+async function exportData(){
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    user: { email: App.user?.email, name: App.user?.displayName },
+    data: {
+      assignments: Store.all('assignments'),
+      events: Store.all('events'),
+      weeklyNotes: Store.all('weeklyNotes'),
+      notifications: Store.all('notifications'),
+      studySessions: Store.all('studySessions'),
+      courses: Store.all('courses'),
+      settings: Store.cache.settings
+    }
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `studentos-export-${new Date().toISOString().slice(0,10)}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+  toast('Your data has been downloaded', 'success', 'Export ready');
+}
+
+/* ----------------------------------------------------------------
+   SECTION 25 · MODALS
+   ---------------------------------------------------------------- */
+function openAssignmentModal(existing){
+  const isEdit = !!existing;
+  const a = existing || { title:'', description:'', subject:'', type:'Assignment', dueDate:null };
+
+  openModal({
+    title: isEdit ? 'Edit assignment' : 'New assignment',
+    subtitle: isEdit ? 'Items you add manually are never overwritten by sync.' : 'Add something StudentOS cannot see automatically.',
+    body: `
+      <div class="field">
+        <label class="label">Title *</label>
+        <input class="input" id="m-title" placeholder="e.g. Chapter 5 questions" value="${escapeHtml(a.title)}">
+      </div>
+      <div class="field">
+        <label class="label">Description</label>
+        <textarea class="textarea" id="m-desc" placeholder="Optional details, page numbers, requirements…">${escapeHtml(a.description)}</textarea>
+      </div>
+      <div class="row" style="gap:12px;align-items:flex-start">
+        <div class="field" style="flex:1">
+          <label class="label">Type</label>
+          <select class="select" id="m-type">
+            ${['Assignment','Homework','Test','Exam','Project','Announcement','Weekly Note','School Notice','Event','Reminder','Other']
+              .map(t => `<option ${a.type === t ? 'selected' : ''}>${t}</option>`).join('')}
+          </select>
+        </div>
+        <div class="field" style="flex:1">
+          <label class="label">Subject</label>
+          <input class="input" id="m-subject" placeholder="Maths" value="${escapeHtml(a.subject)}">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Due date</label>
+        <input class="input" type="date" id="m-due" value="${a.dueDate ? new Date(a.dueDate).toISOString().slice(0,10) : ''}">
+      </div>`,
+    footer: `
+      <button class="btn btn-ghost" data-close>Cancel</button>
+      <button class="btn btn-primary" id="m-save">${isEdit ? 'Save changes' : 'Add assignment'}</button>`,
+    onMount(el, close){
+      $('#m-save', el).addEventListener('click', async () => {
+        const title = $('#m-title', el).value.trim();
+        if (!title){ toast('Please enter a title', 'error'); return; }
+
+        const dueVal = $('#m-due', el).value;
+        const record = {
+          id: a.id || uid(),
+          title: sanitiseText(title, 220),
+          description: sanitiseText($('#m-desc', el).value, 4000),
+          type: $('#m-type', el).value,
+          subject: sanitiseText($('#m-subject', el).value, 60),
+          dueDate: dueVal ? new Date(dueVal + 'T23:59:00').getTime() : null,
+          manual: true,
+          completed: a.completed || false,
+          source: 'Manual',
+          sources: a.sources?.length ? a.sources : [{ source:'Manual', url:'', addedAt: now() }],
+          createdAt: a.createdAt || now()
+        };
+        record.priority = computePriority(record);
+        await Store.put('assignments', record);
+        close();
+        toast(isEdit ? 'Assignment updated' : 'Assignment added', 'success');
+        render();
+      });
+      setTimeout(() => $('#m-title', el)?.focus(), 60);
+    }
+  });
+}
+
+function openNoteModal(n){
+  openModal({
+    title: n.title,
+    subtitle: `${n.kind} · ${n.source} · ${fmtDateLong(n.date)}`,
+    body: `
+      ${n.body ? `<p style="font-size:14px;line-height:1.75;white-space:pre-wrap;color:var(--text-2)">${escapeHtml(n.body)}</p>` : '<p class="muted">No further detail was included.</p>'}
+      ${n.url ? `<div style="margin-top:18px"><a class="btn btn-ghost btn-sm" href="${escapeHtml(n.url)}" target="_blank" rel="noopener">↗ Open original</a></div>` : ''}`,
+    footer: `<button class="btn btn-primary" data-close>Close</button>`
+  });
+}
+
+function openTimetableModal(){
+  const tt = Store.cache.settings.timetable || [];
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  openModal({
+    title: 'Weekly timetable',
+    subtitle: 'Add your regular periods. StudentOS shows today\'s lessons on your dashboard.',
+    wide: true,
+    body: `
+      <div id="tt-rows">
+        ${tt.length ? tt.map((t, idx) => ttRowHtml(t, idx, days)).join('') : ttRowHtml({ day:1, start:'09:00', end:'10:00', subject:'', room:'' }, 0, days)}
+      </div>
+      <button class="btn btn-ghost btn-sm" id="tt-add" style="margin-top:12px">＋ Add period</button>`,
+    footer: `
+      <button class="btn btn-ghost" data-close>Cancel</button>
+      <button class="btn btn-primary" id="tt-save">Save timetable</button>`,
+    onMount(el, close){
+      let counter = $$('.tt-row-input', el).length;
+      $('#tt-add', el).addEventListener('click', () => {
+        const wrap = document.createElement('div');
+        wrap.innerHTML = ttRowHtml({ day:1, start:'', end:'', subject:'', room:'' }, counter++, days);
+        $('#tt-rows', el).appendChild(wrap.firstElementChild);
+      });
+      $('#tt-save', el).addEventListener('click', async () => {
+        const rows = $$('.tt-row-input', el).map(r => ({
+          day: Number($('.tt-day', r).value),
+          start: $('.tt-start', r).value,
+          end: $('.tt-end', r).value,
+          subject: sanitiseText($('.tt-subject', r).value, 60),
+          room: sanitiseText($('.tt-room', r).value, 20)
+        })).filter(r => r.subject);
+        Store.cache.settings.timetable = rows;
+        await Store.saveUserDoc();
+        close();
+        toast(`Saved ${rows.length} period${rows.length===1?'':'s'}`, 'success', 'Timetable updated');
+        render();
+      });
+      el.addEventListener('click', e => {
+        if (e.target.closest('.tt-del')) e.target.closest('.tt-row-input').remove();
+      });
+    }
+  });
+}
+
+function ttRowHtml(t, idx, days){
+  return `
+  <div class="tt-row-input row" style="gap:8px;margin-bottom:8px;align-items:center">
+    <select class="select tt-day" style="width:120px">
+      ${days.map((d, i) => `<option value="${i}" ${Number(t.day) === i ? 'selected' : ''}>${d}</option>`).join('')}
+    </select>
+    <input class="input tt-start" type="time" value="${t.start || ''}" style="width:106px">
+    <input class="input tt-end" type="time" value="${t.end || ''}" style="width:106px">
+    <input class="input tt-subject grow" placeholder="Subject" value="${escapeHtml(t.subject || '')}">
+    <input class="input tt-room" placeholder="Room" value="${escapeHtml(t.room || '')}" style="width:88px">
+    <button class="icon-btn tt-del" style="color:var(--red-600)" title="Remove">✕</button>
+  </div>`;
+}
+
+function openSchoolBridgeModal(){
+  const sb = Store.cache.integrations.schoolbridge || {};
+  openModal({
+    title: 'Set up SchoolBridge',
+    subtitle: 'Only officially supported access methods are allowed.',
+    body: `
+      <div class="alert alert-info" style="margin-bottom:18px">
+        <span>ℹ️</span>
+        <div>SchoolBridge does not publish a public API for third-party student apps. StudentOS will not scrape pages, reuse cookies, or ask for your password. If your school issues an API endpoint and token, enter them below. Otherwise use <strong>Import official export</strong>.</div>
+      </div>
+      <div class="field">
+        <label class="label">Official API endpoint (optional)</label>
+        <input class="input" id="sb-endpoint" placeholder="https://api.yourschool.edu/schoolbridge/v1/notices" value="${escapeHtml(sb.endpoint || '')}">
+        <div class="hint">Provided by your school's IT department.</div>
+      </div>
+      <div class="field">
+        <label class="label">API token (optional)</label>
+        <input class="input" id="sb-token" type="password" placeholder="Bearer token issued by your school" value="${escapeHtml(sb.token || '')}">
+        <div class="hint">Stored only in your own database. Never sent anywhere else.</div>
+      </div>`,
+    footer: `
+      <button class="btn btn-ghost" data-close>Cancel</button>
+      <button class="btn btn-primary" id="sb-save">Save connection</button>`,
+    onMount(el, close){
+      $('#sb-save', el).addEventListener('click', async () => {
+        const endpoint = $('#sb-endpoint', el).value.trim();
+        const token = $('#sb-token', el).value.trim();
+        if (!endpoint){ toast('Enter an endpoint or use Import official export', 'warn'); return; }
+        Store.cache.integrations.schoolbridge = {
+          ...(Store.cache.integrations.schoolbridge || {}),
+          id: 'schoolbridge', connected: true, endpoint, token, mode: 'api', lastSync: null, imported: 0
+        };
+        await Store.saveUserDoc();
+        close();
+        toast('SchoolBridge endpoint saved', 'success');
+        render();
+      });
+    }
+  });
+}
+
+function openSchoolBridgeImportModal(){
+  openModal({
+    title: 'Import SchoolBridge export',
+    subtitle: 'Use a CSV or JSON file you downloaded yourself from SchoolBridge.',
+    body: `
+      <div class="alert alert-info" style="margin-bottom:16px">
+        <span>ℹ️</span>
+        <div>This is the officially supported route when your school has no public API. Only import files you are authorised to download.</div>
+      </div>
+      <div class="field">
+        <label class="label">Upload file</label>
+        <input class="input" type="file" id="sb-file" accept=".csv,.json,.txt">
+      </div>
+      <div class="field">
+        <label class="label">…or paste the contents</label>
+        <textarea class="textarea" id="sb-text" placeholder='CSV:  title,date,description
+JSON: [{"title":"Assembly","date":"2026-09-23","description":"Whole school"}]' style="min-height:130px"></textarea>
+        <div class="hint">CSV expects a header row, then <code>title,date,description</code>.</div>
+      </div>`,
+    footer: `
+      <button class="btn btn-ghost" data-close>Cancel</button>
+      <button class="btn btn-primary" id="sb-import-go">Import</button>`,
+    onMount(el, close){
+      $('#sb-import-go', el).addEventListener('click', async () => {
+        const file = $('#sb-file', el).files[0];
+        let text = $('#sb-text', el).value.trim();
+        let name = 'pasted';
+        if (file){
+          text = await file.text();
+          name = file.name;
+        }
+        if (!text){ toast('Choose a file or paste some content', 'warn'); return; }
+        try {
+          const r = await importSchoolBridgeExport(text, name);
+          close();
+          toast(`Imported ${r.notices} notice${r.notices===1?'':'s'} and ${r.events} event${r.events===1?'':'s'}`, 'success', 'SchoolBridge import complete');
+          render();
+        } catch (err){
+          toast(`Could not parse that file: ${err.message}`, 'error');
+        }
+      });
+    }
+  });
+}
+
+function openRulesModal(){
+  const rules = `rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Every user can only read and write their own subtree.
+    match /users/{userId} {
+
+      allow read, write: if request.auth != null
+                         && request.auth.uid == userId;
+
+      match /{collection}/{docId} {
+        allow read, write: if request.auth != null
+                           && request.auth.uid == userId;
+      }
+    }
+
+    // Everything else is denied by default.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}`;
+  openModal({
+    title: 'Firestore security rules',
+    subtitle: 'Paste into Firebase Console → Firestore Database → Rules → Publish',
+    wide: true,
+    body: `
+      <div class="code">${escapeHtml(rules)}</div>
+      <div class="alert alert-warn" style="margin-top:16px">
+        <span>⚠️</span>
+        <div>Without these rules your data would be readable by anyone who knows your project ID. Set them up before connecting real accounts.</div>
+      </div>`,
+    footer: `
+      <button class="btn btn-ghost" id="copy-rules">Copy rules</button>
+      <button class="btn btn-primary" data-close>Done</button>`,
+    onMount(el, close){
+      $('#copy-rules', el).addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(rules);
+          toast('Rules copied to clipboard', 'success');
+        } catch {
+          toast('Could not copy — select the text manually', 'warn');
+        }
+      });
+    }
+  });
+}
+
+/* ----------------------------------------------------------------
+   SECTION 26 · SETUP GUIDE MODAL
+   ---------------------------------------------------------------- */
+function openSetupModal(){
+  const cfg = loadConfig() || {};
+  const fbJson = cfg.firebase ? JSON.stringify(cfg.firebase, null, 2) : '';
+
+  openModal({
+    title: 'Connect StudentOS to your own free accounts',
+    subtitle: 'Everything here is free. Takes about 10 minutes.',
+    wide: true,
+    body: `
+      <div class="alert alert-info" style="margin-bottom:20px">
+        <span>💡</span>
+        <div>StudentOS runs entirely in your browser. You create your own free Firebase project and Google OAuth client, so <strong>you</strong> own the data and there is nothing to pay for.</div>
+      </div>
+
+      <h3 style="font-size:16px;margin-bottom:14px">Part A — Firebase (authentication + database)</h3>
+      <ol class="steps">
+        <li>
+          <h4>Create a Firebase project</h4>
+          <p>Go to <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a>, click <strong>Add project</strong>, give it a name like <code>studentos</code>, and disable Google Analytics (you don't need it).</p>
+        </li>
+        <li>
+          <h4>Add a web app</h4>
+          <p>In the project overview click the <strong>&lt;/&gt;</strong> icon. Register the app with any nickname. Firebase shows a <code>firebaseConfig</code> object — copy it.</p>
+        </li>
+        <li>
+          <h4>Enable Google sign-in</h4>
+          <p>Go to <strong>Build → Authentication → Get started</strong>. Under <strong>Sign-in method</strong> enable <strong>Google</strong>, choose a support email, and save.</p>
+        </li>
+        <li>
+          <h4>Create the Firestore database</h4>
+          <p>Go to <strong>Build → Firestore Database → Create database</strong>. Choose <strong>Production mode</strong> and any nearby region.</p>
+        </li>
+        <li>
+          <h4>Paste the security rules</h4>
+          <p>Open the <strong>Rules</strong> tab and replace everything with the rules shown in Settings → <em>View rules</em>. Click <strong>Publish</strong>. This ensures only you can read your own data.</p>
+        </li>
+        <li>
+          <h4>Paste your config below</h4>
+          <p>Copy the <code>firebaseConfig</code> object from step 2 into the box further down this dialog.</p>
+        </li>
+      </ol>
+
+      <h3 style="font-size:16px;margin:26px 0 14px">Part B — Google OAuth (Classroom + Gmail)</h3>
+      <ol class="steps">
+        <li>
+          <h4>Open Google Cloud Console</h4>
+          <p>Go to <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a> and select the project Firebase just created (it appears in the project picker).</p>
+        </li>
+        <li>
+          <h4>Enable the APIs</h4>
+          <p>Go to <strong>APIs &amp; Services → Library</strong> and enable both:</p>
+          <p>• <strong>Google Classroom API</strong><br>• <strong>Gmail API</strong> (only if you want email import)</p>
+        </li>
+        <li>
+          <h4>Configure the consent screen</h4>
+          <p>Go to <strong>APIs &amp; Services → OAuth consent screen</strong>. Choose <strong>External</strong>, fill in an app name (<code>StudentOS</code>) and your email. Under <strong>Audience</strong> leave it in <strong>Testing</strong> and add your own Google account as a <strong>Test user</strong>.</p>
+          <p class="tiny muted">Testing mode is free and works immediately for your own account. Publishing publicly would require Google verification because Gmail access is a restricted scope — you do not need that for personal use.</p>
+        </li>
+        <li>
+          <h4>Create the OAuth Client ID</h4>
+          <p>Go to <strong>APIs &amp; Services → Credentials → Create credentials → OAuth client ID</strong>. Application type: <strong>Web application</strong>.</p>
+          <p>Under <strong>Authorised JavaScript origins</strong> add every address you will open StudentOS from:</p>
+          <div class="code">http://localhost:8000
+https://yourname.github.io
+https://studentos.pages.dev</div>
+          <p class="tiny muted">No client secret is needed. StudentOS uses the browser-only token flow, so there is nothing secret to leak.</p>
+        </li>
+        <li>
+          <h4>Copy the Client ID</h4>
+          <p>It looks like <code>1234567890-abc123.apps.googleusercontent.com</code>. Paste it below.</p>
+        </li>
+      </ol>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label class="label">Firebase config (paste the whole object)</label>
+        <textarea class="textarea" id="cfg-firebase" placeholder='{
+  "apiKey": "AIza...",
+  "authDomain": "studentos.firebaseapp.com",
+  "projectId": "studentos",
+  "storageBucket": "studentos.appspot.com",
+  "messagingSenderId": "1234567890",
+  "appId": "1:1234567890:web:abcdef"
+}' style="min-height:150px;font-family:ui-monospace,monospace;font-size:12px">${escapeHtml(fbJson)}</textarea>
+        <div class="hint">Find it in Firebase Console → Project settings → Your apps → SDK setup and configuration.</div>
+      </div>
+
+      <div class="field">
+        <label class="label">Google OAuth Client ID</label>
+        <input class="input" id="cfg-clientid" placeholder="1234567890-abc123.apps.googleusercontent.com" value="${escapeHtml(cfg.googleClientId || '')}" style="font-family:ui-monospace,monospace;font-size:12px">
+      </div>`,
+    footer: `
+      <button class="btn btn-ghost" data-close>Cancel</button>
+      <button class="btn btn-primary" id="cfg-save">Save &amp; reload</button>`,
+    onMount(el, close){
+      $('#cfg-save', el).addEventListener('click', () => {
+        const raw = $('#cfg-firebase', el).value.trim();
+        const clientId = $('#cfg-clientid', el).value.trim();
+
+        let firebase = null;
+        if (raw){
+          try {
+            const normalised = raw
+              .replace(/^const\s+\w+\s*=\s*/, '')
+              .replace(/;\s*$/, '')
+              .replace(/([{,]\s*)([A-Za-z_$][\w$]*)\s*:/g, '$1"$2":')
+              .replace(/'/g, '"')
+              .replace(/,\s*}/g, '}');
+            firebase = JSON.parse(normalised);
+          } catch (e){
+            try { firebase = JSON.parse(raw); }
+            catch {
+              toast('That Firebase config could not be read. Paste the object exactly as Firebase shows it.', 'error', 'Invalid config');
+              return;
+            }
+          }
+        }
+
+        saveConfig({ firebase, googleClientId: clientId });
+        toast('Configuration saved — reloading StudentOS', 'success');
+        setTimeout(() => location.reload(), 900);
+      });
+    }
+  });
+}
+
+/* ----------------------------------------------------------------
+   SECTION 27 · NOTIFICATIONS UI
+   ---------------------------------------------------------------- */
+function renderNotifDot(){
+  const unread = Store.all('notifications').filter(n => !n.read).length;
+  const dot = $('#notif-dot');
+  if (dot) dot.hidden = unread === 0;
+}
+
+function renderNotifPanel(){
+  const panel = $('#notif-panel');
+  if (!panel) return;
+  const list = [...Store.all('notifications')].sort((a,b) => b.createdAt - a.createdAt).slice(0, 30);
+
+  const icons = { assignment:'📝', due:'⏰', test:'📊', notice:'📢', event:'🎪' };
+
+  panel.innerHTML = `
+    <div class="notif-head">
+      <div class="strong" style="font-size:14px">Notifications</div>
+      ${list.some(n => !n.read) ? `<button class="btn btn-sm btn-ghost" id="notif-clear">Mark all read</button>` : ''}
+    </div>
+    <div class="notif-list">
+      ${list.length ? list.map(n => `
+        <div class="notif-item ${n.read ? '' : 'unread'}" data-notif="${n.id}" data-link="${escapeHtml(n.link || '')}">
+          <div class="notif-ico">${icons[n.kind] || '🔔'}</div>
+          <div class="notif-body">
+            <div class="notif-title">${escapeHtml(n.title)}</div>
+            ${n.body ? `<div class="tiny muted truncate">${escapeHtml(n.body)}</div>` : ''}
+            <div class="notif-meta">${relativeTime(n.createdAt)}</div>
+          </div>
+        </div>`).join('') : `<div class="notif-empty">Nothing yet — new assignments and notices will appear here.</div>`}
+    </div>`;
+
+  const clearBtn = $('#notif-clear', panel);
+  if (clearBtn){
+    clearBtn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      for (const n of Store.all('notifications')){
+        if (!n.read){ n.read = true; await Store.put('notifications', n); }
+      }
+      renderNotifPanel();
+      renderNotifDot();
+    });
+  }
+
+  $$('.notif-item', panel).forEach(item => {
+    item.addEventListener('click', async () => {
+      const id = item.dataset.notif;
+      const n = Store.get('notifications', id);
+      if (n && !n.read){ n.read = true; await Store.put('notifications', n); }
+      panel.hidden = true;
+      $('#notif-btn')?.setAttribute('aria-expanded', 'false');
+      if (item.dataset.link){ location.hash = item.dataset.link; }
+      renderNotifDot();
+    });
+  });
+}
+
+/* ----------------------------------------------------------------
+   SECTION 28 · SEARCH
+   ---------------------------------------------------------------- */
+function runSearch(q){
+  const box = $('#search-results');
+  if (!box) return;
+  q = q.trim().toLowerCase();
+  if (q.length < 2){ box.hidden = true; return; }
+
+  const hits = [];
+  for (const a of Store.all('assignments')){
+    if (`${a.title} ${a.description} ${a.subject}`.toLowerCase().includes(q))
+      hits.push({ icon:'📝', title:a.title, sub:`${a.subject || a.type} · ${dueLabel(a.dueDate).text}`, link:'#/assignments' });
+  }
+  for (const n of Store.all('weeklyNotes')){
+    if (`${n.title} ${n.body}`.toLowerCase().includes(q))
+      hits.push({ icon:'📢', title:n.title, sub:`${n.kind} · ${fmtDate(n.date)}`, link:'#/weekly' });
+  }
+  for (const e of Store.all('events')){
+    if (`${e.title} ${e.description}`.toLowerCase().includes(q))
+      hits.push({ icon:'🎪', title:e.title, sub:`Event · ${fmtDate(e.start)}`, link:'#/calendar' });
+  }
+
+  const top = hits.slice(0, 8);
+  box.innerHTML = top.length
+    ? top.map(h => `
+      <div class="search-item" data-link="${h.link}">
+        <span style="font-size:16px">${h.icon}</span>
+        <div style="min-width:0">
+          <div class="t truncate">${escapeHtml(h.title)}</div>
+          <div class="tiny muted truncate">${escapeHtml(h.sub)}</div>
+        </div>
+      </div>`).join('')
+    : `<div class="search-empty">No matches for "${escapeHtml(q)}"</div>`;
+  box.hidden = false;
+
+  $$('.search-item', box).forEach(item => {
+    item.addEventListener('click', () => {
+      location.hash = item.dataset.link;
+      box.hidden = true;
+      $('#global-search').value = '';
+    });
+  });
+}
+
+/* ----------------------------------------------------------------
+   SECTION 29 · SYNC HANDLERS
+   ---------------------------------------------------------------- */
+async function connectService(key){
+  const cfg = loadConfig();
+  if (!cfg?.googleClientId){
+    toast('Set up your Google OAuth Client ID first.', 'warn', 'Setup required');
+    openSetupModal();
+    return;
+  }
+
+  try {
+    if (key === 'classroom'){
+      toast('Opening Google consent…', 'info');
+      const r = await syncClassroom({ interactive: true });
+      toast(`Imported ${r.added} new and merged ${r.merged} items from ${r.courses} classes`, 'success', 'Classroom connected');
+    } else if (key === 'email'){
+      toast('Opening Google consent…', 'info');
+      const r = await syncEmail({ interactive: true });
+      toast(`Scanned ${r.scanned} emails — ${r.added} new items`, 'success', 'Email connected');
+    }
+    await checkDueSoon();
+    setSyncUI('ok', `Synced ${relativeTime(now())}`);
+    render();
+  } catch (err){
+    console.error(err);
+    toast(err.message || 'Connection failed', 'error', 'Could not connect');
+  }
+}
+
+async function disconnectService(key){
+  const labels = { classroom:'Google Classroom', email:'School email', schoolbridge:'SchoolBridge' };
+  const ok = await confirmDialog(
+    `Disconnect ${labels[key]}?`,
+    'Imported items stay in StudentOS, but no new information will be fetched until you reconnect.',
+    'Disconnect', true
+  );
+  if (!ok) return;
+
+  if (Store.cache.integrations[key]) delete Store.cache.integrations[key];
+  await Store.saveUserDoc();
+  if (key !== 'schoolbridge') GoogleAuth.revoke();
+  toast(`${labels[key]} disconnected`, 'success');
+  render();
+}
+
+async function syncOne(key){
+  const btn = document.querySelector(`[data-sync="${key}"]`);
+  if (btn){ btn.disabled = true; btn.textContent = 'Syncing…'; }
+  try {
+    if (key === 'classroom'){
+      const r = await syncClassroom({ interactive: true });
+      toast(`${r.added} new, ${r.merged} merged`, 'success', 'Classroom synced');
+    } else if (key === 'email'){
+      const r = await syncEmail({ interactive: true });
+      toast(`${r.scanned} emails scanned, ${r.added} new items`, 'success', 'Email synced');
+    } else if (key === 'schoolbridge'){
+      const r = await syncSchoolBridge({ interactive: true });
+      toast(`${r.notices} notices, ${r.events} events`, 'success', 'SchoolBridge synced');
+    }
+    await checkDueSoon();
+    setSyncUI('ok', `Synced ${relativeTime(now())}`);
+  } catch (err){
+    if (err.message === 'NEEDS_CONSENT'){
+      toast('Google needs you to reconnect. Click Connect again.', 'warn');
+      const int = Store.cache.integrations[key];
+      if (int){ int.connected = false; await Store.saveUserDoc(); }
+    } else {
+      toast(err.message, 'error', 'Sync failed');
+      setSyncUI('err', 'Sync error');
+    }
+  } finally {
+    if (btn){ btn.disabled = false; btn.textContent = 'Synchronise now'; }
+    render();
+  }
+}
+
+/* ----------------------------------------------------------------
+   SECTION 30 · AUTH & BOOT
+   ---------------------------------------------------------------- */
+function showAuth(){
+  $('#boot').classList.add('gone');
+  $('#auth-screen').hidden = false;
+  $('#app').hidden = true;
+
+  const cfg = loadConfig();
+  const badge = $('#mode-badge');
+  const live = isFirebaseConfigured(cfg);
+  badge.textContent = live ? '🔒 Connected to your Firebase project' : '⚡ Demo mode — data stays in this browser';
+  badge.classList.toggle('live', live);
+
+  $('#enter-btn').onclick = () => signInGoogle();
+  $('#demo-btn').onclick = () => enterDemoMode();
+  $('#setup-btn').onclick = () => openSetupModal();
+}
+
+function showApp(){
+  $('#boot').classList.add('gone');
+  $('#auth-screen').hidden = true;
+  $('#app').hidden = false;
+
+  const u = App.user || {};
+  const fallback = `https://ui-avatars.com/api/?background=4f46e5&color=fff&bold=true&name=${encodeURIComponent(u.displayName || 'Student')}`;
+  const img = u.photoURL || fallback;
+  for (const id of ['avatar','avatar-lg']){
+    const el = document.getElementById(id);
+    if (el){ el.src = img; el.onerror = () => { el.src = fallback; }; }
+  }
+  const sa = $('#settings-avatar');
+  if (sa) sa.src = img;
+
+  $('#account-name').textContent = u.displayName || 'Student';
+  $('#account-email').textContent = u.email || '';
+}
+
+async function signInGoogle(){
+  const cfg = loadConfig();
+  const errBox = $('#auth-error');
+  errBox.hidden = true;
+
+  if (!FB.ready || !FB.auth){
+    errBox.hidden = false;
+    errBox.textContent = 'Firebase is not configured yet. Click "Connect my own Firebase & Google" below to set it up — it is free. Meanwhile you can use demo mode.';
+    return;
+  }
+
+  try {
+    const provider = new FB.mod.GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+    const result = await FB.mod.signInWithPopup(FB.auth, provider);
+    await onUserSignedIn({
+      uid: result.user.uid,
+      displayName: result.user.displayName,
+      email: result.user.email,
+      photoURL: result.user.photoURL,
+      real: true
+    });
+  } catch (err){
+    console.error(err);
+    errBox.hidden = false;
+    if (err.code === 'auth/popup-blocked'){
+      errBox.textContent = 'Your browser blocked the sign-in popup. Allow popups for this site and try again.';
+    } else if (err.code === 'auth/unauthorized-domain'){
+      errBox.textContent = 'This domain is not authorised in your Firebase project. Add it under Authentication → Settings → Authorized domains.';
+    } else if (err.code === 'auth/operation-not-allowed'){
+      errBox.textContent = 'Google sign-in is not enabled. Turn it on in Firebase → Authentication → Sign-in method.';
+    } else {
+      errBox.textContent = `Sign-in failed: ${err.message}`;
+    }
+  }
+}
+
+async function enterDemoMode(){
+  const session = { uid: 'demo-user', displayName: 'Demo Student', email: 'demo@studentos.local', photoURL: '', real: false };
+  try { localStorage.setItem(LS_SESSION, JSON.stringify(session)); } catch {}
+  await onUserSignedIn(session);
+}
+
+async function onUserSignedIn(user){
+  App.user = user;
+  try { localStorage.setItem(LS_SESSION, JSON.stringify(user)); } catch {}
+
+  await Store.init(user);
+  if (Store.mode === 'firebase') await Store.loadFromFirestore();
+
+  document.documentElement.dataset.theme = Store.cache.settings.theme || 'light';
+
+  GoogleAuth.restore();
+
+  showApp();
+  render();
+  checkDueSoon();
+
+  if (Store.mode === 'local' && !Store.cache.profile.seeded){
+    Store.cache.profile.seeded = true;
+    Store.persist();
+    setTimeout(() => toast('Demo data loaded. Connect real accounts in Integrations whenever you like.', 'info', 'Welcome to StudentOS'), 900);
+  }
+}
+
+async function signOut(){
+  if (FB.auth){
+    try { await FB.mod.signOut(FB.auth); } catch {}
+  }
+  GoogleAuth.revoke();
+  try { localStorage.removeItem(LS_SESSION); } catch {}
+  App.user = null;
+  Store.uid = null;
+  Store.cache = null;
+  location.hash = '';
+  location.reload();
+}
+
+/* ----------------------------------------------------------------
+   SECTION 31 · DEMO SEED DATA
+   ---------------------------------------------------------------- */
+function seedDemoData(){
+  const d = emptyData();
+  const day = 86400000;
+  const today = startOfDay();
+
+  d.courses = [
+    { id:'c1', name:'Maths',     section:'10A', room:'M12' },
+    { id:'c2', name:'Science',   section:'10A', room:'S3'  },
+    { id:'c3', name:'English',   section:'10B', room:'E7'  },
+    { id:'c4', name:'History',   section:'10A', room:'H2'  }
+  ];
+
+  d.assignments = [
+    {
+      id:'a1', title:'Chapter 5 questions', description:'Complete questions 1–12 on quadratic equations, pages 84–86. Show all working.',
+      type:'Homework', subject:'Maths', dueDate: today + day, source:'Google Classroom',
+      url:'https://classroom.google.com/', sources:[{ source:'Google Classroom', url:'https://classroom.google.com/' }],
+      completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*2
+    },
+    {
+      id:'a2', title:'Science test — chapters 4 to 6', description:'Unit test covering ecosystems, food chains and energy transfer. Revision sheets are on Classroom.',
+      type:'Test', subject:'Science', dueDate: today + day*3, source:'Google Classroom',
+      url:'https://classroom.google.com/', sources:[
+        { source:'Google Classroom', url:'https://classroom.google.com/' },
+        { source:'Email', url:'https://mail.google.com/' }
+      ],
+      completed:false, manual:false, priority:'urgent', mergedCount:2, createdAt: now() - day*3
+    },
+    {
+      id:'a3', title:'Read chapters 3–4 of the novel', description:'Annotate key themes as you read. Bring your notes to Thursday\'s lesson.',
+      type:'Homework', subject:'English', dueDate: today + day*5, source:'Google Classroom',
+      url:'https://classroom.google.com/', sources:[{ source:'Google Classroom', url:'https://classroom.google.com/' }],
+      completed:false, manual:false, priority:'medium', mergedCount:1, createdAt: now() - day
+    },
+    {
+      id:'a4', title:'World War I research project', description:'1500-word research project on a chosen aspect of WWI. Include at least five sources and a bibliography.',
+      type:'Project', subject:'History', dueDate: today + day*9, source:'Google Classroom',
+      url:'https://classroom.google.com/', sources:[{ source:'Google Classroom', url:'https://classroom.google.com/' }],
+      completed:false, manual:false, priority:'medium', mergedCount:1, createdAt: now() - day*4
+    },
+    {
+      id:'a5', title:'Trigonometry worksheet', description:'Complete the sine and cosine rule practice sheet.',
+      type:'Assignment', subject:'Maths', dueDate: today - day, source:'Google Classroom',
+      url:'https://classroom.google.com/', sources:[{ source:'Google Classroom', url:'https://classroom.google.com/' }],
+      completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*6
+    },
+    {
+      id:'a6', title:'Chemical reactions lab report', description:'Write up the results from Tuesday\'s experiment.',
+      type:'Assignment', subject:'Science', dueDate: today - day*3, source:'Google Classroom',
+      url:'https://classroom.google.com/', sources:[{ source:'Google Classroom', url:'https://classroom.google.com/' }],
+      completed:true, manual:false, priority:'low', mergedCount:1, createdAt: now() - day*9, completedAt: now() - day*3
+    },
+    {
+      id:'a7', title:'Poetry analysis essay', description:'Analyse the use of imagery in two poems studied this term.',
+      type:'Assignment', subject:'English', dueDate: today + day*12, source:'Manual',
+      url:'', sources:[{ source:'Manual', url:'' }],
+      completed:false, manual:true, priority:'low', mergedCount:1, createdAt: now() - day*2
+    }
+  ];
+
+  d.events = [
+    { id:'e1', title:'Whole school assembly', description:'Sports awards and term overview.', start: today + day*1 + 9*3600000, source:'SchoolBridge', manual:false, createdAt: now() - day*2 },
+    { id:'e2', title:'Mufti day — gold coin donation', description:'Fundraiser for the local shelter.', start: today + day*4, source:'SchoolBridge', manual:false, createdAt: now() - day*2 },
+    { id:'e3', title:'Parent-teacher interviews', description:'Bookings open next week.', start: today + day*11, source:'Email', manual:false, createdAt: now() - day }
+  ];
+
+  const mkNote = (id, title, body, kind, daysAgo, source, extra = {}) => {
+    const date = today + daysAgo * day;
+    const wk = isoWeekKey(date);
+    return {
+      id, title, body, date, kind, source,
+      weekKey: wk.key, weekNumber: wk.week, weekYear: wk.year,
+      url:'', read:false, important:false, saved:false, createdAt: now() - Math.abs(daysAgo)*day, ...extra
+    };
+  };
+
+  d.weeklyNotes = [
+    mkNote('n1','Assembly Tuesday — sports awards','Whole school assembly in the hall at 9am. Sports team awards will be presented.','School Notice', 1, 'SchoolBridge'),
+    mkNote('n2','Mufti Day Friday','Bring a gold coin donation. All proceeds go to the local animal shelter.','School Notice', 4, 'SchoolBridge'),
+    mkNote('n3','Maths test — Friday','Reminder that the Maths unit test is this Friday. Revise chapters 4–6.','Notice', 3, 'Email', { important:true }),
+    mkNote('n4','Sports registrations close Friday','Final chance to register for winter sports. See the notice board outside the gym.','School Notice', 4, 'SchoolBridge'),
+    mkNote('n5','School newsletter — Term 3 Week 8','Principal\'s message, upcoming events, sports results and the new canteen menu are all inside this week\'s newsletter.','Notice', 2, 'Email'),
+    mkNote('n6','Library book returns','All library books are due back before the end of term.','Notice', 5, 'SchoolBridge'),
+    mkNote('n7','Science test Wednesday 23 September','Your Science test will be on Wednesday 23 September. Revise chapters 4–6.','Notice', 3, 'Email', { important:true }),
+    mkNote('n8','Term 3 Week 7 notices','Week 7 notices including the upcoming athletics carnival and class photo schedule.','Notice', 8, 'SchoolBridge')
+  ];
+
+  d.notifications = [
+    { id:'nt1', kind:'test', title:'New test: Science test — chapters 4 to 6', body:'On Wednesday · Science', link:'#/assignments', read:false, dedupeKey:'test:a2', createdAt: now() - 3600000 },
+    { id:'nt2', kind:'assignment', title:'New homework: Chapter 5 questions', body:'Due tomorrow · Maths', link:'#/assignments', read:false, dedupeKey:'new:a1', createdAt: now() - 7200000 },
+    { id:'nt3', kind:'notice', title:'New notice: Mufti Day Friday', body:'Bring a gold coin donation.', link:'#/weekly', read:false, dedupeKey:'note:n2', createdAt: now() - 10800000 },
+    { id:'nt4', kind:'due', title:'Trigonometry worksheet is overdue', body:'Maths · Assignment', link:'#/assignments', read:true, dedupeKey:'due:a5', createdAt: now() - 86400000 }
+  ];
+
+  d.integrations = {
+    classroom: { id:'classroom', connected:true, lastSync: now() - 300000, imported: 6, courses: 4, demo:true },
+    email:     { id:'email', connected:true, lastSync: now() - 300000, imported: 3, scanned: 12, notices: 3, demo:true },
+    schoolbridge:{ id:'schoolbridge', connected:true, lastSync: now() - 600000, imported: 8, mode:'export', demo:true }
+  };
+
+  d.settings.timetable = [
+    { day:1, start:'09:00', end:'10:00', subject:'Maths',   room:'M12' },
+    { day:1, start:'10:05', end:'11:05', subject:'English', room:'E7'  },
+    { day:1, start:'11:25', end:'12:25', subject:'Science', room:'S3'  },
+    { day:1, start:'13:15', end:'14:15', subject:'History', room:'H2'  },
+    { day:2, start:'09:00', end:'10:00', subject:'Science', room:'S3'  },
+    { day:2, start:'10:05', end:'11:05', subject:'Maths',   room:'M12' },
+    { day:2, start:'13:15', end:'14:15', subject:'PE',      room:'Gym' },
+    { day:3, start:'09:00', end:'10:00', subject:'English', room:'E7'  },
+    { day:3, start:'10:05', end:'11:05', subject:'History', room:'H2'  },
+    { day:3, start:'11:25', end:'12:25', subject:'Maths',   room:'M12' },
+    { day:4, start:'09:00', end:'10:00', subject:'Maths',   room:'M12' },
+    { day:4, start:'10:05', end:'11:05', subject:'Science', room:'S3'  },
+    { day:4, start:'13:15', end:'14:15', subject:'Art',     room:'A1'  },
+    { day:5, start:'09:00', end:'10:00', subject:'English', room:'E7'  },
+    { day:5, start:'10:05', end:'11:05', subject:'Maths',   room:'M12' },
+    { day:5, start:'11:25', end:'12:25', subject:'Science', room:'S3'  }
+  ];
+
+  d.profile = { seeded:true };
+  return d;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 32 · GLOBAL UI WIRING
+   ---------------------------------------------------------------- */
+function wireGlobalUI(){
+  $('#menu-btn')?.addEventListener('click', () => {
+    const sb = $('#sidebar');
+    const open = sb.classList.toggle('open');
+    $('#scrim').hidden = !open;
+    $('#menu-btn').setAttribute('aria-expanded', String(open));
+  });
+  $('#scrim')?.addEventListener('click', () => {
+    $('#sidebar').classList.remove('open');
+    $('#scrim').hidden = true;
+  });
+
+  const closeAllDropdowns = () => {
+    $('#notif-panel').hidden = true;
+    $('#account-panel').hidden = true;
+    $('#search-results')?.setAttribute('hidden', '');
+    $('#notif-btn')?.setAttribute('aria-expanded', 'false');
+    $('#account-btn')?.setAttribute('aria-expanded', 'false');
+  };
+
+  $('#notif-btn')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const panel = $('#notif-panel');
+    const willOpen = panel.hidden;
+    closeAllDropdowns();
+    if (willOpen){
+      panel.hidden = false;
+      $('#notif-btn').setAttribute('aria-expanded', 'true');
+      renderNotifPanel();
+    }
+  });
+
+  $('#account-btn')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const panel = $('#account-panel');
+    const willOpen = panel.hidden;
+    closeAllDropdowns();
+    if (willOpen){
+      panel.hidden = false;
+      $('#account-btn').setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dropdown') && !e.target.closest('.topbar-search')) closeAllDropdowns();
+  });
+
+  $$('#account-panel [data-nav]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      location.hash = btn.dataset.nav;
+      closeAllDropdowns();
+    });
+  });
+
+  $('#signout-btn')?.addEventListener('click', signOut);
+
+  $('#sync-btn')?.addEventListener('click', () => {
+    const integrations = Store.cache.integrations;
+    const anyConnected = Object.values(integrations).some(i => i.connected);
+    if (!anyConnected){
+      toast('Connect a service first — open Integrations.', 'warn', 'Nothing to sync');
+      location.hash = '#/integrations';
+      return;
+    }
+    syncAll({ interactive: true });
+  });
+
+  const searchInput = $('#global-search');
+  searchInput?.addEventListener('input', (e) => runSearch(e.target.value));
+  searchInput?.addEventListener('focus', (e) => { if (e.target.value.length > 1) runSearch(e.target.value); });
+
+  window.addEventListener('hashchange', () => { render(); window.scrollTo({ top:0, behavior:'smooth' }); });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA'){
+      e.preventDefault();
+      searchInput?.focus();
+    }
+  });
+
+  $('#view')?.addEventListener('click', (e) => {
+    const connect = e.target.closest('[data-connect]');
+    if (connect){ connectService(connect.dataset.connect); return; }
+    const disco = e.target.closest('[data-disconnect]');
+    if (disco){ disconnectService(disco.dataset.disconnect); return; }
+    const sync = e.target.closest('[data-sync]');
+    if (sync){ syncOne(sync.dataset.sync); return; }
+  });
+
+  setTimeout(() => {
+    const integrations = Store.cache?.integrations || {};
+    const hasReal = Object.values(integrations).some(i => i.connected && !i.demo);
+    if (hasReal && GoogleAuth.accessToken){
+      syncAll({ interactive: false, silent: true });
+    }
+  }, 2500);
+}
+
+/* ----------------------------------------------------------------
+   SECTION 33 · BOOTSTRAP
+   ---------------------------------------------------------------- */
+async function boot(){
+  const bootEl = $('#boot');
+
+  const safety = setTimeout(() => {
+    if (!bootEl.classList.contains('gone')){
+      console.warn('StudentOS boot timed out — showing auth screen.');
+      showAuth();
+    }
+  }, 6000);
+
+  try {
+    const cfg = loadConfig();
+
+    if (isFirebaseConfigured(cfg)){
+      try {
+        await initFirebase(cfg);
+      } catch (err){
+        console.error('Firebase init failed:', err);
+        toast('Firebase could not start. Running in local mode instead.', 'error', 'Configuration problem');
+        FB.ready = false;
+      }
+    }
+
+    clearTimeout(safety);
+
+    if (FB.ready && FB.auth){
+      FB.mod.onAuthStateChanged(FB.auth, async (user) => {
+        if (user){
+          await onUserSignedIn({
+            uid: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            real: true
+          });
+        } else {
+          const raw = localStorage.getItem(LS_SESSION);
+          if (raw){
+            try {
+              const cached = JSON.parse(raw);
+              if (!cached.real) await onUserSignedIn(cached);
+              else showAuth();
+            } catch { showAuth(); }
+          } else {
+            showAuth();
+          }
+        }
+      });
+    } else {
+      const raw = localStorage.getItem(LS_SESSION);
+      if (raw){
+        try {
+          const cached = JSON.parse(raw);
+          await onUserSignedIn(cached);
+        } catch { showAuth(); }
+      } else {
+        showAuth();
+      }
+    }
+
+    wireGlobalUI();
+  } catch (err){
+    clearTimeout(safety);
+    console.error('Boot error:', err);
+    bootEl.innerHTML = `
+      <div class="boot-mark" style="background:var(--red-500);animation:none">!</div>
+      <div class="boot-text">StudentOS could not start</div>
+      <div style="max-width:520px;text-align:left;color:var(--text-2);font-size:13px;line-height:1.7;padding:0 24px">
+        <p style="margin-bottom:10px"><strong>${escapeHtml(err.message || 'Unknown error')}</strong></p>
+        <p>Common fixes:</p>
+        <p>• Your Firebase config has a typo.</p>
+        <p>• Your Google OAuth Client ID is wrong or the origin is not authorised.</p>
+        <p>• You are offline.</p>
+        <p style="margin-top:14px"><button class="btn btn-primary btn-sm" onclick="localStorage.removeItem('studentos.config.v1');location.reload()">Reset configuration &amp; reload</button></p>
+      </div>`;
+  }
+}
+
+boot();
+
+window.StudentOS = {
+  version: '1.0.0',
+  get state(){ return Store.cache; },
+  get config(){ return loadConfig(); },
+  syncAll,
+  clearConfig,
+  exportData
+};
+</script>
+</body>
+</html>
