@@ -1219,7 +1219,8 @@ async function syncCalendarSubscriptions(){
   const errors = [];
   for (const sub of subs){
     try {
-      const r = await fetch(sub.url, { redirect: 'follow' });
+      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(sub.url)}`; 
+      const r = await fetch(proxyUrl, { redirect: 'follow' });
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const text = await r.text();
       const events = parseICS(text);
