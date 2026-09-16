@@ -34,6 +34,7 @@
   --bg:var(--gray-50);
   --surface:#ffffff;
   --surface-2:var(--gray-25);
+  --surface-3:#f1f3f9;
   --border:var(--gray-200);
   --border-strong:var(--gray-300);
   --text:var(--gray-900);
@@ -61,6 +62,7 @@
   --bg:#0b1020;
   --surface:#141a2e;
   --surface-2:#1a2138;
+  --surface-3:#232941;
   --border:#262e47;
   --border-strong:#33405e;
   --text:#eef2ff;
@@ -293,6 +295,22 @@ img{max-width:100%;display:block}
 }
 .auth-mode-badge.live{background:var(--green-50);color:var(--green-600)}
 
+/* Auth tabs */
+.auth-tabs{
+  display:flex;background:var(--gray-100);border-radius:10px;padding:3px;gap:2px;margin-bottom:22px;
+}
+[data-theme="dark"] .auth-tabs{background:var(--surface-2)}
+.auth-tab{
+  flex:1;padding:8px 12px;border-radius:7px;font-size:13.5px;font-weight:600;
+  color:var(--text-2);transition:.14s;
+}
+.auth-tab:hover{color:var(--text)}
+.auth-tab.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow-xs)}
+[data-theme="dark"] .auth-tab.on{background:var(--surface-3)}
+
+#email-form .field{margin-bottom:14px}
+#email-submit-btn{margin-top:6px;height:42px}
+
 /* ============================================================
    10. APP SHELL
    ============================================================ */
@@ -345,7 +363,6 @@ img{max-width:100%;display:block}
 .account-meta{min-width:0}
 .account-meta .small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:190px}
 
-/* Notifications panel */
 .notif-panel{width:360px;max-width:calc(100vw - 24px);padding:0;overflow:hidden}
 .notif-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .notif-list{max-height:400px;overflow:auto}
@@ -360,7 +377,6 @@ img{max-width:100%;display:block}
 .notif-meta{font-size:11.5px;color:var(--text-3)}
 .notif-empty{padding:40px 20px;text-align:center;color:var(--text-3);font-size:13px}
 
-/* Layout */
 .layout{display:flex;flex:1;min-height:0}
 .sidebar{
   width:var(--sidebar-w);flex:none;position:sticky;top:var(--topbar-h);
@@ -427,7 +443,7 @@ img{max-width:100%;display:block}
 @media(max-width:1080px){.cols-main{grid-template-columns:1fr}}
 
 /* ============================================================
-   12. LIST ITEMS (assignments, notices, tasks)
+   12. LIST ITEMS
    ============================================================ */
 .item{
   display:flex;gap:13px;padding:14px 18px;border-bottom:1px solid var(--border);
@@ -727,8 +743,40 @@ code{
   <main class="auth-panel">
     <div class="auth-card">
       <div id="mode-badge" class="auth-mode-badge">⚡ Demo mode — data stays in this browser</div>
-      <h2 class="auth-title">Welcome</h2>
-      <p class="auth-lead">Open your dashboard to get started.</p>
+      <h2 class="auth-title" id="auth-heading">Welcome back</h2>
+      <p class="auth-lead" id="auth-subheading">Sign in to open your dashboard.</p>
+
+      <div class="auth-tabs" role="tablist">
+        <button type="button" class="auth-tab on" id="tab-signin" role="tab" aria-selected="true">Sign in</button>
+        <button type="button" class="auth-tab" id="tab-signup" role="tab" aria-selected="false">Create account</button>
+      </div>
+
+      <form id="email-form" novalidate autocomplete="on">
+        <div class="field" id="name-field" hidden>
+          <label class="label" for="auth-name">Your name</label>
+          <input class="input" type="text" id="auth-name" placeholder="Alex Smith" autocomplete="name">
+        </div>
+        <div class="field">
+          <label class="label" for="auth-email">Email</label>
+          <input class="input" type="email" id="auth-email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label class="label" for="auth-password">Password</label>
+          <input class="input" type="password" id="auth-password" placeholder="At least 6 characters" autocomplete="current-password" required minlength="6">
+          <div class="hint" id="password-hint" hidden>Choose a password with at least 6 characters.</div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="email-submit-btn">
+          <span id="email-submit-label">Sign in</span>
+          <span class="sync-spinner" id="email-spinner" hidden style="border-color:rgba(255,255,255,.35);border-top-color:#fff"></span>
+        </button>
+        <button type="button" class="btn btn-ghost btn-sm btn-block" id="forgot-btn" style="margin-top:8px">
+          Forgot password?
+        </button>
+      </form>
+
+      <div id="auth-error" class="alert alert-error" style="margin-top:14px" hidden></div>
+
+      <div class="auth-divider"><span>or continue with</span></div>
 
       <button id="enter-btn" class="btn btn-google btn-block">
         <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
@@ -740,12 +788,10 @@ code{
         Continue with Google
       </button>
 
-      <div id="auth-error" class="alert alert-error" style="margin-top:14px" hidden></div>
-
       <div class="auth-divider"><span>or</span></div>
 
       <button class="btn btn-ghost btn-block" id="demo-btn">Explore demo mode</button>
-      <button class="btn btn-subtle btn-block" id="setup-btn" style="margin-top:9px">⚙️ Connect my own Firebase &amp; Google</button>
+      <button class="btn btn-subtle btn-block" id="setup-btn" style="margin-top:9px">⚙️ Add Google Classroom &amp; Gmail access</button>
 
       <p class="auth-fineprint">
         StudentOS can read your Google Classroom coursework and (optionally) school email to build your dashboard.
@@ -837,7 +883,6 @@ code{
 <script type="module">
 /* ================================================================
    STUDENTOS — single-file application
-   Everything below runs in the browser. No build step, no server.
    ================================================================ */
 
 /* ----------------------------------------------------------------
@@ -847,8 +892,9 @@ const LS_CONFIG = 'studentos.config.v1';
 const LS_SESSION = 'studentos.session.v1';
 const LS_DATA = uid => `studentos.data.${uid}.v1`;
 
-// Your Firebase project. The API key is a public project identifier, not a
-// secret — real security comes from Firestore Rules + authorised domains.
+// Shared Firebase project. Every user connects here automatically.
+// The API key is a public project identifier, not a secret — real
+// security comes from Firestore Rules + authorised domains.
 const DEFAULT_CONFIG = {
   firebase: {
     apiKey: "AIzaSyAWJ3DfVG0_4qtkbfx5Y6XVMQMKUdUxqWw",
@@ -858,7 +904,8 @@ const DEFAULT_CONFIG = {
     messagingSenderId: "499752363180",
     appId: "1:499752363180:web:0ac024f9e242caac4cab09"
   },
-  // Paste your OAuth Client ID here later to enable Classroom + Gmail sync.
+  // Optional: paste your Google OAuth Client ID here to enable
+  // Classroom + Gmail sync for all users who open this file.
   googleClientId: ""
 };
 
@@ -904,7 +951,6 @@ function escapeHtml(s){
   return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-/** Strip any HTML/script content from imported data before storing or rendering. */
 function sanitiseText(input, maxLen = 4000){
   if (!input) return '';
   let s = String(input);
@@ -969,7 +1015,7 @@ function sameDay(a, b){ return startOfDay(new Date(a)) === startOfDay(new Date(b
 function monthMatrix(year, month){
   const first = new Date(year, month, 1);
   const start = new Date(first);
-  start.setDate(1 - ((first.getDay() + 6) % 7)); // Monday-first
+  start.setDate(1 - ((first.getDay() + 6) % 7));
   const cells = [];
   for (let i = 0; i < 42; i++){
     const d = new Date(start); d.setDate(start.getDate() + i);
@@ -1027,7 +1073,7 @@ function openModal({ title, subtitle = '', body, footer = '', wide = false, onMo
 
 function confirmDialog(title, message, confirmLabel = 'Confirm', danger = false){
   return new Promise(resolve => {
-    const { close } = openModal({
+    openModal({
       title,
       body: `<p style="font-size:14px;line-height:1.65;color:var(--text-2)">${escapeHtml(message)}</p>`,
       footer: `
@@ -1045,14 +1091,23 @@ function confirmDialog(title, message, confirmLabel = 'Confirm', danger = false)
    SECTION 4 · CONFIG STORAGE
    ---------------------------------------------------------------- */
 function loadConfig(){
+  let stored = null;
   try {
     const raw = localStorage.getItem(LS_CONFIG);
-    if (raw) return JSON.parse(raw);
+    if (raw) stored = JSON.parse(raw);
   } catch {}
-  return DEFAULT_CONFIG;
+  // Always merge with DEFAULT_CONFIG. Every user shares the same
+  // Firebase project — only the OAuth Client ID is per-browser.
+  return {
+    firebase: (stored && stored.firebase) || DEFAULT_CONFIG.firebase,
+    googleClientId: (stored && stored.googleClientId) || DEFAULT_CONFIG.googleClientId
+  };
 }
 function saveConfig(cfg){
-  localStorage.setItem(LS_CONFIG, JSON.stringify(cfg));
+  localStorage.setItem(LS_CONFIG, JSON.stringify({
+    firebase: DEFAULT_CONFIG.firebase,
+    googleClientId: cfg.googleClientId || ""
+  }));
 }
 function clearConfig(){
   localStorage.removeItem(LS_CONFIG);
@@ -1062,7 +1117,7 @@ function isFirebaseConfigured(cfg){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 5 · FIREBASE LAYER (loaded only when configured)
+   SECTION 5 · FIREBASE LAYER
    ---------------------------------------------------------------- */
 const FB = {
   ready: false, app: null, auth: null, db: null, mod: {},
@@ -1087,11 +1142,11 @@ async function initFirebase(cfg){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 6 · DATA STORE (localStorage OR Firestore, same API)
+   SECTION 6 · DATA STORE
    ---------------------------------------------------------------- */
 const Store = {
   uid: null,
-  mode: 'local',   // 'local' | 'firebase'
+  mode: 'local',
   cache: null,
   _saveTimer: null,
 
@@ -1101,7 +1156,7 @@ const Store = {
     if (this.mode === 'local'){
       const raw = localStorage.getItem(LS_DATA(this.uid));
       this.cache = raw ? JSON.parse(raw) : emptyData();
-      if (!raw) this.cache = seedDemoData();
+      if (!raw && user.uid === 'demo-user') this.cache = seedDemoData();
       this.persistNow();
     } else {
       this.cache = emptyData();
@@ -1231,7 +1286,7 @@ function emptyData(){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 7 · CLASSIFIER (the "brain")
+   SECTION 7 · CLASSIFIER
    ---------------------------------------------------------------- */
 function detectType(text){
   const t = text.toLowerCase();
@@ -1555,7 +1610,7 @@ async function checkDueSoon(){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 10 · GOOGLE OAUTH (client-side token flow, no secret)
+   SECTION 10 · GOOGLE OAUTH
    ---------------------------------------------------------------- */
 const GoogleAuth = {
   tokenClient: null,
@@ -1838,7 +1893,6 @@ function base64UrlDecode(data){
    SECTION 13 · SCHOOLBRIDGE
    ---------------------------------------------------------------- */
 async function syncSchoolBridge({ interactive = true } = {}){
-  const cfg = loadConfig();
   const sb = Store.cache.integrations.schoolbridge || {};
 
   if (!sb.endpoint){
@@ -2767,7 +2821,7 @@ function viewIntegrations(){
   const hasClientId = !!cfg?.googleClientId;
 
   const card = (opts) => {
-    const { key, logo, name, desc, connected, lastSync, imported, extra = '', actions, warning } = opts;
+    const { logo, name, desc, connected, lastSync, imported, extra = '', actions, warning } = opts;
     return `
     <section class="card card-pad int-card">
       <div class="int-logo">${logo}</div>
@@ -2800,14 +2854,13 @@ function viewIntegrations(){
     <span>⚠️</span>
     <div>
       <strong>Google OAuth Client ID not configured.</strong>
-      Classroom and Email need your own free Google OAuth client. Open
+      Classroom and Email need a free Google OAuth client. Open
       <a href="#/settings">Settings</a> and follow the setup guide — it takes about 5 minutes and costs nothing.
     </div>
   </div>` : ''}
 
   <div class="stack">
     ${card({
-      key: 'classroom',
       logo: '🎓',
       name: 'Google Classroom',
       desc: 'Imports your active classes, coursework, due dates, topics and teacher announcements.',
@@ -2822,7 +2875,6 @@ function viewIntegrations(){
     })}
 
     ${card({
-      key: 'email',
       logo: '✉️',
       name: 'School email (Gmail)',
       desc: 'Scans only emails from your trusted school domains for homework, tests, notices and reminders. Personal email is ignored.',
@@ -2838,7 +2890,6 @@ function viewIntegrations(){
     })}
 
     ${card({
-      key: 'schoolbridge',
       logo: '🌉',
       name: 'SchoolBridge',
       desc: 'Weekly notices, timetable and events from your school portal.',
@@ -2904,7 +2955,7 @@ function viewSettings(){
             <div class="set-name">Storage mode</div>
             <div class="set-desc">${Store.mode === 'firebase'
               ? 'Firebase Firestore — your data syncs across devices and is protected by security rules.'
-              : 'Local browser storage — data stays on this device only. Add Firebase config to sync across devices.'}</div>
+              : 'Local browser storage — data stays on this device only.'}</div>
           </div>
           <div class="set-control"><span class="chip ${Store.mode === 'firebase' ? 'chip-green' : 'chip-amber'}">${Store.mode === 'firebase' ? 'Cloud' : 'Local'}</span></div>
         </div>
@@ -2963,9 +3014,9 @@ function viewSettings(){
         <div class="set-row">
           <div class="set-info">
             <div class="set-name">Firebase project</div>
-            <div class="set-desc">${fb.projectId ? `Project: <code>${escapeHtml(fb.projectId)}</code>` : 'Not configured — running in local browser mode.'}</div>
+            <div class="set-desc">Shared project: <code>${escapeHtml(fb.projectId || 'not configured')}</code></div>
           </div>
-          <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="open-setup">${fb.projectId ? 'Change' : 'Set up'}</button></div>
+          <div class="set-control"><span class="chip chip-green">Shared</span></div>
         </div>
         <div class="set-row">
           <div class="set-info">
@@ -2996,8 +3047,8 @@ function viewSettings(){
         </div>
         <div class="set-row">
           <div class="set-info">
-            <div class="set-name">Reset configuration</div>
-            <div class="set-desc">Clears your Firebase and Google OAuth settings from this browser.</div>
+            <div class="set-name">Reset Google access settings</div>
+            <div class="set-desc">Clears the OAuth Client ID from this browser. Your data stays.</div>
           </div>
           <div class="set-control"><button class="btn btn-danger-soft btn-sm" data-action="reset-config">Reset</button></div>
         </div>
@@ -3045,7 +3096,10 @@ function notifRow(key, name, desc){
 /* ----------------------------------------------------------------
    SECTION 24 · VIEW EVENT BINDING
    ---------------------------------------------------------------- */
+let viewBound = false;
 function bindViewEvents(){
+  if (viewBound) return;
+  viewBound = true;
   const view = $('#view');
 
   view.addEventListener('click', async (e) => {
@@ -3174,9 +3228,9 @@ function bindViewEvents(){
         break;
       }
       case 'reset-config': {
-        if (await confirmDialog('Reset configuration?', 'Your Firebase and Google OAuth settings will be removed from this browser. Your data will remain.', 'Reset', true)){
+        if (await confirmDialog('Reset Google access settings?', 'The OAuth Client ID will be removed from this browser. Your data stays and Firebase keeps working.', 'Reset', true)){
           clearConfig();
-          toast('Configuration reset — reloading', 'success');
+          toast('Google access settings reset — reloading', 'success');
           setTimeout(() => location.reload(), 800);
         }
         break;
@@ -3468,9 +3522,7 @@ function openRulesModal(){
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Every user can only read and write their own subtree.
     match /users/{userId} {
-
       allow read, write: if request.auth != null
                          && request.auth.uid == userId;
 
@@ -3480,7 +3532,6 @@ service cloud.firestore {
       }
     }
 
-    // Everything else is denied by default.
     match /{document=**} {
       allow read, write: if false;
     }
@@ -3517,51 +3568,23 @@ service cloud.firestore {
    ---------------------------------------------------------------- */
 function openSetupModal(){
   const cfg = loadConfig() || {};
-  const fbJson = cfg.firebase ? JSON.stringify(cfg.firebase, null, 2) : '';
+  const fbJson = JSON.stringify(DEFAULT_CONFIG.firebase, null, 2);
 
   openModal({
-    title: 'Connect StudentOS to your own free accounts',
-    subtitle: 'Everything here is free. Takes about 10 minutes.',
+    title: 'Add Google Classroom & Gmail access',
+    subtitle: 'Optional. Takes about 5 minutes and costs nothing.',
     wide: true,
     body: `
       <div class="alert alert-info" style="margin-bottom:20px">
         <span>💡</span>
-        <div>StudentOS runs entirely in your browser. You create your own free Firebase project and Google OAuth client, so <strong>you</strong> own the data and there is nothing to pay for.</div>
+        <div>Your Firebase project is <strong>already shared</strong> — every user connects automatically. This step only adds Google Classroom and Gmail sync, which needs a Google Cloud OAuth Client ID.</div>
       </div>
 
-      <h3 style="font-size:16px;margin-bottom:14px">Part A — Firebase (authentication + database)</h3>
-      <ol class="steps">
-        <li>
-          <h4>Create a Firebase project</h4>
-          <p>Go to <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a>, click <strong>Add project</strong>, give it a name like <code>studentos</code>, and disable Google Analytics (you don't need it).</p>
-        </li>
-        <li>
-          <h4>Add a web app</h4>
-          <p>In the project overview click the <strong>&lt;/&gt;</strong> icon. Register the app with any nickname. Firebase shows a <code>firebaseConfig</code> object — copy it.</p>
-        </li>
-        <li>
-          <h4>Enable Google sign-in</h4>
-          <p>Go to <strong>Build → Authentication → Get started</strong>. Under <strong>Sign-in method</strong> enable <strong>Google</strong>, choose a support email, and save.</p>
-        </li>
-        <li>
-          <h4>Create the Firestore database</h4>
-          <p>Go to <strong>Build → Firestore Database → Create database</strong>. Choose <strong>Production mode</strong> and any nearby region.</p>
-        </li>
-        <li>
-          <h4>Paste the security rules</h4>
-          <p>Open the <strong>Rules</strong> tab and replace everything with the rules shown in Settings → <em>View rules</em>. Click <strong>Publish</strong>. This ensures only you can read your own data.</p>
-        </li>
-        <li>
-          <h4>Paste your config below</h4>
-          <p>Copy the <code>firebaseConfig</code> object from step 2 into the box further down this dialog.</p>
-        </li>
-      </ol>
-
-      <h3 style="font-size:16px;margin:26px 0 14px">Part B — Google OAuth (Classroom + Gmail)</h3>
+      <h3 style="font-size:16px;margin-bottom:14px">Get your own OAuth Client ID</h3>
       <ol class="steps">
         <li>
           <h4>Open Google Cloud Console</h4>
-          <p>Go to <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a> and select the project Firebase just created (it appears in the project picker).</p>
+          <p>Go to <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a> and pick the <strong>student-os-fb</strong> project from the project picker at the top.</p>
         </li>
         <li>
           <h4>Enable the APIs</h4>
@@ -3570,17 +3593,18 @@ function openSetupModal(){
         </li>
         <li>
           <h4>Configure the consent screen</h4>
-          <p>Go to <strong>APIs &amp; Services → OAuth consent screen</strong>. Choose <strong>External</strong>, fill in an app name (<code>StudentOS</code>) and your email. Under <strong>Audience</strong> leave it in <strong>Testing</strong> and add your own Google account as a <strong>Test user</strong>.</p>
-          <p class="tiny muted">Testing mode is free and works immediately for your own account. Publishing publicly would require Google verification because Gmail access is a restricted scope — you do not need that for personal use.</p>
+          <p>Go to <strong>APIs &amp; Services → OAuth consent screen</strong>. Choose <strong>External</strong>, name the app <code>StudentOS</code>, and add your email. Under <strong>Audience</strong> leave it in <strong>Testing</strong> and add your own Google account as a <strong>Test user</strong>.</p>
+          <p class="tiny muted">Testing mode is free and works immediately for your account. Publishing publicly would require Google verification because Gmail access is a restricted scope — you don't need that for personal use.</p>
         </li>
         <li>
           <h4>Create the OAuth Client ID</h4>
           <p>Go to <strong>APIs &amp; Services → Credentials → Create credentials → OAuth client ID</strong>. Application type: <strong>Web application</strong>.</p>
-          <p>Under <strong>Authorised JavaScript origins</strong> add every address you will open StudentOS from:</p>
+          <p>Under <strong>Authorised JavaScript origins</strong> add every address you open StudentOS from:</p>
           <div class="code">http://localhost:8000
+http://127.0.0.1:8000
 https://yourname.github.io
-https://studentos.pages.dev</div>
-          <p class="tiny muted">No client secret is needed. StudentOS uses the browser-only token flow, so there is nothing secret to leak.</p>
+https://your-project.pages.dev</div>
+          <p class="tiny muted">No client secret is needed. StudentOS uses the browser-only token flow.</p>
         </li>
         <li>
           <h4>Copy the Client ID</h4>
@@ -3591,51 +3615,29 @@ https://studentos.pages.dev</div>
       <div class="divider"></div>
 
       <div class="field">
-        <label class="label">Firebase config (paste the whole object)</label>
-        <textarea class="textarea" id="cfg-firebase" placeholder='{
-  "apiKey": "AIza...",
-  "authDomain": "studentos.firebaseapp.com",
-  "projectId": "studentos",
-  "storageBucket": "studentos.appspot.com",
-  "messagingSenderId": "1234567890",
-  "appId": "1:1234567890:web:abcdef"
-}' style="min-height:150px;font-family:ui-monospace,monospace;font-size:12px">${escapeHtml(fbJson)}</textarea>
-        <div class="hint">Find it in Firebase Console → Project settings → Your apps → SDK setup and configuration.</div>
+        <label class="label">Firebase project (shared by all users)</label>
+        <div class="code" style="font-size:11.5px">${escapeHtml(fbJson)}</div>
+        <div class="hint">Everyone using StudentOS connects to the same Firebase project — you don't need to change this.</div>
       </div>
 
       <div class="field">
         <label class="label">Google OAuth Client ID</label>
         <input class="input" id="cfg-clientid" placeholder="1234567890-abc123.apps.googleusercontent.com" value="${escapeHtml(cfg.googleClientId || '')}" style="font-family:ui-monospace,monospace;font-size:12px">
+        <div class="hint">Only needed for Classroom and Gmail sync. Leave blank if you just want the dashboard.</div>
       </div>`,
     footer: `
       <button class="btn btn-ghost" data-close>Cancel</button>
       <button class="btn btn-primary" id="cfg-save">Save &amp; reload</button>`,
     onMount(el, close){
       $('#cfg-save', el).addEventListener('click', () => {
-        const raw = $('#cfg-firebase', el).value.trim();
         const clientId = $('#cfg-clientid', el).value.trim();
-
-        let firebase = null;
-        if (raw){
-          try {
-            const normalised = raw
-              .replace(/^const\s+\w+\s*=\s*/, '')
-              .replace(/;\s*$/, '')
-              .replace(/([{,]\s*)([A-Za-z_$][\w$]*)\s*:/g, '$1"$2":')
-              .replace(/'/g, '"')
-              .replace(/,\s*}/g, '}');
-            firebase = JSON.parse(normalised);
-          } catch (e){
-            try { firebase = JSON.parse(raw); }
-            catch {
-              toast('That Firebase config could not be read. Paste the object exactly as Firebase shows it.', 'error', 'Invalid config');
-              return;
-            }
-          }
-        }
-
-        saveConfig({ firebase, googleClientId: clientId });
-        toast('Configuration saved — reloading StudentOS', 'success');
+        // Firebase always comes from DEFAULT_CONFIG — only the OAuth
+        // Client ID is stored per browser.
+        saveConfig({
+          firebase: DEFAULT_CONFIG.firebase,
+          googleClientId: clientId
+        });
+        toast('Saved — reloading StudentOS', 'success');
         setTimeout(() => location.reload(), 900);
       });
     }
@@ -3825,6 +3827,144 @@ async function syncOne(key){
 /* ----------------------------------------------------------------
    SECTION 30 · AUTH & BOOT
    ---------------------------------------------------------------- */
+let authMode = 'signin';
+
+function setAuthMode(mode){
+  authMode = mode;
+  const isSignup = mode === 'signup';
+
+  $('#tab-signin').classList.toggle('on', !isSignup);
+  $('#tab-signup').classList.toggle('on', isSignup);
+  $('#tab-signin').setAttribute('aria-selected', String(!isSignup));
+  $('#tab-signup').setAttribute('aria-selected', String(isSignup));
+
+  $('#auth-heading').textContent = isSignup ? 'Create your account' : 'Welcome back';
+  $('#auth-subheading').textContent = isSignup
+    ? 'Set up StudentOS in seconds — no card, no cost.'
+    : 'Sign in to open your dashboard.';
+
+  $('#name-field').hidden = !isSignup;
+  $('#password-hint').hidden = !isSignup;
+  $('#email-submit-label').textContent = isSignup ? 'Create account' : 'Sign in';
+  $('#auth-password').setAttribute('autocomplete', isSignup ? 'new-password' : 'current-password');
+  $('#auth-error').hidden = true;
+}
+
+function showAuthError(message){
+  const box = $('#auth-error');
+  box.textContent = message;
+  box.hidden = false;
+}
+
+async function submitEmailAuth(){
+  const email = $('#auth-email').value.trim();
+  const password = $('#auth-password').value;
+  const name = $('#auth-name').value.trim();
+  const errBox = $('#auth-error');
+  errBox.hidden = true;
+
+  if (!FB.ready || !FB.auth){
+    showAuthError('Firebase is not configured yet. Please refresh the page.');
+    return;
+  }
+
+  if (!email || !email.includes('@')){
+    showAuthError('Please enter a valid email address.');
+    return;
+  }
+  if (!password || password.length < 6){
+    showAuthError('Passwords must be at least 6 characters long.');
+    return;
+  }
+  if (authMode === 'signup' && !name){
+    showAuthError('Please enter your name.');
+    return;
+  }
+
+  const btn = $('#email-submit-btn');
+  const spinner = $('#email-spinner');
+  const label = $('#email-submit-label');
+  const originalText = label.textContent;
+  btn.disabled = true;
+  spinner.hidden = false;
+  label.textContent = authMode === 'signup' ? 'Creating…' : 'Signing in…';
+
+  try {
+    let cred;
+    if (authMode === 'signup'){
+      cred = await FB.mod.createUserWithEmailAndPassword(FB.auth, email, password);
+      if (name){
+        try { await FB.mod.updateProfile(cred.user, { displayName: name }); } catch {}
+      }
+    } else {
+      cred = await FB.mod.signInWithEmailAndPassword(FB.auth, email, password);
+    }
+
+    await onUserSignedIn({
+      uid: cred.user.uid,
+      displayName: cred.user.displayName || name || 'Student',
+      email: cred.user.email,
+      photoURL: cred.user.photoURL || '',
+      real: true
+    });
+  } catch (err){
+    console.error(err);
+    showAuthError(friendlyAuthError(err));
+  } finally {
+    btn.disabled = false;
+    spinner.hidden = true;
+    label.textContent = originalText;
+  }
+}
+
+function friendlyAuthError(err){
+  const code = err.code || '';
+  switch(code){
+    case 'auth/email-already-in-use':
+      return 'That email is already registered. Try signing in instead.';
+    case 'auth/invalid-email':
+      return 'That email address does not look right.';
+    case 'auth/weak-password':
+      return 'Your password is too weak. Use at least 6 characters.';
+    case 'auth/user-not-found':
+      return 'No account found with that email. Create one instead?';
+    case 'auth/wrong-password':
+    case 'auth/invalid-credential':
+      return 'Incorrect email or password. Please try again.';
+    case 'auth/too-many-requests':
+      return 'Too many failed attempts. Please wait a minute and try again.';
+    case 'auth/network-request-failed':
+      return 'Network error — check your internet connection.';
+    case 'auth/operation-not-allowed':
+      return 'Email/password sign-in is not enabled in this Firebase project. Ask the project owner to turn it on under Authentication → Sign-in method.';
+    default:
+      return err.message || 'Sign-in failed. Please try again.';
+  }
+}
+
+async function resetPassword(){
+  const email = $('#auth-email').value.trim();
+  const errBox = $('#auth-error');
+  errBox.hidden = true;
+
+  if (!FB.ready || !FB.auth){
+    showAuthError('Firebase is not configured yet.');
+    return;
+  }
+  if (!email || !email.includes('@')){
+    showAuthError('Enter your email address first, then click "Forgot password?" again.');
+    return;
+  }
+
+  try {
+    await FB.mod.sendPasswordResetEmail(FB.auth, email);
+    toast('Password reset email sent — check your inbox.', 'success', 'Check your email');
+  } catch (err){
+    console.error(err);
+    showAuthError(friendlyAuthError(err));
+  }
+}
+
 function showAuth(){
   $('#boot').classList.add('gone');
   $('#auth-screen').hidden = false;
@@ -3833,9 +3973,16 @@ function showAuth(){
   const cfg = loadConfig();
   const badge = $('#mode-badge');
   const live = isFirebaseConfigured(cfg);
-  badge.textContent = live ? '🔒 Connected to your Firebase project' : '⚡ Demo mode — data stays in this browser';
+  badge.textContent = live ? '🔒 Connected to StudentOS cloud' : '⚡ Demo mode — data stays in this browser';
   badge.classList.toggle('live', live);
 
+  setAuthMode('signin');
+  $('#email-form').reset();
+
+  $('#tab-signin').onclick = () => setAuthMode('signin');
+  $('#tab-signup').onclick = () => setAuthMode('signup');
+  $('#email-form').onsubmit = (e) => { e.preventDefault(); submitEmailAuth(); };
+  $('#forgot-btn').onclick = resetPassword;
   $('#enter-btn').onclick = () => signInGoogle();
   $('#demo-btn').onclick = () => enterDemoMode();
   $('#setup-btn').onclick = () => openSetupModal();
@@ -3861,13 +4008,12 @@ function showApp(){
 }
 
 async function signInGoogle(){
-  const cfg = loadConfig();
   const errBox = $('#auth-error');
   errBox.hidden = true;
 
   if (!FB.ready || !FB.auth){
     errBox.hidden = false;
-    errBox.textContent = 'Firebase is not configured yet. Click "Connect my own Firebase & Google" below to set it up — it is free. Meanwhile you can use demo mode.';
+    errBox.textContent = 'Firebase is not configured yet. Please refresh the page.';
     return;
   }
 
@@ -3888,9 +4034,9 @@ async function signInGoogle(){
     if (err.code === 'auth/popup-blocked'){
       errBox.textContent = 'Your browser blocked the sign-in popup. Allow popups for this site and try again.';
     } else if (err.code === 'auth/unauthorized-domain'){
-      errBox.textContent = 'This domain is not authorised in your Firebase project. Add it under Authentication → Settings → Authorized domains.';
+      errBox.textContent = 'This domain is not authorised in the Firebase project. Ask the project owner to add it under Authentication → Settings → Authorized domains.';
     } else if (err.code === 'auth/operation-not-allowed'){
-      errBox.textContent = 'Google sign-in is not enabled. Turn it on in Firebase → Authentication → Sign-in method.';
+      errBox.textContent = 'Google sign-in is not enabled. Ask the project owner to turn it on in Authentication → Sign-in method.';
     } else {
       errBox.textContent = `Sign-in failed: ${err.message}`;
     }
@@ -3918,7 +4064,7 @@ async function onUserSignedIn(user){
   render();
   checkDueSoon();
 
-  if (Store.mode === 'local' && !Store.cache.profile.seeded){
+  if (Store.mode === 'local' && user.uid === 'demo-user' && !Store.cache.profile.seeded){
     Store.cache.profile.seeded = true;
     Store.persist();
     setTimeout(() => toast('Demo data loaded. Connect real accounts in Integrations whenever you like.', 'info', 'Welcome to StudentOS'), 900);
@@ -4198,9 +4344,9 @@ async function boot(){
         if (user){
           await onUserSignedIn({
             uid: user.uid,
-            displayName: user.displayName,
+            displayName: user.displayName || (user.email ? user.email.split('@')[0] : 'Student'),
             email: user.email,
-            photoURL: user.photoURL,
+            photoURL: user.photoURL || '',
             real: true
           });
         } else {
@@ -4208,12 +4354,10 @@ async function boot(){
           if (raw){
             try {
               const cached = JSON.parse(raw);
-              if (!cached.real) await onUserSignedIn(cached);
-              else showAuth();
-            } catch { showAuth(); }
-          } else {
-            showAuth();
+              if (!cached.real) { await onUserSignedIn(cached); return; }
+            } catch {}
           }
+          showAuth();
         }
       });
     } else {
@@ -4238,10 +4382,9 @@ async function boot(){
       <div style="max-width:520px;text-align:left;color:var(--text-2);font-size:13px;line-height:1.7;padding:0 24px">
         <p style="margin-bottom:10px"><strong>${escapeHtml(err.message || 'Unknown error')}</strong></p>
         <p>Common fixes:</p>
-        <p>• Your Firebase config has a typo.</p>
-        <p>• Your Google OAuth Client ID is wrong or the origin is not authorised.</p>
         <p>• You are offline.</p>
-        <p style="margin-top:14px"><button class="btn btn-primary btn-sm" onclick="localStorage.removeItem('studentos.config.v1');location.reload()">Reset configuration &amp; reload</button></p>
+        <p>• Your browser is blocking module scripts or the popup.</p>
+        <p style="margin-top:14px"><button class="btn btn-primary btn-sm" onclick="location.reload()">Reload</button></p>
       </div>`;
   }
 }
@@ -4249,7 +4392,7 @@ async function boot(){
 boot();
 
 window.StudentOS = {
-  version: '1.0.0',
+  version: '1.2.0',
   get state(){ return Store.cache; },
   get config(){ return loadConfig(); },
   syncAll,
