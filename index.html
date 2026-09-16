@@ -93,6 +93,7 @@ img{max-width:100%;display:block}
 .btn-block{width:100%}
 .btn-sm{padding:7px 12px;font-size:13px}
 .btn-lg{padding:13px 22px;font-size:15px;border-radius:var(--radius)}
+.btn-xl{padding:15px 26px;font-size:15.5px;border-radius:var(--radius);font-weight:700}
 .btn-google{background:#fff;color:#3c4043;border:1px solid #dadce0;font-weight:600;font-size:15px;padding:13px 20px;box-shadow:var(--shadow-xs)}
 .btn-google:hover{background:#f8f9fa;border-color:#c6c9cc}
 [data-theme="dark"] .btn-google{background:#fff;color:#202124}
@@ -292,23 +293,12 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .next-item.urgent .next-rank{background:var(--red-500)}
 .next-item.high .next-rank{background:var(--amber-500)}
 .next-item.low .next-rank{background:var(--gray-400)}
-
-/* EFFORT REPORT */
-.effort-banner{
-  background:linear-gradient(135deg,var(--violet-50) 0%,var(--indigo-50) 100%);
-  border:1px solid rgba(139,92,246,.25);
-  border-radius:var(--radius-lg);padding:20px;margin-bottom:20px;
-}
+.effort-banner{background:linear-gradient(135deg,var(--violet-50) 0%,var(--indigo-50) 100%);border:1px solid rgba(139,92,246,.25);border-radius:var(--radius-lg);padding:20px;margin-bottom:20px}
 [data-theme="dark"] .effort-banner{background:linear-gradient(135deg,rgba(139,92,246,.16) 0%,rgba(99,102,241,.12) 100%);border-color:var(--border)}
 .effort-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
 .effort-title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px;color:var(--violet-600)}
 [data-theme="dark"] .effort-title{color:var(--violet-500)}
-.effort-avg{
-  display:inline-flex;align-items:baseline;gap:4px;
-  padding:6px 14px;border-radius:99px;background:var(--surface);
-  font-size:13px;font-weight:700;color:var(--text);
-  border:1px solid var(--border);
-}
+.effort-avg{display:inline-flex;align-items:baseline;gap:4px;padding:6px 14px;border-radius:99px;background:var(--surface);font-size:13px;font-weight:700;color:var(--text);border:1px solid var(--border)}
 .effort-avg b{font-size:20px;color:var(--violet-600);letter-spacing:-.02em}
 [data-theme="dark"] .effort-avg b{color:var(--violet-500)}
 .effort-bars{display:flex;flex-direction:column;gap:9px}
@@ -328,11 +318,7 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .effort-table th.effort-sub-th{text-align:left;width:110px}
 .effort-table td{text-align:center;padding:0}
 .effort-table td.effort-sub-td{text-align:left;font-size:12.5px;font-weight:600;padding:4px 6px;white-space:nowrap}
-.effort-cell{
-  display:inline-grid;place-items:center;
-  width:38px;height:34px;border-radius:8px;
-  font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;
-}
+.effort-cell{display:inline-grid;place-items:center;width:38px;height:34px;border-radius:8px;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
 .effort-cell.r1{background:rgba(239,68,68,.15);color:#dc2626}
 .effort-cell.r2{background:rgba(249,115,22,.15);color:#ea580c}
 .effort-cell.r3{background:rgba(234,179,8,.18);color:#a16207}
@@ -345,18 +331,10 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 [data-theme="dark"] .effort-cell.r5{background:rgba(16,185,129,.25);color:#6ee7b7}
 .effort-cell.empty{background:var(--surface-2);color:var(--text-3);font-size:11px;font-weight:500}
 .effort-cell.current{outline:2px solid var(--violet-500);outline-offset:1px}
-
-/* EFFORT EDITOR */
 .effort-edit-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
 .effort-edit-row .input.subject{flex:1.4}
-.effort-edit-row .select.rating{flex:1;max-width:120px}
-.effort-edit-row .icon-btn{flex:none}
 .effort-rating-options{display:flex;gap:6px}
-.effort-rating-btn{
-  width:38px;height:38px;border-radius:9px;font-size:14px;font-weight:800;
-  border:1px solid var(--border);background:var(--surface);color:var(--text-3);
-  transition:.15s;
-}
+.effort-rating-btn{width:38px;height:38px;border-radius:9px;font-size:14px;font-weight:800;border:1px solid var(--border);background:var(--surface);color:var(--text-3);transition:.15s}
 .effort-rating-btn:hover{border-color:var(--violet-500);color:var(--text)}
 .effort-rating-btn.on{color:#fff;border-color:transparent;transform:scale(1.08)}
 .effort-rating-btn.on.r1{background:var(--red-500)}
@@ -364,7 +342,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .effort-rating-btn.on.r3{background:#eab308}
 .effort-rating-btn.on.r4{background:#84cc16}
 .effort-rating-btn.on.r5{background:var(--green-500)}
-
 .checklist-card{background:linear-gradient(135deg,var(--indigo-50) 0%,var(--violet-50) 100%);border:1px solid var(--indigo-200);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:24px}
 [data-theme="dark"] .checklist-card{background:linear-gradient(135deg,rgba(99,102,241,.16) 0%,rgba(139,92,246,.12) 100%);border-color:var(--border)}
 .checklist-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
@@ -476,6 +453,10 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .status-pill.on{background:var(--green-50);color:var(--green-600)}
 .status-pill.off{background:var(--gray-100);color:var(--text-3)}
 .status-pill .pdot{width:6px;height:6px;border-radius:99px;background:currentColor}
+.int-card.hero{border:2px solid var(--indigo-200);background:linear-gradient(135deg,var(--indigo-50) 0%,#fff 100%)}
+[data-theme="dark"] .int-card.hero{border-color:var(--primary);background:linear-gradient(135deg,rgba(99,102,241,.14) 0%,var(--surface) 100%)}
+.int-hero-body{padding:8px 0}
+.int-hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .set-row{display:flex;gap:16px;padding:15px 0;border-bottom:1px solid var(--border);align-items:flex-start}
 .set-row:last-child{border-bottom:none}
 .set-info{flex:1;min-width:0}
@@ -537,12 +518,12 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
     <div class="auth-hero-inner">
       <div class="brand brand-light"><span class="brand-mark">S</span><span>StudentOS</span></div>
       <h1 class="auth-headline">Every assignment, test and notice.<br>One calm dashboard.</h1>
-      <p class="auth-sub">Paste anything — an email, a notice, a text — and StudentOS turns it into organised assignments, tests and events. Automatically.</p>
+      <p class="auth-sub">One tap connects Google Classroom through your calendar — no admin approval, no passwords, no setup.</p>
       <ul class="auth-features">
-        <li><span class="tick">✓</span> <strong>Smart Paste</strong> — paste any email or notice, get structured tasks</li>
+        <li><span class="tick">✓</span> <strong>One-tap Classroom</strong> — pulls deadlines from Google Calendar</li>
+        <li><span class="tick">✓</span> <strong>Smart Paste</strong> — paste any email, get structured tasks</li>
         <li><span class="tick">✓</span> <strong>Weekly Effort Reports</strong> — track your Friday ratings over time</li>
-        <li><span class="tick">✓</span> <strong>School calendar</strong> — synced automatically every time you open the app</li>
-        <li><span class="tick">✓</span> <strong>Google Classroom</strong> — via ICS export, no school permission needed</li>
+        <li><span class="tick">✓</span> <strong>School calendar</strong> — synced automatically</li>
       </ul>
       <div class="auth-badges">
         <span class="chip chip-glass">$0 to run</span>
@@ -594,7 +575,7 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
       </button>
       <div class="auth-divider"><span>or</span></div>
       <button class="btn btn-ghost btn-block" id="demo-btn">Explore demo mode</button>
-      <p class="auth-fineprint">StudentOS can optionally read your Google Classroom coursework and school email to build your dashboard. Nothing is stored on any server we control — there isn't one. Disconnect and delete everything any time in <strong>Settings → Privacy</strong>.</p>
+      <p class="auth-fineprint">StudentOS reads your Classroom deadlines from your own Google Calendar with read-only access. Nothing is stored on any server we control — there isn't one. Disconnect and delete everything any time in <strong>Settings → Privacy</strong>.</p>
     </div>
   </main>
 </div>
@@ -727,6 +708,10 @@ const DEFAULT_SETTINGS = {
   onboardingSeen: false
 };
 
+// Primary Classroom path — calendar.readonly only. No admin approval needed.
+const CALENDAR_SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
+
+// Advanced Classroom path — requires school admin allowlist.
 const CLASSROOM_SCOPES = [
   'https://www.googleapis.com/auth/classroom.courses.readonly',
   'https://www.googleapis.com/auth/classroom.coursework.me.readonly',
@@ -762,18 +747,9 @@ function sanitiseText(input, maxLen = 4000){
   s = s.replace(/\s+/g,' ').trim();
   return s.slice(0, maxLen);
 }
-function fmtDate(ts){
-  if (!ts) return '';
-  return new Date(ts).toLocaleDateString(undefined, { day:'numeric', month:'short' });
-}
-function fmtDateLong(ts){
-  if (!ts) return '';
-  return new Date(ts).toLocaleDateString(undefined, { weekday:'short', day:'numeric', month:'long' });
-}
-function fmtTime(ts){
-  if (!ts) return '';
-  return new Date(ts).toLocaleTimeString(undefined, { hour:'numeric', minute:'2-digit' });
-}
+function fmtDate(ts){ if (!ts) return ''; return new Date(ts).toLocaleDateString(undefined, { day:'numeric', month:'short' }); }
+function fmtDateLong(ts){ if (!ts) return ''; return new Date(ts).toLocaleDateString(undefined, { weekday:'short', day:'numeric', month:'long' }); }
+function fmtTime(ts){ if (!ts) return ''; return new Date(ts).toLocaleTimeString(undefined, { hour:'numeric', minute:'2-digit' }); }
 function relativeTime(ts){
   if (!ts) return 'never';
   const diff = now() - ts;
@@ -1439,7 +1415,7 @@ async function checkDueSoon(){
   }
 }
 
-/* ── GOOGLE OAUTH (optional) ─────────────────────────────────── */
+/* ── GOOGLE OAUTH ────────────────────────────────────────────── */
 const GoogleAuth = {
   tokenClient: null, accessToken: null, scopes: [], expiresAt: 0, ready: false,
   async waitForLib(timeout = 10000){
@@ -1450,7 +1426,7 @@ const GoogleAuth = {
     return !!window.google?.accounts?.oauth2;
   },
   async ensureClient(clientId, scopes){
-    if (!clientId) throw new Error('No Google OAuth Client ID configured.');
+    if (!clientId) throw new Error('No Google OAuth Client ID configured. Add yours in Settings.');
     if (!(await this.waitForLib())) throw new Error('Google Identity Services failed to load.');
     const scopeKey = [...scopes].sort().join(' ');
     if (this.tokenClient && this._scopeKey === scopeKey){ this.scopes = scopes; return; }
@@ -1466,7 +1442,7 @@ const GoogleAuth = {
         if (resp.error){ return reject(new Error(resp.error_description || resp.error)); }
         this.accessToken = resp.access_token;
         this.expiresAt = now() + (Number(resp.expires_in || 3600) * 1000) - 30_000;
-        try { sessionStorage.setItem('studentos.gtoken', JSON.stringify({ t: this.accessToken, e: this.expiresAt })); } catch {}
+        try { sessionStorage.setItem('studentos.gtoken', JSON.stringify({ t: this.accessToken, e: this.expiresAt, s: this.scopes })); } catch {}
         resolve(this.accessToken);
       };
       this.tokenClient.error_callback = err => reject(new Error(err?.message || 'OAuth cancelled'));
@@ -1477,8 +1453,8 @@ const GoogleAuth = {
     try {
       const raw = sessionStorage.getItem('studentos.gtoken');
       if (!raw) return false;
-      const { t, e } = JSON.parse(raw);
-      if (e > now() + 5000){ this.accessToken = t; this.expiresAt = e; return true; }
+      const { t, e, s } = JSON.parse(raw);
+      if (e > now() + 5000){ this.accessToken = t; this.expiresAt = e; this.scopes = s || []; return true; }
     } catch {}
     return false;
   },
@@ -1507,7 +1483,127 @@ async function gfetch(url, token){
   }
   return r.json();
 }
-async function syncClassroom({ interactive = true } = {}){
+
+/* ═══════════════════════════════════════════════════════════════
+   PRIMARY: CLASSROOM VIA GOOGLE CALENDAR API
+   This is the one-tap flow. It reads only the calendar.readonly
+   scope, which does not require school admin approval.
+   ═══════════════════════════════════════════════════════════════ */
+async function syncClassroomViaCalendar({ interactive = true } = {}){
+  const cfg = loadConfig();
+  const token = await GoogleAuth.getToken(cfg.googleClientId, CALENDAR_SCOPES, { interactive });
+
+  // 1. Fetch all calendars the user has access to
+  const listResp = await gfetch(
+    'https://www.googleapis.com/calendar/v3/users/me/calendarList?maxResults=250&minAccessRole=reader',
+    token
+  );
+  const allCalendars = listResp.items || [];
+
+  // 2. Detect Classroom calendars.
+  //    Google names them "Classroom" or "Classroom – [Course]" typically,
+  //    and the description often mentions Classroom too.
+  const classroomCalendars = allCalendars.filter(cal => {
+    const name = (cal.summary || '').toLowerCase();
+    const desc = (cal.description || '').toLowerCase();
+    if (name === 'classroom' || name.startsWith('classroom ')) return true;
+    if (name.includes('classroom –') || name.includes('classroom -') || name.includes('classroom:')) return true;
+    if (name.includes('classroom')) return true;
+    if (desc.includes('classroom')) return true;
+    return false;
+  });
+
+  if (!classroomCalendars.length){
+    const err = new Error('No Google Classroom calendars found. Open Google Classroom once, and make sure Calendar sync is on for your courses.');
+    err.code = 'NO_CLASSROOM_CALENDARS';
+    err.calendarCount = allCalendars.length;
+    err.calendars = allCalendars.map(c => c.summary);
+    throw err;
+  }
+
+  // 3. Pull events from each Classroom calendar
+  const timeMin = new Date(now() - 30 * 86400000).toISOString();
+  const timeMax = new Date(now() + 400 * 86400000).toISOString();
+
+  const raw = [];
+  for (const cal of classroomCalendars){
+    try {
+      const eventsResp = await gfetch(
+        `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(cal.id)}/events?` +
+        `timeMin=${encodeURIComponent(timeMin)}` +
+        `&timeMax=${encodeURIComponent(timeMax)}` +
+        `&singleEvents=true&orderBy=startTime&maxResults=250`,
+        token
+      );
+
+      // Derive subject from calendar name
+      let subject = '';
+      const calName = cal.summary || '';
+      const m = calName.match(/classroom\s*[–—:\-]\s*(.+)/i);
+      if (m) subject = m[1].trim();
+      else if (calName.toLowerCase() !== 'classroom' && calName.trim().length > 0){
+        // If the calendar is named after a course directly
+        subject = calName.replace(/^classroom\s*/i, '').trim() || '';
+      }
+
+      for (const ev of (eventsResp.items || [])){
+        if (!ev.summary || ev.status === 'cancelled') continue;
+
+        // Classroom stores the DUE date in the event's `end` (the event spans
+        // from "assigned" to "due"). Falls back to start if end is missing.
+        let dueDate = null;
+        const end = ev.end || ev.start;
+        if (end?.date){
+          const [y, mo, d] = end.date.split('-').map(Number);
+          dueDate = new Date(y, mo - 1, d, 23, 59).getTime();
+        } else if (end?.dateTime){
+          dueDate = new Date(end.dateTime).getTime();
+        }
+
+        // Strip "Classroom" from the title if it leaked in
+        let title = ev.summary.replace(/^\s*classroom\s*[:–-]\s*/i, '').trim();
+        if (!title) continue;
+
+        // Auto-detect subject from title if not from calendar name
+        let resolvedSubject = subject;
+        if (!resolvedSubject){
+          resolvedSubject = detectSubject(title + ' ' + (ev.description || ''), Store.all('courses'));
+        }
+
+        raw.push({
+          id: `gc-cal-${cal.id}-${ev.id}`,
+          externalId: ev.id,
+          title,
+          description: ev.description || '',
+          dueDate,
+          subject: resolvedSubject,
+          typeHint: null,
+          url: ev.htmlLink || '',
+          source: 'Google Classroom'
+        });
+      }
+    } catch (e){
+      console.warn('Failed to read calendar', cal.summary, e.message);
+    }
+  }
+
+  const result = await importItems(raw, 'Google Classroom');
+
+  Store.cache.integrations.classroom = {
+    id: 'classroom',
+    connected: true,
+    lastSync: now(),
+    imported: Store.all('assignments').filter(a => (a.sources||[]).some(s => s.source === 'Google Classroom')).length,
+    calendars: classroomCalendars.length,
+    calendarNames: classroomCalendars.map(c => c.summary),
+    method: 'calendar-api'
+  };
+  await Store.saveUserDoc();
+  return { ...result, calendars: classroomCalendars.length, calendarNames: classroomCalendars.map(c => c.summary) };
+}
+
+/* ── ADVANCED: CLASSROOM DIRECT API (requires admin approval) ── */
+async function syncClassroomDirectAPI({ interactive = true } = {}){
   const cfg = loadConfig();
   const token = await GoogleAuth.getToken(cfg.googleClientId, CLASSROOM_SCOPES, { interactive });
   const raw = [];
@@ -1532,7 +1628,7 @@ async function syncClassroom({ interactive = true } = {}){
   Store.cache.integrations.classroom = {
     id: 'classroom', connected: true, lastSync: now(),
     imported: Store.all('assignments').filter(a => (a.sources||[]).some(s => s.source === 'Google Classroom')).length,
-    courses: courses.length, account: 'Google account'
+    courses: courses.length, method: 'direct-api'
   };
   await Store.saveUserDoc();
   return { ...result, courses: courses.length };
@@ -1545,6 +1641,8 @@ function mapCourseWorkType(w){
     default: return null;
   }
 }
+
+/* ── GMAIL (advanced) ────────────────────────────────────────── */
 async function syncEmail({ interactive = true } = {}){
   const cfg = loadConfig();
   const token = await GoogleAuth.getToken(cfg.googleClientId, EMAIL_SCOPES, { interactive });
@@ -1645,10 +1743,16 @@ async function syncAll({ interactive = true, silent = false } = {}){
   try {
     if (integrations.classroom?.connected){
       try {
-        const r = await syncClassroom({ interactive });
-        results.push(`Classroom: ${r.added} new`);
+        if (integrations.classroom.method === 'direct-api'){
+          const r = await syncClassroomDirectAPI({ interactive });
+          results.push(`Classroom: ${r.added} new`);
+        } else {
+          const r = await syncClassroomViaCalendar({ interactive });
+          results.push(`Classroom: ${r.added} new`);
+        }
       } catch(e){
         if (e.message === 'NEEDS_CONSENT') errors.push('Classroom needs reconnecting.');
+        else if (e.code === 'NO_CLASSROOM_CALENDARS') errors.push('No Classroom calendars found — try Smart Paste or the direct API option.');
         else errors.push(`Classroom: ${e.message}`);
       }
     }
@@ -1731,9 +1835,9 @@ function getChecklistState(){
   return {
     account: true,
     calendar: (d.events || []).length > 0,
+    classroom: !!d.integrations?.classroom?.connected,
     firstItem: (d.assignments || []).length > 0,
-    timetable: (d.settings.timetable || []).length > 0,
-    effort: (d.effortReports || []).length > 0
+    timetable: (d.settings.timetable || []).length > 0
   };
 }
 
@@ -1745,9 +1849,9 @@ function renderChecklist(){
   const items = [
     { key:'account', icon:'👤', text:'Create your account', done: true },
     { key:'calendar', icon:'📅', text:'School calendar synced', done: s.calendar, action:'sync-now' },
+    { key:'classroom', icon:'🎓', text:'Connect Google Classroom (one tap)', done: s.classroom, action:'connect-classroom' },
     { key:'firstItem', icon:'📝', text:'Add or paste your first assignment', done: s.firstItem, action:'open-paste' },
-    { key:'timetable', icon:'🕘', text:'Set up your weekly timetable', done: s.timetable, action:'edit-timetable' },
-    { key:'effort', icon:'📊', text:'Log this week\'s effort report', done: s.effort, action:'log-effort' }
+    { key:'timetable', icon:'🕘', text:'Set up your weekly timetable', done: s.timetable, action:'edit-timetable' }
   ];
   return `
   <section class="checklist-card" id="checklist-card">
@@ -1792,7 +1896,6 @@ function viewDashboard(){
   const todayItems = [...dueToday, ...overdue];
   const isEmpty = !assignments.length && !events.length && !notes.length;
 
-  // Effort report teaser
   const efforts = Store.all('effortReports').sort((a,b) => b.date - a.date);
   const latestEffort = efforts[0];
   const effortCard = latestEffort ? `
@@ -1801,9 +1904,7 @@ function viewDashboard(){
         <div class="card-title">📊 Latest effort report</div>
         <a class="btn btn-sm btn-ghost" href="#/effort">All reports</a>
       </div>
-      <div class="card-body">
-        ${renderEffortSummaryMini(latestEffort)}
-      </div>
+      <div class="card-body">${renderEffortSummaryMini(latestEffort)}</div>
     </section>` : '';
 
   return `
@@ -1905,12 +2006,12 @@ function renderWelcomeEmpty(){
     <div style="font-size:52px;margin-bottom:14px">🎒</div>
     <h2 style="font-size:22px;margin-bottom:10px">Let's get your school life in one place</h2>
     <p class="muted" style="max-width:480px;margin:0 auto 24px;font-size:14.5px;line-height:1.65">
-      The fastest way to start: <strong>paste an email or notice</strong> and StudentOS will pull out the assignments automatically. Or log your weekly effort report.
+      The fastest way: <strong>tap Connect Classroom once</strong> and StudentOS pulls all your deadlines from your Google Calendar. No admin approval needed.
     </p>
     <div class="row" style="justify-content:center;flex-wrap:wrap;gap:10px">
-      <button class="btn btn-primary" data-action="open-paste">⚡ Paste an email</button>
+      <button class="btn btn-primary" data-action="connect-classroom">🎓 Connect Google Classroom</button>
+      <button class="btn btn-ghost" data-action="open-paste">⚡ Paste an email</button>
       <button class="btn btn-ghost" data-action="log-effort">📊 Log effort report</button>
-      <button class="btn btn-ghost" data-action="new-assignment">＋ Add manually</button>
     </div>
     <div class="row" style="justify-content:center;gap:20px;flex-wrap:wrap;margin-top:24px;font-size:12.5px;color:var(--text-3)">
       <span>Press <kbd>P</kbd> to paste</span>
@@ -1926,10 +2027,10 @@ function renderNextActions(){
     return `<div class="empty" style="padding:32px 12px">
       <div class="empty-ico">🌤️</div>
       <div class="empty-title">Nothing on your plate</div>
-      <div class="empty-sub">Paste an email or connect a service to fill this in automatically.</div>
+      <div class="empty-sub">Connect Classroom or paste an email to fill this in automatically.</div>
       <div class="empty-actions">
-        <button class="btn btn-sm btn-primary" data-action="open-paste">⚡ Paste</button>
-        <button class="btn btn-sm btn-ghost" data-action="new-assignment">＋ Add</button>
+        <button class="btn btn-sm btn-primary" data-action="connect-classroom">🎓 Connect Classroom</button>
+        <button class="btn btn-sm btn-ghost" data-action="open-paste">⚡ Paste</button>
       </div>
     </div>`;
   }
@@ -2104,10 +2205,10 @@ function viewAssignments(){
       <div class="empty">
         <div class="empty-ico">📝</div>
         <div class="empty-title">No assignments yet</div>
-        <div class="empty-sub">Paste an email or notice to add several at once.</div>
+        <div class="empty-sub">Connect Classroom or paste an email to add several at once.</div>
         <div class="empty-actions">
-          <button class="btn btn-sm btn-primary" data-action="open-paste">⚡ Paste</button>
-          <button class="btn btn-sm btn-ghost" data-action="new-assignment">＋ Add manually</button>
+          <button class="btn btn-sm btn-primary" data-action="connect-classroom">🎓 Connect Classroom</button>
+          <button class="btn btn-sm btn-ghost" data-action="open-paste">⚡ Paste</button>
         </div>
       </div>`}
   </div>`;
@@ -2209,14 +2310,13 @@ function viewCalendar(){
         }).join('') : `<div class="empty" style="padding:30px 10px">
           <div class="empty-ico">📅</div>
           <div class="empty-title">Nothing upcoming</div>
-          <div class="empty-sub">Your school calendar will fill this in automatically on the next sync.</div>
+          <div class="empty-sub">Your school and Classroom calendars will fill this in on the next sync.</div>
         </div>`}
       </div>
     </div>
   </div>`;
 }
 
-/* ── WEEKLY NOTES + EFFORT REPORTS ───────────────────────────── */
 function viewWeekly(){
   const notes = Store.all('weeklyNotes');
   const efforts = Store.all('effortReports').sort((a,b) => b.date - a.date);
@@ -2300,7 +2400,7 @@ function viewWeekly(){
       <button class="btn btn-sm btn-primary" data-action="log-effort">Log this week's report</button>
     </div>
     <p class="small" style="color:var(--text-2);line-height:1.6">
-      Log your weekly effort ratings from the Friday email. StudentOS will track your progress subject by subject, week by week — so you can spot patterns over time.
+      Log your weekly effort ratings from the Friday email. StudentOS will track your progress subject by subject, week by week.
     </p>
   </div>`}
 
@@ -2333,7 +2433,6 @@ function renderNoteItem(n){
   </div>`;
 }
 
-/* ── EFFORT REPORTS VIEW ─────────────────────────────────────── */
 function viewEffort(){
   const reports = Store.all('effortReports').sort((a,b) => b.date - a.date);
 
@@ -2353,16 +2452,11 @@ function viewEffort(){
     </div></div>`;
   }
 
-  // Build trend table
   const allSubjects = new Set();
   for (const r of reports) r.ratings.forEach(x => allSubjects.add(x.subject));
   const subjectList = [...allSubjects];
-
-  const recent = reports.slice(0, 12).reverse(); // oldest first for chart
-
+  const recent = reports.slice(0, 12).reverse();
   const avgOf = r => r.ratings.length ? r.ratings.reduce((s, x) => s + x.rating, 0) / r.ratings.length : 0;
-
-  // Overall stats
   const overallAvg = reports.reduce((s, r) => s + avgOf(r), 0) / reports.length;
   const bestSubject = subjectList.map(sub => {
     const ratings = reports.map(r => r.ratings.find(x => x.subject === sub)?.rating).filter(x => x !== undefined);
@@ -2555,8 +2649,8 @@ function viewPlanner(){
           }).join('') : `<div class="empty" style="padding:34px 12px">
             <div class="empty-ico">🎯</div>
             <div class="empty-title">Nothing to plan yet</div>
-            <div class="empty-sub">Paste an email and StudentOS will rank everything automatically.</div>
-            <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="open-paste">⚡ Paste</button></div>
+            <div class="empty-sub">Connect Classroom and StudentOS will rank everything automatically.</div>
+            <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="connect-classroom">🎓 Connect Classroom</button></div>
           </div>`}
         </div>
       </section>
@@ -2613,45 +2707,54 @@ function viewIntegrations(){
   const cfg = loadConfig();
   const hasClientId = !!cfg?.googleClientId;
   const subs = Store.cache.settings.calendarSubscriptions || [];
-
-  const card = (opts) => {
-    const { logo, name, desc, connected, lastSync, imported, extra = '', actions, warning } = opts;
-    return `
-    <section class="card card-pad int-card">
-      <div class="int-logo">${logo}</div>
-      <div class="int-body">
-        <div class="int-name">
-          ${escapeHtml(name)}
-          <span class="status-pill ${connected ? 'on' : 'off'}"><span class="pdot"></span>${connected ? 'Active' : 'Not connected'}</span>
-        </div>
-        <div class="int-desc">${desc}</div>
-        ${connected ? `
-        <div class="int-stats">
-          <div class="int-stat"><b>${imported ?? 0}</b>items</div>
-          <div class="int-stat"><b>${relativeTime(lastSync)}</b>last sync</div>
-          ${extra}
-        </div>` : ''}
-        ${warning ? `<div class="alert alert-warn" style="margin-bottom:12px">${warning}</div>` : ''}
-        <div class="int-actions">${actions}</div>
-      </div>
-    </section>`;
-  };
+  const classroomConnected = !!i.classroom?.connected;
 
   return `
   <div class="page-head">
     <h1 class="page-title">Integrations</h1>
-    <p class="page-sub">Your school calendar is already connected. Everything else is optional.</p>
-  </div>
-
-  <div class="alert alert-success" style="margin-bottom:20px">
-    <span>🎉</span>
-    <div>
-      <strong>Your school calendar is synced.</strong>
-      Events appear on your dashboard and in the Calendar view automatically.
-    </div>
+    <p class="page-sub">Connect in one tap — no admin approval, no passwords, no setup</p>
   </div>
 
   <div class="stack">
+
+    <!-- Hero: Classroom one-tap -->
+    <section class="card card-pad int-card hero">
+      <div class="int-logo" style="background:linear-gradient(135deg,var(--indigo-500),var(--indigo-700));color:#fff;border:none;font-size:24px">🎓</div>
+      <div class="int-body">
+        <div class="int-name">
+          Google Classroom
+          <span class="chip chip-green">Recommended</span>
+          ${classroomConnected ? `<span class="status-pill on"><span class="pdot"></span>Connected</span>` : ''}
+        </div>
+        <div class="int-desc int-hero-body">
+          StudentOS reads your Classroom deadlines from your own Google Calendar with <strong>read-only</strong> access. That's a standard Google permission — your school admin doesn't need to do anything.
+        </div>
+        ${classroomConnected ? `
+        <div class="int-stats" style="margin-top:8px">
+          <div class="int-stat"><b>${i.classroom.imported || 0}</b>items imported</div>
+          <div class="int-stat"><b>${relativeTime(i.classroom.lastSync)}</b>last sync</div>
+          ${i.classroom.calendars ? `<div class="int-stat"><b>${i.classroom.calendars}</b>classroom calendar${i.classroom.calendars === 1 ? '' : 's'}</div>` : ''}
+        </div>
+        <div class="int-hero-actions">
+          <button class="btn btn-primary btn-sm" data-sync="classroom">Sync now</button>
+          <button class="btn btn-danger-soft btn-sm" data-disconnect="classroom">Disconnect</button>
+        </div>` : `
+        <div class="int-hero-actions">
+          <button class="btn btn-primary btn-lg" data-connect="classroom" ${!hasClientId ? 'disabled' : ''}>
+            🎓 Connect Google Classroom
+          </button>
+          ${!hasClientId ? `<span class="chip chip-amber">Set up OAuth Client ID first</span>` : ''}
+        </div>
+        <div class="row" style="gap:14px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--text-3)">
+          <span>✓ One tap</span>
+          <span>✓ No admin approval</span>
+          <span>✓ Read-only</span>
+          <span>✓ Revoke any time</span>
+        </div>`}
+      </div>
+    </section>
+
+    <!-- School calendar -->
     ${subs.map(sub => `
       <section class="card card-pad int-card">
         <div class="int-logo">📅</div>
@@ -2686,56 +2789,93 @@ function viewIntegrations(){
       </div>
     </section>
 
-    <section class="card card-pad int-card" style="border-color:var(--violet-500);border-width:1.5px">
-      <div class="int-logo" style="background:var(--violet-50);border-color:rgba(139,92,246,.3)">🎓</div>
-      <div class="int-body">
-        <div class="int-name">
-          Google Classroom — via ICS export
-          <span class="status-pill on"><span class="pdot"></span>No permission needed</span>
-          <span class="chip chip-violet">Recommended</span>
+    <div class="divider" style="margin:24px 0 8px"><span></span></div>
+    <div class="tiny muted" style="text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:8px">Advanced options</div>
+
+    <!-- Direct API — advanced -->
+    <details class="card" style="overflow:hidden">
+      <summary style="padding:16px 20px;cursor:pointer;display:flex;gap:14px;align-items:center;list-style:none">
+        <div class="int-logo" style="background:var(--surface-2)">🔐</div>
+        <div style="flex:1">
+          <div class="int-name" style="margin-bottom:0">
+            Google Classroom — direct API
+            ${i.classroom?.method === 'direct-api' ? `<span class="status-pill on"><span class="pdot"></span>Active</span>` : ''}
+          </div>
+          <div class="tiny muted" style="margin-top:3px">Requires school admin to allowlist the app. Only use this if the one-tap method above doesn't work.</div>
         </div>
-        <div class="int-desc">
-          Google Classroom publishes each course's deadlines as an ICS calendar inside Google Calendar. You can grab that URL and paste it here — no school permission, no OAuth, no admin approval required. This works with your school account because you're just reading your own calendar.
-        </div>
+        <span style="font-size:18px;color:var(--text-3)">▾</span>
+      </summary>
+      <div style="padding:0 20px 18px;border-top:1px solid var(--border)">
+        <p class="small muted" style="margin:14px 0 14px;line-height:1.6">
+          The direct Classroom API reads more than Calendar does (assignments, announcements, submission status) but is classified as a <em>restricted scope</em>. Your school admin must allowlist this app before you can use it.
+        </p>
         <div class="int-actions">
-          <button class="btn btn-primary btn-sm" data-action="classroom-ics-guide">📖 How to get the URL</button>
+          ${i.classroom?.method === 'direct-api'
+            ? `<button class="btn btn-primary btn-sm" data-sync="classroom-direct">Sync now</button>
+               <button class="btn btn-danger-soft btn-sm" data-disconnect="classroom">Disconnect</button>`
+            : `<button class="btn btn-ghost btn-sm" data-connect="classroom-direct" ${!hasClientId ? 'disabled' : ''}>Connect via direct API</button>
+               <button class="btn btn-ghost btn-sm" data-action="open-setup">Set up OAuth</button>`}
+        </div>
+      </div>
+    </details>
+
+    <!-- Manual ICS fallback -->
+    <details class="card" style="overflow:hidden">
+      <summary style="padding:16px 20px;cursor:pointer;display:flex;gap:14px;align-items:center;list-style:none">
+        <div class="int-logo" style="background:var(--surface-2)">🔗</div>
+        <div style="flex:1">
+          <div class="int-name" style="margin-bottom:0">Classroom — manual ICS URL</div>
+          <div class="tiny muted" style="margin-top:3px">Copy your Classroom calendar's "Secret address in iCal format" URL and paste it here.</div>
+        </div>
+        <span style="font-size:18px;color:var(--text-3)">▾</span>
+      </summary>
+      <div style="padding:0 20px 18px;border-top:1px solid var(--border)">
+        <p class="small muted" style="margin:14px 0 14px;line-height:1.6">
+          If the one-tap button fails (rare), you can paste the ICS URL from Google Calendar settings. I'll walk you through it.
+        </p>
+        <div class="int-actions">
+          <button class="btn btn-primary btn-sm" data-action="classroom-ics-guide">📖 Show me how</button>
+        </div>
+      </div>
+    </details>
+
+    <!-- Gmail — advanced -->
+    <details class="card" style="overflow:hidden">
+      <summary style="padding:16px 20px;cursor:pointer;display:flex;gap:14px;align-items:center;list-style:none">
+        <div class="int-logo" style="background:var(--surface-2)">✉️</div>
+        <div style="flex:1">
+          <div class="int-name" style="margin-bottom:0">
+            School email (Gmail API)
+            ${i.email?.connected ? `<span class="status-pill on"><span class="pdot"></span>Connected</span>` : ''}
+          </div>
+          <div class="tiny muted" style="margin-top:3px">Direct Gmail read access. Requires school admin approval.</div>
+        </div>
+        <span style="font-size:18px;color:var(--text-3)">▾</span>
+      </summary>
+      <div style="padding:0 20px 18px;border-top:1px solid var(--border)">
+        <p class="small muted" style="margin:14px 0 14px;line-height:1.6">
+          If your school uses Gmail and has allowlisted the app, this scans only emails from trusted school domains for homework, tests and notices. <strong>Use Smart Paste instead if this isn't available</strong> — paste the Friday email and StudentOS extracts the tasks.
+        </p>
+        <div class="int-actions">
+          ${i.email?.connected
+            ? `<button class="btn btn-primary btn-sm" data-sync="email">Sync now</button>
+               <button class="btn btn-danger-soft btn-sm" data-disconnect="email">Disconnect</button>`
+            : `<button class="btn btn-ghost btn-sm" data-connect="email" ${!hasClientId ? 'disabled' : ''}>Connect Gmail</button>`}
+        </div>
+      </div>
+    </details>
+
+    <!-- Import from file -->
+    <section class="card card-pad int-card">
+      <div class="int-logo">📁</div>
+      <div class="int-body">
+        <div class="int-name">Import from file</div>
+        <div class="int-desc">Bring in a CSV, JSON, or Google Takeout export.</div>
+        <div class="int-actions">
+          <button class="btn btn-primary btn-sm" data-action="open-import">Choose file…</button>
         </div>
       </div>
     </section>
-
-    ${card({
-      logo: '🔐', name: 'Google Classroom (direct API)',
-      desc: 'Direct OAuth integration. Only works if your school admin approves the app. Most students should use the ICS export above instead.',
-      connected: i.classroom?.connected,
-      lastSync: i.classroom?.lastSync,
-      imported: i.classroom?.imported,
-      extra: i.classroom?.courses ? `<div class="int-stat"><b>${i.classroom.courses}</b>classes</div>` : '',
-      actions: i.classroom?.connected
-        ? `<button class="btn btn-primary btn-sm" data-sync="classroom">Sync now</button>
-           <button class="btn btn-danger-soft btn-sm" data-disconnect="classroom">Disconnect</button>`
-        : `<button class="btn btn-primary btn-sm" data-connect="classroom" ${!hasClientId ? 'disabled' : ''}>Connect</button>
-           <button class="btn btn-ghost btn-sm" data-action="open-setup">${hasClientId ? 'Setup guide' : 'Setup required'}</button>`
-    })}
-
-    ${card({
-      logo: '✉️', name: 'School email (Gmail API)',
-      desc: 'Direct Gmail sync. Only works if your school admin approves the app.',
-      connected: i.email?.connected,
-      lastSync: i.email?.lastSync,
-      imported: i.email?.imported,
-      actions: i.email?.connected
-        ? `<button class="btn btn-primary btn-sm" data-sync="email">Sync now</button>
-           <button class="btn btn-danger-soft btn-sm" data-disconnect="email">Disconnect</button>`
-        : `<button class="btn btn-primary btn-sm" data-connect="email" ${!hasClientId ? 'disabled' : ''}>Connect</button>
-           <button class="btn btn-ghost btn-sm" data-action="open-setup">Setup</button>`
-    })}
-
-    ${card({
-      logo: '📁', name: 'Import from file',
-      desc: 'Bring in a CSV, JSON, or Google Takeout export.',
-      connected: false,
-      actions: `<button class="btn btn-primary btn-sm" data-action="open-import">Choose file…</button>`
-    })}
   </div>
 
   <section class="card card-pad" style="margin-top:20px">
@@ -2990,6 +3130,7 @@ function bindViewEvents(){
         break;
       }
       case 'open-paste': openSmartPaste(); break;
+      case 'connect-classroom': connectService('classroom'); break;
       case 'sync-now': syncAll({ interactive: false }); break;
       case 'open-setup': openSetupModal(); break;
       case 'save-senders': saveSenders(); break;
@@ -3043,11 +3184,10 @@ function bindViewEvents(){
   });
 }
 
-/* ── EFFORT REPORT MODAL ─────────────────────────────────────── */
+/* ── EFFORT MODAL ────────────────────────────────────────────── */
 function openEffortModal(existing){
   const isEdit = !!existing;
   const defaults = Store.cache.settings.effortSubjects.slice(0, 6);
-  // Get last report to pre-fill subjects/ratings
   const lastReport = Store.all('effortReports').sort((a,b) => b.date - a.date)[0];
 
   let rows = [];
@@ -3089,7 +3229,6 @@ function openEffortModal(existing){
       <button class="btn btn-primary" id="effort-save">${isEdit ? 'Save changes' : 'Save report'}</button>`,
     onMount(el, close){
       const rowsEl = $('#effort-rows', el);
-
       const renderRows = () => {
         rowsEl.innerHTML = rows.map((r, idx) => `
           <div class="effort-edit-row" data-idx="${idx}">
@@ -3099,8 +3238,6 @@ function openEffortModal(existing){
             </div>
             <button type="button" class="icon-btn" data-remove="${idx}" title="Remove">✕</button>
           </div>`).join('');
-
-        // Wire rating clicks
         $$('.effort-rating-btn', rowsEl).forEach(btn => {
           btn.addEventListener('click', () => {
             const idx = Number(btn.dataset.idx);
@@ -3108,14 +3245,12 @@ function openEffortModal(existing){
             renderRows();
           });
         });
-        // Wire subject inputs
         $$('.effort-edit-row input[data-field="subject"]', rowsEl).forEach(input => {
           input.addEventListener('input', () => {
             const idx = Number(input.closest('.effort-edit-row').dataset.idx);
             rows[idx].subject = input.value;
           });
         });
-        // Wire remove
         $$('.effort-edit-row [data-remove]', rowsEl).forEach(btn => {
           btn.addEventListener('click', () => {
             const idx = Number(btn.dataset.remove);
@@ -3138,11 +3273,8 @@ function openEffortModal(existing){
         if (!dateVal){ toast('Please pick a date', 'error'); return; }
         const validRows = rows.filter(r => r.subject.trim() && r.rating >= 1 && r.rating <= 5);
         if (!validRows.length){ toast('Add at least one subject with a rating', 'error'); return; }
-
         const date = new Date(dateVal + 'T15:00:00').getTime();
         const wk = isoWeekKey(date);
-
-        // Check for existing report for this week (unless editing same one)
         const existingSameWeek = Store.all('effortReports').find(r =>
           r.weekKey === wk.key && r.id !== (isEdit ? existing.id : ''));
         if (existingSameWeek && !isEdit){
@@ -3151,7 +3283,6 @@ function openEffortModal(existing){
           }
           await Store.remove('effortReports', existingSameWeek.id);
         }
-
         const record = {
           id: isEdit ? existing.id : uid(),
           date,
@@ -3169,7 +3300,6 @@ function openEffortModal(existing){
     }
   });
 }
-
 function saveEffortSubjects(){
   const raw = $('#effort-subjects-input')?.value || '';
   const list = raw.split(',').map(s => s.trim()).filter(Boolean);
@@ -3179,56 +3309,46 @@ function saveEffortSubjects(){
   toast(`Saved ${list.length} subject${list.length===1?'':'s'}`, 'success');
 }
 
-/* ── CLASSROOM ICS GUIDE ─────────────────────────────────────── */
+/* ── ICS GUIDE (fallback) ────────────────────────────────────── */
 function openClassroomICSGuide(){
   openModal({
-    title: '🎓 Get your Classroom deadlines without OAuth',
-    subtitle: 'Works on your school account — no admin approval needed',
+    title: '🎓 Manual Classroom setup',
+    subtitle: 'Only needed if the one-tap method above failed',
     wide: true,
     body: `
       <div class="alert alert-info" style="margin-bottom:20px">
         <span>💡</span>
-        <div>
-          <strong>This is the trick:</strong> Google Classroom pushes every assignment deadline into a hidden calendar in your Google Calendar. You can generate a private ICS URL for that calendar and paste it into StudentOS. StudentOS then reads it like any other calendar — no OAuth, no Google Cloud, no school admin.
-        </div>
+        <div>Classroom pushes every deadline into a hidden Google Calendar. You can grab a private ICS URL for that calendar and paste it here. No admin, no OAuth.</div>
       </div>
-
       <ol style="list-style:none;padding:0;margin:0;counter-reset:step">
         <li style="counter-increment:step;position:relative;padding-left:38px;padding-bottom:20px;border-left:2px solid var(--border);margin-left:13px">
           <div style="position:absolute;left:-15px;top:-3px;width:28px;height:28px;border-radius:99px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:800;box-shadow:0 0 0 4px var(--surface)">1</div>
           <h4 style="font-size:14px;margin-bottom:5px">Open Google Calendar</h4>
-          <p style="font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:7px">Go to <a href="https://calendar.google.com" target="_blank" rel="noopener">calendar.google.com</a> and sign in with your <strong>school account</strong>.</p>
+          <p style="font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:7px">Go to <a href="https://calendar.google.com" target="_blank" rel="noopener">calendar.google.com</a> with your <strong>school account</strong>.</p>
         </li>
         <li style="counter-increment:step;position:relative;padding-left:38px;padding-bottom:20px;border-left:2px solid var(--border);margin-left:13px">
           <div style="position:absolute;left:-15px;top:-3px;width:28px;height:28px;border-radius:99px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:800;box-shadow:0 0 0 4px var(--surface)">2</div>
           <h4 style="font-size:14px;margin-bottom:5px">Find the Classroom calendar</h4>
-          <p style="font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:7px">In the left sidebar, find a calendar named <strong>"Classroom"</strong> or one per course (e.g. "Maths 10A"). If you don't see it, click the <strong>＋</strong> next to "Other calendars" → <strong>Subscribe to calendar</strong> and search for your course.</p>
+          <p style="font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:7px">In the left sidebar, look for one named <strong>"Classroom"</strong> or one per course (e.g. "Maths 10A").</p>
         </li>
         <li style="counter-increment:step;position:relative;padding-left:38px;padding-bottom:20px;border-left:2px solid var(--border);margin-left:13px">
           <div style="position:absolute;left:-15px;top:-3px;width:28px;height:28px;border-radius:99px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:800;box-shadow:0 0 0 4px var(--surface)">3</div>
-          <h4 style="font-size:14px;margin-bottom:5px">Open Calendar settings</h4>
-          <p style="font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:7px">Click the <strong>⚙️ gear</strong> in the top-right, then <strong>Settings</strong>. Scroll down to <strong>Settings for my calendars</strong> and click the Classroom calendar you want.</p>
+          <h4 style="font-size:14px;margin-bottom:5px">Open settings</h4>
+          <p style="font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:7px">Click the <strong>⚙️ gear</strong>, then <strong>Settings</strong>. Scroll to <strong>Settings for my calendars</strong>.</p>
         </li>
         <li style="counter-increment:step;position:relative;padding-left:38px;padding-bottom:20px;border-left:2px solid var(--border);margin-left:13px">
           <div style="position:absolute;left:-15px;top:-3px;width:28px;height:28px;border-radius:99px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:800;box-shadow:0 0 0 4px var(--surface)">4</div>
-          <h4 style="font-size:14px;margin-bottom:5px">Copy the "Secret address in iCal format"</h4>
-          <p style="font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:7px">Scroll down to <strong>Secret address in iCal format</strong>. It's a URL ending in <code>.ics</code>. Click the copy button next to it.</p>
-          <div class="alert alert-warn" style="margin-top:8px;margin-bottom:0">
-            <span>🔐</span>
-            <div><strong>Keep this URL private.</strong> Anyone with the URL can see your calendar. Don't share it. StudentOS stores it only in your own database.</div>
-          </div>
+          <h4 style="font-size:14px;margin-bottom:5px">Copy the secret iCal URL</h4>
+          <p style="font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:7px">Scroll down to <strong>Secret address in iCal format</strong> and copy the URL.</p>
         </li>
         <li style="counter-increment:step;position:relative;padding-left:38px;padding-bottom:0;border-left-color:transparent;margin-left:13px">
           <div style="position:absolute;left:-15px;top:-3px;width:28px;height:28px;border-radius:99px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:800;box-shadow:0 0 0 4px var(--surface)">5</div>
           <h4 style="font-size:14px;margin-bottom:5px">Paste it here</h4>
-          <p style="font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:7px">Click the button below. StudentOS opens the "Add calendar" dialog with your URL pre-filled.</p>
         </li>
       </ol>
-
       <div class="field" style="margin-top:20px">
         <label class="label">Paste the ICS URL</label>
         <input class="input" id="classroom-ics-url" placeholder="https://calendar.google.com/calendar/ical/.../basic.ics" style="font-family:ui-monospace,monospace;font-size:12px">
-        <div class="hint">It looks like a long URL that ends in <code>.ics</code>.</div>
       </div>`,
     footer: `
       <button class="btn btn-ghost" data-close>Cancel</button>
@@ -3237,9 +3357,6 @@ function openClassroomICSGuide(){
       $('#classroom-ics-add', el).addEventListener('click', async () => {
         const url = $('#classroom-ics-url', el).value.trim();
         if (!url || !/^https?:\/\//i.test(url)){ toast('Paste the full ICS URL', 'error'); return; }
-        if (!url.toLowerCase().endsWith('.ics') && !url.includes('ical')){
-          toast('That URL doesn\'t look like an ICS feed', 'warn');
-        }
         const subs = Store.cache.settings.calendarSubscriptions;
         if (subs.some(s => s.url === url)){ toast('That calendar is already added', 'warn'); return; }
         subs.push({
@@ -3299,7 +3416,6 @@ function openAddCalendarModal(){
 
 /* ── SMART PASTE ─────────────────────────────────────────────── */
 let pastePreviewItems = [];
-
 function openSmartPaste(){
   pastePreviewItems = [];
   openModal({
@@ -3466,11 +3582,7 @@ function openImportModal(){
     body: `
       <div class="alert alert-info" style="margin-bottom:16px">
         <span>💡</span>
-        <div>
-          <strong>CSV:</strong> header row, then <code>title,date,description</code>.<br>
-          <strong>JSON:</strong> array of objects.<br>
-          <strong>Takeout:</strong> unzip and select the Classroom JSON file.
-        </div>
+        <div><strong>CSV:</strong> header row with <code>title,date,description</code>.<br><strong>JSON:</strong> array of objects.<br><strong>Takeout:</strong> unzip and select the Classroom JSON file.</div>
       </div>
       <div class="field">
         <label class="label">Upload file(s)</label>
@@ -3763,22 +3875,19 @@ function ttRowHtml(t, idx, days){
 function openSetupModal(){
   const cfg = loadConfig() || {};
   openModal({
-    title: 'Add Google Classroom & Gmail access (direct API)',
-    subtitle: 'Optional. Requires school admin approval.',
+    title: 'Set up Google OAuth',
+    subtitle: 'One-time setup. Takes about 5 minutes and costs nothing.',
     wide: true,
     body: `
-      <div class="alert alert-warn" style="margin-bottom:20px">
-        <span>⚠️</span>
-        <div>
-          <strong>Most students should skip this.</strong>
-          Use the <strong>Classroom ICS export</strong> instead — it works without any admin approval. This direct-API path only works if your school has allowlisted the app.
-        </div>
+      <div class="alert alert-info" style="margin-bottom:20px">
+        <span>💡</span>
+        <div>You only need to do this <strong>once</strong>. After that, every user can connect Classroom with one tap.</div>
       </div>
       <ol style="list-style:decimal;padding-left:20px;font-size:13.5px;color:var(--text-2);line-height:1.75">
-        <li>Open <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a> and pick the <strong>student-os-fb</strong> project.</li>
-        <li>Enable <strong>Google Classroom API</strong> and <strong>Gmail API</strong>.</li>
-        <li>Configure the OAuth consent screen (External, Testing mode, add your account as test user).</li>
-        <li>Create a Web Application OAuth Client ID with your site's origin.</li>
+        <li>Open <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a> and select the <strong>student-os-fb</strong> project.</li>
+        <li>Enable the <strong>Google Calendar API</strong> (this is what powers the one-tap Classroom connection).</li>
+        <li>Configure the OAuth consent screen: <strong>External</strong>, name it <code>StudentOS</code>, add your email as a test user.</li>
+        <li>Create an <strong>OAuth Client ID</strong> — type: Web application. Add every origin where StudentOS is opened (e.g. <code>http://localhost:8000</code>, <code>https://yourname.github.io</code>).</li>
         <li>Paste the Client ID below.</li>
       </ol>
       <div class="field" style="margin-top:18px">
@@ -3824,7 +3933,7 @@ function renderOnb(){
   if (onbStep === 1){
     body = `<div class="onb-content">
       <h2>Welcome to StudentOS 👋</h2>
-      <p class="lead">Let's make this yours in 30 seconds. You can change anything later.</p>
+      <p class="lead">Let's get you set up in 30 seconds. You can change anything later.</p>
       <div class="field"><label class="label">Your name</label>
         <input class="input" id="onb-name" placeholder="Alex" value="${escapeHtml(App.user?.displayName?.split(' ')[0] || '')}">
       </div>
@@ -3841,17 +3950,17 @@ function renderOnb(){
       <h2>What matters most to you?</h2>
       <p class="lead">Pick what you'll use most. You can always add more later.</p>
       <div class="onb-cards">
+        <button class="onb-card ${onbData.path === 'classroom' ? 'on' : ''}" data-onb-card="classroom">
+          <div class="onb-card-ico">🎓</div>
+          <div class="onb-card-body"><h4>Connect Google Classroom (one tap)</h4><p>StudentOS pulls all your deadlines from your Google Calendar. No admin approval needed.</p></div>
+        </button>
         <button class="onb-card ${onbData.path === 'paste' ? 'on' : ''}" data-onb-card="paste">
           <div class="onb-card-ico">⚡</div>
-          <div class="onb-card-body"><h4>Smart Paste (recommended)</h4><p>Paste an email or notice — StudentOS pulls out the tasks. No setup required.</p></div>
+          <div class="onb-card-body"><h4>Paste my school emails</h4><p>Paste any email and StudentOS extracts the tasks. No setup required.</p></div>
         </button>
         <button class="onb-card ${onbData.path === 'effort' ? 'on' : ''}" data-onb-card="effort">
           <div class="onb-card-ico">📊</div>
           <div class="onb-card-body"><h4>Track my weekly effort reports</h4><p>Log your Friday ratings and see your progress over time.</p></div>
-        </button>
-        <button class="onb-card ${onbData.path === 'classroom' ? 'on' : ''}" data-onb-card="classroom">
-          <div class="onb-card-ico">🎓</div>
-          <div class="onb-card-body"><h4>Sync Google Classroom</h4><p>Via ICS export — no admin approval needed.</p></div>
         </button>
       </div>
     </div>
@@ -3862,23 +3971,23 @@ function renderOnb(){
   } else {
     body = `<div class="onb-content">
       <h2>You're all set 🎉</h2>
-      <p class="lead">Four quick tips so you get the most out of StudentOS.</p>
+      <p class="lead">Four things to know:</p>
       <div class="onb-feature-list">
         <div class="onb-feature">
-          <div class="onb-feature-ico">📅</div>
-          <div><strong>Your school calendar is connected</strong>Events sync automatically every time you open the app.</div>
+          <div class="onb-feature-ico">🎓</div>
+          <div><strong>One-tap Classroom</strong>Tapping Connect opens a Google consent screen — you approve, and deadlines land on your dashboard.</div>
         </div>
         <div class="onb-feature">
-          <div class="onb-feature-ico">📊</div>
-          <div><strong>Weekly effort reports</strong>Log your Friday ratings — press <kbd>E</kbd> anywhere.</div>
+          <div class="onb-feature-ico">📅</div>
+          <div><strong>School calendar auto-syncs</strong>Events flow in automatically every time you open the app.</div>
         </div>
         <div class="onb-feature">
           <div class="onb-feature-ico">⚡</div>
-          <div><strong>Smart Paste</strong>Paste any email or notice — press <kbd>P</kbd> anywhere.</div>
+          <div><strong>Smart Paste</strong>Press <kbd>P</kbd> anywhere to paste an email.</div>
         </div>
         <div class="onb-feature">
-          <div class="onb-feature-ico">🎓</div>
-          <div><strong>Classroom via ICS</strong>Grab your Classroom calendar URL from Google Calendar settings.</div>
+          <div class="onb-feature-ico">📊</div>
+          <div><strong>Effort reports</strong>Press <kbd>E</kbd> to log your Friday ratings.</div>
         </div>
       </div>
     </div>
@@ -3911,7 +4020,7 @@ function renderOnb(){
         closeOnboarding();
         if (onbData.path === 'classroom'){
           location.hash = '#/integrations';
-          setTimeout(() => openClassroomICSGuide(), 400);
+          setTimeout(() => connectService('classroom'), 400);
         } else if (onbData.path === 'effort'){
           location.hash = '#/effort';
           setTimeout(() => openEffortModal(), 400);
@@ -4022,17 +4131,21 @@ function runSearch(q){
 async function connectService(key){
   const cfg = loadConfig();
   if (!cfg?.googleClientId){
-    toast('Set up Google access first.', 'warn');
+    toast('Set up your Google OAuth Client ID first — it takes 5 minutes.', 'warn', 'Setup required');
     openSetupModal();
     return;
   }
   try {
     if (key === 'classroom'){
-      toast('Opening Google consent…', 'info');
-      const r = await syncClassroom({ interactive: true });
-      toast(`Imported ${r.added} new`, 'success', 'Classroom connected');
+      toast('Opening Google sign-in…', 'info', 'Connect Classroom');
+      const r = await syncClassroomViaCalendar({ interactive: true });
+      toast(`Found ${r.calendars} Classroom calendar${r.calendars===1?'':'s'} · ${r.added} new item${r.added===1?'':'s'}`, 'success', 'Classroom connected');
+    } else if (key === 'classroom-direct'){
+      toast('Opening Google sign-in…', 'info');
+      const r = await syncClassroomDirectAPI({ interactive: true });
+      toast(`Imported ${r.added} new from ${r.courses} classes`, 'success', 'Classroom connected');
     } else if (key === 'email'){
-      toast('Opening Google consent…', 'info');
+      toast('Opening Google sign-in…', 'info');
       const r = await syncEmail({ interactive: true });
       toast(`Scanned ${r.scanned} emails, ${r.added} new`, 'success', 'Email connected');
     }
@@ -4041,18 +4154,53 @@ async function connectService(key){
     render();
   } catch (err){
     console.error(err);
-    toast(err.message || 'Connection failed', 'error');
+    if (err.code === 'NO_CLASSROOM_CALENDARS'){
+      // Auto-open the fallback guide
+      openModal({
+        title: 'No Classroom calendars found',
+        subtitle: 'StudentOS signed you in successfully, but no Classroom calendars are visible yet',
+        body: `
+          <div class="alert alert-info" style="margin-bottom:16px">
+            <span>💡</span>
+            <div>
+              <strong>This is usually easy to fix.</strong> Google Classroom only pushes deadlines into your Google Calendar when the calendar sync is enabled. Visit <a href="https://classroom.google.com" target="_blank" rel="noopener">classroom.google.com</a> once, open each course, and make sure it's active. Then try again.
+            </div>
+          </div>
+          <p class="small muted" style="line-height:1.6;margin-bottom:14px">
+            Found ${err.calendarCount} calendar${err.calendarCount===1?'':'s'} in your Google account:
+            ${err.calendars && err.calendars.length ? `<br><code>${err.calendars.map(escapeHtml).join('</code>, <code>')}</code>` : ''}
+          </p>
+          <p class="small muted" style="line-height:1.6">
+            If Classroom isn't showing up even after visiting it, you can add the Classroom calendar URL manually via the fallback option below.
+          </p>`,
+        footer: `
+          <button class="btn btn-ghost" data-close>Close</button>
+          <button class="btn btn-primary" id="open-ics-fallback">Use the manual method</button>`,
+        onMount(el, close){
+          $('#open-ics-fallback', el).addEventListener('click', () => {
+            close();
+            openClassroomICSGuide();
+          });
+        }
+      });
+      setSyncUI('err', 'No Classroom calendars');
+      render();
+      return;
+    }
+    toast(err.message || 'Connection failed', 'error', 'Could not connect');
   }
 }
+
 async function disconnectService(key){
   const labels = { classroom:'Google Classroom', email:'School email' };
-  if (!await confirmDialog(`Disconnect ${labels[key]}?`, 'Imported items stay.', 'Disconnect', true)) return;
+  if (!await confirmDialog(`Disconnect ${labels[key]}?`, 'Imported items stay, but no new info will be fetched.', 'Disconnect', true)) return;
   if (Store.cache.integrations[key]) delete Store.cache.integrations[key];
   await Store.saveUserDoc();
   GoogleAuth.revoke();
   toast(`${labels[key]} disconnected`, 'success');
   render();
 }
+
 async function syncOne(key){
   const btn = document.querySelector(`[data-sync="${key}"]`);
   if (btn){ btn.disabled = true; btn.textContent = 'Syncing…'; }
@@ -4061,7 +4209,16 @@ async function syncOne(key){
       const r = await syncCalendarSubscriptions();
       toast(`${r.added} new event${r.added===1?'':'s'}`, 'success', 'Calendar synced');
     } else if (key === 'classroom'){
-      const r = await syncClassroom({ interactive: true });
+      const int = Store.cache.integrations.classroom;
+      if (int?.method === 'direct-api'){
+        const r = await syncClassroomDirectAPI({ interactive: true });
+        toast(`${r.added} new`, 'success', 'Classroom synced');
+      } else {
+        const r = await syncClassroomViaCalendar({ interactive: true });
+        toast(`${r.added} new`, 'success', 'Classroom synced');
+      }
+    } else if (key === 'classroom-direct'){
+      const r = await syncClassroomDirectAPI({ interactive: true });
       toast(`${r.added} new`, 'success', 'Classroom synced');
     } else if (key === 'email'){
       const r = await syncEmail({ interactive: true });
@@ -4245,6 +4402,16 @@ async function onUserSignedIn(user){
     }).catch(e => console.warn('Calendar auto-sync failed', e));
   }, 500);
 
+  // Silently refresh Classroom if connected via calendar-api
+  setTimeout(() => {
+    const int = Store.cache.integrations.classroom;
+    if (int?.connected && int.method !== 'direct-api' && GoogleAuth.accessToken){
+      syncClassroomViaCalendar({ interactive: false }).then(r => {
+        if (r.added) render();
+      }).catch(e => console.warn('Classroom silent sync failed', e.message));
+    }
+  }, 1500);
+
   if (!Store.cache.settings.onboardingSeen){
     setTimeout(() => showOnboarding(), 700);
   }
@@ -4269,15 +4436,14 @@ function seedDemoData(){
     { id:'c3', name:'English', section:'10B', room:'E7' }
   ];
   d.assignments = [
-    { id:'a1', title:'Chapter 5 questions', description:'Complete questions 1–12 on quadratic equations.', type:'Homework', subject:'Maths', dueDate: today + day, source:'Paste', url:'', sources:[{source:'Paste',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*2 },
-    { id:'a2', title:'Science test — chapters 4 to 6', description:'Unit test covering ecosystems and food chains.', type:'Test', subject:'Science', dueDate: today + day*3, source:'Paste', url:'', sources:[{source:'Paste',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*3 },
-    { id:'a3', title:'Read chapters 3–4 of the novel', description:'Annotate key themes.', type:'Homework', subject:'English', dueDate: today + day*5, source:'Paste', url:'', sources:[{source:'Paste',url:''}], completed:false, manual:false, priority:'medium', mergedCount:1, createdAt: now() - day }
+    { id:'a1', title:'Chapter 5 questions', description:'Complete questions 1–12 on quadratic equations.', type:'Homework', subject:'Maths', dueDate: today + day, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*2 },
+    { id:'a2', title:'Science test — chapters 4 to 6', description:'Unit test covering ecosystems and food chains.', type:'Test', subject:'Science', dueDate: today + day*3, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*3 },
+    { id:'a3', title:'Read chapters 3–4 of the novel', description:'Annotate key themes.', type:'Homework', subject:'English', dueDate: today + day*5, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'medium', mergedCount:1, createdAt: now() - day }
   ];
   d.events = [
     { id:'e1', title:'Whole school assembly', description:'Sports awards and term overview.', start: today + day*1 + 9*3600000, source:'School Calendar', manual:false, createdAt: now() - day*2 },
     { id:'e2', title:'Mufti day — gold coin donation', description:'Fundraiser for the local shelter.', start: today + day*4, source:'School Calendar', manual:false, createdAt: now() - day*2 }
   ];
-  // Effort reports for the last 3 weeks
   const mkEffort = (daysAgo, weekNum, ratings) => ({
     id: `er-${daysAgo}`,
     date: today - daysAgo * day,
@@ -4289,28 +4455,19 @@ function seedDemoData(){
   });
   d.effortReports = [
     mkEffort(2, 38, [
-      { subject:'Maths', rating:4 },
-      { subject:'English', rating:5 },
-      { subject:'Science', rating:3 },
-      { subject:'History', rating:4 },
-      { subject:'PE', rating:5 },
-      { subject:'Art', rating:4 }
+      { subject:'Maths', rating:4 },{ subject:'English', rating:5 },
+      { subject:'Science', rating:3 },{ subject:'History', rating:4 },
+      { subject:'PE', rating:5 },{ subject:'Art', rating:4 }
     ]),
     mkEffort(9, 37, [
-      { subject:'Maths', rating:4 },
-      { subject:'English', rating:5 },
-      { subject:'Science', rating:4 },
-      { subject:'History', rating:3 },
-      { subject:'PE', rating:5 },
-      { subject:'Art', rating:4 }
+      { subject:'Maths', rating:4 },{ subject:'English', rating:5 },
+      { subject:'Science', rating:4 },{ subject:'History', rating:3 },
+      { subject:'PE', rating:5 },{ subject:'Art', rating:4 }
     ]),
     mkEffort(16, 36, [
-      { subject:'Maths', rating:3 },
-      { subject:'English', rating:4 },
-      { subject:'Science', rating:3 },
-      { subject:'History', rating:3 },
-      { subject:'PE', rating:5 },
-      { subject:'Art', rating:4 }
+      { subject:'Maths', rating:3 },{ subject:'English', rating:4 },
+      { subject:'Science', rating:3 },{ subject:'History', rating:3 },
+      { subject:'PE', rating:5 },{ subject:'Art', rating:4 }
     ])
   ];
   const mkNote = (id, title, body, kind, daysAgo, source, extra = {}) => {
@@ -4327,7 +4484,11 @@ function seedDemoData(){
     { id:'nt2', kind:'assignment', title:'New homework: Chapter 5 questions', body:'Due tomorrow · Maths', link:'#/assignments', read:false, dedupeKey:'new:a1', createdAt: now() - 7200000 }
   ];
   d.integrations = {
-    classroom: { id:'classroom', connected:true, lastSync: now() - 300000, imported: 3, courses: 3, demo:true }
+    classroom: {
+      id:'classroom', connected:true, lastSync: now() - 300000, imported: 3,
+      calendars: 3, calendarNames: ['Classroom – Maths 10A','Classroom – Science 10A','Classroom – English 10B'],
+      method: 'calendar-api', demo:true
+    }
   };
   d.settings.timetable = [
     { day:1, start:'09:00', end:'10:00', subject:'Maths', room:'M12' },
@@ -4430,18 +4591,20 @@ function toggleFab(){
   if (App.fabOpen) renderFabMenu();
 }
 function renderFabMenu(){
+  const classroomConnected = !!Store.cache.integrations?.classroom?.connected;
   $('#fab-menu').innerHTML = `
-    <button class="fab-item highlight" data-quick="open-paste">
-      <span class="fab-ico">⚡</span><span>Smart Paste</span><span class="fab-badge">NEW</span>
+    <button class="fab-item highlight" data-quick="connect-classroom">
+      <span class="fab-ico">🎓</span><span>${classroomConnected ? 'Sync Classroom' : 'Connect Classroom'}</span><span class="fab-badge">${classroomConnected ? 'SYNC' : '1 TAP'}</span>
     </button>
-    <button class="fab-item highlight" data-quick="log-effort">
+    <button class="fab-item highlight" data-quick="open-paste">
+      <span class="fab-ico">⚡</span><span>Smart Paste</span>
+    </button>
+    <button class="fab-item" data-quick="log-effort">
       <span class="fab-ico">📊</span><span>Log effort report</span><kbd>E</kbd>
     </button>
     <div class="menu-sep"></div>
     <button class="fab-item" data-quick="new-assignment"><span class="fab-ico">📝</span><span>Assignment</span><kbd>N</kbd></button>
-    <button class="fab-item" data-quick="new-homework"><span class="fab-ico">📚</span><span>Homework</span></button>
     <button class="fab-item" data-quick="new-test"><span class="fab-ico">📊</span><span>Test or exam</span></button>
-    <div class="menu-sep"></div>
     <button class="fab-item" data-quick="new-event"><span class="fab-ico">📅</span><span>Event</span></button>
     <button class="fab-item" data-quick="new-note"><span class="fab-ico">📢</span><span>Note / notice</span></button>
     <div class="menu-sep"></div>
@@ -4451,10 +4614,14 @@ function renderFabMenu(){
     btn.addEventListener('click', () => {
       const q = btn.dataset.quick;
       toggleFab();
-      if (q === 'open-paste') openSmartPaste();
+      if (q === 'connect-classroom'){
+        const isConnected = !!Store.cache.integrations?.classroom?.connected;
+        if (isConnected) syncOne('classroom');
+        else connectService('classroom');
+      }
+      else if (q === 'open-paste') openSmartPaste();
       else if (q === 'log-effort') openEffortModal();
       else if (q === 'new-assignment') openAssignmentModal(null, 'Assignment');
-      else if (q === 'new-homework') openAssignmentModal(null, 'Homework');
       else if (q === 'new-test') openAssignmentModal(null, 'Test');
       else if (q === 'new-event') openAssignmentModal(null, 'Event');
       else if (q === 'new-note') openNoteFormModal();
@@ -4571,7 +4738,7 @@ async function boot(){
 boot();
 
 window.StudentOS = {
-  version: '1.5.0',
+  version: '1.6.0',
   get state(){ return Store.cache; },
   get config(){ return loadConfig(); },
   syncAll, clearConfig, exportData,
