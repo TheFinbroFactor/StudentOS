@@ -30,6 +30,7 @@
   --amber-50:#fffbeb; --amber-500:#f59e0b; --amber-600:#d97706;
   --red-50:#fef2f2;  --red-500:#ef4444;   --red-600:#dc2626;
   --sky-50:#f0f9ff;  --sky-500:#0ea5e9;
+  --violet-50:#f5f3ff; --violet-500:#8b5cf6; --violet-600:#7c3aed;
 
   --bg:var(--gray-50);
   --surface:#ffffff;
@@ -78,6 +79,7 @@
   --shadow-xl:0 32px 64px -16px rgba(0,0,0,.8);
   --green-50:rgba(16,185,129,.12); --amber-50:rgba(245,158,11,.12);
   --red-50:rgba(239,68,68,.12); --sky-50:rgba(14,165,233,.12);
+  --violet-50:rgba(139,92,246,.12);
 }
 
 /* ============================================================
@@ -193,10 +195,18 @@ img{max-width:100%;display:block}
 .chip-amber{background:var(--amber-50);color:var(--amber-600)}
 .chip-red{background:var(--red-50);color:var(--red-600)}
 .chip-sky{background:var(--sky-50);color:#0284c7}
+.chip-violet{background:var(--violet-50);color:var(--violet-600)}
 .chip-gray{background:var(--gray-100);color:var(--gray-600)}
 [data-theme="dark"] .chip-gray{background:var(--surface-2);color:var(--text-2)}
 
 .dot{position:absolute;top:7px;right:7px;width:8px;height:8px;border-radius:99px;background:var(--red-500);border:2px solid var(--surface)}
+
+kbd{
+  display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:11.5px;font-weight:600;line-height:1.5;
+  background:var(--surface-2);border:1px solid var(--border-strong);
+  border-bottom-width:2px;border-radius:5px;color:var(--text-2);
+}
 
 /* ============================================================
    7. CARDS
@@ -277,17 +287,7 @@ img{max-width:100%;display:block}
 .auth-lead{color:var(--text-2);font-size:14.5px;margin-bottom:26px}
 .auth-divider{display:flex;align-items:center;gap:12px;margin:22px 0;color:var(--text-3);font-size:12px;font-weight:600}
 .auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--border)}
-.auth-setup{
-  border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px;
-  background:var(--surface);font-size:13px;
-}
-.auth-setup summary{cursor:pointer;font-weight:600;color:var(--text);list-style:none;display:flex;align-items:center;gap:6px}
-.auth-setup summary::-webkit-details-marker{display:none}
-.auth-setup[open] summary{margin-bottom:10px}
-.auth-setup p{margin:0 0 8px;color:var(--text-2);line-height:1.6}
-.auth-setup p:last-child{margin-bottom:0}
 .auth-fineprint{margin-top:22px;font-size:11.5px;color:var(--text-3);line-height:1.6}
-.auth-error{margin-top:14px}
 .auth-mode-badge{
   display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:99px;
   background:var(--amber-50);color:var(--amber-600);font-size:11.5px;font-weight:700;
@@ -295,7 +295,6 @@ img{max-width:100%;display:block}
 }
 .auth-mode-badge.live{background:var(--green-50);color:var(--green-600)}
 
-/* Auth tabs */
 .auth-tabs{
   display:flex;background:var(--gray-100);border-radius:10px;padding:3px;gap:2px;margin-bottom:22px;
 }
@@ -327,6 +326,11 @@ img{max-width:100%;display:block}
 .search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:16px;pointer-events:none}
 .topbar-search .input{padding-left:34px;background:var(--surface-2);border-color:transparent;height:38px}
 .topbar-search .input:focus{background:var(--surface);border-color:var(--primary)}
+.topbar-search kbd{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  font-size:11px;pointer-events:none;
+}
+.topbar-search .input:focus ~ kbd{opacity:0}
 .topbar-actions{display:flex;align-items:center;gap:6px;margin-left:auto}
 
 .search-results{
@@ -357,6 +361,7 @@ img{max-width:100%;display:block}
 .menu-item:hover{background:var(--surface-2)}
 .menu-item.danger{color:var(--red-600)}
 .menu-item.danger:hover{background:var(--red-50)}
+.menu-item kbd{margin-left:auto}
 .menu-sep{height:1px;background:var(--border);margin:6px 4px}
 
 .account-head{display:flex;gap:12px;align-items:center;padding:10px 11px 12px}
@@ -412,7 +417,7 @@ img{max-width:100%;display:block}
 @keyframes blink{50%{opacity:.3}}
 .sync-chip.err .sync-dot{background:var(--red-500)}
 
-.view{flex:1;min-width:0;padding:26px 30px 70px;max-width:1320px;width:100%}
+.view{flex:1;min-width:0;padding:26px 30px 100px;max-width:1320px;width:100%}
 .scrim{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:550;backdrop-filter:blur(2px)}
 
 /* ============================================================
@@ -479,7 +484,8 @@ img{max-width:100%;display:block}
 .empty{padding:52px 24px;text-align:center;color:var(--text-3)}
 .empty-ico{font-size:36px;margin-bottom:12px;opacity:.65}
 .empty-title{font-weight:600;color:var(--text-2);margin-bottom:4px;font-size:14.5px}
-.empty-sub{font-size:13px;max-width:340px;margin:0 auto;line-height:1.6}
+.empty-sub{font-size:13px;max-width:380px;margin:0 auto;line-height:1.6}
+.empty-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
 
 /* ============================================================
    13. FILTER BAR
@@ -540,7 +546,44 @@ img{max-width:100%;display:block}
 .next-item.low .next-rank{background:var(--gray-400)}
 
 /* ============================================================
-   17. MODAL
+   17. ONBOARDING CHECKLIST (dashboard)
+   ============================================================ */
+.checklist-card{
+  background:linear-gradient(135deg,var(--indigo-50) 0%,var(--violet-50) 100%);
+  border:1px solid var(--indigo-200);border-radius:var(--radius-lg);
+  padding:18px 20px;margin-bottom:24px;position:relative;overflow:hidden;
+}
+[data-theme="dark"] .checklist-card{
+  background:linear-gradient(135deg,rgba(99,102,241,.16) 0%,rgba(139,92,246,.12) 100%);
+  border-color:var(--border);
+}
+.checklist-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.checklist-title{font-size:15px;font-weight:700;color:var(--indigo-700);display:flex;align-items:center;gap:8px}
+[data-theme="dark"] .checklist-title{color:var(--indigo-200)}
+.checklist-progress{
+  display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--indigo-700);
+}
+[data-theme="dark"] .checklist-progress{color:var(--indigo-200)}
+.checklist-items{display:flex;flex-direction:column;gap:6px}
+.checklist-item{
+  display:flex;align-items:center;gap:11px;padding:9px 12px;
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  font-size:13.5px;transition:.14s;cursor:pointer;
+}
+.checklist-item:hover{border-color:var(--primary);transform:translateX(2px)}
+.checklist-item.done{opacity:.6;cursor:default}
+.checklist-item.done .checklist-text{text-decoration:line-through}
+.checklist-box{
+  width:20px;height:20px;border-radius:6px;border:2px solid var(--border-strong);
+  display:grid;place-items:center;font-size:11px;font-weight:800;flex:none;
+  transition:.15s;color:transparent;background:var(--surface);
+}
+.checklist-item.done .checklist-box{background:var(--green-500);border-color:var(--green-500);color:#fff}
+.checklist-text{flex:1;min-width:0;font-weight:500}
+.checklist-item.done .checklist-text{color:var(--text-3)}
+
+/* ============================================================
+   18. MODAL
    ============================================================ */
 .modal-back{
   position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);
@@ -567,18 +610,108 @@ img{max-width:100%;display:block}
 .modal-close:hover{background:var(--surface-2);color:var(--text)}
 
 /* ============================================================
-   18. TOASTS
+   19. QUICK-ADD FAB & MENU
    ============================================================ */
-.toasts{position:fixed;bottom:22px;right:22px;z-index:2000;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.fab{
+  position:fixed;right:24px;bottom:24px;z-index:700;
+  width:54px;height:54px;border-radius:99px;
+  background:linear-gradient(135deg,var(--indigo-500),var(--indigo-700));
+  color:#fff;font-size:26px;font-weight:300;display:grid;place-items:center;
+  box-shadow:0 12px 28px -8px rgba(79,70,229,.55),0 4px 12px rgba(79,70,229,.25);
+  transition:.2s cubic-bezier(.2,.9,.3,1);
+}
+.fab:hover{transform:scale(1.08) translateY(-2px);box-shadow:0 16px 36px -8px rgba(79,70,229,.65),0 6px 16px rgba(79,70,229,.3)}
+.fab:active{transform:scale(.96)}
+.fab.open{transform:rotate(45deg)}
+.fab-menu{
+  position:fixed;right:24px;bottom:90px;z-index:690;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-lg);box-shadow:var(--shadow-xl);
+  padding:8px;min-width:220px;
+  animation:fabPop .18s cubic-bezier(.2,.9,.3,1);
+  transform-origin:bottom right;
+}
+@keyframes fabPop{from{opacity:0;transform:scale(.9) translateY(8px)}to{opacity:1;transform:none}}
+.fab-item{
+  display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;
+  font-size:13.5px;font-weight:500;width:100%;text-align:left;transition:.13s;
+  color:var(--text);
+}
+.fab-item:hover{background:var(--surface-2)}
+.fab-ico{
+  width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:14px;flex:none;
+  background:var(--surface-2);
+}
+[data-theme="dark"] .fab-ico{background:var(--surface-3)}
+.fab-item kbd{margin-left:auto;font-size:10.5px}
+
+/* ============================================================
+   20. ONBOARDING WIZARD
+   ============================================================ */
+.onboarding{
+  position:fixed;inset:0;z-index:1500;
+  background:rgba(15,23,42,.6);backdrop-filter:blur(6px);
+  display:grid;place-items:center;padding:20px;animation:fadeIn .2s ease;
+  overflow-y:auto;
+}
+.onboarding-card{
+  background:var(--surface);border-radius:var(--radius-xl);
+  width:100%;max-width:560px;box-shadow:var(--shadow-xl);
+  padding:32px 32px 26px;position:relative;
+  animation:slideUp .3s cubic-bezier(.2,.9,.3,1);
+  margin:auto;
+}
+.onboarding-skip{
+  position:absolute;top:16px;right:16px;
+  font-size:12.5px;font-weight:600;color:var(--text-3);
+  padding:6px 10px;border-radius:8px;
+}
+.onboarding-skip:hover{background:var(--surface-2);color:var(--text)}
+.onb-progress{
+  display:flex;gap:6px;justify-content:center;margin-bottom:24px;
+}
+.onb-dot{
+  width:32px;height:4px;border-radius:99px;background:var(--border);
+  transition:.3s;
+}
+.onb-dot.on{background:var(--primary);width:48px}
+.onb-dot.done{background:var(--primary)}
+.onb-content h2{font-size:24px;letter-spacing:-.02em;margin-bottom:8px}
+.onb-content p.lead{font-size:15px;color:var(--text-2);line-height:1.6;margin-bottom:22px}
+.onb-cards{display:grid;gap:10px;margin-bottom:20px}
+.onb-card{
+  display:flex;gap:13px;align-items:flex-start;padding:14px 16px;
+  border:2px solid var(--border);border-radius:var(--radius);
+  cursor:pointer;transition:.15s;text-align:left;background:var(--surface);
+}
+.onb-card:hover{border-color:var(--border-strong);background:var(--surface-2)}
+.onb-card.on{border-color:var(--primary);background:var(--primary-soft)}
+.onb-card-ico{font-size:22px;flex:none;line-height:1.2}
+.onb-card-body h4{font-size:14.5px;margin-bottom:3px;font-weight:700}
+.onb-card-body p{font-size:12.5px;color:var(--text-2);line-height:1.5}
+.onb-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:22px}
+.onb-feature-list{display:flex;flex-direction:column;gap:12px;margin-bottom:8px}
+.onb-feature{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.55}
+.onb-feature-ico{
+  width:32px;height:32px;border-radius:10px;display:grid;place-items:center;flex:none;
+  background:var(--primary-soft);font-size:16px;
+}
+[data-theme="dark"] .onb-feature-ico{background:var(--surface-2)}
+.onb-feature strong{display:block;margin-bottom:1px}
+
+/* ============================================================
+   21. TOASTS
+   ============================================================ */
+.toasts{position:fixed;bottom:22px;left:22px;z-index:2000;display:flex;flex-direction:column;gap:10px;pointer-events:none}
 .toast{
   background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--primary);
   border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:12px 16px;min-width:270px;
   max-width:380px;display:flex;gap:11px;align-items:flex-start;pointer-events:auto;
   animation:toastIn .24s cubic-bezier(.2,.9,.3,1);
 }
-@keyframes toastIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+@keyframes toastIn{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
 .toast.out{animation:toastOut .2s ease forwards}
-@keyframes toastOut{to{opacity:0;transform:translateX(24px)}}
+@keyframes toastOut{to{opacity:0;transform:translateX(-24px)}}
 .toast.success{border-left-color:var(--green-500)}
 .toast.error{border-left-color:var(--red-500)}
 .toast.warn{border-left-color:var(--amber-500)}
@@ -587,7 +720,7 @@ img{max-width:100%;display:block}
 .toast-msg{font-size:12.5px;color:var(--text-2);line-height:1.5}
 
 /* ============================================================
-   19. ALERTS
+   22. ALERTS
    ============================================================ */
 .alert{
   padding:12px 15px;border-radius:var(--radius);font-size:13px;line-height:1.55;
@@ -600,7 +733,7 @@ img{max-width:100%;display:block}
 .alert strong{font-weight:700}
 
 /* ============================================================
-   20. INTEGRATIONS
+   23. INTEGRATIONS
    ============================================================ */
 .int-card{display:flex;gap:16px;padding:20px;align-items:flex-start}
 .int-logo{
@@ -624,7 +757,7 @@ img{max-width:100%;display:block}
 .status-pill .pdot{width:6px;height:6px;border-radius:99px;background:currentColor}
 
 /* ============================================================
-   21. SETTINGS
+   24. SETTINGS
    ============================================================ */
 .set-row{display:flex;gap:16px;padding:15px 0;border-bottom:1px solid var(--border);align-items:flex-start}
 .set-row:last-child{border-bottom:none}
@@ -661,7 +794,7 @@ code{
 .steps .code{margin-top:8px;font-size:11.5px}
 
 /* ============================================================
-   22. MISC
+   25. MISC
    ============================================================ */
 .divider{height:1px;background:var(--border);margin:18px 0}
 .loading-row{display:flex;align-items:center;gap:10px;color:var(--text-2);font-size:13px;padding:26px;justify-content:center}
@@ -679,8 +812,14 @@ code{
 [data-theme="dark"] .progress{background:var(--surface-2)}
 .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--indigo-400),var(--indigo-600));border-radius:99px;transition:width .4s ease}
 
+/* Help modal (keyboard shortcuts) */
+.shortcut-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.shortcut-row{display:flex;justify-content:space-between;align-items:center;gap:10px;
+  padding:10px 12px;background:var(--surface-2);border-radius:9px;font-size:13px}
+@media(max-width:520px){.shortcut-grid{grid-template-columns:1fr}}
+
 /* ============================================================
-   23. RESPONSIVE
+   26. RESPONSIVE
    ============================================================ */
 @media(max-width:960px){
   .auth{grid-template-columns:1fr}
@@ -695,9 +834,11 @@ code{
     transform:translateX(-100%);transition:transform .24s cubic-bezier(.2,.9,.3,1);box-shadow:var(--shadow-xl);
   }
   .sidebar.open{transform:none}
-  .view{padding:20px 16px 70px}
+  .view{padding:20px 16px 100px}
   .brand-text{display:none}
   .notif-panel{width:calc(100vw - 28px);right:-60px}
+  .fab{right:16px;bottom:16px}
+  .fab-menu{right:16px;bottom:82px}
 }
 @media(max-width:560px){
   .stat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
@@ -707,6 +848,8 @@ code{
   .toast{min-width:0;max-width:none}
   .cal-day{min-height:62px;padding:4px}
   .cal-ev{font-size:9.5px;padding:1px 4px}
+  .onboarding-card{padding:26px 20px 20px}
+  .onb-content h2{font-size:20px}
 }
 </style>
 </head>
@@ -810,6 +953,7 @@ code{
     <div class="topbar-search">
       <span class="search-ico">⌕</span>
       <input id="global-search" class="input" type="search" placeholder="Search assignments, tests, notices…" aria-label="Search" autocomplete="off">
+      <kbd>/</kbd>
       <div id="search-results" class="search-results" hidden></div>
     </div>
 
@@ -841,6 +985,7 @@ code{
           <div class="menu-sep"></div>
           <button class="menu-item" data-nav="#/integrations">🔌 <span>Integrations</span></button>
           <button class="menu-item" data-nav="#/settings">⚙️ <span>Settings</span></button>
+          <button class="menu-item" id="help-btn">⌨️ <span>Keyboard shortcuts</span><kbd>?</kbd></button>
           <div class="menu-sep"></div>
           <button class="menu-item danger" id="signout-btn">↩︎ <span>Sign out</span></button>
         </div>
@@ -877,6 +1022,10 @@ code{
   </div>
 </div>
 
+<!-- FAB -->
+<button id="fab" class="fab" aria-label="Quick add" hidden>+</button>
+<div id="fab-menu" class="fab-menu" hidden></div>
+
 <div id="toasts" class="toasts" aria-live="polite"></div>
 <div id="modal-root"></div>
 
@@ -892,9 +1041,6 @@ const LS_CONFIG = 'studentos.config.v1';
 const LS_SESSION = 'studentos.session.v1';
 const LS_DATA = uid => `studentos.data.${uid}.v1`;
 
-// Shared Firebase project. Every user connects here automatically.
-// The API key is a public project identifier, not a secret — real
-// security comes from Firestore Rules + authorised domains.
 const DEFAULT_CONFIG = {
   firebase: {
     apiKey: "AIzaSyAWJ3DfVG0_4qtkbfx5Y6XVMQMKUdUxqWw",
@@ -904,8 +1050,6 @@ const DEFAULT_CONFIG = {
     messagingSenderId: "499752363180",
     appId: "1:499752363180:web:0ac024f9e242caac4cab09"
   },
-  // Optional: paste your Google OAuth Client ID here to enable
-  // Classroom + Gmail sync for all users who open this file.
   googleClientId: ""
 };
 
@@ -918,7 +1062,8 @@ const DEFAULT_SETTINGS = {
   notifyNewTest: true,
   notifyAnnouncements: true,
   theme: 'light',
-  timetable: []
+  timetable: [],
+  onboardingSeen: false
 };
 
 const CLASSROOM_SCOPES = [
@@ -963,16 +1108,11 @@ function sanitiseText(input, maxLen = 4000){
 
 function fmtDate(ts){
   if (!ts) return '';
-  const d = new Date(ts);
-  return d.toLocaleDateString(undefined, { day:'numeric', month:'short' });
+  return new Date(ts).toLocaleDateString(undefined, { day:'numeric', month:'short' });
 }
 function fmtDateLong(ts){
   if (!ts) return '';
   return new Date(ts).toLocaleDateString(undefined, { weekday:'short', day:'numeric', month:'long' });
-}
-function fmtTime(ts){
-  if (!ts) return '';
-  return new Date(ts).toLocaleTimeString(undefined, { hour:'numeric', minute:'2-digit' });
 }
 function relativeTime(ts){
   if (!ts) return 'never';
@@ -1096,8 +1236,6 @@ function loadConfig(){
     const raw = localStorage.getItem(LS_CONFIG);
     if (raw) stored = JSON.parse(raw);
   } catch {}
-  // Always merge with DEFAULT_CONFIG. Every user shares the same
-  // Firebase project — only the OAuth Client ID is per-browser.
   return {
     firebase: (stored && stored.firebase) || DEFAULT_CONFIG.firebase,
     googleClientId: (stored && stored.googleClientId) || DEFAULT_CONFIG.googleClientId
@@ -1417,19 +1555,15 @@ function jaccard(a, b){
   for (const x of a) if (b.has(x)) inter++;
   return inter / (a.size + b.size - inter);
 }
-
 function findDuplicate(incoming, pool){
   const tIn = tokenSet(incoming.title);
   for (const existing of pool){
     if (existing.manual) continue;
     const tEx = tokenSet(existing.title);
-    const sim = jaccard(tIn, tEx);
-    if (sim < 0.5) continue;
-
+    if (jaccard(tIn, tEx) < 0.5) continue;
     const subjMatch = !incoming.subject || !existing.subject ||
       incoming.subject.toLowerCase() === existing.subject.toLowerCase();
     if (!subjMatch) continue;
-
     if (incoming.dueDate && existing.dueDate){
       const diffDays = Math.abs(incoming.dueDate - existing.dueDate) / 86400000;
       if (diffDays > 3) continue;
@@ -1438,15 +1572,13 @@ function findDuplicate(incoming, pool){
   }
   return null;
 }
-
 function mergeInto(existing, incoming){
   const sources = existing.sources || [];
   if (!sources.some(s => s.source === incoming.source && s.url === incoming.url)){
     sources.push({ source: incoming.source, url: incoming.url || '', addedAt: now() });
   }
   return {
-    ...existing,
-    sources,
+    ...existing, sources,
     dueDate: existing.manual && existing.dueDate ? existing.dueDate : (existing.dueDate || incoming.dueDate),
     description: (existing.description && existing.description.length > (incoming.description||'').length)
       ? existing.description : (incoming.description || existing.description),
@@ -1467,27 +1599,19 @@ async function importItems(rawItems, sourceLabel){
   for (const raw of rawItems){
     const cleanTitle = sanitiseText(raw.title, 220) || 'Untitled item';
     const cleanDesc  = sanitiseText(raw.description, 4000);
-
     const haystack = `${cleanTitle} ${cleanDesc}`;
-    let type = raw.typeHint || detectType(haystack);
+    const type = raw.typeHint || detectType(haystack);
     const subject = raw.subject || detectSubject(haystack, courses);
     const dueDate = raw.dueDate || parseDate(haystack);
 
     const candidate = {
       id: raw.id || uid(),
-      title: cleanTitle,
-      description: cleanDesc,
-      type,
-      subject,
+      title: cleanTitle, description: cleanDesc, type, subject,
       dueDate: dueDate || null,
-      source: sourceLabel,
-      url: raw.url || '',
+      source: sourceLabel, url: raw.url || '',
       sources: [{ source: sourceLabel, url: raw.url || '', addedAt: now() }],
-      completed: false,
-      manual: false,
-      priority: 'low',
-      externalId: raw.externalId || '',
-      courseId: raw.courseId || '',
+      completed: false, manual: false, priority: 'low',
+      externalId: raw.externalId || '', courseId: raw.courseId || '',
       createdAt: now()
     };
     candidate.priority = computePriority(candidate);
@@ -1504,7 +1628,6 @@ async function importItems(rawItems, sourceLabel){
       added++;
     }
   }
-
   return { added, merged };
 }
 
@@ -1517,22 +1640,12 @@ async function importNotices(rawItems, sourceLabel){
     const wk = isoWeekKey(date);
 
     const note = {
-      id: raw.id || uid(),
-      title,
-      body,
-      date,
-      weekKey: wk.key,
-      weekNumber: wk.week,
-      weekYear: wk.year,
-      source: sourceLabel,
-      url: raw.url || '',
+      id: raw.id || uid(), title, body, date,
+      weekKey: wk.key, weekNumber: wk.week, weekYear: wk.year,
+      source: sourceLabel, url: raw.url || '',
       kind: raw.kind || 'Notice',
-      read: false,
-      important: false,
-      saved: false,
-      createdAt: now()
+      read: false, important: false, saved: false, createdAt: now()
     };
-
     const exists = Store.all('weeklyNotes').some(n =>
       n.title === note.title && Math.abs((n.date || 0) - note.date) < 3*86400000);
     if (!exists){
@@ -1613,11 +1726,7 @@ async function checkDueSoon(){
    SECTION 10 · GOOGLE OAUTH
    ---------------------------------------------------------------- */
 const GoogleAuth = {
-  tokenClient: null,
-  accessToken: null,
-  scopes: [],
-  expiresAt: 0,
-  ready: false,
+  tokenClient: null, accessToken: null, scopes: [], expiresAt: 0, ready: false,
 
   async waitForLib(timeout = 10000){
     const t0 = Date.now();
@@ -1631,16 +1740,11 @@ const GoogleAuth = {
     if (!clientId) throw new Error('No Google OAuth Client ID configured.');
     if (!(await this.waitForLib())) throw new Error('Google Identity Services failed to load. Check your internet connection.');
     const scopeKey = [...scopes].sort().join(' ');
-    if (this.tokenClient && this._scopeKey === scopeKey){
-      this.scopes = scopes;
-      return;
-    }
+    if (this.tokenClient && this._scopeKey === scopeKey){ this.scopes = scopes; return; }
     this.scopes = scopes;
     this._scopeKey = scopeKey;
     this.tokenClient = google.accounts.oauth2.initTokenClient({
-      client_id: clientId,
-      scope: scopeKey,
-      callback: () => {}
+      client_id: clientId, scope: scopeKey, callback: () => {}
     });
     this.ready = true;
   },
@@ -1700,7 +1804,7 @@ async function gfetch(url, token){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 11 · GOOGLE CLASSROOM SYNC
+   SECTION 11 · CLASSROOM SYNC
    ---------------------------------------------------------------- */
 async function syncClassroom({ interactive = true } = {}){
   const cfg = loadConfig();
@@ -1722,48 +1826,34 @@ async function syncClassroom({ interactive = true } = {}){
       for (const w of (cw.courseWork || [])){
         const due = w.dueDate
           ? new Date(w.dueDate.year, (w.dueDate.month || 1) - 1, w.dueDate.day || 1,
-              w.dueTime?.hours ?? 23, w.dueTime?.minutes ?? 59).getTime()
-          : null;
+              w.dueTime?.hours ?? 23, w.dueTime?.minutes ?? 59).getTime() : null;
         raw.push({
-          id: `gc-cw-${w.id}`,
-          externalId: w.id,
-          courseId: c.id,
-          title: w.title || 'Coursework',
-          description: w.description || '',
-          dueDate: due,
-          subject: c.name,
-          typeHint: mapCourseWorkType(w.workType),
-          url: w.alternateLink || '',
-          source: 'Google Classroom'
+          id: `gc-cw-${w.id}`, externalId: w.id, courseId: c.id,
+          title: w.title || 'Coursework', description: w.description || '',
+          dueDate: due, subject: c.name, typeHint: mapCourseWorkType(w.workType),
+          url: w.alternateLink || '', source: 'Google Classroom'
         });
       }
-    } catch(e){ console.warn('courseWork failed for', c.name, e.message); }
-
+    } catch(e){ console.warn('courseWork failed', e.message); }
     try {
       const an = await gfetch(
         `https://classroom.googleapis.com/v1/courses/${c.id}/announcements?pageSize=50`, token);
       for (const a of (an.announcements || [])){
         await importNotices([{
-          id: `gc-an-${a.id}`,
-          title: `${c.name}: ${sanitiseText(a.text, 90)}`,
+          id: `gc-an-${a.id}`, title: `${c.name}: ${sanitiseText(a.text, 90)}`,
           description: a.text || '',
           date: a.creationTime ? new Date(a.creationTime).getTime() : now(),
-          url: a.alternateLink || '',
-          kind: 'Announcement'
+          url: a.alternateLink || '', kind: 'Announcement'
         }], 'Google Classroom');
       }
-    } catch(e){ console.warn('announcements failed for', c.name, e.message); }
+    } catch(e){ console.warn('announcements failed', e.message); }
   }
 
   const result = await importItems(raw, 'Google Classroom');
-
   Store.cache.integrations.classroom = {
-    id: 'classroom',
-    connected: true,
-    lastSync: now(),
+    id: 'classroom', connected: true, lastSync: now(),
     imported: Store.all('assignments').filter(a => (a.sources||[]).some(s => s.source === 'Google Classroom')).length,
-    courses: courses.length,
-    account: cfg.googleClientId ? 'Google account' : ''
+    courses: courses.length, account: 'Google account'
   };
   await Store.saveUserDoc();
   return { ...result, courses: courses.length };
@@ -1787,12 +1877,8 @@ async function syncEmail({ interactive = true } = {}){
   const s = Store.cache.settings;
 
   const parts = [];
-  if (s.trustedDomains.length){
-    parts.push('(' + s.trustedDomains.map(d => `from:${d}`).join(' OR ') + ')');
-  }
-  if (s.trustedSenders.length){
-    parts.push('(' + s.trustedSenders.map(d => `from:${d}`).join(' OR ') + ')');
-  }
+  if (s.trustedDomains.length) parts.push('(' + s.trustedDomains.map(d => `from:${d}`).join(' OR ') + ')');
+  if (s.trustedSenders.length) parts.push('(' + s.trustedSenders.map(d => `from:${d}`).join(' OR ') + ')');
   const keywords = '(homework OR assignment OR test OR exam OR due OR deadline OR notice OR newsletter OR reminder OR assessment OR project)';
   const lookback = `newer_than:${Math.max(1, Number(s.emailLookbackDays) || 30)}d`;
   const q = [...parts, keywords, lookback].filter(Boolean).join(' ');
@@ -1816,10 +1902,8 @@ async function syncEmail({ interactive = true } = {}){
 
       if (type === 'School Notice' || type === 'Announcement' || type === 'Event'){
         rawNotices.push({
-          id: `gm-note-${id}`,
-          title: parsed.subject,
-          description: parsed.body.slice(0, 900),
-          date: parsed.date,
+          id: `gm-note-${id}`, title: parsed.subject,
+          description: parsed.body.slice(0, 900), date: parsed.date,
           url: `https://mail.google.com/mail/u/0/#inbox/${id}`,
           kind: type === 'Event' ? 'Event' : 'Notice'
         });
@@ -1828,8 +1912,7 @@ async function syncEmail({ interactive = true } = {}){
       const hasDeadline = /\b(due|deadline|by \w+day|hand in|submit|exam|test)\b/i.test(haystack);
       if (hasDeadline || ['Assignment','Homework','Test','Exam','Project','Reminder'].includes(type)){
         rawAssignments.push({
-          id: `gm-${id}`,
-          title: parsed.subject || 'Email item',
+          id: `gm-${id}`, title: parsed.subject || 'Email item',
           description: parsed.body.slice(0, 1800),
           dueDate: parseDate(haystack, new Date(parsed.date)),
           url: `https://mail.google.com/mail/u/0/#inbox/${id}`,
@@ -1838,20 +1921,16 @@ async function syncEmail({ interactive = true } = {}){
           source: 'Email'
         });
       }
-    } catch(e){ console.warn('Gmail message failed', id, e.message); }
+    } catch(e){ console.warn('Gmail failed', id, e.message); }
   }
 
   const a = await importItems(rawAssignments, 'Email');
   const n = await importNotices(rawNotices, 'Email');
 
   Store.cache.integrations.email = {
-    id: 'email',
-    connected: true,
-    lastSync: now(),
+    id: 'email', connected: true, lastSync: now(),
     imported: Store.all('assignments').filter(x => (x.sources||[]).some(s => s.source === 'Email')).length,
-    scanned: ids.length,
-    notices: n,
-    query: q
+    scanned: ids.length, notices: n, query: q
   };
   await Store.saveUserDoc();
   return { ...a, notices: n, scanned: ids.length };
@@ -1861,7 +1940,6 @@ function parseGmailMessage(msg){
   const headers = (msg.payload?.headers || []);
   const get = n => headers.find(h => h.name.toLowerCase() === n.toLowerCase())?.value || '';
   const subject = sanitiseText(get('Subject'), 220);
-  const from = get('From');
   const date = Number(msg.internalDate) || now();
 
   let body = '';
@@ -1869,15 +1947,13 @@ function parseGmailMessage(msg){
     if (!part) return;
     if (part.mimeType === 'text/plain' && part.body?.data){
       body += base64UrlDecode(part.body.data) + '\n';
-    } else if (part.parts){
-      part.parts.forEach(walk);
-    }
+    } else if (part.parts){ part.parts.forEach(walk); }
   };
   walk(msg.payload);
   if (!body && msg.payload?.body?.data) body = base64UrlDecode(msg.payload.body.data);
   if (!body && msg.snippet) body = msg.snippet;
 
-  return { subject, from, date, body: sanitiseText(body, 3000) };
+  return { subject, date, body: sanitiseText(body, 3000) };
 }
 
 function base64UrlDecode(data){
@@ -1892,21 +1968,16 @@ function base64UrlDecode(data){
 /* ----------------------------------------------------------------
    SECTION 13 · SCHOOLBRIDGE
    ---------------------------------------------------------------- */
-async function syncSchoolBridge({ interactive = true } = {}){
+async function syncSchoolBridge(){
   const sb = Store.cache.integrations.schoolbridge || {};
-
   if (!sb.endpoint){
-    throw new Error(
-      'SchoolBridge: no official API endpoint configured. ' +
-      'Ask your school for API access, or use "Import official export" instead.'
-    );
+    throw new Error('SchoolBridge: no official API endpoint configured. Ask your school for API access, or use "Import official export" instead.');
   }
-
   const headers = { 'Accept': 'application/json' };
   if (sb.token) headers['Authorization'] = `Bearer ${sb.token}`;
 
   const r = await fetch(sb.endpoint, { headers });
-  if (!r.ok) throw new Error(`SchoolBridge endpoint returned ${r.status}. Check the URL and token with your school.`);
+  if (!r.ok) throw new Error(`SchoolBridge endpoint returned ${r.status}.`);
   const data = await r.json();
 
   const notices = Array.isArray(data.notices) ? data.notices
@@ -1918,8 +1989,7 @@ async function syncSchoolBridge({ interactive = true } = {}){
     title: x.title || x.subject || 'School notice',
     description: x.body || x.description || x.text || '',
     date: x.date ? new Date(x.date).getTime() : now(),
-    url: x.url || '',
-    kind: x.type || 'School Notice'
+    url: x.url || '', kind: x.type || 'School Notice'
   })), 'SchoolBridge');
 
   const events = Array.isArray(data.events) ? data.events : [];
@@ -1930,13 +2000,9 @@ async function syncSchoolBridge({ interactive = true } = {}){
       description: sanitiseText(e.description, 2000),
       start: e.start ? new Date(e.start).getTime() : now(),
       end: e.end ? new Date(e.end).getTime() : null,
-      source: 'SchoolBridge',
-      url: e.url || '',
-      manual: false,
-      createdAt: now()
+      source: 'SchoolBridge', url: e.url || '', manual: false, createdAt: now()
     });
   }
-
   Store.cache.integrations.schoolbridge = {
     ...sb, id: 'schoolbridge', connected: true, lastSync: now(),
     imported: n + events.length, mode: 'api'
@@ -1947,8 +2013,8 @@ async function syncSchoolBridge({ interactive = true } = {}){
 
 async function importSchoolBridgeExport(text, filename){
   let notices = [], events = [];
-
   const trimmed = text.trim();
+
   if (trimmed.startsWith('{') || trimmed.startsWith('[')){
     const parsed = JSON.parse(trimmed);
     const arr = Array.isArray(parsed) ? parsed : (parsed.notices || parsed.items || []);
@@ -1980,19 +2046,12 @@ async function importSchoolBridgeExport(text, filename){
 
   const n = await importNotices(notices, 'SchoolBridge');
   for (const e of events){
-    await Store.put('events', {
-      id: uid(), ...e, manual: false, createdAt: now()
-    });
+    await Store.put('events', { id: uid(), ...e, manual: false, createdAt: now() });
   }
-
   const cur = Store.cache.integrations.schoolbridge || {};
   Store.cache.integrations.schoolbridge = {
-    ...cur,
-    id: 'schoolbridge',
-    connected: true,
-    lastSync: now(),
-    imported: (cur.imported || 0) + n + events.length,
-    mode: 'export',
+    ...cur, id: 'schoolbridge', connected: true, lastSync: now(),
+    imported: (cur.imported || 0) + n + events.length, mode: 'export',
     lastFile: filename || 'export'
   };
   await Store.saveUserDoc();
@@ -2042,7 +2101,7 @@ async function syncAll({ interactive = true, silent = false } = {}){
     if (integrations.email?.connected){
       try {
         const r = await syncEmail({ interactive });
-        results.push(`Email: ${r.added} new, ${r.merged} merged, ${r.notices} notices`);
+        results.push(`Email: ${r.added} new, ${r.merged} merged`);
       } catch(e){
         if (e.message === 'NEEDS_CONSENT') errors.push('Email needs reconnecting.');
         else errors.push(`Email: ${e.message}`);
@@ -2050,7 +2109,7 @@ async function syncAll({ interactive = true, silent = false } = {}){
     }
     if (integrations.schoolbridge?.connected && integrations.schoolbridge.mode === 'api'){
       try {
-        const r = await syncSchoolBridge({ interactive });
+        const r = await syncSchoolBridge();
         results.push(`SchoolBridge: ${r.notices} notices, ${r.events} events`);
       } catch(e){ errors.push(`SchoolBridge: ${e.message}`); }
     }
@@ -2073,7 +2132,6 @@ async function syncAll({ interactive = true, silent = false } = {}){
     toast(err, 'error', 'Sync problem');
     setSyncUI('err', 'Sync error');
   }
-
   render();
   return { results, errors };
 }
@@ -2096,7 +2154,8 @@ const App = {
   route: '#/dashboard',
   filters: { assignments: 'all', search: '', subject: 'all', sort: 'due' },
   calMonth: new Date().getMonth(),
-  calYear: new Date().getFullYear()
+  calYear: new Date().getFullYear(),
+  fabOpen: false
 };
 
 /* ----------------------------------------------------------------
@@ -2128,17 +2187,71 @@ function render(){
 function updateBadges(){
   const open = Store.all('assignments').filter(a => !a.completed && a.dueDate && daysUntil(a.dueDate) >= 0).length;
   const badge = $('#badge-assignments');
-  if (badge){
-    badge.textContent = open;
-    badge.hidden = open === 0;
-  }
+  if (badge){ badge.textContent = open; badge.hidden = open === 0; }
   const unread = Store.all('notifications').filter(n => !n.read).length;
   const dot = $('#notif-dot');
   if (dot) dot.hidden = unread === 0;
 }
 
 /* ----------------------------------------------------------------
-   SECTION 17 · VIEW — DASHBOARD
+   SECTION 17 · GETTING STARTED CHECKLIST
+   ---------------------------------------------------------------- */
+function getChecklistState(){
+  const d = Store.cache;
+  const hasAssignments = (d.assignments || []).length > 0;
+  const hasTimetable = (d.settings.timetable || []).length > 0;
+  const hasIntegration = Object.values(d.integrations || {}).some(i => i.connected);
+  const hasOpenedPlanner = !!d.profile?.plannerVisited;
+  return {
+    account: true,
+    firstItem: hasAssignments,
+    timetable: hasTimetable,
+    integration: hasIntegration,
+    planner: hasOpenedPlanner
+  };
+}
+
+function shouldShowChecklist(){
+  const s = getChecklistState();
+  const done = Object.values(s).filter(Boolean).length;
+  return done < 4 && !Store.cache.settings.onboardingSeen === false && done < 5;
+}
+
+function renderChecklist(){
+  const s = getChecklistState();
+  const done = Object.values(s).filter(Boolean).length;
+  const total = 4;
+  if (done >= total) return '';
+
+  const items = [
+    { key: 'account',   icon: '👤', text: 'Create your account',         done: true,    action: null },
+    { key: 'firstItem', icon: '📝', text: 'Add your first assignment',   done: s.firstItem,    action: 'new-assignment' },
+    { key: 'timetable', icon: '🕘', text: 'Set up your weekly timetable', done: s.timetable,   action: 'edit-timetable' },
+    { key: 'integration', icon: '🔌', text: 'Or connect a service (optional)', done: s.integration, action: 'goto-integrations' }
+  ];
+
+  return `
+  <section class="checklist-card" id="checklist-card">
+    <div class="checklist-head">
+      <div class="checklist-title">🚀 Getting started</div>
+      <div class="checklist-progress">
+        <span>${done}/${total} done</span>
+        <button class="btn btn-sm btn-ghost" data-action="dismiss-checklist">Dismiss</button>
+      </div>
+    </div>
+    <div class="checklist-items">
+      ${items.map(it => `
+        <div class="checklist-item ${it.done ? 'done' : ''}" ${it.done || !it.action ? '' : `data-action="${it.action}" role="button" tabindex="0"`}>
+          <div class="checklist-box">${it.done ? '✓' : ''}</div>
+          <div class="checklist-text">${it.icon} ${escapeHtml(it.text)}</div>
+          ${!it.done && it.action ? '<span class="tiny muted">→</span>' : ''}
+        </div>`).join('')}
+    </div>
+  </section>`;
+}
+
+/* ----------------------------------------------------------------
+   SECTION 18 · VIEW — DASHBOARD
    ---------------------------------------------------------------- */
 function viewDashboard(){
   const assignments = Store.all('assignments');
@@ -2162,6 +2275,7 @@ function viewDashboard(){
     ...notes.filter(n => n.date && sameDay(n.date, now()))
   ];
   const todayItems = [...dueToday, ...overdue];
+  const isEmpty = !assignments.length && !events.length && !notes.length;
 
   return `
   <div class="page-head">
@@ -2169,6 +2283,9 @@ function viewDashboard(){
     <p class="page-sub">${new Date().toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'})} · ${open.length} open item${open.length===1?'':'s'}</p>
   </div>
 
+  ${renderChecklist()}
+
+  ${isEmpty ? renderWelcomeEmpty() : `
   <div class="stat-grid">
     <div class="stat ${overdue.length ? 'warn' : ''}">
       <div class="stat-label">Overdue</div>
@@ -2190,7 +2307,7 @@ function viewDashboard(){
       <div class="stat-value">${tests.length}</div>
       <div class="stat-sub">${tests.length ? 'Start revising early' : 'None scheduled'}</div>
     </div>
-  </div>
+  </div>`}
 
   <div class="cols cols-main">
     <div class="stack">
@@ -2233,18 +2350,35 @@ function viewDashboard(){
       </section>
 
       <section class="card">
-        <div class="card-head">
-          <div class="card-title">📈 Progress</div>
-        </div>
+        <div class="card-head"><div class="card-title">📈 Progress</div></div>
         <div class="card-body">
           <div class="row-between" style="margin-bottom:6px">
-            <span class="small muted">Completed this term</span>
+            <span class="small muted">Completed</span>
             <span class="strong small">${completed.length} / ${assignments.length}</span>
           </div>
           <div class="progress"><i style="width:${assignments.length ? Math.round(completed.length/assignments.length*100) : 0}%"></i></div>
-          <div class="hint" style="margin-top:10px">Keep going — every finished task is one less thing to remember.</div>
         </div>
       </section>
+    </div>
+  </div>`;
+}
+
+function renderWelcomeEmpty(){
+  return `
+  <div class="card card-pad" style="text-align:center;padding:44px 24px">
+    <div style="font-size:52px;margin-bottom:14px">🎒</div>
+    <h2 style="font-size:22px;margin-bottom:10px">Let's get your school life in one place</h2>
+    <p class="muted" style="max-width:440px;margin:0 auto 24px;font-size:14.5px;line-height:1.65">
+      Add your first assignment manually, set up your timetable, or connect a service to import everything automatically. Everything works without any connection.
+    </p>
+    <div class="row" style="justify-content:center;flex-wrap:wrap;gap:10px">
+      <button class="btn btn-primary" data-action="new-assignment">＋ Add assignment</button>
+      <button class="btn btn-ghost" data-action="edit-timetable">🕘 Set up timetable</button>
+      <button class="btn btn-ghost" data-action="goto-integrations">🔌 Connect services</button>
+    </div>
+    <div class="row" style="justify-content:center;gap:20px;flex-wrap:wrap;margin-top:24px;font-size:12.5px;color:var(--text-3)">
+      <span>Press <kbd>N</kbd> anywhere to add</span>
+      <span>Press <kbd>?</kbd> for shortcuts</span>
     </div>
   </div>`;
 }
@@ -2255,13 +2389,16 @@ function renderNextActions(){
     return `<div class="empty" style="padding:32px 12px">
       <div class="empty-ico">🌤️</div>
       <div class="empty-title">Nothing on your plate</div>
-      <div class="empty-sub">Connect Google Classroom or your school email and StudentOS will fill this in automatically.</div>
+      <div class="empty-sub">Add a task or connect a source to fill this in automatically.</div>
+      <div class="empty-actions">
+        <button class="btn btn-sm btn-primary" data-action="new-assignment">＋ New assignment</button>
+        <button class="btn btn-sm btn-ghost" data-action="goto-integrations">Connect a service</button>
+      </div>
     </div>`;
   }
 
   const scored = items.map(i => ({ i, score: plannerScore(i) }))
-    .sort((a,b) => b.score - a.score)
-    .slice(0, 5);
+    .sort((a,b) => b.score - a.score).slice(0, 5);
 
   return scored.map(({ i }, idx) => {
     const due = dueLabel(i.dueDate);
@@ -2295,7 +2432,7 @@ function plannerScore(i){
   return s;
 }
 
-function renderTodaySection(todayItems, todayEvents, settings){
+function renderTodaySection(todayItems, todayEvents){
   if (!todayItems.length && !todayEvents.length){
     return `<div class="empty" style="padding:34px 20px">
       <div class="empty-ico">✅</div>
@@ -2328,7 +2465,6 @@ function renderTodaySection(todayItems, todayEvents, settings){
         <div class="item-meta">
           ${a.subject ? `<span class="chip chip-indigo">${escapeHtml(a.subject)}</span>` : ''}
           <span class="chip chip-gray">${escapeHtml(a.type)}</span>
-          ${a.url ? `<a class="src-link" href="${escapeHtml(a.url)}" target="_blank" rel="noopener">↗ Open source</a>` : ''}
         </div>
       </div>
       <div class="item-side"><span class="due ${due.cls}">${escapeHtml(due.text)}</span></div>
@@ -2375,7 +2511,7 @@ function renderRecentNotes(notes){
     return `<div class="empty" style="padding:34px 20px">
       <div class="empty-ico">📭</div>
       <div class="empty-title">No notices yet</div>
-      <div class="empty-sub">Weekly notices, newsletters and announcements will appear here once a source is connected.</div>
+      <div class="empty-sub">Weekly notices will appear here once a source is connected — or add them yourself.</div>
     </div>`;
   }
   const icons = { Notice:'📢', Announcement:'📣', Event:'🎪', 'School Notice':'📌' };
@@ -2387,7 +2523,6 @@ function renderRecentNotes(notes){
         <div class="item-meta">
           <span class="chip chip-gray">${escapeHtml(n.kind)}</span>
           <span class="tiny muted">${relativeTime(n.date)}</span>
-          ${n.important ? '<span class="chip chip-amber">★ Important</span>' : ''}
           ${!n.read ? '<span class="chip chip-indigo">New</span>' : ''}
         </div>
       </div>
@@ -2395,7 +2530,7 @@ function renderRecentNotes(notes){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 18 · VIEW — ASSIGNMENTS
+   SECTION 19 · VIEW — ASSIGNMENTS
    ---------------------------------------------------------------- */
 function viewAssignments(){
   const f = App.filters;
@@ -2413,33 +2548,27 @@ function viewAssignments(){
     items = items.filter(a => `${a.title} ${a.description} ${a.subject}`.toLowerCase().includes(q));
   }
 
-  if (f.sort === 'due'){
-    items.sort((a,b) => (a.dueDate || Infinity) - (b.dueDate || Infinity));
-  } else if (f.sort === 'priority'){
+  if (f.sort === 'due') items.sort((a,b) => (a.dueDate || Infinity) - (b.dueDate || Infinity));
+  else if (f.sort === 'priority'){
     const rank = { urgent:0, high:1, medium:2, low:3 };
     items.sort((a,b) => (rank[a.priority] ?? 3) - (rank[b.priority] ?? 3));
-  } else {
-    items.sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
-  }
+  } else items.sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
 
   const subjects = [...new Set(Store.all('assignments').map(a => a.subject).filter(Boolean))].sort();
   const open = Store.all('assignments').filter(a => !a.completed).length;
-
   const seg = (val, label) => `<button class="${f.assignments === val ? 'on' : ''}" data-filter="assignments" data-value="${val}">${label}</button>`;
 
   return `
   <div class="page-head row-between wrap">
     <div>
       <h1 class="page-title">Assignments</h1>
-      <p class="page-sub">${open} open · ${Store.all('assignments').length} total · collected automatically from your connected sources</p>
+      <p class="page-sub">${open} open · ${Store.all('assignments').length} total</p>
     </div>
     <button class="btn btn-primary" data-action="new-assignment">＋ New assignment</button>
   </div>
 
   <div class="filters">
-    <div class="seg">
-      ${seg('all','All')}${seg('open','Open')}${seg('overdue','Overdue')}${seg('week','This week')}${seg('tests','Tests')}${seg('done','Done')}
-    </div>
+    <div class="seg">${seg('all','All')}${seg('open','Open')}${seg('overdue','Overdue')}${seg('week','This week')}${seg('tests','Tests')}${seg('done','Done')}</div>
     <select class="select" data-filter="subject">
       <option value="all">All subjects</option>
       ${subjects.map(s => `<option value="${escapeHtml(s)}" ${f.subject === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('')}
@@ -2449,15 +2578,18 @@ function viewAssignments(){
       <option value="priority" ${f.sort === 'priority' ? 'selected' : ''}>Sort: Priority</option>
       <option value="created" ${f.sort === 'created' ? 'selected' : ''}>Sort: Recently added</option>
     </select>
-    ${f.search || f.subject !== 'all' ? `<button class="btn btn-ghost btn-sm" data-action="clear-filters">Clear filters</button>` : ''}
   </div>
 
   <div class="card">
     ${items.length ? items.map(renderAssignmentItem).join('') : `
       <div class="empty">
         <div class="empty-ico">📝</div>
-        <div class="empty-title">No assignments match</div>
-        <div class="empty-sub">Try a different filter, or connect a source in Integrations to import schoolwork automatically.</div>
+        <div class="empty-title">No assignments yet</div>
+        <div class="empty-sub">Add one manually or connect a service to import automatically.</div>
+        <div class="empty-actions">
+          <button class="btn btn-sm btn-primary" data-action="new-assignment">＋ New assignment</button>
+          <button class="btn btn-sm btn-ghost" data-action="goto-integrations">Connect a service</button>
+        </div>
       </div>`}
   </div>`;
 }
@@ -2474,14 +2606,14 @@ function renderAssignmentItem(a){
     <div class="item-main">
       <div class="item-title">
         ${escapeHtml(a.title)}
-        ${a.manual ? '<span class="chip chip-gray" title="Added by you">Manual</span>' : ''}
-        ${a.mergedCount > 1 ? `<span class="chip chip-indigo" title="Found in ${a.mergedCount} places">${a.mergedCount} sources</span>` : ''}
+        ${a.manual ? '<span class="chip chip-gray">Manual</span>' : ''}
+        ${a.mergedCount > 1 ? `<span class="chip chip-indigo">${a.mergedCount} sources</span>` : ''}
       </div>
       ${a.description ? `<div class="item-desc">${escapeHtml(a.description)}</div>` : ''}
       <div class="item-meta">
         ${a.subject ? `<span class="chip chip-indigo">${escapeHtml(a.subject)}</span>` : ''}
         <span class="chip chip-gray">${escapeHtml(a.type)}</span>
-        <span class="chip ${prio[0]}">${prio[1]} priority</span>
+        <span class="chip ${prio[0]}">${prio[1]}</span>
         ${uniqueSources.map(s => s.url
           ? `<a class="src-link" href="${escapeHtml(s.url)}" target="_blank" rel="noopener">↗ ${escapeHtml(s.source)}</a>`
           : `<span class="chip chip-gray">${escapeHtml(s.source || 'Manual')}</span>`).join('')}
@@ -2498,7 +2630,7 @@ function renderAssignmentItem(a){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 19 · VIEW — CALENDAR
+   SECTION 20 · VIEW — CALENDAR
    ---------------------------------------------------------------- */
 function viewCalendar(){
   const y = App.calYear, m = App.calMonth;
@@ -2522,14 +2654,13 @@ function viewCalendar(){
   const todayTs = startOfDay();
   const upcoming = allEvents
     .filter(e => startOfDay(new Date(e.date)) >= todayTs)
-    .sort((a,b) => a.date - b.date)
-    .slice(0, 14);
+    .sort((a,b) => a.date - b.date).slice(0, 14);
 
   return `
   <div class="page-head row-between wrap">
     <div>
       <h1 class="page-title">Calendar</h1>
-      <p class="page-sub">Deadlines, tests, events and study sessions in one place</p>
+      <p class="page-sub">Deadlines, tests, events and study sessions</p>
     </div>
     <div class="row">
       <button class="btn btn-ghost btn-sm" data-action="cal-prev">←</button>
@@ -2557,12 +2688,6 @@ function viewCalendar(){
           </div>`;
         }).join('')}
       </div>
-      <div class="row wrap" style="margin-top:14px;gap:14px">
-        <span class="row tiny"><span style="width:10px;height:10px;border-radius:3px;background:var(--primary)"></span> Assignment</span>
-        <span class="row tiny"><span style="width:10px;height:10px;border-radius:3px;background:var(--red-500)"></span> Test / Exam</span>
-        <span class="row tiny"><span style="width:10px;height:10px;border-radius:3px;background:#0284c7"></span> Event</span>
-        <span class="row tiny"><span style="width:10px;height:10px;border-radius:3px;background:var(--amber-500)"></span> Notice</span>
-      </div>
     </div>
 
     <div class="card">
@@ -2585,7 +2710,10 @@ function viewCalendar(){
         }).join('') : `<div class="empty" style="padding:30px 10px">
           <div class="empty-ico">📅</div>
           <div class="empty-title">Nothing upcoming</div>
-          <div class="empty-sub">Connect a source to fill your calendar automatically.</div>
+          <div class="empty-sub">Add an assignment or event to get started.</div>
+          <div class="empty-actions">
+            <button class="btn btn-sm btn-primary" data-action="new-assignment">＋ Add item</button>
+          </div>
         </div>`}
       </div>
     </div>
@@ -2593,7 +2721,7 @@ function viewCalendar(){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 20 · VIEW — WEEKLY NOTES
+   SECTION 21 · VIEW — WEEKLY NOTES
    ---------------------------------------------------------------- */
 function viewWeekly(){
   const notes = Store.all('weeklyNotes');
@@ -2606,7 +2734,11 @@ function viewWeekly(){
     <div class="card"><div class="empty">
       <div class="empty-ico">🗒️</div>
       <div class="empty-title">No weekly notes yet</div>
-      <div class="empty-sub">Connect Google Classroom or your school email, or import a SchoolBridge export, and notices will be grouped here automatically.</div>
+      <div class="empty-sub">Connect a service to import notices, or add your own with the + button.</div>
+      <div class="empty-actions">
+        <button class="btn btn-sm btn-primary" data-action="new-note">＋ Add note</button>
+        <button class="btn btn-sm btn-ghost" data-action="goto-integrations">Connect a service</button>
+      </div>
     </div></div>`;
   }
 
@@ -2615,13 +2747,15 @@ function viewWeekly(){
     const wk = n.weekKey || isoWeekKey(n.date || n.createdAt).key;
     (grouped[wk] = grouped[wk] || []).push(n);
   }
-
   const weeks = Object.keys(grouped).sort().reverse();
 
   return `
-  <div class="page-head">
-    <h1 class="page-title">Weekly Notes</h1>
-    <p class="page-sub">${notes.length} item${notes.length===1?'':'s'} across ${weeks.length} week${weeks.length===1?'':'s'}</p>
+  <div class="page-head row-between wrap">
+    <div>
+      <h1 class="page-title">Weekly Notes</h1>
+      <p class="page-sub">${notes.length} item${notes.length===1?'':'s'} across ${weeks.length} week${weeks.length===1?'':'s'}</p>
+    </div>
+    <button class="btn btn-primary" data-action="new-note">＋ Add note</button>
   </div>
 
   ${weeks.map(wk => {
@@ -2677,24 +2811,22 @@ function renderNoteItem(n){
         <span class="chip chip-gray">${escapeHtml(n.kind)}</span>
         <span class="chip chip-gray">${escapeHtml(n.source)}</span>
         <span class="tiny muted">${fmtDateLong(n.date)}</span>
-        ${n.url ? `<a class="src-link" href="${escapeHtml(n.url)}" target="_blank" rel="noopener">↗ Original</a>` : ''}
       </div>
     </div>
     <div class="item-side">
-      <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-action="toggle-note-read" data-id="${n.id}" title="Mark read/unread">${n.read ? '📬' : '📭'}</button>
-      <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-action="toggle-note-important" data-id="${n.id}" title="Mark important">${n.important ? '⭐' : '☆'}</button>
-      <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-action="toggle-note-saved" data-id="${n.id}" title="Save">${n.saved ? '🔖' : '🏷️'}</button>
+      <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-action="toggle-note-read" data-id="${n.id}" title="Mark read">${n.read ? '📬' : '📭'}</button>
+      <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-action="toggle-note-important" data-id="${n.id}" title="Important">${n.important ? '⭐' : '☆'}</button>
+      <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-action="delete-note" data-id="${n.id}" title="Delete">🗑️</button>
     </div>
   </div>`;
 }
 
 /* ----------------------------------------------------------------
-   SECTION 21 · VIEW — STUDY PLANNER
+   SECTION 22 · VIEW — STUDY PLANNER
    ---------------------------------------------------------------- */
 function viewPlanner(){
   const items = Store.all('assignments').filter(a => !a.completed);
   const sessions = Store.all('studySessions').sort((a,b) => (a.start||0) - (b.start||0));
-
   const ranked = items.map(i => ({ i, score: plannerScore(i) })).sort((a,b) => b.score - a.score);
 
   const suggestions = [];
@@ -2710,35 +2842,29 @@ function viewPlanner(){
       if (usedMinutes[dayKey] > 180) continue;
       suggestions.push({
         title: `${k === 0 ? 'Start' : k === sessionDays - 1 ? 'Finish' : 'Continue'}: ${i.title}`,
-        subject: i.subject,
-        assignmentId: i.id,
+        subject: i.subject, assignmentId: i.id,
         minutes: Math.round(mins / sessionDays),
-        day: dayKey,
-        priority: i.priority,
-        type: i.type
+        day: dayKey, priority: i.priority, type: i.type
       });
     }
   }
-
   const byDay = {};
-  for (const s of suggestions){
-    (byDay[s.day] = byDay[s.day] || []).push(s);
-  }
+  for (const s of suggestions){ (byDay[s.day] = byDay[s.day] || []).push(s); }
   const days = Object.keys(byDay).map(Number).sort((a,b) => a - b).slice(0, 7);
 
   return `
   <div class="page-head row-between wrap">
     <div>
       <h1 class="page-title">Study Planner</h1>
-      <p class="page-sub">Recommended sessions built from your real deadlines — overdue first, then tests, then larger work</p>
+      <p class="page-sub">Recommended sessions built from your deadlines</p>
     </div>
-    <button class="btn btn-ghost" data-action="clear-sessions">Clear saved sessions</button>
+    ${sessions.length ? `<button class="btn btn-ghost" data-action="clear-sessions">Clear saved</button>` : ''}
   </div>
 
   <div class="cols cols-main">
     <div class="stack">
       <section class="card">
-        <div class="card-head"><div class="card-title">📋 Priority order</div><span class="chip chip-gray">${ranked.length} item${ranked.length===1?'':'s'}</span></div>
+        <div class="card-head"><div class="card-title">📋 Priority order</div><span class="chip chip-gray">${ranked.length}</span></div>
         <div class="card-body" style="padding-top:8px">
           ${ranked.length ? ranked.map(({ i }, idx) => {
             const due = dueLabel(i.dueDate);
@@ -2758,7 +2884,10 @@ function viewPlanner(){
           }).join('') : `<div class="empty" style="padding:34px 12px">
             <div class="empty-ico">🎯</div>
             <div class="empty-title">Nothing to plan yet</div>
-            <div class="empty-sub">Once assignments are imported, StudentOS will rank them here automatically.</div>
+            <div class="empty-sub">Add assignments and StudentOS will rank them here automatically.</div>
+            <div class="empty-actions">
+              <button class="btn btn-sm btn-primary" data-action="new-assignment">＋ New assignment</button>
+            </div>
           </div>`}
         </div>
       </section>
@@ -2789,7 +2918,7 @@ function viewPlanner(){
           }).join('') : `<div class="empty" style="padding:30px 10px">
             <div class="empty-ico">✨</div>
             <div class="empty-title">No sessions needed</div>
-            <div class="empty-sub">You're all caught up. New deadlines will generate a plan here.</div>
+            <div class="empty-sub">You're all caught up.</div>
           </div>`}
         </div>
       </section>
@@ -2813,7 +2942,7 @@ function viewPlanner(){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 22 · VIEW — INTEGRATIONS
+   SECTION 23 · VIEW — INTEGRATIONS
    ---------------------------------------------------------------- */
 function viewIntegrations(){
   const i = Store.cache.integrations;
@@ -2833,8 +2962,8 @@ function viewIntegrations(){
         <div class="int-desc">${desc}</div>
         ${connected ? `
         <div class="int-stats">
-          <div class="int-stat"><b>${imported ?? 0}</b>items imported</div>
-          <div class="int-stat"><b>${relativeTime(lastSync)}</b>last synced</div>
+          <div class="int-stat"><b>${imported ?? 0}</b>items</div>
+          <div class="int-stat"><b>${relativeTime(lastSync)}</b>last sync</div>
           ${extra}
         </div>` : ''}
         ${warning ? `<div class="alert alert-warn" style="margin-bottom:12px">${warning}</div>` : ''}
@@ -2846,24 +2975,23 @@ function viewIntegrations(){
   return `
   <div class="page-head">
     <h1 class="page-title">Integrations</h1>
-    <p class="page-sub">Connect once — StudentOS keeps everything in sync automatically</p>
+    <p class="page-sub">Optional. Everything in StudentOS works without connecting anything.</p>
   </div>
 
   ${!hasClientId ? `
-  <div class="alert alert-warn" style="margin-bottom:20px">
-    <span>⚠️</span>
+  <div class="alert alert-info" style="margin-bottom:20px">
+    <span>💡</span>
     <div>
-      <strong>Google OAuth Client ID not configured.</strong>
-      Classroom and Email need a free Google OAuth client. Open
-      <a href="#/settings">Settings</a> and follow the setup guide — it takes about 5 minutes and costs nothing.
+      <strong>You don't need to connect anything to use StudentOS.</strong>
+      Use the <kbd>+</kbd> button to add assignments and notes manually, or set up Google access below to import automatically.
+      <button class="btn btn-sm btn-ghost" style="margin-top:8px" data-action="open-setup">Set up Google access</button>
     </div>
   </div>` : ''}
 
   <div class="stack">
     ${card({
-      logo: '🎓',
-      name: 'Google Classroom',
-      desc: 'Imports your active classes, coursework, due dates, topics and teacher announcements.',
+      logo: '🎓', name: 'Google Classroom',
+      desc: 'Imports your classes, coursework, due dates and announcements.',
       connected: i.classroom?.connected,
       lastSync: i.classroom?.lastSync,
       imported: i.classroom?.imported,
@@ -2871,38 +2999,45 @@ function viewIntegrations(){
       actions: i.classroom?.connected
         ? `<button class="btn btn-primary btn-sm" data-sync="classroom">Synchronise now</button>
            <button class="btn btn-danger-soft btn-sm" data-disconnect="classroom">Disconnect</button>`
-        : `<button class="btn btn-primary btn-sm" data-connect="classroom" ${!hasClientId ? 'disabled' : ''}>Connect Google Classroom</button>`
+        : `<button class="btn btn-primary btn-sm" data-connect="classroom" ${!hasClientId ? 'disabled' : ''}>Connect Classroom</button>
+           <button class="btn btn-ghost btn-sm" data-action="open-setup">${hasClientId ? 'Setup guide' : 'Setup required'}</button>`
     })}
 
     ${card({
-      logo: '✉️',
-      name: 'School email (Gmail)',
-      desc: 'Scans only emails from your trusted school domains for homework, tests, notices and reminders. Personal email is ignored.',
+      logo: '✉️', name: 'School email (Gmail)',
+      desc: 'Scans only emails from your trusted school domains. Personal email is ignored.',
       connected: i.email?.connected,
       lastSync: i.email?.lastSync,
       imported: i.email?.imported,
-      extra: i.email?.scanned ? `<div class="int-stat"><b>${i.email.scanned}</b>emails scanned</div>` : '',
+      extra: i.email?.scanned ? `<div class="int-stat"><b>${i.email.scanned}</b>emails</div>` : '',
       actions: i.email?.connected
         ? `<button class="btn btn-primary btn-sm" data-sync="email">Synchronise now</button>
            <button class="btn btn-ghost btn-sm" data-action="edit-trusted">Trusted senders</button>
            <button class="btn btn-danger-soft btn-sm" data-disconnect="email">Disconnect</button>`
-        : `<button class="btn btn-primary btn-sm" data-connect="email" ${!hasClientId ? 'disabled' : ''}>Connect school email</button>`
+        : `<button class="btn btn-primary btn-sm" data-connect="email" ${!hasClientId ? 'disabled' : ''}>Connect school email</button>
+           <button class="btn btn-ghost btn-sm" data-action="open-setup">${hasClientId ? 'Setup guide' : 'Setup required'}</button>`
     })}
 
     ${card({
-      logo: '🌉',
-      name: 'SchoolBridge',
+      logo: '🌉', name: 'SchoolBridge',
       desc: 'Weekly notices, timetable and events from your school portal.',
       connected: i.schoolbridge?.connected,
       lastSync: i.schoolbridge?.lastSync,
       imported: i.schoolbridge?.imported,
-      warning: `SchoolBridge does not publish a public API for third-party student apps. StudentOS will <strong>never</strong> scrape private pages, reuse your session cookies, or ask for your SchoolBridge password. Instead you can (a) paste an API endpoint if your school provides one, or (b) import an official export you downloaded yourself.`,
+      warning: `SchoolBridge has no public API for third-party apps. Import an official export file, or set up an endpoint if your school provides one.`,
       actions: i.schoolbridge?.connected
         ? `<button class="btn btn-primary btn-sm" data-sync="schoolbridge">Synchronise now</button>
-           <button class="btn btn-ghost btn-sm" data-action="sb-import">Import official export</button>
+           <button class="btn btn-ghost btn-sm" data-action="sb-import">Import export</button>
            <button class="btn btn-danger-soft btn-sm" data-disconnect="schoolbridge">Disconnect</button>`
-        : `<button class="btn btn-primary btn-sm" data-action="sb-setup">Set up SchoolBridge</button>
-           <button class="btn btn-ghost btn-sm" data-action="sb-import">Import official export</button>`
+        : `<button class="btn btn-primary btn-sm" data-action="sb-import">Import official export</button>
+           <button class="btn btn-ghost btn-sm" data-action="sb-setup">Set up API</button>`
+    })}
+
+    ${card({
+      logo: '📁', name: 'Import from file',
+      desc: 'Bring in a CSV, JSON, or Google Takeout export. Works with any service.',
+      connected: false,
+      actions: `<button class="btn btn-primary btn-sm" data-action="open-import">Choose file…</button>`
     })}
   </div>
 
@@ -2911,22 +3046,22 @@ function viewIntegrations(){
     <div class="set-row">
       <div class="set-info">
         <div class="set-name">Delete all imported data</div>
-        <div class="set-desc">Removes every assignment, note, event and notification from StudentOS. Your Google and school accounts are untouched.</div>
+        <div class="set-desc">Removes every assignment, note, event and notification. Your Google and school accounts are untouched.</div>
       </div>
-      <div class="set-control"><button class="btn btn-danger-soft btn-sm" data-action="wipe-data">Delete imported data</button></div>
+      <div class="set-control"><button class="btn btn-danger-soft btn-sm" data-action="wipe-data">Delete</button></div>
     </div>
     <div class="set-row">
       <div class="set-info">
         <div class="set-name">Revoke Google access</div>
-        <div class="set-desc">Immediately discards the access token held in this browser tab. StudentOS never stores your Google password.</div>
+        <div class="set-desc">Discards the access token held in this browser tab. StudentOS never stores your password.</div>
       </div>
-      <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="revoke-google">Revoke now</button></div>
+      <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="revoke-google">Revoke</button></div>
     </div>
   </section>`;
 }
 
 /* ----------------------------------------------------------------
-   SECTION 23 · VIEW — SETTINGS
+   SECTION 24 · VIEW — SETTINGS
    ---------------------------------------------------------------- */
 function viewSettings(){
   const cfg = loadConfig() || {};
@@ -2952,10 +3087,8 @@ function viewSettings(){
         </div>
         <div class="set-row">
           <div class="set-info">
-            <div class="set-name">Storage mode</div>
-            <div class="set-desc">${Store.mode === 'firebase'
-              ? 'Firebase Firestore — your data syncs across devices and is protected by security rules.'
-              : 'Local browser storage — data stays on this device only.'}</div>
+            <div class="set-name">Storage</div>
+            <div class="set-desc">${Store.mode === 'firebase' ? 'Synced to your StudentOS cloud account.' : 'Local browser only.'}</div>
           </div>
           <div class="set-control"><span class="chip ${Store.mode === 'firebase' ? 'chip-green' : 'chip-amber'}">${Store.mode === 'firebase' ? 'Cloud' : 'Local'}</span></div>
         </div>
@@ -2970,6 +3103,13 @@ function viewSettings(){
               <option value="dark"  ${s.theme === 'dark'  ? 'selected' : ''}>Dark</option>
             </select>
           </div>
+        </div>
+        <div class="set-row">
+          <div class="set-info">
+            <div class="set-name">Show onboarding again</div>
+            <div class="set-desc">Replay the welcome tour.</div>
+          </div>
+          <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="replay-onboarding">Replay</button></div>
         </div>
       </div>
     </section>
@@ -2987,44 +3127,16 @@ function viewSettings(){
     <section class="card">
       <div class="card-head"><div class="card-title">✉️ Trusted school senders</div></div>
       <div class="card-body">
-        <p class="small muted" style="margin-bottom:14px">StudentOS only scans email from these domains and addresses. Everything else is ignored — your personal inbox is never read.</p>
+        <p class="small muted" style="margin-bottom:14px">StudentOS only scans email from these domains. Everything else is ignored.</p>
         <div class="field">
           <label class="label">School email domains</label>
-          <input class="input" id="domains-input" placeholder="myschool.edu, students.myschool.edu" value="${escapeHtml(s.trustedDomains.join(', '))}">
-          <div class="hint">Comma separated. Example: <code>school.nz</code></div>
+          <input class="input" id="domains-input" placeholder="myschool.edu" value="${escapeHtml(s.trustedDomains.join(', '))}">
         </div>
         <div class="field">
           <label class="label">Specific senders (optional)</label>
-          <input class="input" id="senders-input" placeholder="principal@myschool.edu, notices@myschool.edu" value="${escapeHtml(s.trustedSenders.join(', '))}">
+          <input class="input" id="senders-input" placeholder="principal@myschool.edu" value="${escapeHtml(s.trustedSenders.join(', '))}">
         </div>
-        <button class="btn btn-primary btn-sm" data-action="save-senders">Save senders</button>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="card-head"><div class="card-title">🔐 Google &amp; Firebase configuration</div></div>
-      <div class="card-body">
-        <div class="set-row">
-          <div class="set-info">
-            <div class="set-name">Google OAuth Client ID</div>
-            <div class="set-desc">${cfg.googleClientId ? `<code class="truncate" style="display:inline-block;max-width:100%">${escapeHtml(cfg.googleClientId)}</code>` : 'Not set — Classroom and Email sync are disabled.'}</div>
-          </div>
-          <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="open-setup">${cfg.googleClientId ? 'Change' : 'Set up'}</button></div>
-        </div>
-        <div class="set-row">
-          <div class="set-info">
-            <div class="set-name">Firebase project</div>
-            <div class="set-desc">Shared project: <code>${escapeHtml(fb.projectId || 'not configured')}</code></div>
-          </div>
-          <div class="set-control"><span class="chip chip-green">Shared</span></div>
-        </div>
-        <div class="set-row">
-          <div class="set-info">
-            <div class="set-name">Firestore security rules</div>
-            <div class="set-desc">Copy these into Firebase Console → Firestore → Rules so only you can read your own data.</div>
-          </div>
-          <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="show-rules">View rules</button></div>
-        </div>
+        <button class="btn btn-primary btn-sm" data-action="save-senders">Save</button>
       </div>
     </section>
 
@@ -3034,21 +3146,21 @@ function viewSettings(){
         <div class="set-row">
           <div class="set-info">
             <div class="set-name">Export your data</div>
-            <div class="set-desc">Download everything StudentOS holds about you as a JSON file.</div>
+            <div class="set-desc">Download everything as JSON.</div>
           </div>
-          <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="export-data">Download JSON</button></div>
+          <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="export-data">Download</button></div>
         </div>
         <div class="set-row">
           <div class="set-info">
-            <div class="set-name">Delete all imported data</div>
-            <div class="set-desc">Permanently removes every item StudentOS imported or you created.</div>
+            <div class="set-name">Delete all data</div>
+            <div class="set-desc">Permanently removes every item you or StudentOS created.</div>
           </div>
           <div class="set-control"><button class="btn btn-danger-soft btn-sm" data-action="wipe-data">Delete</button></div>
         </div>
         <div class="set-row">
           <div class="set-info">
-            <div class="set-name">Reset Google access settings</div>
-            <div class="set-desc">Clears the OAuth Client ID from this browser. Your data stays.</div>
+            <div class="set-name">Reset Google access</div>
+            <div class="set-desc">Removes the OAuth Client ID from this browser.</div>
           </div>
           <div class="set-control"><button class="btn btn-danger-soft btn-sm" data-action="reset-config">Reset</button></div>
         </div>
@@ -3056,24 +3168,16 @@ function viewSettings(){
     </section>
 
     <section class="card">
-      <div class="card-head"><div class="card-title">💡 How StudentOS works</div></div>
+      <div class="card-head"><div class="card-title">⌨️ Keyboard shortcuts</div></div>
       <div class="card-body">
-        <div class="code">Google Classroom ─┐
-                  │
-Email ────────────┼──▶  StudentOS Importer
-                  │           ↓
-SchoolBridge ─────┘      Classifier
-                              ↓
-                       Duplicate check
-                              ↓
-                    Firestore / local storage
-                              ↓
-                          Dashboard</div>
-        <p class="small muted" style="margin-top:14px;line-height:1.7">
-          Every imported item is cleaned of HTML, classified by type, matched to a subject,
-          given a priority from its due date, and checked against existing items so a
-          Classroom assignment and its email reminder become <strong>one</strong> card with two sources.
-        </p>
+        <div class="shortcut-grid">
+          <div class="shortcut-row"><span>New assignment</span><kbd>N</kbd></div>
+          <div class="shortcut-row"><span>Search</span><kbd>/</kbd></div>
+          <div class="shortcut-row"><span>Go to dashboard</span><kbd>G</kbd> <kbd>D</kbd></div>
+          <div class="shortcut-row"><span>Go to assignments</span><kbd>G</kbd> <kbd>A</kbd></div>
+          <div class="shortcut-row"><span>Sync now</span><kbd>S</kbd></div>
+          <div class="shortcut-row"><span>Show shortcuts</span><kbd>?</kbd></div>
+        </div>
       </div>
     </section>
   </div>`;
@@ -3094,7 +3198,7 @@ function notifRow(key, name, desc){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 24 · VIEW EVENT BINDING
+   SECTION 25 · VIEW EVENT BINDING
    ---------------------------------------------------------------- */
 let viewBound = false;
 function bindViewEvents(){
@@ -3129,22 +3233,29 @@ function bindViewEvents(){
       case 'delete-assignment': {
         const item = Store.get('assignments', id);
         if (!item) break;
-        if (await confirmDialog('Delete assignment?', `"${item.title}" will be removed from StudentOS. Your Classroom and email accounts are not affected.`, 'Delete', true)){
+        if (await confirmDialog('Delete assignment?', `"${item.title}" will be removed.`, 'Delete', true)){
           await Store.remove('assignments', id);
-          toast('Assignment deleted', 'success');
+          toast('Deleted', 'success');
           render();
         }
         break;
       }
       case 'edit-assignment': openAssignmentModal(Store.get('assignments', id)); break;
-      case 'new-assignment': openAssignmentModal(null); break;
+      case 'new-assignment': openAssignmentModal(null, 'Assignment'); break;
+      case 'new-homework': openAssignmentModal(null, 'Homework'); break;
+      case 'new-test': openAssignmentModal(null, 'Test'); break;
+      case 'new-event': openAssignmentModal(null, 'Event'); break;
+      case 'new-note': openNoteFormModal(); break;
+      case 'delete-note': {
+        if (await confirmDialog('Delete note?', 'This note will be removed.', 'Delete', true)){
+          await Store.remove('weeklyNotes', id);
+          render();
+        }
+        break;
+      }
       case 'clear-filters': App.filters = { ...App.filters, search:'', subject:'all', assignments:'all' }; render(); break;
-      case 'cal-prev': {
-        App.calMonth--; if (App.calMonth < 0){ App.calMonth = 11; App.calYear--; } render(); break;
-      }
-      case 'cal-next': {
-        App.calMonth++; if (App.calMonth > 11){ App.calMonth = 0; App.calYear++; } render(); break;
-      }
+      case 'cal-prev': App.calMonth--; if (App.calMonth < 0){ App.calMonth = 11; App.calYear--; } render(); break;
+      case 'cal-next': App.calMonth++; if (App.calMonth > 11){ App.calMonth = 0; App.calYear++; } render(); break;
       case 'cal-today': App.calMonth = new Date().getMonth(); App.calYear = new Date().getFullYear(); render(); break;
 
       case 'toggle-note-read': {
@@ -3155,11 +3266,6 @@ function bindViewEvents(){
       case 'toggle-note-important': {
         const n = Store.get('weeklyNotes', id);
         if (n){ n.important = !n.important; await Store.put('weeklyNotes', n); render(); }
-        break;
-      }
-      case 'toggle-note-saved': {
-        const n = Store.get('weeklyNotes', id);
-        if (n){ n.saved = !n.saved; await Store.put('weeklyNotes', n); render(); }
         break;
       }
       case 'open-note': {
@@ -3176,147 +3282,348 @@ function bindViewEvents(){
             await Store.put('weeklyNotes', n);
           }
         }
-        toast('Week marked as read', 'success');
         render();
         break;
       }
-
       case 'save-session': {
         await Store.put('studySessions', {
-          id: uid(),
-          title: action.dataset.title,
+          id: uid(), title: action.dataset.title,
           assignmentId: action.dataset.assignment,
           minutes: Number(action.dataset.minutes),
           start: Number(action.dataset.day) + 16 * 3600000,
           createdAt: now()
         });
-        toast('Study session added to your calendar', 'success');
+        toast('Session added to calendar', 'success');
         render();
         break;
       }
-      case 'delete-session': {
-        await Store.remove('studySessions', id);
-        render();
-        break;
-      }
+      case 'delete-session': await Store.remove('studySessions', id); render(); break;
       case 'clear-sessions': {
-        if (await confirmDialog('Clear saved sessions?', 'All saved study sessions will be removed from your calendar.', 'Clear', true)){
+        if (await confirmDialog('Clear saved sessions?', 'All saved study sessions will be removed.', 'Clear', true)){
           for (const s of Store.all('studySessions')) await Store.remove('studySessions', s.id);
-          toast('Study sessions cleared', 'success');
           render();
         }
         break;
       }
-
       case 'edit-timetable': openTimetableModal(); break;
-      case 'edit-trusted': location.hash = '#/settings'; break;
+      case 'dismiss-checklist': {
+        Store.cache.settings.onboardingSeen = true;
+        await Store.saveUserDoc();
+        render();
+        break;
+      }
+      case 'goto-integrations': location.hash = '#/integrations'; break;
       case 'open-setup': openSetupModal(); break;
       case 'show-rules': openRulesModal(); break;
       case 'save-senders': saveSenders(); break;
       case 'export-data': exportData(); break;
+      case 'replay-onboarding': {
+        Store.cache.settings.onboardingSeen = false;
+        await Store.saveUserDoc();
+        render();
+        showOnboarding();
+        break;
+      }
       case 'wipe-data': {
-        if (await confirmDialog('Delete all imported data?', 'Every assignment, note, event and notification will be permanently removed. This cannot be undone.', 'Delete everything', true)){
+        if (await confirmDialog('Delete all data?', 'Every item will be permanently removed. This cannot be undone.', 'Delete everything', true)){
           await Store.removeAll();
-          toast('All imported data deleted', 'success');
+          toast('Data deleted', 'success');
           render();
         }
         break;
       }
       case 'revoke-google': {
         GoogleAuth.revoke();
-        toast('Google access revoked for this session', 'success');
+        toast('Google access revoked', 'success');
         break;
       }
       case 'reset-config': {
-        if (await confirmDialog('Reset Google access settings?', 'The OAuth Client ID will be removed from this browser. Your data stays and Firebase keeps working.', 'Reset', true)){
+        if (await confirmDialog('Reset Google access?', 'The OAuth Client ID will be removed from this browser.', 'Reset', true)){
           clearConfig();
-          toast('Google access settings reset — reloading', 'success');
           setTimeout(() => location.reload(), 800);
         }
         break;
       }
       case 'sb-setup': openSchoolBridgeModal(); break;
-      case 'sb-import': openSchoolBridgeImportModal(); break;
+      case 'sb-import': openImportModal(); break;
+      case 'open-import': openImportModal(); break;
     }
   });
 
   view.addEventListener('change', async (e) => {
     const f = e.target.dataset.filter;
-    if (f){
-      App.filters[f] = e.target.value;
-      render();
-      return;
-    }
+    if (f){ App.filters[f] = e.target.value; render(); return; }
     const setting = e.target.dataset.setting;
     if (setting){
       const isBool = e.target.type === 'checkbox';
       Store.cache.settings[setting] = isBool ? e.target.checked : e.target.value;
       await Store.saveUserDoc();
-      if (setting === 'theme'){
-        document.documentElement.dataset.theme = e.target.value;
-      }
-      toast('Setting saved', 'success');
+      if (setting === 'theme') document.documentElement.dataset.theme = e.target.value;
+      toast('Saved', 'success');
     }
   });
 }
 
-function saveSenders(){
-  const domains = ($('#domains-input')?.value || '').split(',').map(s => s.trim()).filter(Boolean);
-  const senders = ($('#senders-input')?.value || '').split(',').map(s => s.trim()).filter(Boolean);
-  Store.cache.settings.trustedDomains = domains;
-  Store.cache.settings.trustedSenders = senders;
-  Store.saveUserDoc();
-  toast(`Saved ${domains.length} domain${domains.length===1?'':'s'} and ${senders.length} sender${senders.length===1?'':'s'}`, 'success', 'Trusted senders updated');
+/* ----------------------------------------------------------------
+   SECTION 26 · QUICK-ADD FAB
+   ---------------------------------------------------------------- */
+function toggleFab(){
+  App.fabOpen = !App.fabOpen;
+  $('#fab').classList.toggle('open', App.fabOpen);
+  $('#fab-menu').hidden = !App.fabOpen;
+  if (App.fabOpen) renderFabMenu();
 }
 
-async function exportData(){
-  const payload = {
-    exportedAt: new Date().toISOString(),
-    user: { email: App.user?.email, name: App.user?.displayName },
-    data: {
-      assignments: Store.all('assignments'),
-      events: Store.all('events'),
-      weeklyNotes: Store.all('weeklyNotes'),
-      notifications: Store.all('notifications'),
-      studySessions: Store.all('studySessions'),
-      courses: Store.all('courses'),
-      settings: Store.cache.settings
-    }
-  };
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = `studentos-export-${new Date().toISOString().slice(0,10)}.json`;
-  link.click();
-  URL.revokeObjectURL(url);
-  toast('Your data has been downloaded', 'success', 'Export ready');
+function renderFabMenu(){
+  $('#fab-menu').innerHTML = `
+    <button class="fab-item" data-quick="new-assignment"><span class="fab-ico">📝</span><span>Assignment</span><kbd>N</kbd></button>
+    <button class="fab-item" data-quick="new-homework"><span class="fab-ico">📚</span><span>Homework</span></button>
+    <button class="fab-item" data-quick="new-test"><span class="fab-ico">📊</span><span>Test or exam</span></button>
+    <div class="menu-sep"></div>
+    <button class="fab-item" data-quick="new-event"><span class="fab-ico">📅</span><span>Event</span></button>
+    <button class="fab-item" data-quick="new-note"><span class="fab-ico">📢</span><span>Note / notice</span></button>
+    <div class="menu-sep"></div>
+    <button class="fab-item" data-quick="open-import"><span class="fab-ico">📁</span><span>Import from file</span></button>
+  `;
+
+  $$('#fab-menu .fab-item').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const q = btn.dataset.quick;
+      toggleFab();
+      if (q === 'new-assignment') openAssignmentModal(null, 'Assignment');
+      else if (q === 'new-homework') openAssignmentModal(null, 'Homework');
+      else if (q === 'new-test') openAssignmentModal(null, 'Test');
+      else if (q === 'new-event') openAssignmentModal(null, 'Event');
+      else if (q === 'new-note') openNoteFormModal();
+      else if (q === 'open-import') openImportModal();
+    });
+  });
 }
 
 /* ----------------------------------------------------------------
-   SECTION 25 · MODALS
+   SECTION 27 · IMPORTS
    ---------------------------------------------------------------- */
-function openAssignmentModal(existing){
+function openImportModal(){
+  openModal({
+    title: 'Import from file',
+    subtitle: 'CSV, JSON, or a Google Takeout export',
+    wide: true,
+    body: `
+      <div class="alert alert-info" style="margin-bottom:16px">
+        <span>💡</span>
+        <div>
+          <strong>CSV:</strong> header row, then <code>title,date,description</code> (or <code>type,subject</code>).<br>
+          <strong>JSON:</strong> an array of objects, or an object with <code>notices</code>/<code>events</code> arrays.<br>
+          <strong>Google Takeout:</strong> select Classroom → download the ZIP → unzip → select the JSON files.
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Upload file(s)</label>
+        <input class="input" type="file" id="import-file" accept=".csv,.json,.txt" multiple>
+      </div>
+
+      <div class="field">
+        <label class="label">…or paste contents</label>
+        <textarea class="textarea" id="import-text" placeholder='CSV:  title,date,description
+JSON: [{"title":"Assembly","date":"2026-09-23"}]' style="min-height:160px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
+      </div>
+
+      <div id="import-preview" hidden></div>`,
+    footer: `
+      <button class="btn btn-ghost" data-close>Cancel</button>
+      <button class="btn btn-primary" id="import-go">Import</button>`,
+    onMount(el, close){
+      $('#import-go', el).addEventListener('click', async () => {
+        const files = $('#import-file', el).files;
+        const text = $('#import-text', el).value.trim();
+        if (!files.length && !text){ toast('Choose a file or paste some content', 'warn'); return; }
+
+        let totalNotices = 0, totalEvents = 0, totalAssignments = 0;
+
+        try {
+          if (files.length){
+            for (const file of files){
+              const content = await file.text();
+              const r = await importAnyFile(content, file.name);
+              totalNotices += r.notices || 0;
+              totalEvents += r.events || 0;
+              totalAssignments += r.assignments || 0;
+            }
+          } else {
+            const r = await importAnyFile(text, 'pasted');
+            totalNotices += r.notices || 0;
+            totalEvents += r.events || 0;
+            totalAssignments += r.assignments || 0;
+          }
+
+          close();
+          const parts = [];
+          if (totalAssignments) parts.push(`${totalAssignments} item${totalAssignments===1?'':'s'}`);
+          if (totalNotices) parts.push(`${totalNotices} notice${totalNotices===1?'':'s'}`);
+          if (totalEvents) parts.push(`${totalEvents} event${totalEvents===1?'':'s'}`);
+          toast(parts.length ? `Imported ${parts.join(', ')}` : 'Nothing new to import', 'success', 'Import complete');
+          render();
+        } catch (err){
+          toast(`Could not import: ${err.message}`, 'error');
+        }
+      });
+    }
+  });
+}
+
+async function importAnyFile(text, filename){
+  const trimmed = text.trim();
+
+  // JSON path
+  if (trimmed.startsWith('{') || trimmed.startsWith('[')){
+    const parsed = JSON.parse(trimmed);
+
+    // Google Takeout Classroom format
+    if (parsed.courses || parsed.topics || (Array.isArray(parsed) && parsed[0]?.courseWork)){
+      return await importTakeout(parsed);
+    }
+
+    const arr = Array.isArray(parsed) ? parsed : (parsed.notices || parsed.items || []);
+    const assignments = [];
+    const notices = [];
+    const events = [];
+
+    for (const x of arr){
+      const type = (x.type || x.kind || '').toLowerCase();
+      if (type === 'event' || x.start){
+        events.push(x);
+      } else if (type === 'notice' || type === 'announcement' || type === 'school notice'){
+        notices.push(x);
+      } else if (type === 'assignment' || type === 'homework' || type === 'test' || type === 'exam' || type === 'project'){
+        assignments.push(x);
+      } else {
+        notices.push(x);
+      }
+    }
+
+    let a = { added:0, merged:0 };
+    if (assignments.length){
+      a = await importItems(assignments.map(x => ({
+        id: `imp-${uid()}`,
+        title: x.title || x.subject || 'Imported item',
+        description: x.description || x.body || '',
+        typeHint: x.type || x.kind,
+        dueDate: x.dueDate ? new Date(x.dueDate).getTime() : (x.date ? new Date(x.date).getTime() : null),
+        subject: x.subject,
+        url: x.url || ''
+      })), 'Import');
+    }
+    const n = await importNotices(notices.map(x => ({
+      id: `imp-${uid()}`,
+      title: x.title || x.name || 'Notice',
+      description: x.body || x.description || x.text || '',
+      date: x.date ? new Date(x.date).getTime() : now(),
+      url: x.url || '',
+      kind: x.type || x.kind || 'Notice'
+    })), 'Import');
+    for (const e of (parsed.events || events)){
+      await Store.put('events', {
+        id: `imp-${uid()}`,
+        title: sanitiseText(e.title || e.name || 'Event', 200),
+        description: sanitiseText(e.description || '', 2000),
+        start: e.start ? new Date(e.start).getTime() : (e.date ? new Date(e.date).getTime() : now()),
+        source: 'Import', manual: false, createdAt: now()
+      });
+    }
+
+    return { assignments: a.added, notices: n, events: events.length };
+  }
+
+  // CSV path
+  const lines = trimmed.split(/\r?\n/).filter(Boolean);
+  if (lines.length < 2) throw new Error('No data rows found');
+  const header = parseCsvLine(lines[0]).map(h => h.toLowerCase());
+  const rows = lines.slice(1).map(parseCsvLine);
+
+  const idxTitle = header.findIndex(h => h.includes('title') || h.includes('name') || h.includes('subject'));
+  const idxDate  = header.findIndex(h => h.includes('date') || h.includes('due'));
+  const idxDesc  = header.findIndex(h => h.includes('desc') || h.includes('body') || h.includes('detail'));
+  const idxType  = header.findIndex(h => h.includes('type') || h.includes('kind'));
+  const idxSubj  = header.findIndex(h => h.includes('subject') || h.includes('course'));
+
+  if (idxTitle === -1) throw new Error('No "title" column found in CSV');
+
+  const items = rows.filter(r => r.length).map(r => ({
+    id: `csv-${uid()}`,
+    title: r[idxTitle] || '',
+    date: idxDate >= 0 && r[idxDate] ? new Date(r[idxDate]).getTime() : null,
+    description: idxDesc >= 0 ? (r[idxDesc] || '') : '',
+    type: idxType >= 0 ? r[idxType] : '',
+    subject: idxSubj >= 0 ? r[idxSubj] : ''
+  }));
+
+  const assignments = items.filter(i => ['assignment','homework','test','exam','project'].includes((i.type||'').toLowerCase()));
+  const others = items.filter(i => !assignments.includes(i));
+  const a = assignments.length ? await importItems(assignments.map(x => ({
+    ...x, dueDate: x.date
+  })), 'Import') : { added:0, merged:0 };
+  const n = await importNotices(others.map(x => ({
+    ...x, date: x.date || now(), kind: x.type || 'Notice'
+  })), 'Import');
+
+  return { assignments: a.added, notices: n, events: 0 };
+}
+
+async function importTakeout(parsed){
+  const items = [];
+  const courses = Array.isArray(parsed) ? parsed : (parsed.courses || [parsed]);
+  for (const c of courses){
+    const cname = c.name || 'Course';
+    for (const w of (c.courseWork || [])){
+      items.push({
+        id: `tk-${w.id || uid()}`,
+        title: w.title || 'Coursework',
+        description: w.description || '',
+        dueDate: w.dueDate ? new Date(w.dueDate.year, (w.dueDate.month||1)-1, w.dueDate.day||1).getTime() : null,
+        subject: cname,
+        url: w.alternateLink || '',
+        source: 'Import'
+      });
+    }
+    for (const a of (c.announcements || [])){
+      await importNotices([{
+        id: `tk-a-${a.id || uid()}`,
+        title: `${cname}: ${sanitiseText(a.text, 90)}`,
+        description: a.text || '',
+        date: a.creationTime ? new Date(a.creationTime).getTime() : now(),
+        kind: 'Announcement'
+      }], 'Import');
+    }
+  }
+  const r = await importItems(items, 'Import');
+  return { assignments: r.added, notices: 0, events: 0 };
+}
+
+/* ----------------------------------------------------------------
+   SECTION 28 · MODALS
+   ---------------------------------------------------------------- */
+function openAssignmentModal(existing, presetType){
   const isEdit = !!existing;
-  const a = existing || { title:'', description:'', subject:'', type:'Assignment', dueDate:null };
+  const a = existing || { title:'', description:'', subject:'', type: presetType || 'Assignment', dueDate:null };
 
   openModal({
-    title: isEdit ? 'Edit assignment' : 'New assignment',
-    subtitle: isEdit ? 'Items you add manually are never overwritten by sync.' : 'Add something StudentOS cannot see automatically.',
+    title: isEdit ? 'Edit item' : `New ${(presetType || 'assignment').toLowerCase()}`,
+    subtitle: isEdit ? 'Items you add manually are never overwritten by sync.' : 'Add anything you need to remember.',
     body: `
       <div class="field">
         <label class="label">Title *</label>
         <input class="input" id="m-title" placeholder="e.g. Chapter 5 questions" value="${escapeHtml(a.title)}">
       </div>
       <div class="field">
-        <label class="label">Description</label>
-        <textarea class="textarea" id="m-desc" placeholder="Optional details, page numbers, requirements…">${escapeHtml(a.description)}</textarea>
+        <label class="label">Details</label>
+        <textarea class="textarea" id="m-desc" placeholder="Optional — page numbers, requirements…">${escapeHtml(a.description)}</textarea>
       </div>
       <div class="row" style="gap:12px;align-items:flex-start">
         <div class="field" style="flex:1">
           <label class="label">Type</label>
           <select class="select" id="m-type">
-            ${['Assignment','Homework','Test','Exam','Project','Announcement','Weekly Note','School Notice','Event','Reminder','Other']
+            ${['Assignment','Homework','Test','Exam','Project','Event','Announcement','School Notice','Reminder','Other']
               .map(t => `<option ${a.type === t ? 'selected' : ''}>${t}</option>`).join('')}
           </select>
         </div>
@@ -3328,10 +3635,11 @@ function openAssignmentModal(existing){
       <div class="field">
         <label class="label">Due date</label>
         <input class="input" type="date" id="m-due" value="${a.dueDate ? new Date(a.dueDate).toISOString().slice(0,10) : ''}">
+        <div class="hint">Type naturally later — "Friday", "tomorrow" — in descriptions and StudentOS will detect dates.</div>
       </div>`,
     footer: `
       <button class="btn btn-ghost" data-close>Cancel</button>
-      <button class="btn btn-primary" id="m-save">${isEdit ? 'Save changes' : 'Add assignment'}</button>`,
+      <button class="btn btn-primary" id="m-save">${isEdit ? 'Save' : 'Add'}</button>`,
     onMount(el, close){
       $('#m-save', el).addEventListener('click', async () => {
         const title = $('#m-title', el).value.trim();
@@ -3345,19 +3653,71 @@ function openAssignmentModal(existing){
           type: $('#m-type', el).value,
           subject: sanitiseText($('#m-subject', el).value, 60),
           dueDate: dueVal ? new Date(dueVal + 'T23:59:00').getTime() : null,
-          manual: true,
-          completed: a.completed || false,
-          source: 'Manual',
+          manual: true, completed: a.completed || false, source: 'Manual',
           sources: a.sources?.length ? a.sources : [{ source:'Manual', url:'', addedAt: now() }],
           createdAt: a.createdAt || now()
         };
         record.priority = computePriority(record);
         await Store.put('assignments', record);
         close();
-        toast(isEdit ? 'Assignment updated' : 'Assignment added', 'success');
+        toast(isEdit ? 'Updated' : 'Added', 'success');
         render();
       });
       setTimeout(() => $('#m-title', el)?.focus(), 60);
+    }
+  });
+}
+
+function openNoteFormModal(){
+  openModal({
+    title: 'New note',
+    subtitle: 'Notices, announcements, reminders — anything you want to keep track of.',
+    body: `
+      <div class="field">
+        <label class="label">Title *</label>
+        <input class="input" id="n-title" placeholder="e.g. Mufti Day Friday">
+      </div>
+      <div class="field">
+        <label class="label">Details</label>
+        <textarea class="textarea" id="n-body" placeholder="Add details…"></textarea>
+      </div>
+      <div class="row" style="gap:12px;align-items:flex-start">
+        <div class="field" style="flex:1">
+          <label class="label">Kind</label>
+          <select class="select" id="n-kind">
+            <option>Notice</option>
+            <option>Announcement</option>
+            <option>School Notice</option>
+            <option>Event</option>
+          </select>
+        </div>
+        <div class="field" style="flex:1">
+          <label class="label">Date</label>
+          <input class="input" type="date" id="n-date" value="${new Date().toISOString().slice(0,10)}">
+        </div>
+      </div>`,
+    footer: `
+      <button class="btn btn-ghost" data-close>Cancel</button>
+      <button class="btn btn-primary" id="n-save">Add note</button>`,
+    onMount(el, close){
+      $('#n-save', el).addEventListener('click', async () => {
+        const title = $('#n-title', el).value.trim();
+        if (!title){ toast('Please enter a title', 'error'); return; }
+        const dateVal = $('#n-date', el).value;
+        const date = dateVal ? new Date(dateVal + 'T12:00:00').getTime() : now();
+        const wk = isoWeekKey(date);
+        await Store.put('weeklyNotes', {
+          id: uid(), title: sanitiseText(title, 220),
+          body: sanitiseText($('#n-body', el).value, 4000),
+          date, weekKey: wk.key, weekNumber: wk.week, weekYear: wk.year,
+          kind: $('#n-kind', el).value, source: 'Manual',
+          url: '', read: false, important: false, saved: false, createdAt: now()
+        });
+        close();
+        toast('Note added', 'success');
+        render();
+      });
+      setTimeout(() => $('#n-title', el)?.focus(), 60);
     }
   });
 }
@@ -3367,7 +3727,7 @@ function openNoteModal(n){
     title: n.title,
     subtitle: `${n.kind} · ${n.source} · ${fmtDateLong(n.date)}`,
     body: `
-      ${n.body ? `<p style="font-size:14px;line-height:1.75;white-space:pre-wrap;color:var(--text-2)">${escapeHtml(n.body)}</p>` : '<p class="muted">No further detail was included.</p>'}
+      ${n.body ? `<p style="font-size:14px;line-height:1.75;white-space:pre-wrap;color:var(--text-2)">${escapeHtml(n.body)}</p>` : '<p class="muted">No further detail.</p>'}
       ${n.url ? `<div style="margin-top:18px"><a class="btn btn-ghost btn-sm" href="${escapeHtml(n.url)}" target="_blank" rel="noopener">↗ Open original</a></div>` : ''}`,
     footer: `<button class="btn btn-primary" data-close>Close</button>`
   });
@@ -3379,7 +3739,7 @@ function openTimetableModal(){
 
   openModal({
     title: 'Weekly timetable',
-    subtitle: 'Add your regular periods. StudentOS shows today\'s lessons on your dashboard.',
+    subtitle: 'Add your periods once — StudentOS shows today\'s lessons on your dashboard.',
     wide: true,
     body: `
       <div id="tt-rows">
@@ -3388,7 +3748,7 @@ function openTimetableModal(){
       <button class="btn btn-ghost btn-sm" id="tt-add" style="margin-top:12px">＋ Add period</button>`,
     footer: `
       <button class="btn btn-ghost" data-close>Cancel</button>
-      <button class="btn btn-primary" id="tt-save">Save timetable</button>`,
+      <button class="btn btn-primary" id="tt-save">Save</button>`,
     onMount(el, close){
       let counter = $$('.tt-row-input', el).length;
       $('#tt-add', el).addEventListener('click', () => {
@@ -3407,7 +3767,7 @@ function openTimetableModal(){
         Store.cache.settings.timetable = rows;
         await Store.saveUserDoc();
         close();
-        toast(`Saved ${rows.length} period${rows.length===1?'':'s'}`, 'success', 'Timetable updated');
+        toast(`Saved ${rows.length} period${rows.length===1?'':'s'}`, 'success');
         render();
       });
       el.addEventListener('click', e => {
@@ -3434,84 +3794,37 @@ function ttRowHtml(t, idx, days){
 function openSchoolBridgeModal(){
   const sb = Store.cache.integrations.schoolbridge || {};
   openModal({
-    title: 'Set up SchoolBridge',
-    subtitle: 'Only officially supported access methods are allowed.',
+    title: 'Set up SchoolBridge API',
+    subtitle: 'Only if your school provides an official endpoint.',
     body: `
       <div class="alert alert-info" style="margin-bottom:18px">
         <span>ℹ️</span>
-        <div>SchoolBridge does not publish a public API for third-party student apps. StudentOS will not scrape pages, reuse cookies, or ask for your password. If your school issues an API endpoint and token, enter them below. Otherwise use <strong>Import official export</strong>.</div>
+        <div>Most schools don't offer this. If yours doesn't, use <strong>Import from file</strong> instead — it works with any export you can download yourself.</div>
       </div>
       <div class="field">
-        <label class="label">Official API endpoint (optional)</label>
-        <input class="input" id="sb-endpoint" placeholder="https://api.yourschool.edu/schoolbridge/v1/notices" value="${escapeHtml(sb.endpoint || '')}">
-        <div class="hint">Provided by your school's IT department.</div>
+        <label class="label">API endpoint</label>
+        <input class="input" id="sb-endpoint" placeholder="https://api.yourschool.edu/..." value="${escapeHtml(sb.endpoint || '')}">
       </div>
       <div class="field">
-        <label class="label">API token (optional)</label>
-        <input class="input" id="sb-token" type="password" placeholder="Bearer token issued by your school" value="${escapeHtml(sb.token || '')}">
-        <div class="hint">Stored only in your own database. Never sent anywhere else.</div>
+        <label class="label">API token</label>
+        <input class="input" id="sb-token" type="password" placeholder="Bearer token from your school" value="${escapeHtml(sb.token || '')}">
       </div>`,
     footer: `
       <button class="btn btn-ghost" data-close>Cancel</button>
-      <button class="btn btn-primary" id="sb-save">Save connection</button>`,
+      <button class="btn btn-primary" id="sb-save">Save</button>`,
     onMount(el, close){
       $('#sb-save', el).addEventListener('click', async () => {
         const endpoint = $('#sb-endpoint', el).value.trim();
         const token = $('#sb-token', el).value.trim();
-        if (!endpoint){ toast('Enter an endpoint or use Import official export', 'warn'); return; }
+        if (!endpoint){ toast('Enter an endpoint', 'warn'); return; }
         Store.cache.integrations.schoolbridge = {
           ...(Store.cache.integrations.schoolbridge || {}),
           id: 'schoolbridge', connected: true, endpoint, token, mode: 'api', lastSync: null, imported: 0
         };
         await Store.saveUserDoc();
         close();
-        toast('SchoolBridge endpoint saved', 'success');
+        toast('Saved', 'success');
         render();
-      });
-    }
-  });
-}
-
-function openSchoolBridgeImportModal(){
-  openModal({
-    title: 'Import SchoolBridge export',
-    subtitle: 'Use a CSV or JSON file you downloaded yourself from SchoolBridge.',
-    body: `
-      <div class="alert alert-info" style="margin-bottom:16px">
-        <span>ℹ️</span>
-        <div>This is the officially supported route when your school has no public API. Only import files you are authorised to download.</div>
-      </div>
-      <div class="field">
-        <label class="label">Upload file</label>
-        <input class="input" type="file" id="sb-file" accept=".csv,.json,.txt">
-      </div>
-      <div class="field">
-        <label class="label">…or paste the contents</label>
-        <textarea class="textarea" id="sb-text" placeholder='CSV:  title,date,description
-JSON: [{"title":"Assembly","date":"2026-09-23","description":"Whole school"}]' style="min-height:130px"></textarea>
-        <div class="hint">CSV expects a header row, then <code>title,date,description</code>.</div>
-      </div>`,
-    footer: `
-      <button class="btn btn-ghost" data-close>Cancel</button>
-      <button class="btn btn-primary" id="sb-import-go">Import</button>`,
-    onMount(el, close){
-      $('#sb-import-go', el).addEventListener('click', async () => {
-        const file = $('#sb-file', el).files[0];
-        let text = $('#sb-text', el).value.trim();
-        let name = 'pasted';
-        if (file){
-          text = await file.text();
-          name = file.name;
-        }
-        if (!text){ toast('Choose a file or paste some content', 'warn'); return; }
-        try {
-          const r = await importSchoolBridgeExport(text, name);
-          close();
-          toast(`Imported ${r.notices} notice${r.notices===1?'':'s'} and ${r.events} event${r.events===1?'':'s'}`, 'success', 'SchoolBridge import complete');
-          render();
-        } catch (err){
-          toast(`Could not parse that file: ${err.message}`, 'error');
-        }
       });
     }
   });
@@ -3521,17 +3834,14 @@ function openRulesModal(){
   const rules = `rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-
     match /users/{userId} {
       allow read, write: if request.auth != null
                          && request.auth.uid == userId;
-
       match /{collection}/{docId} {
         allow read, write: if request.auth != null
                            && request.auth.uid == userId;
       }
     }
-
     match /{document=**} {
       allow read, write: if false;
     }
@@ -3539,33 +3849,26 @@ service cloud.firestore {
 }`;
   openModal({
     title: 'Firestore security rules',
-    subtitle: 'Paste into Firebase Console → Firestore Database → Rules → Publish',
+    subtitle: 'Paste into Firebase Console → Firestore → Rules → Publish',
     wide: true,
     body: `
       <div class="code">${escapeHtml(rules)}</div>
       <div class="alert alert-warn" style="margin-top:16px">
         <span>⚠️</span>
-        <div>Without these rules your data would be readable by anyone who knows your project ID. Set them up before connecting real accounts.</div>
+        <div>Without these rules your data would be readable by anyone who knows your project ID.</div>
       </div>`,
     footer: `
       <button class="btn btn-ghost" id="copy-rules">Copy rules</button>
       <button class="btn btn-primary" data-close>Done</button>`,
-    onMount(el, close){
+    onMount(el){
       $('#copy-rules', el).addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(rules);
-          toast('Rules copied to clipboard', 'success');
-        } catch {
-          toast('Could not copy — select the text manually', 'warn');
-        }
+        try { await navigator.clipboard.writeText(rules); toast('Copied', 'success'); }
+        catch { toast('Select the text manually', 'warn'); }
       });
     }
   });
 }
 
-/* ----------------------------------------------------------------
-   SECTION 26 · SETUP GUIDE MODAL
-   ---------------------------------------------------------------- */
 function openSetupModal(){
   const cfg = loadConfig() || {};
   const fbJson = JSON.stringify(DEFAULT_CONFIG.firebase, null, 2);
@@ -3577,67 +3880,57 @@ function openSetupModal(){
     body: `
       <div class="alert alert-info" style="margin-bottom:20px">
         <span>💡</span>
-        <div>Your Firebase project is <strong>already shared</strong> — every user connects automatically. This step only adds Google Classroom and Gmail sync, which needs a Google Cloud OAuth Client ID.</div>
+        <div>Your Firebase project is <strong>already shared</strong> — you don't need to set anything up to use StudentOS. This step only adds automatic Classroom and Gmail sync.</div>
       </div>
 
       <h3 style="font-size:16px;margin-bottom:14px">Get your own OAuth Client ID</h3>
       <ol class="steps">
         <li>
           <h4>Open Google Cloud Console</h4>
-          <p>Go to <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a> and pick the <strong>student-os-fb</strong> project from the project picker at the top.</p>
+          <p>Go to <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a> and pick the <strong>student-os-fb</strong> project.</p>
         </li>
         <li>
           <h4>Enable the APIs</h4>
-          <p>Go to <strong>APIs &amp; Services → Library</strong> and enable both:</p>
-          <p>• <strong>Google Classroom API</strong><br>• <strong>Gmail API</strong> (only if you want email import)</p>
+          <p>Go to <strong>APIs &amp; Services → Library</strong> and enable:</p>
+          <p>• <strong>Google Classroom API</strong><br>• <strong>Gmail API</strong></p>
         </li>
         <li>
           <h4>Configure the consent screen</h4>
-          <p>Go to <strong>APIs &amp; Services → OAuth consent screen</strong>. Choose <strong>External</strong>, name the app <code>StudentOS</code>, and add your email. Under <strong>Audience</strong> leave it in <strong>Testing</strong> and add your own Google account as a <strong>Test user</strong>.</p>
-          <p class="tiny muted">Testing mode is free and works immediately for your account. Publishing publicly would require Google verification because Gmail access is a restricted scope — you don't need that for personal use.</p>
+          <p>Go to <strong>OAuth consent screen</strong>. Choose <strong>External</strong>, name the app <code>StudentOS</code>, add your email. Under <strong>Audience</strong>, leave it in <strong>Testing</strong> and add your Google account as a <strong>Test user</strong>.</p>
         </li>
         <li>
-          <h4>Create the OAuth Client ID</h4>
-          <p>Go to <strong>APIs &amp; Services → Credentials → Create credentials → OAuth client ID</strong>. Application type: <strong>Web application</strong>.</p>
+          <h4>Create the Client ID</h4>
+          <p>Go to <strong>Credentials → Create credentials → OAuth client ID</strong>. Type: <strong>Web application</strong>.</p>
           <p>Under <strong>Authorised JavaScript origins</strong> add every address you open StudentOS from:</p>
           <div class="code">http://localhost:8000
-http://127.0.0.1:8000
 https://yourname.github.io
 https://your-project.pages.dev</div>
-          <p class="tiny muted">No client secret is needed. StudentOS uses the browser-only token flow.</p>
+          <p class="tiny muted">No client secret needed — StudentOS uses the browser-only flow.</p>
         </li>
         <li>
-          <h4>Copy the Client ID</h4>
-          <p>It looks like <code>1234567890-abc123.apps.googleusercontent.com</code>. Paste it below.</p>
+          <h4>Paste it below</h4>
         </li>
       </ol>
 
       <div class="divider"></div>
 
       <div class="field">
-        <label class="label">Firebase project (shared by all users)</label>
+        <label class="label">Firebase project (shared, read-only)</label>
         <div class="code" style="font-size:11.5px">${escapeHtml(fbJson)}</div>
-        <div class="hint">Everyone using StudentOS connects to the same Firebase project — you don't need to change this.</div>
       </div>
 
       <div class="field">
         <label class="label">Google OAuth Client ID</label>
         <input class="input" id="cfg-clientid" placeholder="1234567890-abc123.apps.googleusercontent.com" value="${escapeHtml(cfg.googleClientId || '')}" style="font-family:ui-monospace,monospace;font-size:12px">
-        <div class="hint">Only needed for Classroom and Gmail sync. Leave blank if you just want the dashboard.</div>
       </div>`,
     footer: `
       <button class="btn btn-ghost" data-close>Cancel</button>
       <button class="btn btn-primary" id="cfg-save">Save &amp; reload</button>`,
-    onMount(el, close){
+    onMount(el){
       $('#cfg-save', el).addEventListener('click', () => {
         const clientId = $('#cfg-clientid', el).value.trim();
-        // Firebase always comes from DEFAULT_CONFIG — only the OAuth
-        // Client ID is stored per browser.
-        saveConfig({
-          firebase: DEFAULT_CONFIG.firebase,
-          googleClientId: clientId
-        });
-        toast('Saved — reloading StudentOS', 'success');
+        saveConfig({ firebase: DEFAULT_CONFIG.firebase, googleClientId: clientId });
+        toast('Saved — reloading', 'success');
         setTimeout(() => location.reload(), 900);
       });
     }
@@ -3645,7 +3938,179 @@ https://your-project.pages.dev</div>
 }
 
 /* ----------------------------------------------------------------
-   SECTION 27 · NOTIFICATIONS UI
+   SECTION 29 · ONBOARDING WIZARD
+   ---------------------------------------------------------------- */
+let onbStep = 1;
+let onbData = { name: '', school: '', path: '' };
+
+function showOnboarding(){
+  const overlay = document.createElement('div');
+  overlay.className = 'onboarding';
+  overlay.id = 'onboarding';
+  overlay.innerHTML = `<div class="onboarding-card" id="onb-card"></div>`;
+  document.body.appendChild(overlay);
+  onbStep = 1;
+  renderOnb();
+}
+
+function closeOnboarding(){
+  const el = $('#onboarding');
+  if (el) el.remove();
+  Store.cache.settings.onboardingSeen = true;
+  Store.saveUserDoc();
+}
+
+function renderOnb(){
+  const card = $('#onb-card');
+  if (!card) return;
+
+  const dots = [1,2,3].map(n =>
+    `<div class="onb-dot ${n === onbStep ? 'on' : n < onbStep ? 'done' : ''}"></div>`
+  ).join('');
+
+  let body = '';
+
+  if (onbStep === 1){
+    body = `
+      <div class="onb-content">
+        <h2>Welcome to StudentOS 👋</h2>
+        <p class="lead">Let's make this yours in 30 seconds. You can change anything later.</p>
+        <div class="field">
+          <label class="label">Your name</label>
+          <input class="input" id="onb-name" placeholder="Alex" value="${escapeHtml(App.user?.displayName?.split(' ')[0] || '')}">
+        </div>
+        <div class="field">
+          <label class="label">School name (optional)</label>
+          <input class="input" id="onb-school" placeholder="Sacred Heart College" value="${escapeHtml(Store.cache.profile.schoolName || '')}">
+        </div>
+      </div>
+      <div class="onb-actions">
+        <button class="btn btn-ghost" data-onb="skip">Skip</button>
+        <button class="btn btn-primary" data-onb="next">Continue →</button>
+      </div>`;
+  } else if (onbStep === 2){
+    body = `
+      <div class="onb-content">
+        <h2>How do you want to fill StudentOS?</h2>
+        <p class="lead">You can always change this or do all three.</p>
+        <div class="onb-cards">
+          <button class="onb-card ${onbData.path === 'manual' ? 'on' : ''}" data-onb-card="manual">
+            <div class="onb-card-ico">✍️</div>
+            <div class="onb-card-body">
+              <h4>I'll add things myself</h4>
+              <p>Fastest way to start. Add assignments with the + button and set up your timetable.</p>
+            </div>
+          </button>
+          <button class="onb-card ${onbData.path === 'connect' ? 'on' : ''}" data-onb-card="connect">
+            <div class="onb-card-ico">🎓</div>
+            <div class="onb-card-body">
+              <h4>Connect Google Classroom &amp; email</h4>
+              <p>Automatic sync. Needs a 5-minute setup with your own free Google OAuth Client ID.</p>
+            </div>
+          </button>
+          <button class="onb-card ${onbData.path === 'import' ? 'on' : ''}" data-onb-card="import">
+            <div class="onb-card-ico">📁</div>
+            <div class="onb-card-body">
+              <h4>Import from a file</h4>
+              <p>Use a CSV, JSON, or Google Takeout export. Works offline.</p>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div class="onb-actions">
+        <button class="btn btn-ghost" data-onb="back">← Back</button>
+        <button class="btn btn-primary" data-onb="next" ${!onbData.path ? 'disabled' : ''}>Continue →</button>
+      </div>`;
+  } else {
+    body = `
+      <div class="onb-content">
+        <h2>You're all set 🎉</h2>
+        <p class="lead">Three quick tips so you get the most out of StudentOS.</p>
+        <div class="onb-feature-list">
+          <div class="onb-feature">
+            <div class="onb-feature-ico">＋</div>
+            <div><strong>Quick-add anywhere</strong>Tap the <kbd>+</kbd> button, or press <kbd>N</kbd>.</div>
+          </div>
+          <div class="onb-feature">
+            <div class="onb-feature-ico">🎯</div>
+            <div><strong>Study Planner</strong>Prioritises your work automatically so you always know what to do next.</div>
+          </div>
+          <div class="onb-feature">
+            <div class="onb-feature-ico">⌨️</div>
+            <div><strong>Keyboard shortcuts</strong>Press <kbd>?</kbd> to see them all.</div>
+          </div>
+        </div>
+      </div>
+      <div class="onb-actions">
+        <button class="btn btn-ghost" data-onb="back">← Back</button>
+        <button class="btn btn-primary" data-onb="finish">Open StudentOS →</button>
+      </div>`;
+  }
+
+  card.innerHTML = `
+    <button class="onboarding-skip" data-onb="skip">Skip tour</button>
+    <div class="onb-progress">${dots}</div>
+    ${body}
+  `;
+
+  card.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-onb]');
+    const cardBtn = e.target.closest('[data-onb-card]');
+
+    if (cardBtn){
+      onbData.path = cardBtn.dataset.onbCard;
+      renderOnb();
+      return;
+    }
+
+    if (btn){
+      const action = btn.dataset.onb;
+      if (action === 'skip'){ closeOnboarding(); return; }
+      if (action === 'back'){ onbStep--; renderOnb(); return; }
+
+      if (action === 'next' && onbStep === 1){
+        onbData.name = $('#onb-name').value.trim();
+        onbData.school = $('#onb-school').value.trim();
+        if (onbData.school){
+          Store.cache.profile.schoolName = onbData.school;
+          Store.persist();
+        }
+        if (onbData.name && !App.user?.displayName){
+          // Just for display purposes locally
+          App.user.displayName = onbData.name;
+        }
+        onbStep = 2;
+        renderOnb();
+        return;
+      }
+
+      if (action === 'next' && onbStep === 2){
+        onbStep = 3;
+        renderOnb();
+        return;
+      }
+
+      if (action === 'finish'){
+        closeOnboarding();
+        if (onbData.path === 'connect') location.hash = '#/integrations';
+        else if (onbData.path === 'import'){
+          location.hash = '#/integrations';
+          setTimeout(() => openImportModal(), 300);
+        } else {
+          location.hash = '#/dashboard';
+          setTimeout(() => {
+            if (!Store.all('assignments').length){
+              openAssignmentModal(null, 'Assignment');
+            }
+          }, 400);
+        }
+      }
+    }
+  });
+}
+
+/* ----------------------------------------------------------------
+   SECTION 30 · NOTIFICATIONS UI
    ---------------------------------------------------------------- */
 function renderNotifDot(){
   const unread = Store.all('notifications').filter(n => !n.read).length;
@@ -3657,7 +4122,6 @@ function renderNotifPanel(){
   const panel = $('#notif-panel');
   if (!panel) return;
   const list = [...Store.all('notifications')].sort((a,b) => b.createdAt - a.createdAt).slice(0, 30);
-
   const icons = { assignment:'📝', due:'⏰', test:'📊', notice:'📢', event:'🎪' };
 
   panel.innerHTML = `
@@ -3696,14 +4160,14 @@ function renderNotifPanel(){
       if (n && !n.read){ n.read = true; await Store.put('notifications', n); }
       panel.hidden = true;
       $('#notif-btn')?.setAttribute('aria-expanded', 'false');
-      if (item.dataset.link){ location.hash = item.dataset.link; }
+      if (item.dataset.link) location.hash = item.dataset.link;
       renderNotifDot();
     });
   });
 }
 
 /* ----------------------------------------------------------------
-   SECTION 28 · SEARCH
+   SECTION 31 · SEARCH
    ---------------------------------------------------------------- */
 function runSearch(q){
   const box = $('#search-results');
@@ -3748,12 +4212,12 @@ function runSearch(q){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 29 · SYNC HANDLERS
+   SECTION 32 · SYNC HANDLERS
    ---------------------------------------------------------------- */
 async function connectService(key){
   const cfg = loadConfig();
   if (!cfg?.googleClientId){
-    toast('Set up your Google OAuth Client ID first.', 'warn', 'Setup required');
+    toast('Set up Google access first.', 'warn');
     openSetupModal();
     return;
   }
@@ -3762,11 +4226,11 @@ async function connectService(key){
     if (key === 'classroom'){
       toast('Opening Google consent…', 'info');
       const r = await syncClassroom({ interactive: true });
-      toast(`Imported ${r.added} new and merged ${r.merged} items from ${r.courses} classes`, 'success', 'Classroom connected');
+      toast(`Imported ${r.added} new, merged ${r.merged}`, 'success', 'Classroom connected');
     } else if (key === 'email'){
       toast('Opening Google consent…', 'info');
       const r = await syncEmail({ interactive: true });
-      toast(`Scanned ${r.scanned} emails — ${r.added} new items`, 'success', 'Email connected');
+      toast(`Scanned ${r.scanned} emails, ${r.added} new`, 'success', 'Email connected');
     }
     await checkDueSoon();
     setSyncUI('ok', `Synced ${relativeTime(now())}`);
@@ -3779,13 +4243,7 @@ async function connectService(key){
 
 async function disconnectService(key){
   const labels = { classroom:'Google Classroom', email:'School email', schoolbridge:'SchoolBridge' };
-  const ok = await confirmDialog(
-    `Disconnect ${labels[key]}?`,
-    'Imported items stay in StudentOS, but no new information will be fetched until you reconnect.',
-    'Disconnect', true
-  );
-  if (!ok) return;
-
+  if (!await confirmDialog(`Disconnect ${labels[key]}?`, 'Imported items stay, but no new info will be fetched.', 'Disconnect', true)) return;
   if (Store.cache.integrations[key]) delete Store.cache.integrations[key];
   await Store.saveUserDoc();
   if (key !== 'schoolbridge') GoogleAuth.revoke();
@@ -3799,24 +4257,23 @@ async function syncOne(key){
   try {
     if (key === 'classroom'){
       const r = await syncClassroom({ interactive: true });
-      toast(`${r.added} new, ${r.merged} merged`, 'success', 'Classroom synced');
+      toast(`${r.added} new, ${r.merged} merged`, 'success', 'Synced');
     } else if (key === 'email'){
       const r = await syncEmail({ interactive: true });
-      toast(`${r.scanned} emails scanned, ${r.added} new items`, 'success', 'Email synced');
+      toast(`${r.scanned} emails scanned`, 'success', 'Synced');
     } else if (key === 'schoolbridge'){
-      const r = await syncSchoolBridge({ interactive: true });
-      toast(`${r.notices} notices, ${r.events} events`, 'success', 'SchoolBridge synced');
+      const r = await syncSchoolBridge();
+      toast(`${r.notices} notices, ${r.events} events`, 'success', 'Synced');
     }
     await checkDueSoon();
     setSyncUI('ok', `Synced ${relativeTime(now())}`);
   } catch (err){
     if (err.message === 'NEEDS_CONSENT'){
-      toast('Google needs you to reconnect. Click Connect again.', 'warn');
+      toast('Reconnect Google', 'warn');
       const int = Store.cache.integrations[key];
       if (int){ int.connected = false; await Store.saveUserDoc(); }
     } else {
       toast(err.message, 'error', 'Sync failed');
-      setSyncUI('err', 'Sync error');
     }
   } finally {
     if (btn){ btn.disabled = false; btn.textContent = 'Synchronise now'; }
@@ -3825,7 +4282,7 @@ async function syncOne(key){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 30 · AUTH & BOOT
+   SECTION 33 · AUTH & BOOT
    ---------------------------------------------------------------- */
 let authMode = 'signin';
 
@@ -3837,12 +4294,10 @@ function setAuthMode(mode){
   $('#tab-signup').classList.toggle('on', isSignup);
   $('#tab-signin').setAttribute('aria-selected', String(!isSignup));
   $('#tab-signup').setAttribute('aria-selected', String(isSignup));
-
   $('#auth-heading').textContent = isSignup ? 'Create your account' : 'Welcome back';
   $('#auth-subheading').textContent = isSignup
     ? 'Set up StudentOS in seconds — no card, no cost.'
     : 'Sign in to open your dashboard.';
-
   $('#name-field').hidden = !isSignup;
   $('#password-hint').hidden = !isSignup;
   $('#email-submit-label').textContent = isSignup ? 'Create account' : 'Sign in';
@@ -3860,26 +4315,12 @@ async function submitEmailAuth(){
   const email = $('#auth-email').value.trim();
   const password = $('#auth-password').value;
   const name = $('#auth-name').value.trim();
-  const errBox = $('#auth-error');
-  errBox.hidden = true;
+  $('#auth-error').hidden = true;
 
-  if (!FB.ready || !FB.auth){
-    showAuthError('Firebase is not configured yet. Please refresh the page.');
-    return;
-  }
-
-  if (!email || !email.includes('@')){
-    showAuthError('Please enter a valid email address.');
-    return;
-  }
-  if (!password || password.length < 6){
-    showAuthError('Passwords must be at least 6 characters long.');
-    return;
-  }
-  if (authMode === 'signup' && !name){
-    showAuthError('Please enter your name.');
-    return;
-  }
+  if (!FB.ready || !FB.auth){ showAuthError('Firebase is not configured. Please refresh.'); return; }
+  if (!email || !email.includes('@')){ showAuthError('Please enter a valid email.'); return; }
+  if (!password || password.length < 6){ showAuthError('Passwords must be at least 6 characters.'); return; }
+  if (authMode === 'signup' && !name){ showAuthError('Please enter your name.'); return; }
 
   const btn = $('#email-submit-btn');
   const spinner = $('#email-spinner');
@@ -3893,13 +4334,10 @@ async function submitEmailAuth(){
     let cred;
     if (authMode === 'signup'){
       cred = await FB.mod.createUserWithEmailAndPassword(FB.auth, email, password);
-      if (name){
-        try { await FB.mod.updateProfile(cred.user, { displayName: name }); } catch {}
-      }
+      if (name){ try { await FB.mod.updateProfile(cred.user, { displayName: name }); } catch {} }
     } else {
       cred = await FB.mod.signInWithEmailAndPassword(FB.auth, email, password);
     }
-
     await onUserSignedIn({
       uid: cred.user.uid,
       displayName: cred.user.displayName || name || 'Student',
@@ -3908,7 +4346,6 @@ async function submitEmailAuth(){
       real: true
     });
   } catch (err){
-    console.error(err);
     showAuthError(friendlyAuthError(err));
   } finally {
     btn.disabled = false;
@@ -3920,47 +4357,27 @@ async function submitEmailAuth(){
 function friendlyAuthError(err){
   const code = err.code || '';
   switch(code){
-    case 'auth/email-already-in-use':
-      return 'That email is already registered. Try signing in instead.';
-    case 'auth/invalid-email':
-      return 'That email address does not look right.';
-    case 'auth/weak-password':
-      return 'Your password is too weak. Use at least 6 characters.';
-    case 'auth/user-not-found':
-      return 'No account found with that email. Create one instead?';
+    case 'auth/email-already-in-use': return 'That email is already registered. Try signing in instead.';
+    case 'auth/invalid-email': return 'That email address looks wrong.';
+    case 'auth/weak-password': return 'Password too weak. Use at least 6 characters.';
+    case 'auth/user-not-found': return 'No account found. Create one instead?';
     case 'auth/wrong-password':
-    case 'auth/invalid-credential':
-      return 'Incorrect email or password. Please try again.';
-    case 'auth/too-many-requests':
-      return 'Too many failed attempts. Please wait a minute and try again.';
-    case 'auth/network-request-failed':
-      return 'Network error — check your internet connection.';
-    case 'auth/operation-not-allowed':
-      return 'Email/password sign-in is not enabled in this Firebase project. Ask the project owner to turn it on under Authentication → Sign-in method.';
-    default:
-      return err.message || 'Sign-in failed. Please try again.';
+    case 'auth/invalid-credential': return 'Incorrect email or password.';
+    case 'auth/too-many-requests': return 'Too many attempts. Wait a minute.';
+    case 'auth/network-request-failed': return 'Network error — check your connection.';
+    case 'auth/operation-not-allowed': return 'Email sign-in is not enabled. Ask the project owner.';
+    default: return err.message || 'Sign-in failed.';
   }
 }
 
 async function resetPassword(){
   const email = $('#auth-email').value.trim();
-  const errBox = $('#auth-error');
-  errBox.hidden = true;
-
-  if (!FB.ready || !FB.auth){
-    showAuthError('Firebase is not configured yet.');
-    return;
-  }
-  if (!email || !email.includes('@')){
-    showAuthError('Enter your email address first, then click "Forgot password?" again.');
-    return;
-  }
-
+  if (!FB.ready || !FB.auth){ showAuthError('Firebase is not configured.'); return; }
+  if (!email || !email.includes('@')){ showAuthError('Enter your email first, then click again.'); return; }
   try {
     await FB.mod.sendPasswordResetEmail(FB.auth, email);
-    toast('Password reset email sent — check your inbox.', 'success', 'Check your email');
+    toast('Reset email sent — check your inbox.', 'success');
   } catch (err){
-    console.error(err);
     showAuthError(friendlyAuthError(err));
   }
 }
@@ -3969,11 +4386,12 @@ function showAuth(){
   $('#boot').classList.add('gone');
   $('#auth-screen').hidden = false;
   $('#app').hidden = true;
+  $('#fab').hidden = true;
 
   const cfg = loadConfig();
   const badge = $('#mode-badge');
   const live = isFirebaseConfigured(cfg);
-  badge.textContent = live ? '🔒 Connected to StudentOS cloud' : '⚡ Demo mode — data stays in this browser';
+  badge.textContent = live ? '🔒 Connected to StudentOS cloud' : '⚡ Demo mode';
   badge.classList.toggle('live', live);
 
   setAuthMode('signin');
@@ -3992,6 +4410,7 @@ function showApp(){
   $('#boot').classList.add('gone');
   $('#auth-screen').hidden = true;
   $('#app').hidden = false;
+  $('#fab').hidden = false;
 
   const u = App.user || {};
   const fallback = `https://ui-avatars.com/api/?background=4f46e5&color=fff&bold=true&name=${encodeURIComponent(u.displayName || 'Student')}`;
@@ -4010,13 +4429,7 @@ function showApp(){
 async function signInGoogle(){
   const errBox = $('#auth-error');
   errBox.hidden = true;
-
-  if (!FB.ready || !FB.auth){
-    errBox.hidden = false;
-    errBox.textContent = 'Firebase is not configured yet. Please refresh the page.';
-    return;
-  }
-
+  if (!FB.ready || !FB.auth){ errBox.hidden = false; errBox.textContent = 'Firebase not configured. Please refresh.'; return; }
   try {
     const provider = new FB.mod.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
@@ -4029,17 +4442,11 @@ async function signInGoogle(){
       real: true
     });
   } catch (err){
-    console.error(err);
     errBox.hidden = false;
-    if (err.code === 'auth/popup-blocked'){
-      errBox.textContent = 'Your browser blocked the sign-in popup. Allow popups for this site and try again.';
-    } else if (err.code === 'auth/unauthorized-domain'){
-      errBox.textContent = 'This domain is not authorised in the Firebase project. Ask the project owner to add it under Authentication → Settings → Authorized domains.';
-    } else if (err.code === 'auth/operation-not-allowed'){
-      errBox.textContent = 'Google sign-in is not enabled. Ask the project owner to turn it on in Authentication → Sign-in method.';
-    } else {
-      errBox.textContent = `Sign-in failed: ${err.message}`;
-    }
+    if (err.code === 'auth/popup-blocked') errBox.textContent = 'Sign-in popup blocked. Allow popups and retry.';
+    else if (err.code === 'auth/unauthorized-domain') errBox.textContent = 'This domain is not authorised. Ask the project owner to add it in Firebase Console.';
+    else if (err.code === 'auth/operation-not-allowed') errBox.textContent = 'Google sign-in is not enabled for this project.';
+    else errBox.textContent = `Sign-in failed: ${err.message}`;
   }
 }
 
@@ -4057,24 +4464,20 @@ async function onUserSignedIn(user){
   if (Store.mode === 'firebase') await Store.loadFromFirestore();
 
   document.documentElement.dataset.theme = Store.cache.settings.theme || 'light';
-
   GoogleAuth.restore();
 
   showApp();
   render();
   checkDueSoon();
 
-  if (Store.mode === 'local' && user.uid === 'demo-user' && !Store.cache.profile.seeded){
-    Store.cache.profile.seeded = true;
-    Store.persist();
-    setTimeout(() => toast('Demo data loaded. Connect real accounts in Integrations whenever you like.', 'info', 'Welcome to StudentOS'), 900);
+  // Show onboarding on first sign-in
+  if (!Store.cache.settings.onboardingSeen){
+    setTimeout(() => showOnboarding(), 500);
   }
 }
 
 async function signOut(){
-  if (FB.auth){
-    try { await FB.mod.signOut(FB.auth); } catch {}
-  }
+  if (FB.auth){ try { await FB.mod.signOut(FB.auth); } catch {} }
   GoogleAuth.revoke();
   try { localStorage.removeItem(LS_SESSION); } catch {}
   App.user = null;
@@ -4085,7 +4488,7 @@ async function signOut(){
 }
 
 /* ----------------------------------------------------------------
-   SECTION 31 · DEMO SEED DATA
+   SECTION 34 · DEMO SEED DATA
    ---------------------------------------------------------------- */
 function seedDemoData(){
   const d = emptyData();
@@ -4093,125 +4496,98 @@ function seedDemoData(){
   const today = startOfDay();
 
   d.courses = [
-    { id:'c1', name:'Maths',     section:'10A', room:'M12' },
-    { id:'c2', name:'Science',   section:'10A', room:'S3'  },
-    { id:'c3', name:'English',   section:'10B', room:'E7'  },
-    { id:'c4', name:'History',   section:'10A', room:'H2'  }
+    { id:'c1', name:'Maths', section:'10A', room:'M12' },
+    { id:'c2', name:'Science', section:'10A', room:'S3' },
+    { id:'c3', name:'English', section:'10B', room:'E7' },
+    { id:'c4', name:'History', section:'10A', room:'H2' }
   ];
 
   d.assignments = [
-    {
-      id:'a1', title:'Chapter 5 questions', description:'Complete questions 1–12 on quadratic equations, pages 84–86. Show all working.',
+    { id:'a1', title:'Chapter 5 questions', description:'Complete questions 1–12 on quadratic equations, pages 84–86. Show all working.',
       type:'Homework', subject:'Maths', dueDate: today + day, source:'Google Classroom',
       url:'https://classroom.google.com/', sources:[{ source:'Google Classroom', url:'https://classroom.google.com/' }],
-      completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*2
-    },
-    {
-      id:'a2', title:'Science test — chapters 4 to 6', description:'Unit test covering ecosystems, food chains and energy transfer. Revision sheets are on Classroom.',
+      completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*2 },
+    { id:'a2', title:'Science test — chapters 4 to 6', description:'Unit test covering ecosystems, food chains and energy transfer.',
       type:'Test', subject:'Science', dueDate: today + day*3, source:'Google Classroom',
       url:'https://classroom.google.com/', sources:[
         { source:'Google Classroom', url:'https://classroom.google.com/' },
         { source:'Email', url:'https://mail.google.com/' }
-      ],
-      completed:false, manual:false, priority:'urgent', mergedCount:2, createdAt: now() - day*3
-    },
-    {
-      id:'a3', title:'Read chapters 3–4 of the novel', description:'Annotate key themes as you read. Bring your notes to Thursday\'s lesson.',
+      ], completed:false, manual:false, priority:'urgent', mergedCount:2, createdAt: now() - day*3 },
+    { id:'a3', title:'Read chapters 3–4 of the novel', description:'Annotate key themes as you read.',
       type:'Homework', subject:'English', dueDate: today + day*5, source:'Google Classroom',
       url:'https://classroom.google.com/', sources:[{ source:'Google Classroom', url:'https://classroom.google.com/' }],
-      completed:false, manual:false, priority:'medium', mergedCount:1, createdAt: now() - day
-    },
-    {
-      id:'a4', title:'World War I research project', description:'1500-word research project on a chosen aspect of WWI. Include at least five sources and a bibliography.',
+      completed:false, manual:false, priority:'medium', mergedCount:1, createdAt: now() - day },
+    { id:'a4', title:'World War I research project', description:'1500-word research project on a chosen aspect of WWI.',
       type:'Project', subject:'History', dueDate: today + day*9, source:'Google Classroom',
       url:'https://classroom.google.com/', sources:[{ source:'Google Classroom', url:'https://classroom.google.com/' }],
-      completed:false, manual:false, priority:'medium', mergedCount:1, createdAt: now() - day*4
-    },
-    {
-      id:'a5', title:'Trigonometry worksheet', description:'Complete the sine and cosine rule practice sheet.',
+      completed:false, manual:false, priority:'medium', mergedCount:1, createdAt: now() - day*4 },
+    { id:'a5', title:'Trigonometry worksheet', description:'Complete the sine and cosine rule practice sheet.',
       type:'Assignment', subject:'Maths', dueDate: today - day, source:'Google Classroom',
       url:'https://classroom.google.com/', sources:[{ source:'Google Classroom', url:'https://classroom.google.com/' }],
-      completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*6
-    },
-    {
-      id:'a6', title:'Chemical reactions lab report', description:'Write up the results from Tuesday\'s experiment.',
+      completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*6 },
+    { id:'a6', title:'Chemical reactions lab report', description:'Write up the results from Tuesday\'s experiment.',
       type:'Assignment', subject:'Science', dueDate: today - day*3, source:'Google Classroom',
       url:'https://classroom.google.com/', sources:[{ source:'Google Classroom', url:'https://classroom.google.com/' }],
-      completed:true, manual:false, priority:'low', mergedCount:1, createdAt: now() - day*9, completedAt: now() - day*3
-    },
-    {
-      id:'a7', title:'Poetry analysis essay', description:'Analyse the use of imagery in two poems studied this term.',
-      type:'Assignment', subject:'English', dueDate: today + day*12, source:'Manual',
-      url:'', sources:[{ source:'Manual', url:'' }],
-      completed:false, manual:true, priority:'low', mergedCount:1, createdAt: now() - day*2
-    }
+      completed:true, manual:false, priority:'low', mergedCount:1, createdAt: now() - day*9, completedAt: now() - day*3 }
   ];
 
   d.events = [
     { id:'e1', title:'Whole school assembly', description:'Sports awards and term overview.', start: today + day*1 + 9*3600000, source:'SchoolBridge', manual:false, createdAt: now() - day*2 },
-    { id:'e2', title:'Mufti day — gold coin donation', description:'Fundraiser for the local shelter.', start: today + day*4, source:'SchoolBridge', manual:false, createdAt: now() - day*2 },
-    { id:'e3', title:'Parent-teacher interviews', description:'Bookings open next week.', start: today + day*11, source:'Email', manual:false, createdAt: now() - day }
+    { id:'e2', title:'Mufti day — gold coin donation', description:'Fundraiser for the local shelter.', start: today + day*4, source:'SchoolBridge', manual:false, createdAt: now() - day*2 }
   ];
 
   const mkNote = (id, title, body, kind, daysAgo, source, extra = {}) => {
     const date = today + daysAgo * day;
     const wk = isoWeekKey(date);
-    return {
-      id, title, body, date, kind, source,
+    return { id, title, body, date, kind, source,
       weekKey: wk.key, weekNumber: wk.week, weekYear: wk.year,
-      url:'', read:false, important:false, saved:false, createdAt: now() - Math.abs(daysAgo)*day, ...extra
-    };
+      url:'', read:false, important:false, saved:false, createdAt: now() - Math.abs(daysAgo)*day, ...extra };
   };
 
   d.weeklyNotes = [
-    mkNote('n1','Assembly Tuesday — sports awards','Whole school assembly in the hall at 9am. Sports team awards will be presented.','School Notice', 1, 'SchoolBridge'),
+    mkNote('n1','Assembly Tuesday — sports awards','Whole school assembly in the hall at 9am.','School Notice', 1, 'SchoolBridge'),
     mkNote('n2','Mufti Day Friday','Bring a gold coin donation. All proceeds go to the local animal shelter.','School Notice', 4, 'SchoolBridge'),
     mkNote('n3','Maths test — Friday','Reminder that the Maths unit test is this Friday. Revise chapters 4–6.','Notice', 3, 'Email', { important:true }),
-    mkNote('n4','Sports registrations close Friday','Final chance to register for winter sports. See the notice board outside the gym.','School Notice', 4, 'SchoolBridge'),
-    mkNote('n5','School newsletter — Term 3 Week 8','Principal\'s message, upcoming events, sports results and the new canteen menu are all inside this week\'s newsletter.','Notice', 2, 'Email'),
-    mkNote('n6','Library book returns','All library books are due back before the end of term.','Notice', 5, 'SchoolBridge'),
-    mkNote('n7','Science test Wednesday 23 September','Your Science test will be on Wednesday 23 September. Revise chapters 4–6.','Notice', 3, 'Email', { important:true }),
-    mkNote('n8','Term 3 Week 7 notices','Week 7 notices including the upcoming athletics carnival and class photo schedule.','Notice', 8, 'SchoolBridge')
+    mkNote('n5','School newsletter — Term 3 Week 8','Principal\'s message, upcoming events, sports results.','Notice', 2, 'Email')
   ];
 
   d.notifications = [
     { id:'nt1', kind:'test', title:'New test: Science test — chapters 4 to 6', body:'On Wednesday · Science', link:'#/assignments', read:false, dedupeKey:'test:a2', createdAt: now() - 3600000 },
-    { id:'nt2', kind:'assignment', title:'New homework: Chapter 5 questions', body:'Due tomorrow · Maths', link:'#/assignments', read:false, dedupeKey:'new:a1', createdAt: now() - 7200000 },
-    { id:'nt3', kind:'notice', title:'New notice: Mufti Day Friday', body:'Bring a gold coin donation.', link:'#/weekly', read:false, dedupeKey:'note:n2', createdAt: now() - 10800000 },
-    { id:'nt4', kind:'due', title:'Trigonometry worksheet is overdue', body:'Maths · Assignment', link:'#/assignments', read:true, dedupeKey:'due:a5', createdAt: now() - 86400000 }
+    { id:'nt2', kind:'assignment', title:'New homework: Chapter 5 questions', body:'Due tomorrow · Maths', link:'#/assignments', read:false, dedupeKey:'new:a1', createdAt: now() - 7200000 }
   ];
 
   d.integrations = {
     classroom: { id:'classroom', connected:true, lastSync: now() - 300000, imported: 6, courses: 4, demo:true },
-    email:     { id:'email', connected:true, lastSync: now() - 300000, imported: 3, scanned: 12, notices: 3, demo:true },
-    schoolbridge:{ id:'schoolbridge', connected:true, lastSync: now() - 600000, imported: 8, mode:'export', demo:true }
+    email: { id:'email', connected:true, lastSync: now() - 300000, imported: 3, scanned: 12, notices: 3, demo:true },
+    schoolbridge: { id:'schoolbridge', connected:true, lastSync: now() - 600000, imported: 8, mode:'export', demo:true }
   };
 
   d.settings.timetable = [
-    { day:1, start:'09:00', end:'10:00', subject:'Maths',   room:'M12' },
-    { day:1, start:'10:05', end:'11:05', subject:'English', room:'E7'  },
-    { day:1, start:'11:25', end:'12:25', subject:'Science', room:'S3'  },
-    { day:1, start:'13:15', end:'14:15', subject:'History', room:'H2'  },
-    { day:2, start:'09:00', end:'10:00', subject:'Science', room:'S3'  },
-    { day:2, start:'10:05', end:'11:05', subject:'Maths',   room:'M12' },
-    { day:2, start:'13:15', end:'14:15', subject:'PE',      room:'Gym' },
-    { day:3, start:'09:00', end:'10:00', subject:'English', room:'E7'  },
-    { day:3, start:'10:05', end:'11:05', subject:'History', room:'H2'  },
-    { day:3, start:'11:25', end:'12:25', subject:'Maths',   room:'M12' },
-    { day:4, start:'09:00', end:'10:00', subject:'Maths',   room:'M12' },
-    { day:4, start:'10:05', end:'11:05', subject:'Science', room:'S3'  },
-    { day:4, start:'13:15', end:'14:15', subject:'Art',     room:'A1'  },
-    { day:5, start:'09:00', end:'10:00', subject:'English', room:'E7'  },
-    { day:5, start:'10:05', end:'11:05', subject:'Maths',   room:'M12' },
-    { day:5, start:'11:25', end:'12:25', subject:'Science', room:'S3'  }
+    { day:1, start:'09:00', end:'10:00', subject:'Maths', room:'M12' },
+    { day:1, start:'10:05', end:'11:05', subject:'English', room:'E7' },
+    { day:1, start:'11:25', end:'12:25', subject:'Science', room:'S3' },
+    { day:1, start:'13:15', end:'14:15', subject:'History', room:'H2' },
+    { day:2, start:'09:00', end:'10:00', subject:'Science', room:'S3' },
+    { day:2, start:'10:05', end:'11:05', subject:'Maths', room:'M12' },
+    { day:2, start:'13:15', end:'14:15', subject:'PE', room:'Gym' },
+    { day:3, start:'09:00', end:'10:00', subject:'English', room:'E7' },
+    { day:3, start:'10:05', end:'11:05', subject:'History', room:'H2' },
+    { day:3, start:'11:25', end:'12:25', subject:'Maths', room:'M12' },
+    { day:4, start:'09:00', end:'10:00', subject:'Maths', room:'M12' },
+    { day:4, start:'10:05', end:'11:05', subject:'Science', room:'S3' },
+    { day:4, start:'13:15', end:'14:15', subject:'Art', room:'A1' },
+    { day:5, start:'09:00', end:'10:00', subject:'English', room:'E7' },
+    { day:5, start:'10:05', end:'11:05', subject:'Maths', room:'M12' },
+    { day:5, start:'11:25', end:'12:25', subject:'Science', room:'S3' }
   ];
 
+  d.settings.onboardingSeen = true;
   d.profile = { seeded:true };
   return d;
 }
 
 /* ----------------------------------------------------------------
-   SECTION 32 · GLOBAL UI WIRING
+   SECTION 35 · GLOBAL UI WIRING
    ---------------------------------------------------------------- */
 function wireGlobalUI(){
   $('#menu-btn')?.addEventListener('click', () => {
@@ -4238,11 +4614,7 @@ function wireGlobalUI(){
     const panel = $('#notif-panel');
     const willOpen = panel.hidden;
     closeAllDropdowns();
-    if (willOpen){
-      panel.hidden = false;
-      $('#notif-btn').setAttribute('aria-expanded', 'true');
-      renderNotifPanel();
-    }
+    if (willOpen){ panel.hidden = false; $('#notif-btn').setAttribute('aria-expanded', 'true'); renderNotifPanel(); }
   });
 
   $('#account-btn')?.addEventListener('click', (e) => {
@@ -4250,14 +4622,12 @@ function wireGlobalUI(){
     const panel = $('#account-panel');
     const willOpen = panel.hidden;
     closeAllDropdowns();
-    if (willOpen){
-      panel.hidden = false;
-      $('#account-btn').setAttribute('aria-expanded', 'true');
-    }
+    if (willOpen){ panel.hidden = false; $('#account-btn').setAttribute('aria-expanded', 'true'); }
   });
 
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.dropdown') && !e.target.closest('.topbar-search')) closeAllDropdowns();
+    if (App.fabOpen && !e.target.closest('#fab') && !e.target.closest('#fab-menu')) toggleFab();
   });
 
   $$('#account-panel [data-nav]').forEach(btn => {
@@ -4269,16 +4639,22 @@ function wireGlobalUI(){
 
   $('#signout-btn')?.addEventListener('click', signOut);
 
+  $('#help-btn')?.addEventListener('click', () => {
+    closeAllDropdowns();
+    openHelpModal();
+  });
+
   $('#sync-btn')?.addEventListener('click', () => {
     const integrations = Store.cache.integrations;
     const anyConnected = Object.values(integrations).some(i => i.connected);
     if (!anyConnected){
-      toast('Connect a service first — open Integrations.', 'warn', 'Nothing to sync');
-      location.hash = '#/integrations';
+      toast('Connect a service first — or use the + button to add things manually.', 'info');
       return;
     }
     syncAll({ interactive: true });
   });
+
+  $('#fab')?.addEventListener('click', toggleFab);
 
   const searchInput = $('#global-search');
   searchInput?.addEventListener('input', (e) => runSearch(e.target.value));
@@ -4286,10 +4662,45 @@ function wireGlobalUI(){
 
   window.addEventListener('hashchange', () => { render(); window.scrollTo({ top:0, behavior:'smooth' }); });
 
+  // Global keyboard shortcuts
+  let gPressed = false;
   document.addEventListener('keydown', (e) => {
-    if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA'){
+    const inInput = document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA';
+    if (inInput) return;
+    if ($('#onboarding')) return;
+
+    if (e.key === '/'){
       e.preventDefault();
       searchInput?.focus();
+      return;
+    }
+    if (e.key === '?' || (e.shiftKey && e.key === '/')){
+      e.preventDefault();
+      openHelpModal();
+      return;
+    }
+    if (e.key.toLowerCase() === 'n'){
+      e.preventDefault();
+      openAssignmentModal(null, 'Assignment');
+      return;
+    }
+    if (e.key.toLowerCase() === 's'){
+      e.preventDefault();
+      $('#sync-btn')?.click();
+      return;
+    }
+    if (e.key.toLowerCase() === 'g'){
+      gPressed = true;
+      setTimeout(() => { gPressed = false; }, 800);
+      return;
+    }
+    if (gPressed){
+      const k = e.key.toLowerCase();
+      if (k === 'd'){ location.hash = '#/dashboard'; gPressed = false; }
+      else if (k === 'a'){ location.hash = '#/assignments'; gPressed = false; }
+      else if (k === 'c'){ location.hash = '#/calendar'; gPressed = false; }
+      else if (k === 'w'){ location.hash = '#/weekly'; gPressed = false; }
+      else if (k === 'p'){ location.hash = '#/planner'; gPressed = false; }
     }
   });
 
@@ -4311,32 +4722,78 @@ function wireGlobalUI(){
   }, 2500);
 }
 
+function openHelpModal(){
+  openModal({
+    title: 'Keyboard shortcuts',
+    subtitle: 'Press ? anytime to see this',
+    body: `
+      <div class="shortcut-grid">
+        <div class="shortcut-row"><span>New assignment</span><kbd>N</kbd></div>
+        <div class="shortcut-row"><span>Search</span><kbd>/</kbd></div>
+        <div class="shortcut-row"><span>Sync now</span><kbd>S</kbd></div>
+        <div class="shortcut-row"><span>Dashboard</span><kbd>G</kbd> <kbd>D</kbd></div>
+        <div class="shortcut-row"><span>Assignments</span><kbd>G</kbd> <kbd>A</kbd></div>
+        <div class="shortcut-row"><span>Calendar</span><kbd>G</kbd> <kbd>C</kbd></div>
+        <div class="shortcut-row"><span>Weekly notes</span><kbd>G</kbd> <kbd>W</kbd></div>
+        <div class="shortcut-row"><span>Study planner</span><kbd>G</kbd> <kbd>P</kbd></div>
+      </div>`,
+    footer: `<button class="btn btn-primary" data-close>Got it</button>`
+  });
+}
+
+function saveSenders(){
+  const domains = ($('#domains-input')?.value || '').split(',').map(s => s.trim()).filter(Boolean);
+  const senders = ($('#senders-input')?.value || '').split(',').map(s => s.trim()).filter(Boolean);
+  Store.cache.settings.trustedDomains = domains;
+  Store.cache.settings.trustedSenders = senders;
+  Store.saveUserDoc();
+  toast(`Saved ${domains.length} domain${domains.length===1?'':'s'}`, 'success');
+}
+
+async function exportData(){
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    user: { email: App.user?.email, name: App.user?.displayName },
+    data: {
+      assignments: Store.all('assignments'), events: Store.all('events'),
+      weeklyNotes: Store.all('weeklyNotes'), notifications: Store.all('notifications'),
+      studySessions: Store.all('studySessions'), courses: Store.all('courses'),
+      settings: Store.cache.settings
+    }
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `studentos-export-${new Date().toISOString().slice(0,10)}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+  toast('Downloaded', 'success');
+}
+
 /* ----------------------------------------------------------------
-   SECTION 33 · BOOTSTRAP
+   SECTION 36 · BOOTSTRAP
    ---------------------------------------------------------------- */
 async function boot(){
   const bootEl = $('#boot');
 
   const safety = setTimeout(() => {
     if (!bootEl.classList.contains('gone')){
-      console.warn('StudentOS boot timed out — showing auth screen.');
+      console.warn('Boot timed out — showing auth');
       showAuth();
     }
   }, 6000);
 
   try {
     const cfg = loadConfig();
-
     if (isFirebaseConfigured(cfg)){
-      try {
-        await initFirebase(cfg);
-      } catch (err){
+      try { await initFirebase(cfg); }
+      catch (err){
         console.error('Firebase init failed:', err);
-        toast('Firebase could not start. Running in local mode instead.', 'error', 'Configuration problem');
+        toast('Firebase could not start.', 'error');
         FB.ready = false;
       }
     }
-
     clearTimeout(safety);
 
     if (FB.ready && FB.auth){
@@ -4363,13 +4820,9 @@ async function boot(){
     } else {
       const raw = localStorage.getItem(LS_SESSION);
       if (raw){
-        try {
-          const cached = JSON.parse(raw);
-          await onUserSignedIn(cached);
-        } catch { showAuth(); }
-      } else {
-        showAuth();
-      }
+        try { await onUserSignedIn(JSON.parse(raw)); }
+        catch { showAuth(); }
+      } else showAuth();
     }
 
     wireGlobalUI();
@@ -4381,9 +4834,7 @@ async function boot(){
       <div class="boot-text">StudentOS could not start</div>
       <div style="max-width:520px;text-align:left;color:var(--text-2);font-size:13px;line-height:1.7;padding:0 24px">
         <p style="margin-bottom:10px"><strong>${escapeHtml(err.message || 'Unknown error')}</strong></p>
-        <p>Common fixes:</p>
-        <p>• You are offline.</p>
-        <p>• Your browser is blocking module scripts or the popup.</p>
+        <p>Try reloading. If it keeps happening, open the browser console (F12) for details.</p>
         <p style="margin-top:14px"><button class="btn btn-primary btn-sm" onclick="location.reload()">Reload</button></p>
       </div>`;
   }
@@ -4392,12 +4843,11 @@ async function boot(){
 boot();
 
 window.StudentOS = {
-  version: '1.2.0',
+  version: '1.3.0',
   get state(){ return Store.cache; },
   get config(){ return loadConfig(); },
-  syncAll,
-  clearConfig,
-  exportData
+  syncAll, clearConfig, exportData,
+  showOnboarding
 };
 </script>
 </body>
