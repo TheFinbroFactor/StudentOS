@@ -289,10 +289,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .next-item.high .next-rank{background:var(--amber-500)}
 .next-item.low .next-rank{background:var(--gray-400)}
 .effort-banner{background:linear-gradient(135deg,var(--violet-50) 0%,var(--indigo-50) 100%);border:1px solid rgba(139,92,246,.25);border-radius:var(--radius-lg);padding:20px;margin-bottom:20px}
-[data-theme="dark"] .effort-banner{background:linear-gradient(135deg,rgba(139,92,246,.16) 0%,rgba(99,102,241,.12) 100%);border-color:var(--border)}
-.effort-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.effort-title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px;color:var(--violet-600)}
-[data-theme="dark"] .effort-title{color:var(--violet-500)}
 .effort-avg{display:inline-flex;align-items:baseline;gap:4px;padding:6px 14px;border-radius:99px;background:var(--surface);font-size:13px;font-weight:700;color:var(--text);border:1px solid var(--border)}
 .effort-avg b{font-size:20px;color:var(--violet-600);letter-spacing:-.02em}
 [data-theme="dark"] .effort-avg b{color:var(--violet-500)}
@@ -307,35 +303,7 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .effort-bar-fill.r4{background:linear-gradient(90deg,#84cc16,#a3e635)}
 .effort-bar-fill.r5{background:linear-gradient(90deg,#10b981,#34d399)}
 .effort-bar-val{width:40px;flex:none;text-align:right;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
-.effort-trend{overflow-x:auto;margin-top:16px;border-top:1px solid var(--border);padding-top:14px}
-.effort-table{border-collapse:separate;border-spacing:4px;width:100%;min-width:420px}
-.effort-table th{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);text-align:center;padding:4px 6px}
-.effort-table th.effort-sub-th{text-align:left;width:150px}
-.effort-table td{text-align:center;padding:0}
-.effort-table td.effort-sub-td{text-align:left;font-size:12.5px;font-weight:600;padding:4px 6px;white-space:nowrap}
 .effort-cell{display:inline-grid;place-items:center;width:38px;height:34px;border-radius:8px;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
-.effort-cell.r1{background:rgba(239,68,68,.15);color:#dc2626}
-.effort-cell.r2{background:rgba(249,115,22,.15);color:#ea580c}
-.effort-cell.r3{background:rgba(234,179,8,.18);color:#a16207}
-.effort-cell.r4{background:rgba(132,204,22,.18);color:#4d7c0f}
-.effort-cell.r5{background:rgba(16,185,129,.18);color:#047857}
-[data-theme="dark"] .effort-cell.r1{background:rgba(239,68,68,.25);color:#fca5a5}
-[data-theme="dark"] .effort-cell.r2{background:rgba(249,115,22,.25);color:#fdba74}
-[data-theme="dark"] .effort-cell.r3{background:rgba(234,179,8,.25);color:#fde047}
-[data-theme="dark"] .effort-cell.r4{background:rgba(132,204,22,.25);color:#bef264}
-[data-theme="dark"] .effort-cell.r5{background:rgba(16,185,129,.25);color:#6ee7b7}
-.effort-cell.empty{background:var(--surface-2);color:var(--text-3);font-size:11px;font-weight:500}
-.effort-edit-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
-.effort-edit-row .input.subject{flex:1.4}
-.effort-rating-options{display:flex;gap:6px}
-.effort-rating-btn{width:38px;height:38px;border-radius:9px;font-size:14px;font-weight:800;border:1px solid var(--border);background:var(--surface);color:var(--text-3);transition:.15s}
-.effort-rating-btn:hover{border-color:var(--violet-500);color:var(--text)}
-.effort-rating-btn.on{color:#fff;border-color:transparent;transform:scale(1.08)}
-.effort-rating-btn.on.r1{background:var(--red-500)}
-.effort-rating-btn.on.r2{background:#f97316}
-.effort-rating-btn.on.r3{background:#eab308}
-.effort-rating-btn.on.r4{background:#84cc16}
-.effort-rating-btn.on.r5{background:var(--green-500)}
 .checklist-card{background:linear-gradient(135deg,var(--indigo-50) 0%,var(--violet-50) 100%);border:1px solid var(--indigo-200);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:24px}
 [data-theme="dark"] .checklist-card{background:linear-gradient(135deg,rgba(99,102,241,.16) 0%,rgba(139,92,246,.12) 100%);border-color:var(--border)}
 .checklist-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
@@ -379,6 +347,10 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .paste-empty{text-align:center;padding:50px 20px;color:var(--text-3);font-size:13px;line-height:1.6}
 .paste-hint{display:flex;align-items:flex-start;gap:8px;padding:11px 13px;background:var(--violet-50);color:var(--violet-600);border-radius:9px;font-size:12.5px;line-height:1.55;border:1px solid rgba(139,92,246,.2)}
 .paste-hint strong{font-weight:700}
+.format-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:99px;font-size:12px;font-weight:700;background:var(--primary-soft);color:var(--primary);border:1px solid rgba(99,102,241,.3)}
+.format-badge.email{background:var(--sky-50);color:#0284c7;border-color:rgba(14,165,233,.3)}
+.format-badge.classroom{background:var(--green-50);color:var(--green-600);border-color:rgba(16,185,129,.3)}
+.format-badge.generic{background:var(--violet-50);color:var(--violet-600);border-color:rgba(139,92,246,.3)}
 .howto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:16px 0}
 .howto-step{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:13px 14px;display:flex;gap:11px;align-items:flex-start}
 .howto-num{width:26px;height:26px;border-radius:8px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:800;flex:none}
@@ -426,12 +398,6 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .activity-day{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);width:80px;flex:none}
 .activity-time{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--text-2);width:110px;flex:none}
 .activity-name{flex:1;font-weight:600;font-size:13.5px;min-width:0}
-.activity-del{color:var(--red-500)}
-.picker{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:12px}
-.picker button{padding:8px 4px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:600;color:var(--text-2);transition:.13s}
-.picker button:hover{border-color:var(--border-strong)}
-.picker button.on{background:var(--primary);color:#fff;border-color:var(--primary)}
-.pdf-preview{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px;max-height:280px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;line-height:1.5;color:var(--text-2);white-space:pre-wrap}
 .int-upload-card{border:2px solid var(--violet-500);background:linear-gradient(135deg,var(--violet-50) 0%,#fff 100%);border-radius:var(--radius-lg);padding:22px;text-align:center}
 [data-theme="dark"] .int-upload-card{border-color:var(--violet-500);background:linear-gradient(135deg,rgba(139,92,246,.14) 0%,var(--surface) 100%)}
 @media(max-width:960px){.auth{grid-template-columns:1fr}.auth-hero{display:none}.auth-panel{padding:32px 20px}}
@@ -466,18 +432,13 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .fab-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;font-size:13.5px;font-weight:500;width:100%;text-align:left;transition:.13s;color:var(--text)}
 .fab-item:hover{background:var(--surface-2)}
 .fab-item.highlight{background:var(--violet-50)}
-.fab-item.highlight:hover{background:rgba(139,92,246,.18)}
-[data-theme="dark"] .fab-item.highlight{background:rgba(139,92,246,.14)}
-.fab-ico{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:14px;flex:none;background:var(--surface-2)}
 .fab-item kbd{margin-left:auto;font-size:10.5px}
 .onboarding{position:fixed;inset:0;z-index:1500;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px;animation:fadeIn .2s ease;overflow-y:auto}
 .onboarding-card{background:var(--surface);border-radius:var(--radius-xl);width:100%;max-width:580px;box-shadow:var(--shadow-xl);padding:32px 32px 26px;position:relative;animation:slideUp .3s cubic-bezier(.2,.9,.3,1);margin:auto}
 .onboarding-skip{position:absolute;top:16px;right:16px;font-size:12.5px;font-weight:600;color:var(--text-3);padding:6px 10px;border-radius:8px}
-.onboarding-skip:hover{background:var(--surface-2);color:var(--text)}
 .onb-progress{display:flex;gap:6px;justify-content:center;margin-bottom:24px}
 .onb-dot{width:32px;height:4px;border-radius:99px;background:var(--border);transition:.3s}
 .onb-dot.on{background:var(--primary);width:48px}
-.onb-dot.done{background:var(--primary)}
 .onb-content h2{font-size:24px;letter-spacing:-.02em;margin-bottom:8px}
 .onb-content p.lead{font-size:15px;color:var(--text-2);line-height:1.6;margin-bottom:22px}
 .onb-cards{display:grid;gap:10px;margin-bottom:20px}
@@ -491,7 +452,6 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .onb-feature-list{display:flex;flex-direction:column;gap:12px;margin-bottom:8px}
 .onb-feature{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.55}
 .onb-feature-ico{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;flex:none;background:var(--primary-soft);font-size:16px}
-.onb-feature strong{display:block;margin-bottom:1px}
 .toasts{position:fixed;bottom:22px;left:22px;z-index:2000;display:flex;flex-direction:column;gap:10px;pointer-events:none}
 .toast{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--primary);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:12px 16px;min-width:270px;max-width:380px;display:flex;gap:11px;align-items:flex-start;pointer-events:auto;animation:toastIn .24s cubic-bezier(.2,.9,.3,1)}
 @keyframes toastIn{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
@@ -518,12 +478,11 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
     <div class="auth-hero-inner">
       <div class="brand brand-light"><span class="brand-mark">S</span><span>StudentOS</span></div>
       <h1 class="auth-headline">Every assignment, test and effort report.<br>One calm dashboard.</h1>
-      <p class="auth-sub">Paste your Classroom To-do. Upload your weekly effort report. StudentOS tracks everything and plans your study around your life.</p>
+      <p class="auth-sub">Paste your Classroom To-do, any school email, or a list. StudentOS figures out what it is and sorts it out.</p>
       <ul class="auth-features">
-        <li><span class="tick">✓</span> <strong>Paste from Classroom</strong> — 10 seconds, no setup</li>
-        <li><span class="tick">✓</span> <strong>Upload your effort report PDF</strong> — auto-extracts every rating</li>
+        <li><span class="tick">✓</span> <strong>Smart Paste</strong> — Classroom, emails, anything</li>
+        <li><span class="tick">✓</span> <strong>Upload your effort report PDF</strong></li>
         <li><span class="tick">✓</span> <strong>Study planner</strong> — works around your tutoring and sport</li>
-        <li><span class="tick">✓</span> <strong>School calendar</strong> — synced automatically</li>
       </ul>
       <div class="auth-badges">
         <span class="chip chip-glass">$0 to run</span>
@@ -589,8 +548,8 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
       <div id="search-results" class="search-results" hidden></div>
     </div>
     <div class="topbar-actions">
-      <button class="btn btn-primary btn-sm" id="smart-paste-btn" title="Paste from Classroom (P)">
-        📋 <span>Paste</span>
+      <button class="btn btn-primary btn-sm" id="smart-paste-btn" title="Smart paste anything (P)">
+        ✨ <span>Smart Paste</span>
       </button>
       <button class="btn btn-ghost btn-sm" id="sync-btn" title="Sync school calendar">
         <span class="sync-spinner" hidden></span>
@@ -659,10 +618,10 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 
 <script type="module">
 /* ================================================================
-   STUDENTOS v4.0
-   — paste-only Classroom sync
-   — PDF effort report upload (pdf.js)
-   — study planner aware of weekly activities
+   STUDENTOS v4.1
+   — Smart Paste now detects Classroom / Email / Plain text
+   — Subject normalisation (PE = Health = PE & Health, etc.)
+   — PDF effort reports, activity-aware study planner
    ================================================================ */
 
 const LS_CONFIG = 'studentos.config.v1';
@@ -705,13 +664,146 @@ const DEFAULT_SETTINGS = {
   onboardingSeen: false
 };
 
-const SUBJECTS = ['Maths','Mathematics','English','Science','Biology','Chemistry','Physics',
-  'History','Geography','Economics','Business','Accounting','Art','Music','Drama','PE',
-  'Physical Education','Health','Computing','Computer Science','ICT','Digital Technology',
-  'Technology','Languages','French','Spanish','German','Japanese','Maori','Te Reo Maori',
-  'Social Studies','Media Studies','Design','Graphics','Food Technology','Woodwork','Stats',
-  'Religious Education','RE','Theology','Pastoral','Homeroom','Debate','Scholarship',
-  'Commerce'];
+/* ── SUBJECT NORMALIZATION ──────────────────────────────────────
+   Different sources call the same subject different things.
+   PE, Health, PE & Health, Physical Education — all the same thing.
+   This map collapses every variant to one canonical name. */
+const SUBJECT_ALIASES = {
+  // PE / Health family
+  'pe': 'PE & Health',
+  'p.e.': 'PE & Health',
+  'p.e': 'PE & Health',
+  'phys ed': 'PE & Health',
+  'physed': 'PE & Health',
+  'physical education': 'PE & Health',
+  'physical education and health': 'PE & Health',
+  'physical ed': 'PE & Health',
+  'pe & health': 'PE & Health',
+  'pe and health': 'PE & Health',
+  'pe/health': 'PE & Health',
+  'health': 'PE & Health',
+  'health and physical education': 'PE & Health',
+  'hpe': 'PE & Health',
+  // Mathematics
+  'math': 'Mathematics',
+  'maths': 'Mathematics',
+  'mathematics': 'Mathematics',
+  'maths methods': 'Mathematics',
+  'mathematics methods': 'Mathematics',
+  // English
+  'english': 'English',
+  'eng': 'English',
+  // Sciences
+  'science': 'Science',
+  'sci': 'Science',
+  'biology': 'Biology',
+  'bio': 'Biology',
+  'chemistry': 'Chemistry',
+  'chem': 'Chemistry',
+  'physics': 'Physics',
+  'phys': 'Physics',
+  // Social sciences
+  'history': 'History',
+  'hist': 'History',
+  'geography': 'Geography',
+  'geo': 'Geography',
+  'social studies': 'Social Studies',
+  'social science': 'Social Studies',
+  'social sciences': 'Social Studies',
+  'soc sci': 'Social Studies',
+  'economics': 'Economics',
+  'econ': 'Economics',
+  'eco': 'Economics',
+  'accounting': 'Accounting',
+  'acc': 'Accounting',
+  'accnt': 'Accounting',
+  'business': 'Business',
+  'business studies': 'Business',
+  'commerce': 'Commerce',
+  'media studies': 'Media Studies',
+  'media': 'Media Studies',
+  'classical studies': 'Classical Studies',
+  'classics': 'Classical Studies',
+  // Arts
+  'art': 'Art',
+  'visual art': 'Art',
+  'visual arts': 'Art',
+  'music': 'Music',
+  'drama': 'Drama',
+  'dance': 'Dance',
+  // Technology
+  'ict': 'Digital Technology',
+  'computing': 'Digital Technology',
+  'computer science': 'Digital Technology',
+  'computer studies': 'Digital Technology',
+  'digital technology': 'Digital Technology',
+  'digital tech': 'Digital Technology',
+  'digital technologies': 'Digital Technology',
+  'technology': 'Technology',
+  'tech': 'Technology',
+  'hard materials': 'Technology',
+  'soft materials': 'Technology',
+  'food technology': 'Food Technology',
+  'food tech': 'Food Technology',
+  'graphics': 'Design',
+  'design': 'Design',
+  'dvc': 'Design',
+  // Languages
+  'te reo': 'Te Reo Maori',
+  'te reo maori': 'Te Reo Maori',
+  'te reo māori': 'Te Reo Maori',
+  'maori': 'Te Reo Maori',
+  'māori': 'Te Reo Maori',
+  'french': 'French',
+  'spanish': 'Spanish',
+  'german': 'German',
+  'japanese': 'Japanese',
+  'chinese': 'Chinese',
+  // Religious Ed
+  're': 'Religious Education',
+  'r.e.': 'Religious Education',
+  'religious education': 'Religious Education',
+  'religious ed': 'Religious Education',
+  'theology': 'Religious Education',
+  // Other
+  'stats': 'Statistics',
+  'statistics': 'Statistics',
+  'homeroom': 'Homeroom',
+  'form class': 'Homeroom',
+  'tutor': 'Homeroom',
+  'pastoral': 'Pastoral',
+  'outdoor education': 'Outdoor Education',
+  'outdoor ed': 'Outdoor Education',
+  'scholarship': 'Scholarship',
+  'esol': 'ESOL',
+  'esl': 'ESOL',
+  'reading': 'Reading',
+  'library': 'Library'
+};
+
+function normalizeSubject(name){
+  if (!name) return '';
+  const k = String(name).toLowerCase().trim().replace(/\s+/g, ' ');
+  return SUBJECT_ALIASES[k] || String(name).trim();
+}
+
+/* ── detectSubject: alias-aware word-boundary scan ────────────── */
+function detectSubject(text){
+  if (!text) return '';
+  const t = String(text).toLowerCase();
+  // Try longer aliases first so "pe & health" wins over "pe"
+  const keys = Object.keys(SUBJECT_ALIASES).sort((a,b) => b.length - a.length);
+  for (const alias of keys){
+    let idx = t.indexOf(alias);
+    while (idx !== -1){
+      const before = idx === 0 ? ' ' : t[idx - 1];
+      const after = t[idx + alias.length] || ' ';
+      if (!/[a-z]/.test(before) && !/[a-z]/.test(after)) return SUBJECT_ALIASES[alias];
+      idx = t.indexOf(alias, idx + 1);
+    }
+  }
+  return '';
+}
 
 const STOP_WORDS = new Set(['the','and','for','with','this','that','from','your','you','are','was',
   'have','has','will','due','the','a','an','of','to','in','on','at','by','is','it','be','or','as',
@@ -1066,7 +1158,7 @@ async function dedupeExistingAssignments(){
 }
 
 function detectType(text){
-  const t = text.toLowerCase();
+  const t = String(text || '').toLowerCase();
   if (/\b(exam|exams|final exam|midterm|mid-term|end of year exam|assessment week)\b/.test(t)) return 'Exam';
   if (/\b(test|tests|quiz|quizzes|spot test|unit test|topic test|assessment)\b/.test(t)) return 'Test';
   if (/\b(project|portfolio|presentation|group project|inquiry)\b/.test(t)) return 'Project';
@@ -1075,19 +1167,6 @@ function detectType(text){
   if (/\b(assembly|mufti|mufti day|sports day|athletics|carnival|excursion|trip|concert|production|fundraiser|book week|fete|open day|interview|holiday|term start|term end)\b/.test(t)) return 'Event';
   if (/\b(due|deadline|remember|don't forget|dont forget)\b/.test(t)) return 'Reminder';
   return 'Assignment';
-}
-
-function detectSubject(text, courses = []){
-  const t = text.toLowerCase();
-  for (const c of courses){
-    const name = (c.name || '').toLowerCase();
-    if (name && t.includes(name)) return c.name;
-  }
-  for (const s of SUBJECTS){
-    const re = new RegExp(`\\b${s.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\b`, 'i');
-    if (re.test(t)) return s;
-  }
-  return '';
 }
 
 const MONTH_MAP = { jan:0,january:0,feb:1,february:1,mar:2,march:2,apr:3,april:3,may:4,
@@ -1124,6 +1203,23 @@ function parseDate(text, ref = new Date()){
   if (/\btomorrow\b|\btmrw\b|\btmr\b/.test(t)){
     const d = new Date(ref); d.setDate(d.getDate() + 1); d.setHours(23,59,0,0); return d.getTime();
   }
+  if (/\bnext week\b/.test(t)){
+    const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime();
+  }
+  // Day-of-week fallback (matches "Friday", "Fri", "on Friday")
+  m = t.match(/\b(sunday|sun|monday|mon|tuesday|tue|tues|wednesday|wed|thursday|thu|thur|thurs|friday|fri|saturday|sat)\b/);
+  if (m){
+    const key = m[1].slice(0,3);
+    const target = DAY_ABBR[key];
+    if (target !== undefined){
+      const d = new Date(ref);
+      let delta = (target - d.getDay() + 7) % 7;
+      if (delta === 0) delta = 7;
+      d.setDate(d.getDate() + delta);
+      d.setHours(23, 59, 0, 0);
+      return d.getTime();
+    }
+  }
   return null;
 }
 
@@ -1154,8 +1250,24 @@ function estimateMinutes(item){
 }
 
 /* ================================================================
-   SMART PASTE (Classroom To-do + general emails)
+   SMART PASTE — v4.1
+   Three parsers, picked automatically based on input format:
+   — Classroom To-do page (has "assignment"/"material" markers + dates)
+   — Email (has From/To/Subject headers)
+   — Generic text (fallback for plain lists, pasted messages)
    ================================================================ */
+
+/* ── FORMAT DETECTION ─────────────────────────────────────────── */
+function looksLikeEmail(text){
+  if (!text) return false;
+  const lines = text.split(/\r?\n/).slice(0, 30);
+  let headerCount = 0;
+  for (const line of lines){
+    if (/^\s*(from|to|cc|bcc|sent|date|subject|reply-to)\s*:\s*\S/i.test(line)) headerCount++;
+  }
+  return headerCount >= 2;
+}
+
 const CLASSROOM_TYPE_MARKER = /^(assignment|material|quiz|question|exam|homework|short answer question|multiple choice question)$/i;
 const CLASSROOM_SECTION_HEADER = /^(to-?do|missing|done|all classes|all topics|next week|this week|later|today|tomorrow|yesterday|upcoming|recently assigned|assigned|posted|turned in|graded|view|see all|view all|no due date)$/i;
 const MONTH_ABBR = 'jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december';
@@ -1175,49 +1287,9 @@ function isDateLine(line){
   return false;
 }
 
-function parseClassroomDue(raw){
-  if (!raw) return null;
-  let t = String(raw).trim();
-  t = t.replace(/^due\s*/i, '').replace(/^(?:on|by|at)\s*/i, '').trim();
-  if (!t || t.length > 40) return null;
-  const ref = new Date();
-
-  if (/^today\b|^tonight\b/i.test(t)) {
-    const d = new Date(ref); d.setHours(23,59,0,0); return d.getTime();
-  }
-  if (/^tomorrow\b|^tmrw\b|^tmr\b/i.test(t)) {
-    const d = new Date(ref); d.setDate(d.getDate() + 1); d.setHours(23,59,0,0); return d.getTime();
-  }
-  if (/^next\s+week\b/i.test(t)) {
-    const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime();
-  }
-
-  let m = t.match(new RegExp(`^(?:(?:${DOW_ABBR})\\s+)?(\\d{1,2})(?:st|nd|rd|th)?\\s+(${MONTH_ABBR})$`, 'i'));
-  if (m){
-    const day = parseInt(m[1], 10);
-    const mon = MONTH_MAP[m[2].toLowerCase()];
-    let d = new Date(ref.getFullYear(), mon, day, 23, 59);
-    if (d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
-    return d.getTime();
-  }
-
-  m = t.match(new RegExp(`^(${DOW_ABBR})$`, 'i'));
-  if (m){
-    const key = m[1].toLowerCase().slice(0,3);
-    const target = DAY_ABBR[key];
-    const d = new Date(ref);
-    let delta = (target - d.getDay() + 7) % 7;
-    if (delta === 0) delta = 7;
-    d.setDate(d.getDate() + delta);
-    d.setHours(23, 59, 0, 0);
-    return d.getTime();
-  }
-
-  return parseDate(t);
-}
-
 function looksLikeClassroomPage(text){
   if (!text) return false;
+  if (looksLikeEmail(text)) return false; // emails can contain "Assignment" text
   const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
   if (lines.length < 3) return false;
   let markerCount = 0;
@@ -1232,6 +1304,46 @@ function looksLikeClassroomPage(text){
   if (markerCount >= 1 && dateCount >= 1) return true;
   if (dueCount >= 1) return true;
   return false;
+}
+
+function detectPasteFormat(text){
+  if (!text || !text.trim()) return 'empty';
+  if (looksLikeClassroomPage(text)) return 'classroom';
+  if (looksLikeEmail(text)) return 'email';
+  return 'generic';
+}
+
+/* ── CLASSROOM PARSER ─────────────────────────────────────────── */
+function parseClassroomDue(raw){
+  if (!raw) return null;
+  let t = String(raw).trim();
+  t = t.replace(/^due\s*/i, '').replace(/^(?:on|by|at)\s*/i, '').trim();
+  if (!t || t.length > 40) return null;
+  const ref = new Date();
+
+  if (/^today\b|^tonight\b/i.test(t)) { const d = new Date(ref); d.setHours(23,59,0,0); return d.getTime(); }
+  if (/^tomorrow\b|^tmrw\b|^tmr\b/i.test(t)) { const d = new Date(ref); d.setDate(d.getDate() + 1); d.setHours(23,59,0,0); return d.getTime(); }
+  if (/^next\s+week\b/i.test(t)) { const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime(); }
+
+  let m = t.match(new RegExp(`^(?:(?:${DOW_ABBR})\\s+)?(\\d{1,2})(?:st|nd|rd|th)?\\s+(${MONTH_ABBR})$`, 'i'));
+  if (m){
+    const day = parseInt(m[1], 10);
+    const mon = MONTH_MAP[m[2].toLowerCase()];
+    let d = new Date(ref.getFullYear(), mon, day, 23, 59);
+    if (d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
+    return d.getTime();
+  }
+  m = t.match(new RegExp(`^(${DOW_ABBR})$`, 'i'));
+  if (m){
+    const target = DAY_ABBR[m[1].toLowerCase().slice(0,3)];
+    const d = new Date(ref);
+    let delta = (target - d.getDay() + 7) % 7;
+    if (delta === 0) delta = 7;
+    d.setDate(d.getDate() + delta);
+    d.setHours(23, 59, 0, 0);
+    return d.getTime();
+  }
+  return parseDate(t);
 }
 
 function smartPasteClassroom(text){
@@ -1263,8 +1375,7 @@ function smartPasteClassroom(text){
     const bl = block.lines;
     if (!bl.length) continue;
 
-    let dueDate = null;
-    let dueIdx = -1;
+    let dueDate = null, dueIdx = -1;
     for (let i = bl.length - 1; i >= 0; i--){
       const d = parseClassroomDue(bl[i]);
       if (d){ dueDate = d; dueIdx = i; break; }
@@ -1279,7 +1390,6 @@ function smartPasteClassroom(text){
       title = bl[0] || '';
       course = bl.length > 1 ? bl[bl.length - 1] : '';
     }
-
     title = title.trim();
     course = course.trim();
     if (!title || title.length < 2) continue;
@@ -1295,13 +1405,14 @@ function smartPasteClassroom(text){
     else if (/exam/i.test(block.marker)) type = 'Exam';
     else if (/homework/i.test(block.marker)) type = 'Homework';
 
+    // Subject: try course line first (aliases already normalise), then title
     let subject = '';
     if (course){
-      const detected = detectSubject(course, []);
-      if (detected) subject = detected;
-      else if (/^[A-Za-z][A-Za-z0-9\s&\-'\.]{1,60}$/.test(course)) subject = course;
+      subject = detectSubject(course);
+      if (!subject && /^[A-Za-z][A-Za-z0-9\s&\-'\.]{1,60}$/.test(course)) subject = course;
     }
-    if (!subject) subject = detectSubject(title, []);
+    if (!subject) subject = detectSubject(title);
+    subject = normalizeSubject(subject);
 
     results.push({
       id: `paste-${uid()}`,
@@ -1319,6 +1430,109 @@ function smartPasteClassroom(text){
   return results;
 }
 
+/* ── EMAIL PARSER ─────────────────────────────────────────────── */
+function stripReplyPrefix(s){
+  return String(s || '').replace(/^\s*(?:(?:re|fwd|fw|aw)\s*:\s*)+/i, '').trim();
+}
+
+function smartPasteEmail(text){
+  const lines = text.split(/\r?\n/);
+  const headers = {};
+  let bodyStart = 0;
+  let inHeader = true;
+
+  for (let i = 0; i < lines.length; i++){
+    const line = lines[i];
+    if (inHeader){
+      const m = line.match(/^\s*(from|to|cc|bcc|sent|date|subject|reply-to)\s*:\s*(.*)$/i);
+      if (m){
+        headers[m[1].toLowerCase()] = m[2].trim();
+        bodyStart = i + 1;
+      } else if (line.trim() === '' && Object.keys(headers).length > 0){
+        bodyStart = i + 1;
+        inHeader = false;
+        break;
+      } else if (Object.keys(headers).length > 0){
+        bodyStart = i;
+        inHeader = false;
+        break;
+      }
+    }
+  }
+
+  const body = lines.slice(bodyStart).join('\n').trim();
+  const subjectHeader = stripReplyPrefix(headers.subject || '');
+  const haystack = `${subjectHeader}\n${body}`;
+
+  const globalType = detectType(haystack);
+  const globalSubject = normalizeSubject(detectSubject(haystack));
+  const globalDue = parseDate(haystack);
+
+  // Look for a bullet list in the body — if 2+ bullets, split into separate items
+  const bulletItems = [];
+  let currentBullet = null;
+  const bulletRe = /^\s*(?:[-*•·▪◦‣]|\d+[.)]|[a-z][.)])\s+(.+)$/;
+  for (const rawLine of body.split(/\r?\n/)){
+    const m = rawLine.match(bulletRe);
+    if (m){
+      if (currentBullet) bulletItems.push(currentBullet);
+      currentBullet = m[1].trim();
+    } else if (currentBullet && rawLine.trim()){
+      currentBullet += ' ' + rawLine.trim();
+    }
+  }
+  if (currentBullet) bulletItems.push(currentBullet);
+
+  if (bulletItems.length >= 2){
+    const results = [];
+    const seen = new Set();
+    for (const b of bulletItems){
+      const title = sanitiseText(stripReplyPrefix(b.split(/[.\n]/)[0]), 200);
+      const key = title.toLowerCase();
+      if (!title || key.length < 3 || seen.has(key)) continue;
+      seen.add(key);
+      const itemType = detectType(b) || globalType;
+      const itemSubject = normalizeSubject(detectSubject(b)) || globalSubject;
+      const itemDue = parseDate(b) || globalDue;
+      results.push({
+        id: `email-${uid()}`,
+        title,
+        description: sanitiseText(b, 2000),
+        type: itemType, subject: itemSubject,
+        dueDate: itemDue || null,
+        source: 'Email', url: '',
+        sources: [{ source: 'Email', url: '', addedAt: now() }],
+        completed: false, manual: false,
+        priority: computePriority({ type: itemType, dueDate: itemDue }),
+        mergedCount: 1, createdAt: now()
+      });
+    }
+    if (results.length) return results;
+  }
+
+  // Single-item email
+  let title = subjectHeader;
+  if (!title || title.length < 3){
+    const firstLine = body.split(/\n/).map(l => l.trim()).find(l => l.length > 3 && !/^(hi|hello|kia ora|dear|hey|good (morning|afternoon|evening))\b/i.test(l));
+    title = firstLine ? firstLine.split(/[.!?]/)[0] : 'Email item';
+  }
+
+  return [{
+    id: `email-${uid()}`,
+    title: sanitiseText(title, 200),
+    description: sanitiseText(body, 3000),
+    type: globalType,
+    subject: globalSubject,
+    dueDate: globalDue || null,
+    source: 'Email', url: '',
+    sources: [{ source: 'Email', url: '', addedAt: now() }],
+    completed: false, manual: false,
+    priority: computePriority({ type: globalType, dueDate: globalDue }),
+    mergedCount: 1, createdAt: now()
+  }];
+}
+
+/* ── GENERIC TEXT PARSER ──────────────────────────────────────── */
 function smartPasteGeneral(text){
   if (!text || !text.trim()) return [];
   const lines = text.split(/\r?\n/);
@@ -1333,19 +1547,27 @@ function smartPasteGeneral(text){
     if (/^~?\d+\s*min$/i.test(t)) return true;
     return false;
   };
+
   const chunks = [];
   let current = '';
   const flush = () => { const c = current.trim(); if (c.length >= 3) chunks.push(c); current = ''; };
+
+  const isBullet = l => /^\s*(?:[-*•·▪◦‣]|\d+[.)]|[a-z][.)])\s+/.test(l);
+
   for (const raw of lines){
     if (isNoise(raw)){ flush(); continue; }
-    current += (current ? ' ' : '') + raw.replace(/\s+/g,' ').trim();
+    const line = raw.replace(/\s+/g, ' ').trim();
+    if (!line){ flush(); continue; }
+    if (isBullet(line)){ flush(); current = line.replace(/^\s*(?:[-*•·▪◦‣]|\d+[.)]|[a-z][.)])\s+/, ''); continue; }
+    current += (current ? ' ' : '') + line;
   }
   flush();
+
   const seen = new Set();
   const results = [];
   for (const chunk of chunks){
     const type = detectType(chunk);
-    const subject = detectSubject(chunk, []);
+    const subject = normalizeSubject(detectSubject(chunk));
     const dueDate = parseDate(chunk);
     let title = chunk.split(/\n|\.\s/)[0].trim().replace(/^(?:re|fwd|fw)\s*:\s*/i, '');
     title = sanitiseText(title, 120);
@@ -1367,22 +1589,23 @@ function smartPasteGeneral(text){
   return results;
 }
 
+/* ── SMART PASTE ROUTER ───────────────────────────────────────── */
 function smartPaste(text){
   if (!text || !text.trim()) return [];
-  if (looksLikeClassroomPage(text)){
+  const fmt = detectPasteFormat(text);
+  if (fmt === 'classroom'){
     const items = smartPasteClassroom(text);
+    if (items.length) return items;
+  }
+  if (fmt === 'email'){
+    const items = smartPasteEmail(text);
     if (items.length) return items;
   }
   return smartPasteGeneral(text);
 }
 
 /* ================================================================
-   EFFORT REPORT PDF PARSER
-   ================================================================
-   Handles Sacred Heart College style reports:
-   - Student code like "10SWG" at the top
-   - Attendance percentage
-   - Per-subject rows: SubjectNameWk 22Wk 23...YearYear 10{values}{yearAvg}
+   EFFORT REPORT PDF PARSER (unchanged logic, safer multi-match)
    ================================================================ */
 async function loadPdfJs(){
   if (window.pdfjsLib) return window.pdfjsLib;
@@ -1411,7 +1634,6 @@ async function extractPdfText(file){
   for (let i = 1; i <= pdf.numPages; i++){
     const page = await pdf.getPage(i);
     const content = await page.getTextContent();
-    // Join items with a space; add newline when the transform's Y changes
     let lastY = null;
     for (const item of content.items){
       const y = item.transform[5];
@@ -1424,8 +1646,6 @@ async function extractPdfText(file){
   return out;
 }
 
-/* Known subject names — order matters, longer first so "Physical Education and Health"
-   matches before "Physical Education". */
 const KNOWN_SUBJECTS = [
   'Physical Education and Health',
   'Physical Education',
@@ -1474,19 +1694,17 @@ function parseEffortReportText(rawText){
   const studentCode = studentCodeMatch ? studentCodeMatch[1] : '';
 
   const ratings = [];
-  const usedSubjects = new Set();
+  // Track remaining text so we don't double-match "Physical Education" inside
+  // "Physical Education and Health" (which would create a phantom subject).
+  let remaining = text;
 
   for (const sub of KNOWN_SUBJECTS){
-    if (usedSubjects.has(sub)) continue;
-    // Look for the subject name followed by Wk data and then "Year 10"
     const escaped = sub.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    // Pattern: SubjectWk 22...(header repeats)...Year 10{digits-and-dashes}{yearAvg}
-    const re = new RegExp(escaped + '[^]{0,220}?Year\\s*\\d+\\s*([0-9\\-\\.]+)', 'i');
-    const m = text.match(re);
+    const re = new RegExp(escaped + '[\\s\\S]{0,240}?Year\\s*\\d+\\s*([0-9\\-\\.]+)', 'i');
+    const m = remaining.match(re);
     if (!m) continue;
 
     const data = m[1];
-    // The year average is the trailing decimal like 4.7
     const avgMatch = data.match(/(\d+\.\d+)\s*$/);
     const yearAvg = avgMatch ? parseFloat(avgMatch[1]) : null;
     const beforeAvg = avgMatch ? data.slice(0, data.lastIndexOf(avgMatch[1])) : data;
@@ -1505,50 +1723,24 @@ function parseEffortReportText(rawText){
       yearAvg,
       rating: latest !== null ? latest : (yearAvg !== null ? Math.round(yearAvg) : 3)
     });
-    usedSubjects.add(sub);
-  }
 
-  // Fallback: if the regex approach failed badly, try a looser per-line scan
-  if (!ratings.length){
-    for (const sub of KNOWN_SUBJECTS){
-      const idx = text.indexOf(sub);
-      if (idx === -1) continue;
-      const chunk = text.slice(idx, idx + 300);
-      const yearMatch = chunk.match(/Year\s*\d+\s*([0-9\-\.]+)/);
-      if (!yearMatch) continue;
-      const data = yearMatch[1];
-      const avgMatch = data.match(/(\d+\.\d+)\s*$/);
-      const yearAvg = avgMatch ? parseFloat(avgMatch[1]) : null;
-      if (yearAvg === null) continue;
-      const beforeAvg = data.slice(0, data.lastIndexOf(avgMatch[1]));
-      const weekRatings = [];
-      for (const ch of beforeAvg){
-        if (/[1-5]/.test(ch)) weekRatings.push(Number(ch));
-        else if (ch === '-') weekRatings.push(null);
-      }
-      const nonNull = weekRatings.filter(r => r !== null);
-      ratings.push({
-        subject: sub,
-        weekRatings,
-        yearAvg,
-        rating: nonNull.length ? nonNull[nonNull.length - 1] : Math.round(yearAvg)
-      });
+    // Blank out the matched region so the same chars can't be re-matched
+    const startIdx = remaining.indexOf(m[0]);
+    if (startIdx >= 0){
+      remaining = remaining.slice(0, startIdx) + ' '.repeat(m[0].length) + remaining.slice(startIdx + m[0].length);
     }
   }
 
   return { attendance, studentCode, ratings };
 }
 
-/* ================================================================
-   ACTIVITY & TIMETABLE TEXT PARSERS
-   ================================================================ */
+/* ── ACTIVITY & TIMETABLE TEXT PARSERS ────────────────────────── */
 function normalizeTimeInput(s){
   if (!s) return null;
   const parts = String(s).trim().split(':');
   let h = parseInt(parts[0], 10);
   const m = parts[1] ? parseInt(parts[1], 10) : 0;
   if (isNaN(h)) return null;
-  // If no colon and hour <= 7, assume afternoon (PM)
   if (!parts[1] && h >= 1 && h <= 7) h += 12;
   return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
 }
@@ -1566,7 +1758,6 @@ function parseActivitiesText(text){
     if (day === undefined) continue;
 
     const rest = m[2].trim();
-    // Find a time range: "4-4:30", "3:15-4:00", "4 to 5"
     const timeMatch = rest.match(/(\d{1,2}(?::\d{2})?)\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?)/i);
     if (!timeMatch) continue;
 
@@ -1594,15 +1785,12 @@ function parseTimetableText(text){
     const day = DAY_ABBR[dayKey];
     if (day === undefined) continue;
 
-    // Time range
     const timeMatch = line.match(/(\d{1,2}(?::\d{2})?)\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?)/i);
     if (!timeMatch) continue;
     const start = normalizeTimeInput(timeMatch[1]);
     const end = normalizeTimeInput(timeMatch[2]);
 
-    // Everything else becomes subject + room
     let rest = line.replace(dayMatch[0], '').replace(timeMatch[0], '').replace(/[|,]/g, ' ').replace(/\s+/g, ' ').trim();
-    // Try to find a room number like M12, S3, E7
     const roomMatch = rest.match(/\b([A-Z]{1,3}\d{1,3})\b/);
     const room = roomMatch ? roomMatch[1] : '';
     if (room) rest = rest.replace(room, '').replace(/\s+/g, ' ').trim();
@@ -1614,9 +1802,7 @@ function parseTimetableText(text){
   return out;
 }
 
-/* ================================================================
-   DUPLICATE DETECTION & IMPORT
-   ================================================================ */
+/* ── DUPLICATE DETECTION & IMPORT ────────────────────────────── */
 function tokenSet(s){
   return new Set(String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 2 && !STOP_WORDS.has(w)));
 }
@@ -1659,14 +1845,15 @@ function mergeInto(existing, incoming){
 }
 
 async function importItems(rawItems, sourceLabel){
-  const courses = Store.all('courses');
   let added = 0, merged = 0;
   for (const raw of rawItems){
     const cleanTitle = sanitiseText(raw.title, 220) || 'Untitled item';
     const cleanDesc  = sanitiseText(raw.description, 4000);
     const haystack = `${cleanTitle} ${cleanDesc}`;
     const type = raw.typeHint || raw.type || detectType(haystack);
-    const subject = raw.subject || detectSubject(haystack, courses);
+    // Normalize subject — even if a source skipped it
+    const rawSubject = raw.subject || detectSubject(haystack);
+    const subject = normalizeSubject(rawSubject);
     const dueDate = raw.dueDate || parseDate(haystack);
 
     const candidate = {
@@ -1953,7 +2140,7 @@ function renderChecklist(){
   if (done >= total) return '';
   const items = [
     { key:'account', icon:'👤', text:'Create your account', done: true },
-    { key:'firstItem', icon:'📋', text:'Paste your first assignments from Classroom', done: s.firstItem, action:'paste-classroom' },
+    { key:'firstItem', icon:'✨', text:'Smart paste your first assignments', done: s.firstItem, action:'paste-classroom' },
     { key:'calendar', icon:'📅', text:'School calendar synced', done: s.calendar, action:'sync-now' },
     { key:'effort', icon:'📊', text:'Upload your first effort report', done: s.effort, action:'upload-effort' }
   ];
@@ -2006,9 +2193,7 @@ function viewDashboard(){
       <div class="card-body">${renderEffortSummaryMini(latestEffort)}</div>
     </section>` : `
     <section class="card">
-      <div class="card-head">
-        <div class="card-title">📊 Effort reports</div>
-      </div>
+      <div class="card-head"><div class="card-title">📊 Effort reports</div></div>
       <div class="card-body">
         <p class="small muted" style="margin-bottom:14px">Upload your weekly PDF from school — StudentOS reads every subject and rating for you.</p>
         <button class="btn btn-primary btn-sm" data-action="upload-effort">📤 Upload effort report</button>
@@ -2112,10 +2297,11 @@ function renderWelcomeEmpty(){
     <div style="font-size:52px;margin-bottom:14px">🎒</div>
     <h2 style="font-size:22px;margin-bottom:10px">Let's get your school life in one place</h2>
     <p class="muted" style="max-width:520px;margin:0 auto 24px;font-size:14.5px;line-height:1.65">
-      Two quick steps: <strong>paste your Classroom To-do list</strong>, then <strong>upload this week's effort report PDF</strong>. Takes under a minute.
+      <strong>Smart Paste</strong> handles Classroom To-do pages, school emails, or plain lists.
+      Just copy, paste, and StudentOS sorts it out.
     </p>
     <div class="row" style="justify-content:center;flex-wrap:wrap;gap:10px">
-      <button class="btn btn-primary" data-action="paste-classroom">📋 Paste from Classroom</button>
+      <button class="btn btn-primary" data-action="paste-classroom">✨ Smart Paste</button>
       <button class="btn btn-ghost" data-action="upload-effort">📤 Upload effort report</button>
     </div>
     <div class="row" style="justify-content:center;gap:20px;flex-wrap:wrap;margin-top:24px;font-size:12.5px;color:var(--text-3)">
@@ -2132,9 +2318,9 @@ function renderNextActions(){
     return `<div class="empty" style="padding:32px 12px">
       <div class="empty-ico">🌤️</div>
       <div class="empty-title">Nothing on your plate</div>
-      <div class="empty-sub">Paste your Classroom To-do list to fill this in.</div>
+      <div class="empty-sub">Smart paste your Classroom, an email, or any list to fill this in.</div>
       <div class="empty-actions">
-        <button class="btn btn-sm btn-primary" data-action="paste-classroom">📋 Paste from Classroom</button>
+        <button class="btn btn-sm btn-primary" data-action="paste-classroom">✨ Smart Paste</button>
       </div>
     </div>`;
   }
@@ -2266,9 +2452,7 @@ function renderActivitiesToday(activities){
   return todays.map(a => `
     <div class="tt-row">
       <div class="tt-time">${escapeHtml(a.start)}–${escapeHtml(a.end)}</div>
-      <div style="flex:1;min-width:0">
-        <div class="tt-sub">${escapeHtml(a.name)}</div>
-      </div>
+      <div style="flex:1;min-width:0"><div class="tt-sub">${escapeHtml(a.name)}</div></div>
       <span class="chip chip-violet">Activity</span>
     </div>`).join('');
 }
@@ -2295,7 +2479,7 @@ function viewAssignments(){
   <div class="page-head row-between wrap">
     <div><h1 class="page-title">Assignments</h1><p class="page-sub">${open} open · ${Store.all('assignments').length} total</p></div>
     <div class="row">
-      <button class="btn btn-primary" data-action="paste-classroom">📋 Paste from Classroom</button>
+      <button class="btn btn-primary" data-action="paste-classroom">✨ Smart Paste</button>
       <button class="btn btn-ghost" data-action="new-assignment">＋ New</button>
     </div>
   </div>
@@ -2313,9 +2497,9 @@ function viewAssignments(){
       <div class="empty">
         <div class="empty-ico">📝</div>
         <div class="empty-title">No assignments yet</div>
-        <div class="empty-sub">Paste your Classroom To-do list to add several at once.</div>
+        <div class="empty-sub">Smart paste a Classroom To-do, an email, or any list.</div>
         <div class="empty-actions">
-          <button class="btn btn-sm btn-primary" data-action="paste-classroom">📋 Paste from Classroom</button>
+          <button class="btn btn-sm btn-primary" data-action="paste-classroom">✨ Smart Paste</button>
         </div>
       </div>`}
   </div>`;
@@ -2439,7 +2623,6 @@ function viewEffort(){
 
   const allSubjects = new Set();
   for (const r of reports) r.ratings.forEach(x => allSubjects.add(x.subject));
-  const subjectList = [...allSubjects];
   const latest = reports[0];
   const avgOf = r => r.ratings.length ? r.ratings.reduce((s, x) => s + x.rating, 0) / r.ratings.length : 0;
 
@@ -2450,15 +2633,6 @@ function viewEffort(){
       <p class="page-sub">${reports.length} report${reports.length===1?'':'s'} · upload a new PDF each Friday</p>
     </div>
     <button class="btn btn-primary" data-action="upload-effort">📤 Upload report</button>
-  </div>
-
-  <div class="int-upload-card" style="margin-bottom:20px">
-    <div style="font-size:36px;margin-bottom:8px">📤</div>
-    <h3 style="font-size:16px;margin-bottom:4px">Upload this week's report</h3>
-    <p class="small muted" style="max-width:420px;margin:0 auto 14px;line-height:1.55">
-      Drag the PDF in, or click to choose it. Everything gets read automatically.
-    </p>
-    <button class="btn btn-primary" data-action="upload-effort">📤 Choose PDF</button>
   </div>
 
   <section class="card" style="margin-bottom:20px">
@@ -2513,8 +2687,8 @@ function findFreeSlots(dayKey, durationMin, activities){
     .sort((a,b) => a.start - b.start);
 
   const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-  const windowStart = isWeekend ? 9 * 60 : 15 * 60 + 30; // 9am weekends, 3:30pm weekdays
-  const windowEnd = 21 * 60; // 9pm
+  const windowStart = isWeekend ? 9 * 60 : 15 * 60 + 30;
+  const windowEnd = 21 * 60;
 
   const slots = [];
   let cursor = windowStart;
@@ -2538,32 +2712,22 @@ function scheduleSession(assignment, sessionDays, totalMinutes, activities, busy
   for (let k = 0; k < sessionDays; k++){
     const dayOffset = d === null ? k : Math.max(0, d - (sessionDays - 1 - k));
     const dayKey = startOfDay(new Date(Date.now() + dayOffset * 86400000));
-    const dayOfWeek = new Date(dayKey).getDay();
     const daySessions = busy[dayKey] || [];
-
     const free = findFreeSlots(dayKey, perSession, activities);
-    // Sort free slots by earliest start
     free.sort((a,b) => a.start - b.start);
 
     let placed = null;
     for (const slot of free){
-      // Find a start time that doesn't overlap existing sessions
       let start = slot.start;
       for (const s of daySessions){
         if (s.end <= start) continue;
         if (start + perSession <= s.start) break;
         start = s.end;
       }
-      if (start + perSession <= slot.end){
-        placed = { start, end: start + perSession };
-        break;
-      }
+      if (start + perSession <= slot.end){ placed = { start, end: start + perSession }; break; }
     }
 
-    if (!placed){
-      // No slot available — skip this session
-      continue;
-    }
+    if (!placed) continue;
 
     (busy[dayKey] = busy[dayKey] || []).push(placed);
     out.push({
@@ -2605,7 +2769,7 @@ function viewPlanner(){
       <div class="activity-day">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][a.day]}</div>
       <div class="activity-time">${escapeHtml(a.start)}–${escapeHtml(a.end)}</div>
       <div class="activity-name truncate">${escapeHtml(a.name)}</div>
-      <button class="icon-btn activity-del" style="width:26px;height:26px;font-size:13px" data-action="delete-activity" data-id="${a.id}">✕</button>
+      <button class="icon-btn" style="width:26px;height:26px;font-size:13px;color:var(--red-500)" data-action="delete-activity" data-id="${a.id}">✕</button>
     </div>`).join('') : `<div class="empty" style="padding:22px 12px">
       <div class="empty-ico">🎾</div>
       <div class="empty-title">No activities yet</div>
@@ -2650,8 +2814,8 @@ function viewPlanner(){
           }).join('') : `<div class="empty" style="padding:34px 12px">
             <div class="empty-ico">🎯</div>
             <div class="empty-title">Nothing to plan yet</div>
-            <div class="empty-sub">Paste your Classroom work and StudentOS will rank everything automatically.</div>
-            <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="paste-classroom">📋 Paste from Classroom</button></div>
+            <div class="empty-sub">Smart paste your Classroom work and StudentOS will rank everything automatically.</div>
+            <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="paste-classroom">✨ Smart Paste</button></div>
           </div>`}
         </div>
       </section>
@@ -2707,29 +2871,34 @@ function viewPlanner(){
 function viewIntegrations(){
   const subs = Store.cache.settings.calendarSubscriptions || [];
   const classroomItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'Google Classroom'));
+  const emailItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'Email'));
 
   return `
   <div class="page-head">
     <h1 class="page-title">Integrations</h1>
-    <p class="page-sub">Two ways to keep StudentOS up to date.</p>
+    <p class="page-sub">Everything you need is already built in — no setup required.</p>
   </div>
 
   <div class="stack">
     <section class="card card-pad int-card hero">
-      <div class="int-logo" style="background:linear-gradient(135deg,#6366f1,#4338ca);color:#fff;border:none;font-size:22px">📋</div>
+      <div class="int-logo" style="background:linear-gradient(135deg,#6366f1,#4338ca);color:#fff;border:none;font-size:22px">✨</div>
       <div class="int-body">
         <div class="int-name">
-          Paste from Classroom
+          Smart Paste
           <span class="chip chip-green">Works instantly</span>
+          <span class="chip chip-green">Any source</span>
         </div>
         <div class="int-desc int-hero-body">
-          Copy your Classroom <strong>To-do</strong> list, paste it in, and StudentOS pulls out every assignment
-          with due dates, subjects and priorities. No admin approval, no scripts.
+          Copy your Classroom <strong>To-do</strong> page, an email from school, or just a list.
+          StudentOS figures out what it is and pulls out every assignment with due dates, subjects and priorities.
         </div>
-        ${classroomItems.length ? `<div class="int-stats"><div class="int-stat"><b>${classroomItems.length}</b>Classroom items imported</div></div>` : ''}
+        <div class="int-stats">
+          ${classroomItems.length ? `<div class="int-stat"><b>${classroomItems.length}</b>from Classroom</div>` : ''}
+          ${emailItems.length ? `<div class="int-stat"><b>${emailItems.length}</b>from email</div>` : ''}
+        </div>
         <div class="int-hero-actions">
-          <button class="btn btn-primary btn-lg" data-action="paste-classroom">📋 Paste from Classroom</button>
-          <button class="btn btn-ghost" data-action="show-paste-help">How to copy</button>
+          <button class="btn btn-primary btn-lg" data-action="paste-classroom">✨ Smart Paste</button>
+          <button class="btn btn-ghost" data-action="show-paste-help">How it works</button>
         </div>
       </div>
     </section>
@@ -2742,8 +2911,7 @@ function viewIntegrations(){
           <span class="chip chip-violet">Every Friday</span>
         </div>
         <div class="int-desc">
-          Drop in your weekly PDF from school. StudentOS reads every subject, weekly rating and your
-          year average. No typing needed.
+          Drop in your weekly PDF from school. StudentOS reads every subject, weekly rating and your year average.
         </div>
         <div class="int-hero-actions">
           <button class="btn btn-primary" data-action="upload-effort">📤 Upload report</button>
@@ -2844,7 +3012,7 @@ function viewSettings(){
       <div class="card-head"><div class="card-title">⌨️ Keyboard shortcuts</div></div>
       <div class="card-body">
         <div class="shortcut-grid">
-          <div class="shortcut-row"><span>Paste from Classroom</span><kbd>P</kbd></div>
+          <div class="shortcut-row"><span>Smart Paste</span><kbd>P</kbd></div>
           <div class="shortcut-row"><span>Upload effort report</span><kbd>E</kbd></div>
           <div class="shortcut-row"><span>New assignment</span><kbd>N</kbd></div>
           <div class="shortcut-row"><span>Search</span><kbd>/</kbd></div>
@@ -3053,10 +3221,7 @@ function openEffortUploadModal(){
 
       const handleFile = async (file) => {
         if (!file) return;
-        if (!/\.pdf$/i.test(file.name) && file.type !== 'application/pdf'){
-          toast('Please upload a PDF file', 'error');
-          return;
-        }
+        if (!/\.pdf$/i.test(file.name) && file.type !== 'application/pdf'){ toast('Please upload a PDF file', 'error'); return; }
         $('#eu-step1', el).hidden = true;
         $('#eu-step2', el).hidden = false;
         status.className = 'alert alert-info';
@@ -3068,7 +3233,7 @@ function openEffortUploadModal(){
           parsed = parseEffortReportText(text);
           if (!parsed.ratings.length){
             status.className = 'alert alert-warn';
-            status.innerHTML = `<span>⚠️</span><div>Couldn't find subject ratings in this PDF. It might be a different format — you can still add the report manually below.</div>`;
+            status.innerHTML = `<span>⚠️</span><div>Couldn't find subject ratings in this PDF. It might be a different format.</div>`;
           } else {
             status.className = 'alert alert-success';
             status.innerHTML = `<span>✅</span><div>Found <strong>${parsed.ratings.length} subjects</strong>${parsed.attendance != null ? ` · attendance ${parsed.attendance}%` : ''}${parsed.studentCode ? ` · ${escapeHtml(parsed.studentCode)}` : ''}.</div>`;
@@ -3083,11 +3248,11 @@ function openEffortUploadModal(){
 
       const renderEffortPreview = () => {
         if (!parsed || !parsed.ratings.length){
-          preview.innerHTML = '<div class="empty" style="padding:30px 10px"><div class="empty-title">No subjects detected</div><div class="empty-sub">You can still save a blank report, but you might prefer to add one manually.</div></div>';
+          preview.innerHTML = '<div class="empty" style="padding:30px 10px"><div class="empty-title">No subjects detected</div></div>';
           return;
         }
         preview.innerHTML = `
-          <div class="card" style="margin-bottom:12px">
+          <div class="card">
             <div class="card-body">
               <div class="row-between" style="margin-bottom:14px">
                 <div>
@@ -3117,22 +3282,14 @@ function openEffortUploadModal(){
       $('#eu-cancel', el).addEventListener('click', close);
 
       saveBtn.addEventListener('click', async () => {
-        if (!parsed || !parsed.ratings.length){
-          toast('No subject ratings to save', 'warn');
-          return;
-        }
+        if (!parsed || !parsed.ratings.length){ toast('No subject ratings to save', 'warn'); return; }
         const dateVal = $('#eu-date', el)?.value;
         const date = dateVal ? new Date(dateVal + 'T15:00:00').getTime() : Date.now();
         const wk = isoWeekKey(date);
         await Store.put('effortReports', {
-          id: uid(),
-          date,
-          weekKey: wk.key,
-          studentCode: parsed.studentCode,
-          attendance: parsed.attendance,
-          ratings: parsed.ratings,
-          source: 'PDF upload',
-          createdAt: now()
+          id: uid(), date, weekKey: wk.key,
+          studentCode: parsed.studentCode, attendance: parsed.attendance,
+          ratings: parsed.ratings, source: 'PDF upload', createdAt: now()
         });
         close();
         toast(`Saved · ${parsed.ratings.length} subjects`, 'success', 'Effort report added');
@@ -3145,76 +3302,91 @@ function openEffortUploadModal(){
 /* ── PASTE HELP MODAL ────────────────────────────────────────── */
 function openPasteHelpModal(){
   openModal({
-    title: '📋 How to copy your Classroom To-do',
+    title: '✨ How Smart Paste works',
     wide: true,
     body: `
+      <p class="small" style="color:var(--text-2);line-height:1.65;margin-bottom:16px">
+        Smart Paste looks at what you paste and figures out the format automatically. It handles three kinds of input:
+      </p>
       <div class="howto-grid">
         <div class="howto-step">
-          <div class="howto-num">1</div>
+          <div class="howto-num">🎓</div>
           <div class="howto-step-body">
-            <strong>Open Classroom</strong>
-            Go to <a href="https://classroom.google.com/u/0/h" target="_blank" rel="noopener">classroom.google.com</a> and click <em>To-do</em> in the top left.
+            <strong>Google Classroom To-do</strong>
+            Open <a href="https://classroom.google.com/u/0/h" target="_blank" rel="noopener">classroom.google.com</a> → <em>To-do</em>. Click on the page, <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Ctrl</kbd>+<kbd>C</kbd> (or <kbd>⌘</kbd>+<kbd>A</kbd> / <kbd>⌘</kbd>+<kbd>C</kbd>), then paste here.
           </div>
         </div>
         <div class="howto-step">
-          <div class="howto-num">2</div>
+          <div class="howto-num">📧</div>
           <div class="howto-step-body">
-            <strong>Select everything</strong>
-            Click once on the page, then press <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Ctrl</kbd>+<kbd>C</kbd>. On Mac use <kbd>⌘</kbd>+<kbd>A</kbd> / <kbd>⌘</kbd>+<kbd>C</kbd>.
+            <strong>Any school email</strong>
+            Select the whole email (including the <code>From:</code> / <code>Subject:</code> headers) and paste. StudentOS uses the subject line as the title and pulls dates out of the body.
           </div>
         </div>
         <div class="howto-step">
-          <div class="howto-num">3</div>
+          <div class="howto-num">📝</div>
           <div class="howto-step-body">
-            <strong>Paste it in</strong>
-            Come back here, click <em>Paste from Classroom</em>, and paste into the box.
+            <strong>Any list or message</strong>
+            A bullet list, a note from a teacher, a screenshot transcription — anything. Each line becomes a task.
           </div>
         </div>
       </div>
-      <div class="alert alert-warn" style="margin-top:16px">
-        <span>⚠️</span>
-        <div><strong>Skip the "No due date" section.</strong> Items without a deadline can't be scheduled, so StudentOS ignores them.</div>
+      <div class="alert alert-info" style="margin-top:16px">
+        <span>💡</span>
+        <div>
+          For Classroom: <strong>skip the "No due date" section</strong> — items without deadlines can't be scheduled, so StudentOS ignores them anyway.
+        </div>
+      </div>
+      <div class="alert alert-success" style="margin-top:12px">
+        <span>✓</span>
+        <div>
+          <strong>Subjects are unified.</strong> "PE", "Health", "Physical Education" and "PE & Health" all become
+          one subject. Same for Maths/Math/Mathematics, RE/Religious Ed, and Te Reo/Maori.
+        </div>
       </div>`,
-    footer: `<button class="btn btn-ghost" data-close>Got it</button><button class="btn btn-primary" id="ph-go">Open paste box</button>`,
-    onMount(el, close){
-      $('#ph-go', el).addEventListener('click', () => { close(); openClassroomPasteModal(); });
-    }
+    footer: `<button class="btn btn-ghost" data-close>Got it</button><button class="btn btn-primary" id="ph-go">Open Smart Paste</button>`,
+    onMount(el, close){ $('#ph-go', el).addEventListener('click', () => { close(); openClassroomPasteModal(); }); }
   });
 }
 
-/* ── CLASSROOM PASTE MODAL ───────────────────────────────────── */
+/* ── SMART PASTE MODAL ───────────────────────────────────────── */
 function openClassroomPasteModal(){
   let parsedItems = [];
   openModal({
-    title: '📋 Paste from Google Classroom',
-    subtitle: 'Copy your To-do list, paste it here',
+    title: '✨ Smart Paste',
+    subtitle: 'Paste anything — Classroom, email, or a list. StudentOS figures it out.',
     xl: true,
     body: `
       <div class="alert alert-info" style="margin-bottom:14px">
         <span>💡</span>
         <div>
-          Open <a href="https://classroom.google.com/u/0/h" target="_blank" rel="noopener">classroom.google.com</a> → <em>To-do</em>.
-          Click on the page, then <kbd>Ctrl</kbd>+<kbd>A</kbd> / <kbd>Ctrl</kbd>+<kbd>C</kbd> (<kbd>⌘</kbd>+<kbd>A</kbd> / <kbd>⌘</kbd>+<kbd>C</kbd> on Mac).
+          <strong>Works with anything.</strong>
+          Copy your Classroom To-do page, select an entire email, or paste a simple list.
+          StudentOS detects the format automatically.
         </div>
-      </div>
-      <div class="alert alert-warn" style="margin-bottom:14px">
-        <span>⚠️</span>
-        <div><strong>Don't include the "No due date" section.</strong> StudentOS will skip it anyway.</div>
       </div>
       <div class="paste-grid">
         <div>
-          <label class="label" style="display:block;margin-bottom:6px">Paste here</label>
-          <textarea class="textarea paste-input" id="cp-input" placeholder="Example:
+          <div class="row-between" style="margin-bottom:6px">
+            <label class="label">Paste here</label>
+            <span class="format-badge" id="cp-format">—</span>
+          </div>
+          <textarea class="textarea paste-input" id="cp-input" placeholder="Examples:
 
+Classroom To-do:
 assignment
-Mahi Maina - A recreation of your chosen Marae
-Y10 - Te Reo - 2026
+Chapter 5 questions
+10 Maths
 Monday 21 Sept
 
-assignment
-Film Glossary
-10ENG
-Thursday 24 Sept"></textarea>
+Or an email:
+From: teacher@school.nz
+Subject: Science test next Wednesday
+Hi Alex, remember the test covers chapters 4-6...
+
+Or a list:
+- Read chapters 3-4 by Friday
+- Maths worksheet due Monday"></textarea>
         </div>
         <div>
           <div class="row-between" style="margin-bottom:6px">
@@ -3234,11 +3406,20 @@ Thursday 24 Sept"></textarea>
       const input = $('#cp-input', el);
       const preview = $('#cp-preview', el);
       const countChip = $('#cp-count', el);
+      const formatChip = $('#cp-format', el);
       const importBtn = $('#cp-import', el);
+
+      const setFormatChip = (fmt) => {
+        formatChip.className = 'format-badge';
+        if (fmt === 'classroom'){ formatChip.classList.add('classroom'); formatChip.textContent = '🎓 Classroom To-do'; }
+        else if (fmt === 'email'){ formatChip.classList.add('email'); formatChip.textContent = '📧 Email'; }
+        else if (fmt === 'generic'){ formatChip.classList.add('generic'); formatChip.textContent = '📝 Text'; }
+        else { formatChip.textContent = '—'; }
+      };
 
       const renderPreview = () => {
         if (!parsedItems.length){
-          preview.innerHTML = `<div class="paste-empty">Nothing detected yet.<br>Paste your To-do list on the left, or click <strong>Detect items</strong>.</div>`;
+          preview.innerHTML = `<div class="paste-empty">Nothing detected yet.<br>Paste on the left, or click <strong>Detect items</strong>.</div>`;
           countChip.textContent = '0';
           importBtn.disabled = true;
           importBtn.textContent = 'Add 0 items';
@@ -3282,7 +3463,13 @@ Thursday 24 Sept"></textarea>
 
       const detect = () => {
         const text = input.value;
-        if (!text || !text.trim()){ parsedItems = []; renderPreview(); return; }
+        if (!text || !text.trim()){
+          parsedItems = [];
+          setFormatChip('empty');
+          renderPreview();
+          return;
+        }
+        setFormatChip(detectPasteFormat(text));
         parsedItems = smartPaste(text);
         renderPreview();
       };
@@ -3295,19 +3482,13 @@ Thursday 24 Sept"></textarea>
 
       importBtn.addEventListener('click', async () => {
         if (!parsedItems.length) return;
-        const r = await importItems(parsedItems, 'Google Classroom');
-        Store.cache.integrations.classroom = {
-          id: 'classroom', connected: true, lastSync: now(),
-          imported: Store.all('assignments').filter(a => (a.sources||[]).some(s => s.source === 'Google Classroom')).length,
-          method: 'paste'
-        };
-        await Store.saveUserDoc();
+        const r = await importItems(parsedItems, 'Paste');
         close();
         const parts = [];
         if (r.added) parts.push(`${r.added} added`);
         if (r.merged) parts.push(`${r.merged} merged`);
-        toast(parts.join(', ') || 'Nothing new', 'success', 'Classroom import complete');
-        setSyncUI('ok', `Classroom: ${relativeTime(now())}`);
+        toast(parts.join(', ') || 'Nothing new', 'success', 'Smart Paste complete');
+        setSyncUI('ok', `Imported ${relativeTime(now())}`);
         render();
       });
 
@@ -3388,7 +3569,7 @@ Tuesday 9:00-10:00 Science S3
 Wednesday 9:00-10:00 English E7" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
       </div>
       <button class="btn btn-subtle btn-sm" id="tt-autofill">✨ Auto-fill from text</button>
-      <div class="divider" style="margin:18px 0"></div>
+      <div style="height:1px;background:var(--border);margin:18px 0"></div>
       <div id="tt-rows">
         ${tt.length ? tt.map((t, i) => ttRowHtml(t, i, days)).join('') : ttRowHtml({ day:1, start:'09:00', end:'10:00', subject:'', room:'' }, 0, days)}
       </div>
@@ -3404,8 +3585,7 @@ Wednesday 9:00-10:00 English E7" style="min-height:120px;font-family:ui-monospac
       $('#tt-add', el).addEventListener('click', () => addRow({ day:1, start:'', end:'', subject:'', room:'' }));
 
       $('#tt-autofill', el).addEventListener('click', () => {
-        const text = $('#tt-paste', el).value;
-        const parsed = parseTimetableText(text);
+        const parsed = parseTimetableText($('#tt-paste', el).value);
         if (!parsed.length){ toast('Couldn\'t find any timetable lines', 'warn'); return; }
         $('#tt-rows', el).innerHTML = '';
         counter = 0;
@@ -3428,9 +3608,7 @@ Wednesday 9:00-10:00 English E7" style="min-height:120px;font-family:ui-monospac
         render();
       });
 
-      el.addEventListener('click', e => {
-        if (e.target.closest('.tt-del')) e.target.closest('.tt-row-input').remove();
-      });
+      el.addEventListener('click', e => { if (e.target.closest('.tt-del')) e.target.closest('.tt-row-input').remove(); });
     }
   });
 }
@@ -3468,7 +3646,7 @@ Wednesday: Padel 3:15-4:00
 Thursday: Football training 4:30-6:00" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
       </div>
       <button class="btn btn-subtle btn-sm" id="act-autofill">✨ Auto-fill from text</button>
-      <div class="divider" style="margin:18px 0"></div>
+      <div style="height:1px;background:var(--border);margin:18px 0"></div>
       <div id="act-rows"></div>
       <button class="btn btn-ghost btn-sm" id="act-add" style="margin-top:12px">＋ Add activity</button>`,
     footer: `<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="act-save">Save</button>`,
@@ -3499,8 +3677,7 @@ Thursday: Football training 4:30-6:00" style="min-height:120px;font-family:ui-mo
       $('#act-add', el).addEventListener('click', () => renderRow({ day:1, start:'16:00', end:'17:00', name:'' }));
 
       $('#act-autofill', el).addEventListener('click', () => {
-        const text = $('#act-paste', el).value;
-        const parsed = parseActivitiesText(text);
+        const parsed = parseActivitiesText($('#act-paste', el).value);
         if (!parsed.length){ toast('Couldn\'t find any activity lines', 'warn'); return; }
         rows.innerHTML = '';
         parsed.forEach(renderRow);
@@ -3522,9 +3699,7 @@ Thursday: Football training 4:30-6:00" style="min-height:120px;font-family:ui-mo
         render();
       });
 
-      el.addEventListener('click', e => {
-        if (e.target.closest('.act-del')) e.target.closest('.row[data-act]').remove();
-      });
+      el.addEventListener('click', e => { if (e.target.closest('.act-del')) e.target.closest('.row[data-act]').remove(); });
     }
   });
 }
@@ -3599,11 +3774,11 @@ function renderOnb(){
   } else if (onbStep === 2){
     body = `<div class="onb-content">
       <h2>How would you like to start?</h2>
-      <p class="lead">Both work on any school account — pick whichever you like.</p>
+      <p class="lead">Both work on any school account.</p>
       <div class="onb-cards">
         <button class="onb-card ${onbData.path === 'paste' ? 'on' : ''}" data-onb-card="paste">
-          <div class="onb-card-ico">📋</div>
-          <div class="onb-card-body"><h4>Paste from Classroom</h4><p>Copy your To-do list, paste it in. Takes 10 seconds.</p></div>
+          <div class="onb-card-ico">✨</div>
+          <div class="onb-card-body"><h4>Smart Paste</h4><p>Copy your Classroom To-do, an email, or a list. StudentOS sorts it out.</p></div>
         </button>
         <button class="onb-card ${onbData.path === 'effort' ? 'on' : ''}" data-onb-card="effort">
           <div class="onb-card-ico">📊</div>
@@ -3621,8 +3796,8 @@ function renderOnb(){
       <p class="lead">Three things to know:</p>
       <div class="onb-feature-list">
         <div class="onb-feature">
-          <div class="onb-feature-ico">📋</div>
-          <div><strong>Paste from Classroom</strong>Press <kbd>P</kbd> anywhere to paste your To-do list.</div>
+          <div class="onb-feature-ico">✨</div>
+          <div><strong>Smart Paste</strong>Press <kbd>P</kbd> anywhere. Handles Classroom, emails, and any list.</div>
         </div>
         <div class="onb-feature">
           <div class="onb-feature-ico">📊</div>
@@ -3706,8 +3881,7 @@ function renderNotifPanel(){
   }
   $$('.notif-item', panel).forEach(item => {
     item.addEventListener('click', async () => {
-      const id = item.dataset.notif;
-      const n = Store.get('notifications', id);
+      const n = Store.get('notifications', item.dataset.notif);
       if (n && !n.read){ n.read = true; await Store.put('notifications', n); }
       panel.hidden = true;
       $('#notif-btn')?.setAttribute('aria-expanded', 'false');
@@ -3907,7 +4081,7 @@ function seedDemoData(){
   const day = 86400000;
   const today = startOfDay();
   d.assignments = [
-    { id:'a1', title:'Chapter 5 questions', description:'From Maths', type:'Homework', subject:'Maths', dueDate: today + day, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*2 },
+    { id:'a1', title:'Chapter 5 questions', description:'From Maths', type:'Homework', subject:'Mathematics', dueDate: today + day, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*2 },
     { id:'a2', title:'Science test — chapters 4 to 6', description:'From Science', type:'Test', subject:'Science', dueDate: today + day*3, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*3 },
     { id:'a3', title:'Read chapters 3–4 of the novel', description:'From English', type:'Homework', subject:'English', dueDate: today + day*5, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'medium', mergedCount:1, createdAt: now() - day }
   ];
@@ -4047,7 +4221,7 @@ function toggleFab(){
 function renderFabMenu(){
   $('#fab-menu').innerHTML = `
     <button class="fab-item highlight" data-quick="paste-classroom">
-      <span class="fab-ico">📋</span><span>Paste from Classroom</span><kbd>P</kbd>
+      <span class="fab-ico">✨</span><span>Smart Paste</span><kbd>P</kbd>
     </button>
     <button class="fab-item highlight" data-quick="upload-effort">
       <span class="fab-ico">📤</span><span>Upload effort report</span><kbd>E</kbd>
@@ -4078,7 +4252,7 @@ function openHelpModal(){
     title: 'Keyboard shortcuts',
     subtitle: 'Press ? anytime to see this',
     body: `<div class="shortcut-grid">
-      <div class="shortcut-row"><span>Paste from Classroom</span><kbd>P</kbd></div>
+      <div class="shortcut-row"><span>Smart Paste</span><kbd>P</kbd></div>
       <div class="shortcut-row"><span>Upload effort report</span><kbd>E</kbd></div>
       <div class="shortcut-row"><span>New assignment</span><kbd>N</kbd></div>
       <div class="shortcut-row"><span>Search</span><kbd>/</kbd></div>
@@ -4164,14 +4338,16 @@ async function boot(){
 boot();
 
 window.StudentOS = {
-  version: '4.0.0',
+  version: '4.1.0',
   get state(){ return Store.cache; },
   get config(){ return loadConfig(); },
   syncAll, exportData,
   showOnboarding,
   openEffortUploadModal, openClassroomPasteModal, openActivitiesModal, openTimetableModal,
   dedupeExistingEvents, dedupeExistingAssignments,
-  smartPaste, parseEffortReportText, parseActivitiesText, parseTimetableText
+  smartPaste, smartPasteClassroom, smartPasteEmail, smartPasteGeneral,
+  detectPasteFormat, detectSubject, normalizeSubject,
+  parseEffortReportText, parseActivitiesText, parseTimetableText
 };
 </script>
 </body>
