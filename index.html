@@ -457,8 +457,8 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 [data-theme="dark"] .int-card.hero{border-color:var(--primary);background:linear-gradient(135deg,rgba(99,102,241,.14) 0%,var(--surface) 100%)}
 .int-hero-body{padding:8px 0}
 .int-hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.takeout-card{border:2px solid var(--green-500);background:linear-gradient(135deg,var(--green-50) 0%,#fff 100%)}
-[data-theme="dark"] .takeout-card{border-color:var(--green-500);background:linear-gradient(135deg,rgba(16,185,129,.14) 0%,var(--surface) 100%)}
+.takeout-card{border:1px solid var(--border)}
+[data-theme="dark"] .takeout-card{border-color:var(--border)}
 .set-row{display:flex;gap:16px;padding:15px 0;border-bottom:1px solid var(--border);align-items:flex-start}
 .set-row:last-child{border-bottom:none}
 .set-info{flex:1;min-width:0}
@@ -475,6 +475,8 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .shortcut-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .shortcut-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);border-radius:9px;font-size:13px}
 @media(max-width:520px){.shortcut-grid{grid-template-columns:1fr}}
+details.card summary{list-style:none}
+details.card summary::-webkit-details-marker{display:none}
 @media(max-width:960px){.auth{grid-template-columns:1fr}.auth-hero{display:none}.auth-panel{padding:32px 20px}}
 @media(max-width:900px){
   .only-mobile{display:grid}
@@ -515,9 +517,9 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
     <div class="auth-hero-inner">
       <div class="brand brand-light"><span class="brand-mark">S</span><span>StudentOS</span></div>
       <h1 class="auth-headline">Every assignment, test and notice.<br>One calm dashboard.</h1>
-      <p class="auth-sub">Import from Google Takeout. Paste any email. Track your effort reports. Works on school accounts without admin approval.</p>
+      <p class="auth-sub">Connect Google Calendar once. Paste any email. Track your effort reports. Works on school accounts without admin approval.</p>
       <ul class="auth-features">
-        <li><span class="tick">✓</span> <strong>Google Takeout import</strong> — official export, works everywhere</li>
+        <li><span class="tick">✓</span> <strong>Google Calendar sync</strong> — one tap, no files</li>
         <li><span class="tick">✓</span> <strong>Smart Paste</strong> — paste any email, get structured tasks</li>
         <li><span class="tick">✓</span> <strong>Weekly Effort Reports</strong> — track your Friday ratings</li>
         <li><span class="tick">✓</span> <strong>School calendar</strong> — synced automatically</li>
@@ -1996,7 +1998,7 @@ function renderChecklist(){
   const items = [
     { key:'account', icon:'👤', text:'Create your account', done: true },
     { key:'calendar', icon:'📅', text:'School calendar synced', done: s.calendar, action:'sync-now' },
-    { key:'classroom', icon:'📦', text:'Import from Google Takeout', done: s.classroom, action:'takeout-guide' },
+    { key:'classroom', icon:'🔗', text:'Connect Google Calendar', done: s.classroom, action:'connect-classroom' },
     { key:'firstItem', icon:'📝', text:'Add or paste your first assignment', done: s.firstItem, action:'open-paste' },
     { key:'effort', icon:'📊', text:'Log this week\'s effort report', done: s.effort, action:'log-effort' }
   ];
@@ -2153,10 +2155,10 @@ function renderWelcomeEmpty(){
     <div style="font-size:52px;margin-bottom:14px">🎒</div>
     <h2 style="font-size:22px;margin-bottom:10px">Let's get your school life in one place</h2>
     <p class="muted" style="max-width:520px;margin:0 auto 24px;font-size:14.5px;line-height:1.65">
-      Fastest way to start: <strong>import from Google Takeout</strong> — Google's own export tool, works on any account without admin approval.
+      Fastest way to start: <strong>connect Google Calendar</strong> — one tap, and your Classroom work flows in automatically.
     </p>
     <div class="row" style="justify-content:center;flex-wrap:wrap;gap:10px">
-      <button class="btn btn-primary" data-action="takeout-guide">📦 Import from Google Takeout</button>
+      <button class="btn btn-primary" data-action="connect-classroom">📅 Connect Google Calendar</button>
       <button class="btn btn-ghost" data-action="open-paste">⚡ Paste an email</button>
       <button class="btn btn-ghost" data-action="log-effort">📊 Log effort report</button>
     </div>
@@ -2174,9 +2176,9 @@ function renderNextActions(){
     return `<div class="empty" style="padding:32px 12px">
       <div class="empty-ico">🌤️</div>
       <div class="empty-title">Nothing on your plate</div>
-      <div class="empty-sub">Import from Takeout or paste an email to fill this in automatically.</div>
+      <div class="empty-sub">Connect Google Calendar or paste an email to fill this in automatically.</div>
       <div class="empty-actions">
-        <button class="btn btn-sm btn-primary" data-action="takeout-guide">📦 Import from Takeout</button>
+        <button class="btn btn-sm btn-primary" data-action="connect-classroom">📅 Connect Calendar</button>
         <button class="btn btn-sm btn-ghost" data-action="open-paste">⚡ Paste</button>
       </div>
     </div>`;
@@ -2352,9 +2354,9 @@ function viewAssignments(){
       <div class="empty">
         <div class="empty-ico">📝</div>
         <div class="empty-title">No assignments yet</div>
-        <div class="empty-sub">Import from Takeout or paste an email to add several at once.</div>
+        <div class="empty-sub">Connect Google Calendar or paste an email to add several at once.</div>
         <div class="empty-actions">
-          <button class="btn btn-sm btn-primary" data-action="takeout-guide">📦 Import from Takeout</button>
+          <button class="btn btn-sm btn-primary" data-action="connect-classroom">📅 Connect Calendar</button>
           <button class="btn btn-sm btn-ghost" data-action="open-paste">⚡ Paste</button>
         </div>
       </div>`}
@@ -2788,8 +2790,8 @@ function viewPlanner(){
           }).join('') : `<div class="empty" style="padding:34px 12px">
             <div class="empty-ico">🎯</div>
             <div class="empty-title">Nothing to plan yet</div>
-            <div class="empty-sub">Import from Takeout and StudentOS will rank everything automatically.</div>
-            <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="takeout-guide">📦 Import from Takeout</button></div>
+            <div class="empty-sub">Connect Google Calendar and StudentOS will rank everything automatically.</div>
+            <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="connect-classroom">📅 Connect Calendar</button></div>
           </div>`}
         </div>
       </section>
@@ -2841,144 +2843,138 @@ function viewPlanner(){
   </div>`;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   INTEGRATIONS — simplified: one primary connection, everything
+   else tucked into compact cards / an advanced dropdown.
+   ───────────────────────────────────────────────────────────── */
 function viewIntegrations(){
   const i = Store.cache.integrations;
   const cfg = loadConfig();
   const hasClientId = !!cfg?.googleClientId;
   const subs = Store.cache.settings.calendarSubscriptions || [];
-  const classroomConnected = !!i.classroom?.connected;
+  const gcal = i.classroom || {};
+  const gcalOn = !!gcal.connected;
+  const emailOn = !!i.email?.connected;
 
   return `
   <div class="page-head">
     <h1 class="page-title">Integrations</h1>
-    <p class="page-sub">Bring in your school data. Choose what works for your account.</p>
+    <p class="page-sub">Connect Google Calendar once — everything else flows in from there.</p>
   </div>
+
   <div class="stack">
 
-    <!-- Takeout hero — the recommended method -->
-    <section class="card card-pad int-card takeout-card">
-      <div class="int-logo" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;font-size:24px">📦</div>
+    <!-- PRIMARY CONNECTION -->
+    <section class="card card-pad int-card hero">
+      <div class="int-logo" style="background:linear-gradient(135deg,#4285f4,#34a853);color:#fff;border:none;font-size:22px">📅</div>
       <div class="int-body">
         <div class="int-name">
-          Google Takeout
-          <span class="chip chip-green">Recommended</span>
-          <span class="chip chip-green">Works on any account</span>
+          Google Calendar &amp; Classroom
+          <span class="status-pill ${gcalOn ? 'on' : 'off'}"><span class="pdot"></span>${gcalOn ? 'Connected' : 'Not connected'}</span>
         </div>
-        <div class="int-desc int-hero-body">
-          Google's own data-export tool. Exports every course, assignment, and announcement from Classroom.
-          Works on school accounts without admin approval. Takes 5 minutes to a few hours for Google to prepare
-          your files, then import is instant.
+        <div class="int-desc">
+          Reads your Classroom calendars and school events straight from Google.
+          One tap — no files, no exports, no admin approval.
         </div>
-        <div class="int-hero-actions">
-          <button class="btn btn-primary btn-lg" data-action="takeout-guide">📦 Set up Takeout import</button>
-          <button class="btn btn-ghost btn-sm" data-action="open-import">I have the files — upload</button>
+        ${gcalOn ? `
+        <div class="int-stats">
+          <div class="int-stat"><b>${gcal.imported || 0}</b>items imported</div>
+          <div class="int-stat"><b>${gcal.calendars || gcal.courses || 0}</b>calendars found</div>
+          <div class="int-stat"><b>${relativeTime(gcal.lastSync)}</b>last sync</div>
+        </div>` : ''}
+        <div class="int-actions">
+          ${gcalOn
+            ? `<button class="btn btn-primary btn-sm" data-sync="classroom">Sync now</button>
+               <button class="btn btn-ghost btn-sm" data-action="open-setup">OAuth settings</button>
+               <button class="btn btn-danger-soft btn-sm" data-disconnect="classroom">Disconnect</button>`
+            : `<button class="btn btn-primary btn-lg" data-connect="classroom" ${!hasClientId ? 'disabled' : ''}>Connect Google Calendar</button>
+               <button class="btn btn-ghost btn-sm" data-action="open-setup">${hasClientId ? 'OAuth settings' : '⚙️ One-time setup'}</button>`}
         </div>
+        ${!hasClientId ? `<div class="alert alert-warn" style="margin-top:14px">
+          <span>⚙️</span>
+          <div>You need a Google OAuth Client ID first — it takes about 5 minutes and it's free.
+          Click <strong>One-time setup</strong> for the steps.</div>
+        </div>` : ''}
       </div>
     </section>
 
-    <!-- School calendar -->
-    ${subs.map(sub => `
-      <section class="card card-pad int-card">
-        <div class="int-logo">📅</div>
+    <!-- FALLBACK OPTIONS -->
+    <div class="cols cols-2">
+      <section class="card card-pad int-card takeout-card">
+        <div class="int-logo" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;font-size:20px">📦</div>
         <div class="int-body">
-          <div class="int-name">
-            ${escapeHtml(sub.name)}
-            <span class="status-pill ${sub.error ? 'off' : 'on'}"><span class="pdot"></span>${sub.error ? 'Error' : 'Synced'}</span>
-            ${sub.builtin ? '<span class="chip chip-indigo">Built-in</span>' : ''}
-          </div>
-          <div class="int-desc truncate">${escapeHtml(sub.url)}</div>
-          ${sub.error
-            ? `<div class="alert alert-error" style="margin-bottom:12px">Could not fetch: ${escapeHtml(sub.error)}</div>`
-            : `<div class="int-stats">
-                <div class="int-stat"><b>${sub.count || 0}</b>events in feed</div>
-                <div class="int-stat"><b>${relativeTime(sub.lastSync)}</b>last sync</div>
-              </div>`}
+          <div class="int-name">Google Takeout</div>
+          <div class="int-desc">Google's own export tool. Works on any account with no setup — the best fallback if Calendar isn't available.</div>
           <div class="int-actions">
-            <button class="btn btn-primary btn-sm" data-sync="calendar">Sync now</button>
-            ${!sub.builtin ? `<button class="btn btn-danger-soft btn-sm" data-action="remove-calendar-sub" data-id="${sub.id}">Remove</button>` : ''}
+            <button class="btn btn-ghost btn-sm" data-action="takeout-guide">How to import</button>
           </div>
         </div>
-      </section>`).join('')}
-
-    <section class="card card-pad int-card">
-      <div class="int-logo">➕</div>
-      <div class="int-body">
-        <div class="int-name">Add another calendar</div>
-        <div class="int-desc">Paste any public ICS calendar URL.</div>
-        <div class="int-actions">
-          <button class="btn btn-primary btn-sm" data-action="add-calendar-sub">Add calendar URL</button>
+      </section>
+      <section class="card card-pad int-card">
+        <div class="int-logo">📁</div>
+        <div class="int-body">
+          <div class="int-name">Import a file</div>
+          <div class="int-desc">CSV, JSON, or a Takeout export you already downloaded.</div>
+          <div class="int-actions">
+            <button class="btn btn-ghost btn-sm" data-action="open-import">Choose file…</button>
+          </div>
         </div>
+      </section>
+    </div>
+
+    <!-- CALENDARS -->
+    <section class="card">
+      <div class="card-head">
+        <div class="card-title">📆 Calendars</div>
+        <button class="btn btn-sm btn-ghost" data-action="add-calendar-sub">＋ Add calendar</button>
+      </div>
+      <div class="card-body" style="padding-top:8px;padding-bottom:8px">
+        ${subs.length ? subs.map(sub => `
+          <div class="set-row">
+            <div class="set-info">
+              <div class="set-name">
+                ${escapeHtml(sub.name)}
+                ${sub.builtin ? '<span class="chip chip-indigo" style="margin-left:6px">Built-in</span>' : ''}
+                ${sub.error ? '<span class="chip chip-red" style="margin-left:6px">Error</span>' : ''}
+              </div>
+              <div class="set-desc truncate">${escapeHtml(sub.error || sub.url)}</div>
+            </div>
+            <div class="set-control">
+              <button class="btn btn-ghost btn-sm" data-sync="calendar">Sync</button>
+              ${!sub.builtin ? `<button class="btn btn-danger-soft btn-sm" data-action="remove-calendar-sub" data-id="${sub.id}">Remove</button>` : ''}
+            </div>
+          </div>`).join('') : `
+          <div class="empty" style="padding:26px 10px">
+            <div class="empty-title">No calendars yet</div>
+            <div class="empty-sub">Add a public ICS URL to pull in school events.</div>
+          </div>`}
       </div>
     </section>
 
-    <!-- Generic file import -->
-    <section class="card card-pad int-card">
-      <div class="int-logo">📁</div>
-      <div class="int-body">
-        <div class="int-name">Import from file</div>
-        <div class="int-desc">Bring in a CSV or JSON export from any source.</div>
-        <div class="int-actions">
-          <button class="btn btn-primary btn-sm" data-action="open-import">Choose file…</button>
-        </div>
-      </div>
-    </section>
-
-    <details class="card" style="overflow:hidden">
-      <summary style="padding:16px 20px;cursor:pointer;display:flex;gap:14px;align-items:center;list-style:none">
-        <div class="int-logo" style="background:var(--surface-2)">🔐</div>
-        <div style="flex:1">
-          <div class="int-name" style="margin-bottom:0">Advanced: Google Calendar API</div>
-          <div class="tiny muted" style="margin-top:3px">Connect with your own Google OAuth client. Requires one-time setup.</div>
-        </div>
-        <span style="font-size:18px;color:var(--text-3)">▾</span>
-      </summary>
-      <div style="padding:0 20px 18px;border-top:1px solid var(--border)">
-        <p class="small muted" style="margin:14px 0;line-height:1.6">
-          This reads Classroom calendars directly from Google Calendar with one tap. Requires you to set up an OAuth Client ID once. <strong>Takeout is easier and works everywhere.</strong>
-        </p>
-        <div class="int-actions">
-          ${classroomConnected && i.classroom.method === 'calendar-api'
-            ? `<button class="btn btn-danger-soft btn-sm" data-disconnect="classroom">Disconnect</button>`
-            : `<button class="btn btn-ghost btn-sm" data-connect="classroom" ${!hasClientId ? 'disabled' : ''}>Connect Google Calendar</button>
-               <button class="btn btn-ghost btn-sm" data-action="open-setup">${hasClientId ? 'Setup' : 'Setup required'}</button>`}
-        </div>
-      </div>
-    </details>
-
+    <!-- ADVANCED (collapsed) -->
     <details class="card" style="overflow:hidden">
       <summary style="padding:16px 20px;cursor:pointer;display:flex;gap:14px;align-items:center;list-style:none">
         <div class="int-logo" style="background:var(--surface-2)">✉️</div>
         <div style="flex:1">
-          <div class="int-name" style="margin-bottom:0">Advanced: Gmail direct access</div>
-          <div class="tiny muted" style="margin-top:3px">Reads school emails directly. Requires school admin approval.</div>
+          <div class="int-name" style="margin-bottom:0">Gmail direct access</div>
+          <div class="tiny muted" style="margin-top:3px">Optional. Scans school emails — needs admin approval on school accounts.</div>
         </div>
         <span style="font-size:18px;color:var(--text-3)">▾</span>
       </summary>
       <div style="padding:0 20px 18px;border-top:1px solid var(--border)">
         <p class="small muted" style="margin:14px 0;line-height:1.6">
-          If your school has allowlisted the app, this scans only emails from trusted school domains. Otherwise use <strong>Smart Paste</strong>.
+          If your school has allowlisted StudentOS, this reads only emails from trusted domains.
+          Otherwise use <strong>Smart Paste</strong> — press <kbd>P</kbd> anywhere.
         </p>
         <div class="int-actions">
-          ${i.email?.connected
+          ${emailOn
             ? `<button class="btn btn-primary btn-sm" data-sync="email">Sync now</button>
                <button class="btn btn-danger-soft btn-sm" data-disconnect="email">Disconnect</button>`
             : `<button class="btn btn-ghost btn-sm" data-connect="email" ${!hasClientId ? 'disabled' : ''}>Connect Gmail</button>`}
         </div>
       </div>
     </details>
-  </div>
-
-  <section class="card card-pad" style="margin-top:20px">
-    <div class="card-title" style="margin-bottom:12px">🔒 Privacy controls</div>
-    <div class="set-row">
-      <div class="set-info"><div class="set-name">Delete all imported data</div><div class="set-desc">Removes every assignment, note, event and notification.</div></div>
-      <div class="set-control"><button class="btn btn-danger-soft btn-sm" data-action="wipe-data">Delete</button></div>
-    </div>
-    <div class="set-row">
-      <div class="set-info"><div class="set-name">Revoke Google access</div><div class="set-desc">Discards any access token held in this browser tab.</div></div>
-      <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="revoke-google">Revoke</button></div>
-    </div>
-  </section>`;
+  </div>`;
 }
 
 function viewSettings(){
@@ -3067,6 +3063,10 @@ function viewSettings(){
         <div class="set-row">
           <div class="set-info"><div class="set-name">Delete all data</div><div class="set-desc">Permanently removes every item you or StudentOS created.</div></div>
           <div class="set-control"><button class="btn btn-danger-soft btn-sm" data-action="wipe-data">Delete</button></div>
+        </div>
+        <div class="set-row">
+          <div class="set-info"><div class="set-name">Revoke Google access</div><div class="set-desc">Discards any access token held in this browser tab.</div></div>
+          <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="revoke-google">Revoke</button></div>
         </div>
       </div>
     </section>
@@ -3912,13 +3912,13 @@ function ttRowHtml(t, idx, days){
 function openSetupModal(){
   const cfg = loadConfig() || {};
   openModal({
-    title: 'Set up Google OAuth (optional)',
-    subtitle: 'Only needed for the "Advanced" Google Calendar / Gmail integrations',
+    title: 'Set up Google OAuth (one-time)',
+    subtitle: 'Needed for the Google Calendar integration — about 5 minutes, free',
     wide: true,
     body: `
       <div class="alert alert-info" style="margin-bottom:20px">
         <span>💡</span>
-        <div>You only need this if you want to use the advanced one-tap Google integrations. <strong>Takeout works without any of this.</strong></div>
+        <div>This is the only setup step. You only ever do it once — then it's one tap to connect.</div>
       </div>
       <ol style="list-style:decimal;padding-left:20px;font-size:13.5px;color:var(--text-2);line-height:1.75">
         <li>Open <a href="https://console.cloud.google.com" target="_blank" rel="noopener">console.cloud.google.com</a> and select the <strong>student-os-fb</strong> project.</li>
@@ -3983,12 +3983,12 @@ function renderOnb(){
     </div>`;
   } else if (onbStep === 2){
     body = `<div class="onb-content">
-      <h2>How would you like to import Classroom?</h2>
-      <p class="lead">Takeout is the recommended method — it works on every account.</p>
+      <h2>How would you like to start?</h2>
+      <p class="lead">Google Calendar is the fastest path — one tap, no files.</p>
       <div class="onb-cards">
-        <button class="onb-card ${onbData.path === 'takeout' ? 'on' : ''}" data-onb-card="takeout">
-          <div class="onb-card-ico">📦</div>
-          <div class="onb-card-body"><h4>Google Takeout (recommended)</h4><p>Google's official export tool. Works on any account. One-time setup, then instant imports.</p></div>
+        <button class="onb-card ${onbData.path === 'calendar' ? 'on' : ''}" data-onb-card="calendar">
+          <div class="onb-card-ico">📅</div>
+          <div class="onb-card-body"><h4>Connect Google Calendar</h4><p>Reads your Classroom calendars and school events directly from Google. No files, no exports.</p></div>
         </button>
         <button class="onb-card ${onbData.path === 'paste' ? 'on' : ''}" data-onb-card="paste">
           <div class="onb-card-ico">⚡</div>
@@ -4010,12 +4010,12 @@ function renderOnb(){
       <p class="lead">Four things to know:</p>
       <div class="onb-feature-list">
         <div class="onb-feature">
-          <div class="onb-feature-ico">📦</div>
-          <div><strong>Takeout import</strong>Export Classroom data as a ZIP, then upload the JSON files here.</div>
+          <div class="onb-feature-ico">📅</div>
+          <div><strong>Google Calendar sync</strong>One tap connects your Classroom calendars and school events.</div>
         </div>
         <div class="onb-feature">
-          <div class="onb-feature-ico">📅</div>
-          <div><strong>School calendar auto-syncs</strong>Events flow in automatically every time you open the app.</div>
+          <div class="onb-feature-ico">📦</div>
+          <div><strong>Takeout as a fallback</strong>If Calendar isn't available, Google's export tool always works.</div>
         </div>
         <div class="onb-feature">
           <div class="onb-feature-ico">⚡</div>
@@ -4054,9 +4054,9 @@ function renderOnb(){
       if (action === 'next' && onbStep === 2){ onbStep = 3; renderOnb(); return; }
       if (action === 'finish'){
         closeOnboarding();
-        if (onbData.path === 'takeout'){
+        if (onbData.path === 'calendar'){
           location.hash = '#/integrations';
-          setTimeout(() => openTakeoutGuide(), 400);
+          setTimeout(() => connectService('classroom'), 400);
         } else if (onbData.path === 'effort'){
           location.hash = '#/effort';
           setTimeout(() => openEffortModal(), 400);
@@ -4170,9 +4170,9 @@ async function connectService(key){
   }
   try {
     if (key === 'classroom'){
-      toast('Opening Google sign-in…', 'info', 'Connect Classroom');
+      toast('Opening Google sign-in…', 'info', 'Connect Google Calendar');
       const r = await syncClassroomViaCalendar({ interactive: true });
-      toast(`Found ${r.calendars} Classroom calendar${r.calendars===1?'':'s'} · ${r.added} new item${r.added===1?'':'s'}`, 'success', 'Classroom connected');
+      toast(`Found ${r.calendars} Classroom calendar${r.calendars===1?'':'s'} · ${r.added} new item${r.added===1?'':'s'}`, 'success', 'Connected');
     } else if (key === 'classroom-direct'){
       const r = await syncClassroomDirectAPI({ interactive: true });
       toast(`Imported ${r.added} new from ${r.courses} classes`, 'success', 'Classroom connected');
@@ -4219,7 +4219,7 @@ async function connectService(key){
 }
 
 async function disconnectService(key){
-  const labels = { classroom:'Google Classroom', email:'School email' };
+  const labels = { classroom:'Google Calendar', email:'School email' };
   if (!await confirmDialog(`Disconnect ${labels[key]}?`, 'Imported items stay, but no new info will be fetched.', 'Disconnect', true)) return;
   if (Store.cache.integrations[key]) delete Store.cache.integrations[key];
   await Store.saveUserDoc();
@@ -4514,7 +4514,7 @@ function seedDemoData(){
     { id:'nt2', kind:'assignment', title:'New homework: Chapter 5 questions', body:'Due tomorrow · Maths', link:'#/assignments', read:false, dedupeKey:'new:a1', createdAt: now() - 7200000 }
   ];
   d.integrations = {
-    classroom: { id:'classroom', connected:true, lastSync: now() - 300000, imported: 3, method:'takeout', demo:true }
+    classroom: { id:'classroom', connected:true, lastSync: now() - 300000, imported: 3, method:'calendar-api', demo:true }
   };
   d.settings.timetable = [
     { day:1, start:'09:00', end:'10:00', subject:'Maths', room:'M12' },
@@ -4617,8 +4617,8 @@ function toggleFab(){
 }
 function renderFabMenu(){
   $('#fab-menu').innerHTML = `
-    <button class="fab-item highlight" data-quick="takeout-guide">
-      <span class="fab-ico">📦</span><span>Import from Google Takeout</span><span class="fab-badge">NEW</span>
+    <button class="fab-item highlight" data-quick="connect-classroom">
+      <span class="fab-ico">📅</span><span>Connect Google Calendar</span>
     </button>
     <button class="fab-item highlight" data-quick="open-paste">
       <span class="fab-ico">⚡</span><span>Smart Paste</span><kbd>P</kbd>
@@ -4638,7 +4638,7 @@ function renderFabMenu(){
     btn.addEventListener('click', () => {
       const q = btn.dataset.quick;
       toggleFab();
-      if (q === 'takeout-guide') openTakeoutGuide();
+      if (q === 'connect-classroom') connectService('classroom');
       else if (q === 'open-paste') openSmartPaste();
       else if (q === 'log-effort') openEffortModal();
       else if (q === 'new-assignment') openAssignmentModal(null, 'Assignment');
