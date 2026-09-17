@@ -10,7 +10,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%234f46e5'/><text x='50' y='72' font-size='62' font-family='sans-serif' font-weight='800' fill='white' text-anchor='middle'>S</text></svg>">
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <style>
 :root{
@@ -385,8 +384,71 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .paste-empty{text-align:center;padding:50px 20px;color:var(--text-3);font-size:13px;line-height:1.6}
 .paste-hint{display:flex;align-items:flex-start;gap:8px;padding:11px 13px;background:var(--violet-50);color:var(--violet-600);border-radius:9px;font-size:12.5px;line-height:1.55;border:1px solid rgba(139,92,246,.2)}
 .paste-hint strong{font-weight:700}
+.howto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:16px 0}
+.howto-step{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:13px 14px;display:flex;gap:11px;align-items:flex-start}
+.howto-num{width:26px;height:26px;border-radius:8px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:800;flex:none}
+.howto-step-body{font-size:12.5px;line-height:1.5;color:var(--text-2)}
+.howto-step-body strong{color:var(--text);display:block;margin-bottom:2px;font-size:13px}
+.int-card{display:flex;gap:16px;padding:20px;align-items:flex-start}
+.int-logo{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:22px;flex:none;background:var(--surface-2);border:1px solid var(--border)}
+.int-body{flex:1;min-width:0}
+.int-name{font-weight:700;font-size:15px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:3px}
+.int-desc{font-size:13px;color:var(--text-2);margin-bottom:12px;line-height:1.55}
+.int-stats{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--text-2);margin-bottom:13px}
+.int-stat b{display:block;font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.int-actions{display:flex;gap:8px;flex-wrap:wrap}
+.status-pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--gray-100);color:var(--gray-600)}
+[data-theme="dark"] .status-pill{background:var(--surface-2);color:var(--text-2)}
+.status-pill.on{background:var(--green-50);color:var(--green-600)}
+.status-pill .pdot{width:6px;height:6px;border-radius:99px;background:currentColor}
+.int-card.hero{border:2px solid var(--indigo-200);background:linear-gradient(135deg,var(--indigo-50) 0%,#fff 100%)}
+[data-theme="dark"] .int-card.hero{border-color:var(--primary);background:linear-gradient(135deg,rgba(99,102,241,.14) 0%,var(--surface) 100%)}
+.int-hero-body{padding:8px 0}
+.int-hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.set-row{display:flex;gap:16px;padding:15px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.set-row:last-child{border-bottom:none}
+.set-info{flex:1;min-width:0}
+.set-name{font-weight:600;font-size:14px;margin-bottom:3px}
+.set-desc{font-size:12.5px;color:var(--text-2);line-height:1.55}
+.set-control{flex:none;display:flex;gap:8px;align-items:center}
+@media(max-width:640px){.set-row{flex-direction:column;gap:10px}.set-control{width:100%}}
+code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5px;background:var(--gray-100);padding:2px 6px;border-radius:5px}
+[data-theme="dark"] code{background:var(--surface-2)}
+.divider{height:1px;background:var(--border);margin:18px 0}
+.spinner{width:15px;height:15px;border:2px solid var(--border-strong);border-top-color:var(--primary);border-radius:99px;animation:spin .7s linear infinite;flex:none}
+.sync-spinner{width:12px;height:12px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:99px;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.shortcut-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.shortcut-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);border-radius:9px;font-size:13px}
+@media(max-width:520px){.shortcut-grid{grid-template-columns:1fr}}
+@media(max-width:960px){.auth{grid-template-columns:1fr}.auth-hero{display:none}.auth-panel{padding:32px 20px}}
+@media(max-width:900px){
+  .only-mobile{display:grid}
+  .topbar-search{display:none}
+  .sidebar{position:fixed;top:var(--topbar-h);left:0;z-index:560;height:calc(100vh - var(--topbar-h));transform:translateX(-100%);transition:transform .24s cubic-bezier(.2,.9,.3,1);box-shadow:var(--shadow-xl)}
+  .sidebar.open{transform:none}
+  .view{padding:20px 16px 100px}
+  .brand-text{display:none}
+  .notif-panel{width:calc(100vw - 28px);right:-60px}
+  .fab{right:16px;bottom:16px}
+  .fab-menu{right:16px;bottom:82px}
+}
+@media(max-width:560px){
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .stat-value{font-size:24px}
+  .page-title{font-size:21px}
+  .toasts{left:14px;right:14px;bottom:14px}
+  .toast{min-width:0;max-width:none}
+  .cal-day{min-height:62px;padding:4px}
+  .cal-ev{font-size:9.5px;padding:1px 4px}
+  .onboarding-card{padding:26px 20px 20px}
+  .onb-content h2{font-size:20px}
+  .paste-grid{grid-template-columns:1fr}
+  .effort-bar-subject{width:70px;font-size:12px}
+  .int-card{flex-direction:column}
+}
 .fab{position:fixed;right:24px;bottom:24px;z-index:700;width:56px;height:56px;border-radius:99px;background:linear-gradient(135deg,var(--indigo-500),var(--indigo-700));color:#fff;font-size:26px;font-weight:300;display:grid;place-items:center;box-shadow:0 12px 28px -8px rgba(79,70,229,.55),0 4px 12px rgba(79,70,229,.25);transition:.2s cubic-bezier(.2,.9,.3,1)}
-.fab:hover{transform:scale(1.08) translateY(-2px);box-shadow:0 16px 36px -8px rgba(79,70,229,.65),0 6px 16px rgba(79,70,229,.3)}
+.fab:hover{transform:scale(1.08) translateY(-2px)}
 .fab:active{transform:scale(.96)}
 .fab.open{transform:rotate(45deg)}
 .fab-menu{position:fixed;right:24px;bottom:92px;z-index:690;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-xl);padding:8px;min-width:280px;animation:fabPop .18s cubic-bezier(.2,.9,.3,1);transform-origin:bottom right}
@@ -399,7 +461,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .fab-ico{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:14px;flex:none;background:var(--surface-2)}
 [data-theme="dark"] .fab-ico{background:var(--surface-3)}
 .fab-item kbd{margin-left:auto;font-size:10.5px}
-.fab-badge{margin-left:auto;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;background:var(--violet-500);color:#fff}
 .onboarding{position:fixed;inset:0;z-index:1500;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px;animation:fadeIn .2s ease;overflow-y:auto}
 .onboarding-card{background:var(--surface);border-radius:var(--radius-xl);width:100%;max-width:580px;box-shadow:var(--shadow-xl);padding:32px 32px 26px;position:relative;animation:slideUp .3s cubic-bezier(.2,.9,.3,1);margin:auto}
 .onboarding-skip{position:absolute;top:16px;right:16px;font-size:12.5px;font-weight:600;color:var(--text-3);padding:6px 10px;border-radius:8px}
@@ -440,73 +501,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .alert-info{background:var(--sky-50);color:#0284c7;border-color:rgba(14,165,233,.22)}
 .alert-success{background:var(--green-50);color:var(--green-600);border-color:rgba(16,185,129,.22)}
 .alert strong{font-weight:700}
-.int-card{display:flex;gap:16px;padding:20px;align-items:flex-start}
-.int-logo{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:22px;flex:none;background:var(--surface-2);border:1px solid var(--border)}
-.int-body{flex:1;min-width:0}
-.int-name{font-weight:700;font-size:15px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:3px}
-.int-desc{font-size:13px;color:var(--text-2);margin-bottom:12px;line-height:1.55}
-.int-stats{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--text-2);margin-bottom:13px}
-.int-stat b{display:block;font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.02em}
-.int-actions{display:flex;gap:8px;flex-wrap:wrap}
-.status-pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--gray-100);color:var(--gray-600)}
-[data-theme="dark"] .status-pill{background:var(--surface-2);color:var(--text-2)}
-.status-pill.on{background:var(--green-50);color:var(--green-600)}
-.status-pill.off{background:var(--gray-100);color:var(--text-3)}
-.status-pill .pdot{width:6px;height:6px;border-radius:99px;background:currentColor}
-.int-card.hero{border:2px solid var(--indigo-200);background:linear-gradient(135deg,var(--indigo-50) 0%,#fff 100%)}
-[data-theme="dark"] .int-card.hero{border-color:var(--primary);background:linear-gradient(135deg,rgba(99,102,241,.14) 0%,var(--surface) 100%)}
-.int-hero-body{padding:8px 0}
-.int-hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.set-row{display:flex;gap:16px;padding:15px 0;border-bottom:1px solid var(--border);align-items:flex-start}
-.set-row:last-child{border-bottom:none}
-.set-info{flex:1;min-width:0}
-.set-name{font-weight:600;font-size:14px;margin-bottom:3px}
-.set-desc{font-size:12.5px;color:var(--text-2);line-height:1.55}
-.set-control{flex:none;display:flex;gap:8px;align-items:center}
-@media(max-width:640px){.set-row{flex-direction:column;gap:10px}.set-control{width:100%}}
-code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5px;background:var(--gray-100);padding:2px 6px;border-radius:5px}
-[data-theme="dark"] code{background:var(--surface-2)}
-.divider{height:1px;background:var(--border);margin:18px 0}
-.spinner{width:15px;height:15px;border:2px solid var(--border-strong);border-top-color:var(--primary);border-radius:99px;animation:spin .7s linear infinite;flex:none}
-.sync-spinner{width:12px;height:12px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:99px;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.shortcut-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.shortcut-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);border-radius:9px;font-size:13px}
-@media(max-width:520px){.shortcut-grid{grid-template-columns:1fr}}
-details.card summary{list-style:none}
-details.card summary::-webkit-details-marker{display:none}
-.step-list{list-style:decimal;padding-left:22px;font-size:13.5px;line-height:1.85;color:var(--text-2)}
-.step-list li{margin-bottom:8px}
-.step-list strong{color:var(--text)}
-.code-block{position:relative;background:var(--gray-900);color:#e2e8f0;border-radius:10px;padding:14px 16px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12px;line-height:1.6;overflow-x:auto;margin:10px 0}
-.code-block .copy-code{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.1);color:#fff;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;font-family:inherit}
-.code-block .copy-code:hover{background:rgba(255,255,255,.2)}
-@media(max-width:960px){.auth{grid-template-columns:1fr}.auth-hero{display:none}.auth-panel{padding:32px 20px}}
-@media(max-width:900px){
-  .only-mobile{display:grid}
-  .topbar-search{display:none}
-  .sidebar{position:fixed;top:var(--topbar-h);left:0;z-index:560;height:calc(100vh - var(--topbar-h));transform:translateX(-100%);transition:transform .24s cubic-bezier(.2,.9,.3,1);box-shadow:var(--shadow-xl)}
-  .sidebar.open{transform:none}
-  .view{padding:20px 16px 100px}
-  .brand-text{display:none}
-  .notif-panel{width:calc(100vw - 28px);right:-60px}
-  .fab{right:16px;bottom:16px}
-  .fab-menu{right:16px;bottom:82px}
-}
-@media(max-width:560px){
-  .stat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
-  .stat-value{font-size:24px}
-  .page-title{font-size:21px}
-  .toasts{left:14px;right:14px;bottom:14px}
-  .toast{min-width:0;max-width:none}
-  .cal-day{min-height:62px;padding:4px}
-  .cal-ev{font-size:9.5px;padding:1px 4px}
-  .onboarding-card{padding:26px 20px 20px}
-  .onb-content h2{font-size:20px}
-  .paste-grid{grid-template-columns:1fr}
-  .effort-bar-subject{width:70px;font-size:12px}
-  .int-card{flex-direction:column}
-}
 </style>
 </head>
 
@@ -522,12 +516,12 @@ details.card summary::-webkit-details-marker{display:none}
     <div class="auth-hero-inner">
       <div class="brand brand-light"><span class="brand-mark">S</span><span>StudentOS</span></div>
       <h1 class="auth-headline">Every assignment, test and notice.<br>One calm dashboard.</h1>
-      <p class="auth-sub">Two ways to import your Classroom work — paste, or set up automatic sync once. Both work on school accounts without admin approval.</p>
+      <p class="auth-sub">Copy your Classroom To-do list, paste it in. Everything gets sorted — due dates, subjects, priorities. Works on any school account.</p>
       <ul class="auth-features">
-        <li><span class="tick">✓</span> <strong>Paste from Classroom</strong> — works instantly, no setup</li>
-        <li><span class="tick">✓</span> <strong>Auto-sync (optional)</strong> — one-time Apps Script setup</li>
-        <li><span class="tick">✓</span> <strong>Smart Paste</strong> — paste any email, get structured tasks</li>
-        <li><span class="tick">✓</span> <strong>Effort reports &amp; school calendar</strong> — tracked automatically</li>
+        <li><span class="tick">✓</span> <strong>Paste from Classroom</strong> — 10 seconds, no setup</li>
+        <li><span class="tick">✓</span> <strong>Smart dates</strong> — understands "Monday 21 Sept"</li>
+        <li><span class="tick">✓</span> <strong>Effort reports</strong> — track your Friday ratings</li>
+        <li><span class="tick">✓</span> <strong>School calendar</strong> — synced automatically</li>
       </ul>
       <div class="auth-badges">
         <span class="chip chip-glass">$0 to run</span>
@@ -579,7 +573,7 @@ details.card summary::-webkit-details-marker{display:none}
       </button>
       <div class="auth-divider"><span>or</span></div>
       <button class="btn btn-ghost btn-block" id="demo-btn">Explore demo mode</button>
-      <p class="auth-fineprint">StudentOS stores everything on your own device or in your own Firebase project. Nothing is sent to us — there's no "us".</p>
+      <p class="auth-fineprint">StudentOS stores everything on your own device or in your own Firebase project. Nothing is sent to us.</p>
     </div>
   </main>
 </div>
@@ -595,10 +589,10 @@ details.card summary::-webkit-details-marker{display:none}
       <div id="search-results" class="search-results" hidden></div>
     </div>
     <div class="topbar-actions">
-      <button class="btn btn-primary btn-sm" id="smart-paste-btn" title="Paste anything to extract tasks (P)">
-        ⚡ <span>Paste</span>
+      <button class="btn btn-primary btn-sm" id="smart-paste-btn" title="Paste from Classroom (P)">
+        📋 <span>Paste</span>
       </button>
-      <button class="btn btn-ghost btn-sm" id="sync-btn" title="Synchronise all connected sources">
+      <button class="btn btn-ghost btn-sm" id="sync-btn" title="Sync school calendar">
         <span class="sync-spinner" hidden></span>
         <span class="sync-label">Sync</span>
       </button>
@@ -666,7 +660,7 @@ details.card summary::-webkit-details-marker{display:none}
 
 <script type="module">
 /* ================================================================
-   STUDENTOS v3.0 — paste-first + Apps Script auto-sync
+   STUDENTOS v3.1 — paste-only Classroom sync
    ================================================================ */
 
 const LS_CONFIG = 'studentos.config.v1';
@@ -704,7 +698,6 @@ const DEFAULT_SETTINGS = {
   notifyNewAssignment: true,
   notifyDueSoon: true,
   notifyNewTest: true,
-  appsScriptUrl: '',
   onboardingSeen: false
 };
 
@@ -1088,12 +1081,10 @@ function detectSubject(text, courses = []){
 const MONTH_MAP = { jan:0,january:0,feb:1,february:1,mar:2,march:2,apr:3,april:3,may:4,
   jun:5,june:5,jul:6,july:6,aug:7,august:7,sep:8,sept:8,september:8,oct:9,october:9,
   nov:10,november:10,dec:11,december:11 };
-const DAY_MAP = { sunday:0,sun:0,monday:1,mon:1,tuesday:2,tue:2,tues:2,wednesday:3,wed:3,
-  thursday:4,thu:4,thur:4,thurs:4,friday:5,fri:5,saturday:6,sat:6 };
 
 function parseDate(text, ref = new Date()){
   if (!text) return null;
-  const t = text.toLowerCase();
+  const t = String(text).toLowerCase();
   let m = t.match(/\b(\d{4})-(\d{2})-(\d{2})\b/);
   if (m) return new Date(+m[1], +m[2]-1, +m[3], 23, 59).getTime();
   m = t.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+(jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)\b/);
@@ -1122,17 +1113,6 @@ function parseDate(text, ref = new Date()){
   }
   if (/\bnext week\b/.test(t)){
     const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime();
-  }
-  m = t.match(/\b(sunday|sun|monday|mon|tuesday|tue|tues|wednesday|wed|thursday|thu|thur|thurs|friday|fri|saturday|sat)\b/);
-  if (m){
-    const target = DAY_MAP[m[1]];
-    const d = new Date(ref);
-    let delta = (target - d.getDay() + 7) % 7;
-    if (delta === 0) delta = 7;
-    if (/\bnext\s/.test(t) && delta < 7) delta += 7;
-    d.setDate(d.getDate() + delta);
-    d.setHours(23,59,0,0);
-    return d.getTime();
   }
   return null;
 }
@@ -1166,68 +1146,73 @@ function estimateMinutes(item){
 /* ================================================================
    SMART PASTE
    ================================================================
-   Two-stage parser:
-   1. If the text looks like a Google Classroom To-do page, use the
-      classroom-specific parser (understands course/title/Due-line
-      structure, skips section headers, ignores "No due date" section).
-   2. Otherwise fall back to generic email/text parsing.
+   Handles two formats:
+   1. Classroom To-do copy — "assignment" markers followed by
+      title / course / date blocks. This is the modern format.
+   2. Generic emails / notices — falls back to the older parser.
    ================================================================ */
 
-/* Classroom To-do page headers that are NOT assignments */
-const CLASSROOM_SECTION_HEADERS = new Set([
-  'to-do','todo','missing','done','all classes','all topics','topic','topics',
-  'next week','this week','later','today','tomorrow','yesterday',
-  'no due date','no due date:','due soon','upcoming','all work','recently assigned',
-  'assigned','posted','turned in','graded','view','see all','view all'
-]);
+const CLASSROOM_TYPE_MARKER = /^(assignment|material|quiz|question|exam|homework|short answer question|multiple choice question)$/i;
+const CLASSROOM_SECTION_HEADER = /^(to-?do|missing|done|all classes|all topics|next week|this week|later|today|tomorrow|yesterday|upcoming|recently assigned|assigned|posted|turned in|graded|view|see all|view all|no due date)$/i;
+const MONTH_ABBR = 'jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december';
+const DOW_ABBR = 'mon|tue|tues|wed|thu|thur|thurs|fri|sat|sun|monday|tuesday|wednesday|thursday|friday|saturday|sunday';
 
-function looksLikeClassroomPage(text){
-  if (!text) return false;
-  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-  if (lines.length < 3) return false;
-  let dueCount = 0;
-  let headerCount = 0;
-  for (const line of lines.slice(0, 60)){
-    const lower = line.toLowerCase().replace(/[:\-–—]/g, '').trim();
-    if (/^due\s+/i.test(line)) dueCount++;
-    if (CLASSROOM_SECTION_HEADERS.has(lower)) headerCount++;
-  }
-  return dueCount >= 1 && (dueCount + headerCount) >= 2;
+/* A date-only line like "Monday 21 Sept", "Fri 3 Oct", "3 October", "15/10/2026" */
+function isDateLine(line){
+  if (!line) return false;
+  const t = String(line).trim();
+  if (t.length > 40) return false;
+  if (new RegExp(`^(?:${DOW_ABBR})\\s+\\d{1,2}(?:st|nd|rd|th)?\\s+(?:${MONTH_ABBR})$`, 'i').test(t)) return true;
+  if (new RegExp(`^\\d{1,2}(?:st|nd|rd|th)?\\s+(?:${MONTH_ABBR})$`, 'i').test(t)) return true;
+  if (new RegExp(`^(?:${DOW_ABBR})$`, 'i').test(t)) return true;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(t)) return true;
+  if (/^\d{1,2}\/\d{1,2}(?:\/\d{2,4})?$/.test(t)) return true;
+  if (/^(today|tonight|tomorrow|tmrw|tmr|next week)$/i.test(t)) return true;
+  if (/^due\s+/i.test(t) && t.length < 40) return true;
+  return false;
 }
 
-/* Parse a "Due ..." line into a timestamp. Handles:
-   today / tomorrow / next week / Friday / Fri 3 Oct / 3 October / 15/10/2026 */
 function parseClassroomDue(raw){
   if (!raw) return null;
-  const t = raw.replace(/^due\s*/i, '').replace(/^(?:on|by|at)\s*/i, '').trim();
-  if (!t) return null;
-
+  let t = String(raw).trim();
+  t = t.replace(/^due\s*/i, '').replace(/^(?:on|by|at)\s*/i, '').trim();
+  if (!t || t.length > 40) return null;
   const ref = new Date();
 
-  if (/^today\b/i.test(t)) {
+  if (/^today\b|^tonight\b/i.test(t)) {
     const d = new Date(ref); d.setHours(23,59,0,0); return d.getTime();
   }
-  if (/^tomorrow\b/i.test(t)) {
+  if (/^tomorrow\b|^tmrw\b|^tmr\b/i.test(t)) {
     const d = new Date(ref); d.setDate(d.getDate() + 1); d.setHours(23,59,0,0); return d.getTime();
   }
   if (/^next\s+week\b/i.test(t)) {
     const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime();
   }
 
-  // "Fri 3 Oct" / "Friday 3 October" / "3 Oct"
-  const dm = t.match(/^(?:(mon|tue|tues|wed|thu|thur|thurs|fri|sat|sun|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\s+)?(\d{1,2})(?:st|nd|rd|th)?\s+(jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)\b/i);
-  if (dm){
-    const day = parseInt(dm[2]);
-    const mon = MONTH_MAP[dm[3].toLowerCase()];
+  // "Monday 21 Sept" / "Friday 3 October" / "3 Oct"
+  let m = t.match(new RegExp(`^(?:(?:${DOW_ABBR})\\s+)?(\\d{1,2})(?:st|nd|rd|th)?\\s+(${MONTH_ABBR})$`, 'i'));
+  if (m){
+    const day = parseInt(m[1], 10);
+    const mon = MONTH_MAP[m[2].toLowerCase()];
     let d = new Date(ref.getFullYear(), mon, day, 23, 59);
-    if (d.getTime() < ref.getTime() - 180*86400000) d.setFullYear(d.getFullYear() + 1);
+    if (d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
+    return d.getTime();
+  }
+
+  // "21 Sept" (no day)
+  m = t.match(new RegExp(`^(\\d{1,2})(?:st|nd|rd|th)?\\s+(${MONTH_ABBR})$`, 'i'));
+  if (m){
+    const day = parseInt(m[1], 10);
+    const mon = MONTH_MAP[m[2].toLowerCase()];
+    let d = new Date(ref.getFullYear(), mon, day, 23, 59);
+    if (d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
     return d.getTime();
   }
 
   // Day-of-week only
-  const dow = t.match(/^(mon|tue|tues|wed|thu|thur|thurs|fri|sat|sun|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/i);
-  if (dow){
-    const key = dow[1].toLowerCase().slice(0,3);
+  m = t.match(new RegExp(`^(${DOW_ABBR})$`, 'i'));
+  if (m){
+    const key = m[1].toLowerCase().slice(0,3);
     const target = { sun:0, mon:1, tue:2, wed:3, thu:4, fri:5, sat:6 }[key];
     const d = new Date(ref);
     let delta = (target - d.getDay() + 7) % 7;
@@ -1237,75 +1222,108 @@ function parseClassroomDue(raw){
     return d.getTime();
   }
 
-  // Fall back to general parseDate
   return parseDate(t);
+}
+
+function looksLikeClassroomPage(text){
+  if (!text) return false;
+  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  if (lines.length < 3) return false;
+  let markerCount = 0;
+  let dateCount = 0;
+  let dueCount = 0;
+  for (const line of lines.slice(0, 100)){
+    if (CLASSROOM_TYPE_MARKER.test(line)) markerCount++;
+    if (/^due\s+/i.test(line)) dueCount++;
+    if (isDateLine(line)) dateCount++;
+  }
+  if (markerCount >= 2 && (dateCount >= 1 || dueCount >= 1)) return true;
+  if (markerCount >= 1 && dateCount >= 1) return true;
+  if (dueCount >= 1) return true;
+  return false;
 }
 
 function smartPasteClassroom(text){
   const rawLines = text.split(/\r?\n/).map(l => l.replace(/\s+/g,' ').trim()).filter(Boolean);
   if (!rawLines.length) return [];
 
-  // Stop at "No due date" — user shouldn't include those, and we skip them.
+  // Cut off at "No due date" — everything after has no deadline
   let cutoff = rawLines.length;
   for (let i = 0; i < rawLines.length; i++){
-    const lower = rawLines[i].toLowerCase().replace(/[:\-–—]/g, '').trim();
-    if (lower === 'no due date'){ cutoff = i; break; }
+    const clean = rawLines[i].toLowerCase().replace(/[:\-–—]/g, '').trim();
+    if (clean === 'no due date'){ cutoff = i; break; }
   }
-  const lines = rawLines.slice(0, cutoff);
+  const lines = rawLines.slice(0, cutoff).filter(l => !CLASSROOM_SECTION_HEADER.test(l));
 
-  const isSectionHeader = (line) => {
-    const lower = line.toLowerCase().replace(/[:\-–—]/g, '').trim();
-    return CLASSROOM_SECTION_HEADERS.has(lower);
-  };
-  const isDueLine = (line) => /^due\s+/i.test(line);
-  const isTimeEstimate = (line) => /^~?\d+\s*(min|mins|minutes|hr|hrs|hour|hours)\b/i.test(line) || /^\d+\s*\/\s*\d+$/.test(line);
-  const isMetaLine = (line) => /^(posted|assigned|turned in|graded|view|see|open|attached)/i.test(line);
-
-  const pending = [];
-  const rawAssignments = [];
-
+  // Group into blocks by type markers
+  const blocks = [];
+  let current = null;
   for (const line of lines){
-    if (isSectionHeader(line)){ pending.length = 0; continue; }
-    if (isTimeEstimate(line) || isMetaLine(line)) continue;
+    if (CLASSROOM_TYPE_MARKER.test(line)){
+      if (current && current.lines.length) blocks.push(current);
+      current = { marker: line.toLowerCase(), lines: [] };
+    } else if (current){
+      current.lines.push(line);
+    }
+  }
+  if (current && current.lines.length) blocks.push(current);
 
-    if (isDueLine(line)){
-      // A "Due" line closes an assignment. Title = last non-header line,
-      // course = the line before that (if we have two).
-      if (pending.length >= 1){
-        const title = pending[pending.length - 1];
-        const course = pending.length >= 2 ? pending[pending.length - 2] : '';
-        if (title && title.length >= 2) rawAssignments.push({ title, course, dueRaw: line });
-      }
-      pending.length = 0;
-      continue;
+  const results = [];
+  const seen = new Set();
+  for (const block of blocks){
+    const bl = block.lines;
+    if (!bl.length) continue;
+
+    // Find the due date: check last line first, then work backward
+    let dueDate = null;
+    let dueIdx = -1;
+    for (let i = bl.length - 1; i >= 0; i--){
+      const d = parseClassroomDue(bl[i]);
+      if (d){ dueDate = d; dueIdx = i; break; }
     }
 
-    pending.push(line);
-    if (pending.length > 3) pending.shift();
-  }
+    let title, course;
+    if (dueIdx >= 0){
+      const before = bl.slice(0, dueIdx);
+      title = before[0] || '';
+      // If more than one line before the date, the last one is the course
+      course = before.length > 1 ? before[before.length - 1] : '';
+    } else {
+      title = bl[0] || '';
+      course = bl.length > 1 ? bl[bl.length - 1] : '';
+    }
 
-  const courses = Store.all('courses');
-  const seen = new Set();
-  const results = [];
-  for (const a of rawAssignments){
-    const key = a.title.toLowerCase();
+    title = title.trim();
+    course = course.trim();
+    if (!title || title.length < 2) continue;
+
+    const key = title.toLowerCase();
     if (seen.has(key)) continue;
     seen.add(key);
 
-    const dueDate = parseClassroomDue(a.dueRaw);
-    const type = detectType(a.title);
+    // Work out the type — prefer the title if it says "test" etc.
+    let type = 'Assignment';
+    const titleType = detectType(title);
+    if (titleType !== 'Assignment') type = titleType;
+    else if (/quiz|question/i.test(block.marker)) type = 'Homework';
+    else if (/exam/i.test(block.marker)) type = 'Exam';
+    else if (/homework/i.test(block.marker)) type = 'Homework';
+
+    // Subject — try the course name first
     let subject = '';
-    if (a.course){
-      subject = detectSubject(a.course, courses);
-      if (!subject && /^[A-Za-z][A-Za-z\s&\-']{2,40}$/.test(a.course)) subject = a.course;
+    if (course){
+      const detected = detectSubject(course, []);
+      if (detected) subject = detected;
+      else if (/^[A-Za-z][A-Za-z0-9\s&\-'\.]{1,60}$/.test(course)) subject = course;
     }
-    if (!subject) subject = detectSubject(a.title, courses);
+    if (!subject) subject = detectSubject(title, []);
 
     results.push({
       id: `paste-${uid()}`,
-      title: sanitiseText(a.title, 200),
-      description: a.course ? `From ${a.course}` : '',
-      type, subject, dueDate: dueDate || null,
+      title: sanitiseText(title, 200),
+      description: course ? `From ${course}` : '',
+      type, subject,
+      dueDate: dueDate || null,
       source: 'Google Classroom', url: '',
       sources: [{ source: 'Google Classroom', url: '', addedAt: now() }],
       completed: false, manual: false,
@@ -1313,6 +1331,7 @@ function smartPasteClassroom(text){
       mergedCount: 1, createdAt: now()
     });
   }
+
   return results;
 }
 
@@ -1493,41 +1512,6 @@ async function syncCalendarSubscriptions(){
   return { added: totalAdded, subs: subs.length, errors };
 }
 
-/* ── APPS SCRIPT SYNC ────────────────────────────────────────── */
-async function syncFromAppsScript({ silent = false } = {}){
-  const url = Store.cache.settings.appsScriptUrl;
-  if (!url){
-    if (!silent) toast('No Apps Script URL set — open Integrations to set it up.', 'warn');
-    return { added: 0, merged: 0, skipped: true };
-  }
-  const res = await fetch(url, { redirect: 'follow' });
-  if (!res.ok) throw new Error(`Apps Script responded with HTTP ${res.status}`);
-  const data = await res.json();
-  if (!data || !Array.isArray(data.items)) throw new Error('Unexpected response — make sure the script returns JSON with an "items" array.');
-
-  const rawAssignments = data.items.map(it => ({
-    id: `as-${uid()}`,
-    title: it.title || 'Untitled',
-    description: it.description || '',
-    dueDate: it.dueDate || null,
-    subject: it.course || it.subject || '',
-    typeHint: it.type || 'Assignment',
-    url: it.url || '',
-    source: 'Google Classroom'
-  }));
-
-  const r = await importItems(rawAssignments, 'Google Classroom');
-  Store.cache.integrations.classroom = {
-    id: 'classroom',
-    connected: true,
-    lastSync: now(),
-    imported: Store.all('assignments').filter(a => (a.sources||[]).some(s => s.source === 'Google Classroom')).length,
-    method: 'apps-script'
-  };
-  await Store.saveUserDoc();
-  return r;
-}
-
 /* ── DUPLICATE DETECTION & IMPORT ────────────────────────────── */
 function tokenSet(s){
   return new Set(String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 2 && !STOP_WORDS.has(w)));
@@ -1700,15 +1684,6 @@ async function syncAll({ silent = false } = {}){
     for (const e of r.errors) errors.push(e);
   } catch(e){ errors.push(`Calendar: ${e.message}`); }
 
-  if (Store.cache.settings.appsScriptUrl){
-    try {
-      const r = await syncFromAppsScript({ silent: true });
-      if (r.added) results.push(`Classroom: ${r.added} new`);
-    } catch(e){
-      errors.push(`Classroom auto-sync: ${e.message}`);
-    }
-  }
-
   const removedEvents = await dedupeExistingEvents();
   const removedItems = await dedupeExistingAssignments();
   if (removedEvents + removedItems > 0){
@@ -1784,7 +1759,6 @@ function getChecklistState(){
     account: true,
     firstItem: (d.assignments || []).length > 0,
     calendar: (d.events || []).length > 0,
-    autoSync: !!d.settings.appsScriptUrl,
     effort: (d.effortReports || []).length > 0
   };
 }
@@ -1792,13 +1766,12 @@ function getChecklistState(){
 function renderChecklist(){
   const s = getChecklistState();
   const done = Object.values(s).filter(Boolean).length;
-  const total = 5;
+  const total = 4;
   if (done >= total) return '';
   const items = [
     { key:'account', icon:'👤', text:'Create your account', done: true },
     { key:'firstItem', icon:'📋', text:'Paste your first assignments from Classroom', done: s.firstItem, action:'paste-classroom' },
     { key:'calendar', icon:'📅', text:'School calendar synced', done: s.calendar, action:'sync-now' },
-    { key:'autoSync', icon:'🔄', text:'Set up auto-sync (optional)', done: s.autoSync, action:'setup-apps-script' },
     { key:'effort', icon:'📊', text:'Log this week\'s effort report', done: s.effort, action:'log-effort' }
   ];
   return `
@@ -1957,7 +1930,6 @@ function renderWelcomeEmpty(){
     </p>
     <div class="row" style="justify-content:center;flex-wrap:wrap;gap:10px">
       <button class="btn btn-primary" data-action="paste-classroom">📋 Paste from Classroom</button>
-      <button class="btn btn-ghost" data-action="setup-apps-script">🔄 Set up auto-sync</button>
       <button class="btn btn-ghost" data-action="log-effort">📊 Log effort report</button>
     </div>
     <div class="row" style="justify-content:center;gap:20px;flex-wrap:wrap;margin-top:24px;font-size:12.5px;color:var(--text-3)">
@@ -2162,8 +2134,6 @@ function viewAssignments(){
 function renderAssignmentItem(a){
   const due = dueLabel(a.dueDate);
   const prio = { urgent:['chip-red','Urgent'], high:['chip-amber','High'], medium:['chip-sky','Medium'], low:['chip-gray','Low'] }[a.priority] || ['chip-gray','Low'];
-  const sources = a.sources && a.sources.length ? a.sources : [{ source: a.source, url: a.url }];
-  const uniqueSources = [...new Map(sources.map(s => [s.source, s])).values()];
   return `
   <div class="item ${a.completed ? 'done' : ''} ${!a.completed && a.dueDate && daysUntil(a.dueDate) < 0 ? 'overdue' : ''}">
     <div class="item-check ${a.completed ? 'on' : ''}" data-action="complete" data-id="${a.id}">${a.completed ? '✓' : ''}</div>
@@ -2178,7 +2148,6 @@ function renderAssignmentItem(a){
         ${a.subject ? `<span class="chip chip-indigo">${escapeHtml(a.subject)}</span>` : ''}
         <span class="chip chip-gray">${escapeHtml(a.type)}</span>
         <span class="chip ${prio[0]}">${prio[1]}</span>
-        ${uniqueSources.map(s => s.url ? `<a class="src-link" href="${escapeHtml(s.url)}" target="_blank" rel="noopener">↗ ${escapeHtml(s.source)}</a>` : `<span class="chip chip-gray">${escapeHtml(s.source || 'Manual')}</span>`).join('')}
       </div>
     </div>
     <div class="item-side">
@@ -2272,9 +2241,6 @@ function viewWeekly(){
       <div class="empty-ico">🗒️</div>
       <div class="empty-title">No weekly notes yet</div>
       <div class="empty-sub">Paste an email or wait for the next sync — school notices will be grouped here automatically.</div>
-      <div class="empty-actions">
-        <button class="btn btn-sm btn-primary" data-action="open-paste">⚡ Paste an email</button>
-      </div>
     </div></div>` : (() => {
     const grouped = {};
     for (const n of notes){
@@ -2622,22 +2588,20 @@ function viewPlanner(){
 }
 
 /* ─────────────────────────────────────────────────────────────
-   INTEGRATIONS — exactly two ways to get Classroom work in
+   INTEGRATIONS — paste-first, plus calendars
    ───────────────────────────────────────────────────────────── */
 function viewIntegrations(){
-  const i = Store.cache.integrations || {};
+  const subs = Store.cache.settings.calendarSubscriptions || [];
   const classroomItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'Google Classroom'));
-  const hasAppsScript = !!Store.cache.settings.appsScriptUrl;
 
   return `
   <div class="page-head">
     <h1 class="page-title">Integrations</h1>
-    <p class="page-sub">Two ways to get your Classroom work in. Pick whichever suits you — you can do both.</p>
+    <p class="page-sub">Get your Classroom work in — takes 10 seconds, works on any account.</p>
   </div>
 
   <div class="stack">
 
-    <!-- OPTION 1: Paste -->
     <section class="card card-pad int-card hero">
       <div class="int-logo" style="background:linear-gradient(135deg,#6366f1,#4338ca);color:#fff;border:none;font-size:22px">📋</div>
       <div class="int-body">
@@ -2647,52 +2611,28 @@ function viewIntegrations(){
           <span class="chip chip-green">No setup</span>
         </div>
         <div class="int-desc int-hero-body">
-          Copy your Classroom <strong>To-do</strong> list (Ctrl+A, Ctrl+C on that page), paste it in here,
-          and StudentOS pulls out every assignment, test and project — with due dates, subjects and
-          priorities. Takes about 10 seconds. Works on any account, no admin approval.
+          Copy your Classroom <strong>To-do</strong> list, paste it in, and StudentOS pulls out
+          every assignment, test and project with due dates, subjects and priorities.
+          No admin approval, no OAuth, no scripts.
         </div>
-        <div class="int-hero-actions">
-          <button class="btn btn-primary btn-lg" data-action="paste-classroom">📋 Paste from Classroom</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- OPTION 2: Auto-sync via Apps Script -->
-    <section class="card card-pad int-card">
-      <div class="int-logo" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;font-size:22px">🔄</div>
-      <div class="int-body">
-        <div class="int-name">
-          Auto-sync (one-time setup)
-          ${hasAppsScript ? '<span class="status-pill on"><span class="pdot"></span>Connected</span>' : '<span class="chip chip-violet">Advanced</span>'}
-        </div>
-        <div class="int-desc">
-          Set up a tiny script in your own Google account (5 minutes). After that,
-          StudentOS pulls new Classroom work every time you open it — no copying, no pasting.
-          This works on school accounts because the script runs under <em>your</em> permissions, not as a third-party app.
-        </div>
-        ${hasAppsScript ? `
+        ${classroomItems.length ? `
         <div class="int-stats">
           <div class="int-stat"><b>${classroomItems.length}</b>Classroom items imported</div>
-          <div class="int-stat"><b>${relativeTime(i.classroom?.lastSync)}</b>last sync</div>
         </div>` : ''}
-        <div class="int-actions">
-          ${hasAppsScript
-            ? `<button class="btn btn-primary btn-sm" data-action="sync-apps-script">Sync now</button>
-               <button class="btn btn-ghost btn-sm" data-action="setup-apps-script">View setup</button>
-               <button class="btn btn-danger-soft btn-sm" data-action="remove-apps-script">Remove</button>`
-            : `<button class="btn btn-primary btn-lg" data-action="setup-apps-script">🔄 Set up auto-sync</button>`}
+        <div class="int-hero-actions">
+          <button class="btn btn-primary btn-lg" data-action="paste-classroom">📋 Paste from Classroom</button>
+          <button class="btn btn-ghost" data-action="show-paste-help">How to copy</button>
         </div>
       </div>
     </section>
 
-    <!-- School calendars -->
     <section class="card">
       <div class="card-head">
         <div class="card-title">📆 School calendars</div>
         <button class="btn btn-sm btn-ghost" data-action="add-calendar-sub">＋ Add calendar</button>
       </div>
       <div class="card-body" style="padding-top:8px;padding-bottom:8px">
-        ${(Store.cache.settings.calendarSubscriptions || []).map(sub => `
+        ${subs.length ? subs.map(sub => `
           <div class="set-row">
             <div class="set-info">
               <div class="set-name">
@@ -2706,7 +2646,11 @@ function viewIntegrations(){
               <button class="btn btn-ghost btn-sm" data-sync="calendar">Sync</button>
               ${!sub.builtin ? `<button class="btn btn-danger-soft btn-sm" data-action="remove-calendar-sub" data-id="${sub.id}">Remove</button>` : ''}
             </div>
-          </div>`).join('')}
+          </div>`).join('') : `
+          <div class="empty" style="padding:26px 10px">
+            <div class="empty-title">No calendars yet</div>
+            <div class="empty-sub">Add a public ICS URL to pull in school events.</div>
+          </div>`}
       </div>
     </section>
   </div>`;
@@ -2786,7 +2730,7 @@ function viewSettings(){
       <div class="card-head"><div class="card-title">⌨️ Keyboard shortcuts</div></div>
       <div class="card-body">
         <div class="shortcut-grid">
-          <div class="shortcut-row"><span>Smart Paste</span><kbd>P</kbd></div>
+          <div class="shortcut-row"><span>Paste from Classroom</span><kbd>P</kbd></div>
           <div class="shortcut-row"><span>Effort report</span><kbd>E</kbd></div>
           <div class="shortcut-row"><span>New assignment</span><kbd>N</kbd></div>
           <div class="shortcut-row"><span>Search</span><kbd>/</kbd></div>
@@ -2849,7 +2793,6 @@ function bindViewEvents(){
       case 'new-assignment': openAssignmentModal(null, 'Assignment'); break;
       case 'new-test': openAssignmentModal(null, 'Test'); break;
       case 'new-event': openAssignmentModal(null, 'Event'); break;
-      case 'new-note': openNoteFormModal(); break;
       case 'log-effort': openEffortModal(); break;
       case 'edit-effort': openEffortModal(Store.get('effortReports', id)); break;
       case 'delete-effort': {
@@ -2923,29 +2866,8 @@ function bindViewEvents(){
         render();
         break;
       }
-      case 'open-paste': openSmartPaste(); break;
       case 'paste-classroom': openClassroomPasteModal(); break;
-      case 'setup-apps-script': openAppsScriptModal(); break;
-      case 'sync-apps-script': {
-        try {
-          const r = await syncFromAppsScript();
-          toast(`${r.added} new${r.merged ? `, ${r.merged} merged` : ''}`, 'success', 'Classroom synced');
-          render();
-        } catch(e){
-          toast(e.message, 'error', 'Sync failed');
-        }
-        break;
-      }
-      case 'remove-apps-script': {
-        if (await confirmDialog('Remove auto-sync?', 'The setup will be cleared. Existing assignments stay. You can paste manually instead.', 'Remove', true)){
-          Store.cache.settings.appsScriptUrl = '';
-          delete Store.cache.integrations.classroom;
-          await Store.saveUserDoc();
-          toast('Auto-sync removed', 'success');
-          render();
-        }
-        break;
-      }
+      case 'show-paste-help': openPasteHelpModal(); break;
       case 'sync-now': syncAll({ silent: false }); break;
       case 'save-effort-subjects': saveEffortSubjects(); break;
       case 'cleanup-duplicates': {
@@ -3002,6 +2924,59 @@ function bindViewEvents(){
   });
 }
 
+/* ── PASTE HELP MODAL ────────────────────────────────────────── */
+function openPasteHelpModal(){
+  openModal({
+    title: '📋 How to copy your Classroom To-do',
+    wide: true,
+    body: `
+      <div class="howto-grid">
+        <div class="howto-step">
+          <div class="howto-num">1</div>
+          <div class="howto-step-body">
+            <strong>Open Classroom</strong>
+            Go to <a href="https://classroom.google.com/u/0/h" target="_blank" rel="noopener">classroom.google.com</a> and click <em>To-do</em> in the top left.
+          </div>
+        </div>
+        <div class="howto-step">
+          <div class="howto-num">2</div>
+          <div class="howto-step-body">
+            <strong>Select everything</strong>
+            Click once on the page (not on any link), then press <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Ctrl</kbd>+<kbd>C</kbd>. On Mac use <kbd>⌘</kbd>+<kbd>A</kbd> / <kbd>⌘</kbd>+<kbd>C</kbd>.
+          </div>
+        </div>
+        <div class="howto-step">
+          <div class="howto-num">3</div>
+          <div class="howto-step-body">
+            <strong>Paste it in</strong>
+            Come back here, click <em>Paste from Classroom</em>, and paste into the box.
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-warn" style="margin-top:16px">
+        <span>⚠️</span>
+        <div>
+          <strong>Skip the "No due date" section.</strong>
+          Items with no deadline can't be scheduled, so StudentOS ignores them.
+          Everything else — including <em>This week</em>, <em>Next week</em> and <em>Later</em> — works perfectly.
+        </div>
+      </div>
+
+      <div class="alert alert-info" style="margin-top:12px">
+        <span>💡</span>
+        <div>
+          StudentOS reads the copy just like you would — it recognises the title, course, and due date
+          for each item. You'll see a preview before anything is saved.
+        </div>
+      </div>`,
+    footer: `<button class="btn btn-ghost" data-close>Got it</button><button class="btn btn-primary" id="ph-go">Open paste box</button>`,
+    onMount(el, close){
+      $('#ph-go', el).addEventListener('click', () => { close(); openClassroomPasteModal(); });
+    }
+  });
+}
+
 /* ── CLASSROOM PASTE MODAL ───────────────────────────────────── */
 function openClassroomPasteModal(){
   let parsedItems = [];
@@ -3010,23 +2985,21 @@ function openClassroomPasteModal(){
     subtitle: 'Copy your To-do list, paste it here — StudentOS will sort it out',
     xl: true,
     body: `
-      <div class="alert alert-info" style="margin-bottom:16px">
+      <div class="alert alert-info" style="margin-bottom:14px">
         <span>💡</span>
         <div>
           <strong>How to copy:</strong>
-          Open <a href="https://classroom.google.com/u/0/h" target="_blank" rel="noopener">classroom.google.com</a>,
-          go to your <strong>To-do</strong> list, click anywhere on the page, then press
-          <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Ctrl</kbd>+<kbd>C</kbd>
-          (<kbd>⌘</kbd>+<kbd>A</kbd> / <kbd>⌘</kbd>+<kbd>C</kbd> on Mac) and paste below.
+          Open <a href="https://classroom.google.com/u/0/h" target="_blank" rel="noopener">classroom.google.com</a> → <em>To-do</em>.
+          Click on the page, then <kbd>Ctrl</kbd>+<kbd>A</kbd> / <kbd>Ctrl</kbd>+<kbd>C</kbd> (<kbd>⌘</kbd>+<kbd>A</kbd> / <kbd>⌘</kbd>+<kbd>C</kbd> on Mac).
+          Paste below.
         </div>
       </div>
 
-      <div class="alert alert-warn" style="margin-bottom:16px">
+      <div class="alert alert-warn" style="margin-bottom:14px">
         <span>⚠️</span>
         <div>
           <strong>Don't include the "No due date" section.</strong>
-          Anything under "No due date" has no deadline, so StudentOS can't schedule it.
-          Everything else — including <em>This week</em>, <em>Next week</em> and <em>Later</em> — works perfectly.
+          Anything without a deadline can't be scheduled. StudentOS will skip it even if you include it.
         </div>
       </div>
 
@@ -3035,18 +3008,15 @@ function openClassroomPasteModal(){
           <label class="label" style="display:block;margin-bottom:6px">Paste here</label>
           <textarea class="textarea paste-input" id="cp-input" placeholder="Example:
 
-Mathematics
-Chapter 5 questions
-Due tomorrow
+assignment
+Mahi Maina - A recreation of your chosen Marae
+Y10 - Te Reo - 2026
+Monday 21 Sept
 
-English
-Read chapters 3-4
-Due Friday
-
-Next week
-Science
-Science test — chapters 4 to 6
-Due Wed 8 Oct"></textarea>
+assignment
+Film Glossary
+10ENG
+Thursday 24 Sept"></textarea>
         </div>
         <div>
           <div class="row-between" style="margin-bottom:6px">
@@ -3090,7 +3060,7 @@ Due Wed 8 Oct"></textarea>
                     .map(t => `<option ${it.type === t ? 'selected' : ''}>${t}</option>`).join('')}
                 </select>
                 <input type="date" data-field="dueDate" value="${it.dueDate ? new Date(it.dueDate).toISOString().slice(0,10) : ''}">
-                <input type="text" data-field="subject" placeholder="Subject" value="${escapeHtml(it.subject || '')}" style="width:110px">
+                <input type="text" data-field="subject" placeholder="Subject" value="${escapeHtml(it.subject || '')}" style="width:120px">
               </div>
             </div>`).join('')}`;
         countChip.textContent = String(parsedItems.length);
@@ -3157,275 +3127,6 @@ Due Wed 8 Oct"></textarea>
   });
 }
 
-/* ── APPS SCRIPT SETUP MODAL ─────────────────────────────────── */
-const APPS_SCRIPT_CODE = `function doGet() {
-  var courses = Classroom.Courses.list({ pageSize: 50 }).courses || [];
-  var items = [];
-  for (var i = 0; i < courses.length; i++) {
-    var c = courses[i];
-    var cw = Classroom.Courses.CourseWork.list(c.id, { pageSize: 100 }).courseWork || [];
-    for (var j = 0; j < cw.length; j++) {
-      var w = cw[j];
-      var due = null;
-      if (w.dueDate) {
-        var h = (w.dueTime && w.dueTime.hours != null) ? w.dueTime.hours : 23;
-        var m = (w.dueTime && w.dueTime.minutes != null) ? w.dueTime.minutes : 59;
-        due = new Date(w.dueDate.year, w.dueDate.month - 1, w.dueDate.day, h, m).getTime();
-      }
-      items.push({
-        title: w.title || 'Untitled',
-        course: c.name || '',
-        description: w.description || '',
-        dueDate: due,
-        url: w.alternateLink || '',
-        type: w.workType === 'ASSIGNMENT' ? 'Assignment' : 'Homework'
-      });
-    }
-  }
-  return ContentService
-    .createTextOutput(JSON.stringify({ items: items, exportedAt: new Date().toISOString() }))
-    .setMimeType(ContentService.MimeType.JSON);
-}`;
-
-function openAppsScriptModal(){
-  const current = Store.cache.settings.appsScriptUrl || '';
-  openModal({
-    title: '🔄 Set up auto-sync from Classroom',
-    subtitle: 'One-time setup in your own Google account — 5 minutes',
-    xl: true,
-    body: `
-      <div class="alert alert-success" style="margin-bottom:18px">
-        <span>🔒</span>
-        <div>
-          <strong>Why this works on school accounts:</strong>
-          the script runs under <em>your</em> Google identity, not as a third-party app.
-          Your school doesn't need to approve anything. Only you can see the URL.
-        </div>
-      </div>
-
-      ${current ? `
-      <div class="alert alert-info" style="margin-bottom:18px">
-        <span>✅</span>
-        <div>Auto-sync is already connected. You can paste a new URL below to replace it.</div>
-      </div>` : ''}
-
-      <h4 style="font-size:15px;margin-bottom:10px">Step 1 — Open Apps Script</h4>
-      <p class="small" style="color:var(--text-2);line-height:1.7;margin-bottom:18px">
-        Go to <a href="https://script.google.com/home" target="_blank" rel="noopener">script.google.com</a>
-        and click <strong>+ New project</strong>. Sign in with the same Google account you use for Classroom.
-      </p>
-
-      <h4 style="font-size:15px;margin-bottom:10px">Step 2 — Paste this code</h4>
-      <p class="small" style="color:var(--text-2);line-height:1.7;margin-bottom:10px">
-        Delete whatever is in the editor, then paste this in:
-      </p>
-      <div class="code-block">
-        <button class="copy-code" data-copy="apps-script">📋 Copy</button>
-        <pre id="apps-script-code" style="margin:0;white-space:pre-wrap">${escapeHtml(APPS_SCRIPT_CODE)}</pre>
-      </div>
-
-      <h4 style="font-size:15px;margin-top:24px;margin-bottom:10px">Step 3 — Enable the Classroom service</h4>
-      <ol class="step-list" style="margin-bottom:18px">
-        <li>In the left sidebar, click <strong>Services</strong> (the <code>+</code> next to it).</li>
-        <li>Find <strong>Google Classroom API</strong> in the list.</li>
-        <li>Click <strong>Add</strong>. Leave the identifier as <code>Classroom</code>.</li>
-      </ol>
-
-      <h4 style="font-size:15px;margin-top:24px;margin-bottom:10px">Step 4 — Deploy as a web app</h4>
-      <ol class="step-list" style="margin-bottom:18px">
-        <li>Click the blue <strong>Deploy</strong> button, then <strong>New deployment</strong>.</li>
-        <li>Click the gear icon → <strong>Web app</strong>.</li>
-        <li>Description: <em>StudentOS sync</em> (anything works).</li>
-        <li>Execute as: <strong>Me</strong>.</li>
-        <li>Who has access: <strong>Anyone</strong> — this is required so StudentOS can read it from your browser. The URL is a long random string that only you'll have.</li>
-        <li>Click <strong>Deploy</strong>. Authorize the script when prompted (it will ask to read your Classroom data — this is you granting <em>your own script</em> access).</li>
-        <li>Copy the <strong>Web app URL</strong> (starts with <code>https://script.google.com/macros/s/…</code>).</li>
-      </ol>
-
-      <h4 style="font-size:15px;margin-top:24px;margin-bottom:10px">Step 5 — Paste the URL here</h4>
-      <div class="field">
-        <label class="label">Web app URL</label>
-        <input class="input" id="as-url" placeholder="https://script.google.com/macros/s/…/exec" value="${escapeHtml(current)}" style="font-family:ui-monospace,monospace;font-size:12px">
-        <div class="hint">Ends in <code>/exec</code>. Do not use the /dev URL.</div>
-      </div>`,
-    footer: `
-      <button class="btn btn-ghost" data-close>Close</button>
-      <button class="btn btn-subtle" id="as-test">Test connection</button>
-      <button class="btn btn-primary" id="as-save">Save &amp; sync now</button>`,
-    onMount(el, close){
-      $$('.copy-code', el).forEach(btn => {
-        btn.addEventListener('click', () => {
-          const code = APPS_SCRIPT_CODE;
-          navigator.clipboard.writeText(code).then(() => {
-            btn.textContent = '✓ Copied';
-            setTimeout(() => btn.textContent = '📋 Copy', 1600);
-          });
-        });
-      });
-
-      $('#as-test', el).addEventListener('click', async () => {
-        const url = $('#as-url', el).value.trim();
-        if (!url){ toast('Paste the URL first', 'warn'); return; }
-        const btn = $('#as-test', el);
-        btn.disabled = true; btn.textContent = 'Testing…';
-        try {
-          const res = await fetch(url, { redirect: 'follow' });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const data = await res.json();
-          if (!data || !Array.isArray(data.items)) throw new Error('Unexpected response');
-          toast(`Connected! Found ${data.items.length} item${data.items.length === 1 ? '' : 's'}`, 'success', 'Connection OK');
-        } catch (e){
-          toast(`Test failed: ${e.message}`, 'error');
-        } finally {
-          btn.disabled = false; btn.textContent = 'Test connection';
-        }
-      });
-
-      $('#as-save', el).addEventListener('click', async () => {
-        const url = $('#as-url', el).value.trim();
-        if (!url || !/^https:\/\/script\.google\.com\//.test(url)){
-          toast('That doesn\'t look like an Apps Script URL', 'error');
-          return;
-        }
-        Store.cache.settings.appsScriptUrl = url;
-        await Store.saveUserDoc();
-        close();
-        toast('Saved — running first sync…', 'info');
-        try {
-          const r = await syncFromAppsScript({ silent: true });
-          const parts = [];
-          if (r.added) parts.push(`${r.added} added`);
-          if (r.merged) parts.push(`${r.merged} merged`);
-          toast(parts.join(', ') || 'Already up to date', 'success', 'Auto-sync connected');
-        } catch (e){
-          toast(`Sync failed: ${e.message}`, 'error', 'Saved, but sync failed');
-        }
-        setSyncUI('ok', `Classroom: ${relativeTime(now())}`);
-        render();
-      });
-    }
-  });
-}
-
-/* ── SMART PASTE MODAL (emails, notices, anything) ───────────── */
-function openSmartPaste(){
-  let pastePreviewItems = [];
-  openModal({
-    title: '⚡ Smart Paste',
-    subtitle: 'Paste an email, a notice, a list, or anything else — StudentOS will pull out the tasks',
-    xl: true,
-    body: `
-      <div class="paste-hint" style="margin-bottom:14px">
-        <span>💡</span>
-        <div><strong>Works with anything.</strong> Paste the whole email, a bulleted list, or your teacher's message. If it looks like a Classroom To-do page, we'll parse it that way automatically.</div>
-      </div>
-      <div class="paste-grid">
-        <div>
-          <label class="label" style="display:block;margin-bottom:6px">Paste here</label>
-          <textarea class="textarea paste-input" id="paste-input" placeholder="Example:
-
-From: maths.teacher@school.nz
-Subject: Chapter 5 homework
-
-Complete questions 1–12 on quadratic equations by Friday. 
-
-Also remember the Science test is next Wednesday — revise chapters 4–6."></textarea>
-        </div>
-        <div>
-          <div class="row-between" style="margin-bottom:6px">
-            <label class="label">Detected items</label>
-            <span class="chip chip-violet" id="paste-count">0</span>
-          </div>
-          <div class="paste-preview" id="paste-preview">
-            <div class="paste-empty">Paste on the left, or click<br><strong>Detect items</strong><br>to see what StudentOS finds.</div>
-          </div>
-        </div>
-      </div>`,
-    footer: `
-      <button class="btn btn-ghost" data-close>Cancel</button>
-      <button class="btn btn-subtle" id="paste-detect">🔍 Detect items</button>
-      <button class="btn btn-primary" id="paste-save" disabled>Add 0 items</button>`,
-    onMount(el, close){
-      const input = $('#paste-input', el);
-      const preview = $('#paste-preview', el);
-      const countChip = $('#paste-count', el);
-      const saveBtn = $('#paste-save', el);
-      const detectBtn = $('#paste-detect', el);
-
-      const renderPreview = () => {
-        if (!pastePreviewItems.length){
-          preview.innerHTML = `<div class="paste-empty">Nothing detected yet.<br>Click <strong>Detect items</strong> or keep typing.</div>`;
-          countChip.textContent = '0';
-          saveBtn.disabled = true;
-          saveBtn.textContent = 'Add 0 items';
-          return;
-        }
-        preview.innerHTML = `
-          <h4>${pastePreviewItems.length} item${pastePreviewItems.length === 1 ? '' : 's'} found</h4>
-          ${pastePreviewItems.map((it, idx) => `
-            <div class="paste-item" data-idx="${idx}">
-              <div class="paste-item-head">
-                <input class="paste-item-title" data-field="title" value="${escapeHtml(it.title)}">
-                <button class="paste-item-remove" data-remove="${idx}" title="Remove">✕</button>
-              </div>
-              <div class="paste-item-meta">
-                <select data-field="type">
-                  ${['Assignment','Homework','Test','Exam','Project','Event','Announcement','School Notice','Reminder','Other']
-                    .map(t => `<option ${it.type === t ? 'selected' : ''}>${t}</option>`).join('')}
-                </select>
-                <input type="date" data-field="dueDate" value="${it.dueDate ? new Date(it.dueDate).toISOString().slice(0,10) : ''}">
-                <input type="text" data-field="subject" placeholder="Subject" value="${escapeHtml(it.subject || '')}" style="width:110px">
-              </div>
-            </div>`).join('')}`;
-        countChip.textContent = String(pastePreviewItems.length);
-        saveBtn.disabled = false;
-        saveBtn.textContent = `Add ${pastePreviewItems.length} item${pastePreviewItems.length === 1 ? '' : 's'}`;
-        $$('.paste-item', preview).forEach(node => {
-          const idx = Number(node.dataset.idx);
-          node.querySelectorAll('[data-field]').forEach(field => {
-            field.addEventListener('input', () => {
-              const k = field.dataset.field;
-              if (k === 'dueDate'){
-                pastePreviewItems[idx].dueDate = field.value ? new Date(field.value + 'T23:59:00').getTime() : null;
-                pastePreviewItems[idx].priority = computePriority(pastePreviewItems[idx]);
-              } else {
-                pastePreviewItems[idx][k] = field.value;
-              }
-            });
-          });
-          node.querySelector('[data-remove]')?.addEventListener('click', () => {
-            pastePreviewItems.splice(idx, 1);
-            renderPreview();
-          });
-        });
-      };
-
-      const detect = () => {
-        pastePreviewItems = smartPaste(input.value);
-        renderPreview();
-      };
-      detectBtn.addEventListener('click', detect);
-      input.addEventListener('paste', () => setTimeout(detect, 60));
-      input.addEventListener('input', () => {
-        if (input.value.length > 12){ clearTimeout(input._t); input._t = setTimeout(detect, 700); }
-      });
-
-      saveBtn.addEventListener('click', async () => {
-        if (!pastePreviewItems.length) return;
-        const r = await importItems(pastePreviewItems, 'Paste');
-        close();
-        const parts = [];
-        if (r.added) parts.push(`${r.added} added`);
-        if (r.merged) parts.push(`${r.merged} merged`);
-        toast(parts.join(', ') || 'Nothing new', 'success', 'Smart Paste complete');
-        render();
-      });
-
-      setTimeout(() => input.focus(), 80);
-    }
-  });
-}
-
 function openAssignmentModal(existing, presetType){
   const isEdit = !!existing;
   const a = existing || { title:'', description:'', subject:'', type: presetType || 'Assignment', dueDate:null };
@@ -3471,44 +3172,6 @@ function openAssignmentModal(existing, presetType){
         render();
       });
       setTimeout(() => $('#m-title', el)?.focus(), 60);
-    }
-  });
-}
-
-function openNoteFormModal(){
-  openModal({
-    title: 'New note',
-    body: `
-      <div class="field"><label class="label">Title *</label><input class="input" id="n-title" placeholder="e.g. Mufti Day Friday"></div>
-      <div class="field"><label class="label">Details</label><textarea class="textarea" id="n-body" placeholder="Add details…"></textarea></div>
-      <div class="row" style="gap:12px;align-items:flex-start">
-        <div class="field" style="flex:1"><label class="label">Kind</label>
-          <select class="select" id="n-kind">
-            <option>Notice</option><option>Announcement</option>
-            <option>School Notice</option><option>Event</option>
-          </select></div>
-        <div class="field" style="flex:1"><label class="label">Date</label>
-          <input class="input" type="date" id="n-date" value="${new Date().toISOString().slice(0,10)}"></div>
-      </div>`,
-    footer: `<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="n-save">Add note</button>`,
-    onMount(el, close){
-      $('#n-save', el).addEventListener('click', async () => {
-        const title = $('#n-title', el).value.trim();
-        if (!title){ toast('Please enter a title', 'error'); return; }
-        const dateVal = $('#n-date', el).value;
-        const date = dateVal ? new Date(dateVal + 'T12:00:00').getTime() : now();
-        const wk = isoWeekKey(date);
-        await Store.put('weeklyNotes', {
-          id: uid(), title: sanitiseText(title, 220),
-          body: sanitiseText($('#n-body', el).value, 4000),
-          date, weekKey: wk.key, weekNumber: wk.week, weekYear: wk.year,
-          kind: $('#n-kind', el).value, source: 'Manual',
-          url: '', read: false, important: false, saved: false, createdAt: now()
-        });
-        close();
-        toast('Note added', 'success');
-        render();
-      });
     }
   });
 }
@@ -3736,16 +3399,12 @@ function renderOnb(){
     </div>`;
   } else if (onbStep === 2){
     body = `<div class="onb-content">
-      <h2>How would you like to import?</h2>
-      <p class="lead">Both work on school accounts — pick whichever you prefer.</p>
+      <h2>How would you like to start?</h2>
+      <p class="lead">Paste from Classroom works everywhere — no setup needed.</p>
       <div class="onb-cards">
         <button class="onb-card ${onbData.path === 'paste' ? 'on' : ''}" data-onb-card="paste">
           <div class="onb-card-ico">📋</div>
-          <div class="onb-card-body"><h4>Paste from Classroom (instant)</h4><p>Copy your To-do list, paste it in. Works right now, no setup.</p></div>
-        </button>
-        <button class="onb-card ${onbData.path === 'autosync' ? 'on' : ''}" data-onb-card="autosync">
-          <div class="onb-card-ico">🔄</div>
-          <div class="onb-card-body"><h4>Auto-sync (one-time setup)</h4><p>5-minute Apps Script setup in your own Google account. After that, updates are automatic.</p></div>
+          <div class="onb-card-body"><h4>Paste from Classroom</h4><p>Copy your To-do list, paste it in. Takes 10 seconds, works on any school account.</p></div>
         </button>
         <button class="onb-card ${onbData.path === 'effort' ? 'on' : ''}" data-onb-card="effort">
           <div class="onb-card-ico">📊</div>
@@ -3760,19 +3419,15 @@ function renderOnb(){
   } else {
     body = `<div class="onb-content">
       <h2>You're all set 🎉</h2>
-      <p class="lead">Four things to know:</p>
+      <p class="lead">Three things to know:</p>
       <div class="onb-feature-list">
         <div class="onb-feature">
           <div class="onb-feature-ico">📋</div>
-          <div><strong>Paste from Classroom</strong>Copy the To-do page, paste in. Skip the "No due date" section.</div>
+          <div><strong>Paste from Classroom</strong>Press <kbd>P</kbd> anywhere to paste your To-do list.</div>
         </div>
         <div class="onb-feature">
-          <div class="onb-feature-ico">🔄</div>
-          <div><strong>Auto-sync</strong>Optional one-time Apps Script setup — after that, it just runs.</div>
-        </div>
-        <div class="onb-feature">
-          <div class="onb-feature-ico">⚡</div>
-          <div><strong>Smart Paste</strong>Press <kbd>P</kbd> anywhere for emails and notices.</div>
+          <div class="onb-feature-ico">⚠️</div>
+          <div><strong>Skip "No due date"</strong>When copying, don't include items without deadlines.</div>
         </div>
         <div class="onb-feature">
           <div class="onb-feature-ico">📊</div>
@@ -3810,9 +3465,6 @@ function renderOnb(){
         if (onbData.path === 'paste'){
           location.hash = '#/dashboard';
           setTimeout(() => openClassroomPasteModal(), 400);
-        } else if (onbData.path === 'autosync'){
-          location.hash = '#/integrations';
-          setTimeout(() => openAppsScriptModal(), 400);
         } else if (onbData.path === 'effort'){
           location.hash = '#/effort';
           setTimeout(() => openEffortModal(), 400);
@@ -4074,10 +3726,7 @@ async function onUserSignedIn(user){
   render();
   checkDueSoon();
 
-  // Auto-sync calendar and Apps Script (silently) shortly after load
-  setTimeout(() => {
-    syncAll({ silent: true });
-  }, 800);
+  setTimeout(() => { syncAll({ silent: true }); }, 800);
 
   if (!Store.cache.settings.onboardingSeen){
     setTimeout(() => showOnboarding(), 700);
@@ -4189,7 +3838,7 @@ function wireGlobalUI(){
   $('#signout-btn')?.addEventListener('click', signOut);
   $('#help-btn')?.addEventListener('click', () => { closeAllDropdowns(); openHelpModal(); });
   $('#sync-btn')?.addEventListener('click', () => syncAll({ silent: false }));
-  $('#smart-paste-btn')?.addEventListener('click', () => openSmartPaste());
+  $('#smart-paste-btn')?.addEventListener('click', () => openClassroomPasteModal());
   $('#fab')?.addEventListener('click', toggleFab);
   const searchInput = $('#global-search');
   searchInput?.addEventListener('input', (e) => runSearch(e.target.value));
@@ -4251,8 +3900,8 @@ function renderFabMenu(){
     <button class="fab-item highlight" data-quick="paste-classroom">
       <span class="fab-ico">📋</span><span>Paste from Classroom</span><kbd>P</kbd>
     </button>
-    <button class="fab-item" data-quick="setup-apps-script">
-      <span class="fab-ico">🔄</span><span>Auto-sync setup</span>
+    <button class="fab-item" data-quick="paste-help">
+      <span class="fab-ico">❓</span><span>How to copy</span>
     </button>
     <button class="fab-item" data-quick="log-effort">
       <span class="fab-ico">📊</span><span>Log effort report</span><kbd>E</kbd>
@@ -4261,20 +3910,18 @@ function renderFabMenu(){
     <button class="fab-item" data-quick="new-assignment"><span class="fab-ico">📝</span><span>Assignment</span><kbd>N</kbd></button>
     <button class="fab-item" data-quick="new-test"><span class="fab-ico">📊</span><span>Test or exam</span></button>
     <button class="fab-item" data-quick="new-event"><span class="fab-ico">📅</span><span>Event</span></button>
-    <button class="fab-item" data-quick="new-note"><span class="fab-ico">📢</span><span>Note / notice</span></button>
     <div class="menu-sep"></div>
-    <button class="fab-item" data-quick="sync-now"><span class="fab-ico">🔄</span><span>Sync everything</span></button>`;
+    <button class="fab-item" data-quick="sync-now"><span class="fab-ico">🔄</span><span>Sync calendar</span></button>`;
   $$('#fab-menu .fab-item').forEach(btn => {
     btn.addEventListener('click', () => {
       const q = btn.dataset.quick;
       toggleFab();
       if (q === 'paste-classroom') openClassroomPasteModal();
-      else if (q === 'setup-apps-script') openAppsScriptModal();
+      else if (q === 'paste-help') openPasteHelpModal();
       else if (q === 'log-effort') openEffortModal();
       else if (q === 'new-assignment') openAssignmentModal(null, 'Assignment');
       else if (q === 'new-test') openAssignmentModal(null, 'Test');
       else if (q === 'new-event') openAssignmentModal(null, 'Event');
-      else if (q === 'new-note') openNoteFormModal();
       else if (q === 'sync-now') syncAll({ silent: false });
     });
   });
@@ -4379,13 +4026,14 @@ async function boot(){
 boot();
 
 window.StudentOS = {
-  version: '3.0.0',
+  version: '3.1.0',
   get state(){ return Store.cache; },
   get config(){ return loadConfig(); },
   syncAll, exportData,
-  showOnboarding, openSmartPaste, openEffortModal,
-  openClassroomPasteModal, openAppsScriptModal,
-  dedupeExistingEvents, dedupeExistingAssignments
+  showOnboarding, openEffortModal,
+  openClassroomPasteModal, openPasteHelpModal,
+  dedupeExistingEvents, dedupeExistingAssignments,
+  smartPaste
 };
 </script>
 </body>
