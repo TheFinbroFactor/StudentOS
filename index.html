@@ -457,10 +457,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 [data-theme="dark"] .int-card.hero{border-color:var(--primary);background:linear-gradient(135deg,rgba(99,102,241,.14) 0%,var(--surface) 100%)}
 .int-hero-body{padding:8px 0}
 .int-hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.bookmarklet-btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:11px;background:linear-gradient(135deg,#34a853,#0f9d58);color:#fff !important;font-weight:700;font-size:14.5px;cursor:grab;text-decoration:none !important;box-shadow:0 6px 18px rgba(15,157,88,.35);transition:.16s;user-select:none;border:2px solid rgba(255,255,255,.35)}
-.bookmarklet-btn:hover{box-shadow:0 8px 22px rgba(15,157,88,.5);transform:translateY(-1px)}
-.bookmarklet-btn:active{cursor:grabbing;transform:translateY(1px)}
-.bookmarklet-bar{background:repeating-linear-gradient(45deg,var(--surface-2),var(--surface-2) 12px,var(--surface) 12px,var(--surface) 24px);border:2px dashed var(--border-strong);border-radius:14px;padding:26px 20px;text-align:center;margin:16px 0}
 .set-row{display:flex;gap:16px;padding:15px 0;border-bottom:1px solid var(--border);align-items:flex-start}
 .set-row:last-child{border-bottom:none}
 .set-info{flex:1;min-width:0}
@@ -479,6 +475,12 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 @media(max-width:520px){.shortcut-grid{grid-template-columns:1fr}}
 details.card summary{list-style:none}
 details.card summary::-webkit-details-marker{display:none}
+.step-list{list-style:decimal;padding-left:22px;font-size:13.5px;line-height:1.85;color:var(--text-2)}
+.step-list li{margin-bottom:8px}
+.step-list strong{color:var(--text)}
+.code-block{position:relative;background:var(--gray-900);color:#e2e8f0;border-radius:10px;padding:14px 16px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12px;line-height:1.6;overflow-x:auto;margin:10px 0}
+.code-block .copy-code{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.1);color:#fff;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;font-family:inherit}
+.code-block .copy-code:hover{background:rgba(255,255,255,.2)}
 @media(max-width:960px){.auth{grid-template-columns:1fr}.auth-hero{display:none}.auth-panel{padding:32px 20px}}
 @media(max-width:900px){
   .only-mobile{display:grid}
@@ -520,16 +522,16 @@ details.card summary::-webkit-details-marker{display:none}
     <div class="auth-hero-inner">
       <div class="brand brand-light"><span class="brand-mark">S</span><span>StudentOS</span></div>
       <h1 class="auth-headline">Every assignment, test and notice.<br>One calm dashboard.</h1>
-      <p class="auth-sub">Import your Google Classroom work with one bookmarklet — no setup, no admin approval. Paste any email. Track your effort reports.</p>
+      <p class="auth-sub">Two ways to import your Classroom work — paste, or set up automatic sync once. Both work on school accounts without admin approval.</p>
       <ul class="auth-features">
-        <li><span class="tick">✓</span> <strong>Classroom import</strong> — two clicks, works on any account</li>
+        <li><span class="tick">✓</span> <strong>Paste from Classroom</strong> — works instantly, no setup</li>
+        <li><span class="tick">✓</span> <strong>Auto-sync (optional)</strong> — one-time Apps Script setup</li>
         <li><span class="tick">✓</span> <strong>Smart Paste</strong> — paste any email, get structured tasks</li>
-        <li><span class="tick">✓</span> <strong>Weekly Effort Reports</strong> — track your Friday ratings</li>
-        <li><span class="tick">✓</span> <strong>School calendar</strong> — synced automatically</li>
+        <li><span class="tick">✓</span> <strong>Effort reports &amp; school calendar</strong> — tracked automatically</li>
       </ul>
       <div class="auth-badges">
         <span class="chip chip-glass">$0 to run</span>
-        <span class="chip chip-glass">No OAuth required</span>
+        <span class="chip chip-glass">No admin approval</span>
         <span class="chip chip-glass">Your data stays yours</span>
       </div>
     </div>
@@ -577,7 +579,7 @@ details.card summary::-webkit-details-marker{display:none}
       </button>
       <div class="auth-divider"><span>or</span></div>
       <button class="btn btn-ghost btn-block" id="demo-btn">Explore demo mode</button>
-      <p class="auth-fineprint">StudentOS stores everything on your own device or in your own Firebase project. Nothing is sent to us — there's no "us". Your data stays yours, revoke any time.</p>
+      <p class="auth-fineprint">StudentOS stores everything on your own device or in your own Firebase project. Nothing is sent to us — there's no "us".</p>
     </div>
   </main>
 </div>
@@ -664,7 +666,7 @@ details.card summary::-webkit-details-marker{display:none}
 
 <script type="module">
 /* ================================================================
-   STUDENTOS v2.1 — Classroom bookmarklet edition
+   STUDENTOS v3.0 — paste-first + Apps Script auto-sync
    ================================================================ */
 
 const LS_CONFIG = 'studentos.config.v1';
@@ -679,8 +681,7 @@ const DEFAULT_CONFIG = {
     storageBucket: "student-os-fb.firebasestorage.app",
     messagingSenderId: "499752363180",
     appId: "1:499752363180:web:0ac024f9e242caac4cab09"
-  },
-  googleClientId: ""
+  }
 };
 
 const DEFAULT_CALENDAR_SUBSCRIPTIONS = [
@@ -696,22 +697,16 @@ const DEFAULT_CALENDAR_SUBSCRIPTIONS = [
 ];
 
 const DEFAULT_SETTINGS = {
-  trustedDomains: [],
-  trustedSenders: [],
-  emailLookbackDays: 30,
-  notifyNewAssignment: true,
-  notifyDueSoon: true,
-  notifyNewTest: true,
-  notifyAnnouncements: true,
   theme: 'light',
   timetable: [],
   calendarSubscriptions: [],
   effortSubjects: ['Maths','English','Science','History','PE','Art','Music','Technology'],
+  notifyNewAssignment: true,
+  notifyDueSoon: true,
+  notifyNewTest: true,
+  appsScriptUrl: '',
   onboardingSeen: false
 };
-
-const CALENDAR_SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
-const EMAIL_SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
 
 const SUBJECTS = ['Maths','Mathematics','English','Science','Biology','Chemistry','Physics',
   'History','Geography','Economics','Business','Accounting','Art','Music','Drama','PE',
@@ -723,76 +718,6 @@ const SUBJECTS = ['Maths','Mathematics','English','Science','Biology','Chemistry
 const STOP_WORDS = new Set(['the','and','for','with','this','that','from','your','you','are','was',
   'have','has','will','due','the','a','an','of','to','in','on','at','by','is','it','be','or','as',
   'please','complete','finish','submit','work','task','activity','week','term','day','new','all']);
-
-/* ── THE BOOKMARKLET ─────────────────────────────────────────────
-   Runs in the user's browser on the Google Classroom page.
-   Reads the DOM, extracts assignments, copies JSON to clipboard.
-   No OAuth, no external calls, no admin approval.
-   ──────────────────────────────────────────────────────────────── */
-const BOOKMARKLET_CODE = `(function(){
-  var items=[];
-  var seen={};
-  function parseDue(s){ if(!s) return null; var d=new Date(s); return isNaN(d.getTime())?null:d.getTime(); }
-  var cards=document.querySelectorAll('[data-item-id]');
-  for(var c=0;c<cards.length;c++){
-    var card=cards[c];
-    var id=card.getAttribute('data-item-id');
-    if(!id||seen[id]) continue;
-    seen[id]=true;
-    var txt=(card.innerText||'').trim();
-    var lines=txt.split('\\n').map(function(l){return l.trim();}).filter(Boolean);
-    if(!lines.length) continue;
-    var title=lines[0];
-    var course='';
-    var dueDate=null;
-    for(var i=1;i<lines.length;i++){
-      var l=lines[i];
-      var dueM=l.match(/^Due\\s+(.+)/i);
-      if(dueM){ dueDate=parseDue(dueM[1]); continue; }
-      if(!course&&l.length<40&&/[A-Za-z]/.test(l)&&!/^(Turned in|Assigned|Missing|Graded|Posted|View|Done|Late)/i.test(l)){ course=l; }
-    }
-    if(title.length<2) continue;
-    var type='Assignment';
-    if(/test|exam|quiz/i.test(title)) type='Test';
-    else if(/project|presentation/i.test(title)) type='Project';
-    else if(/homework|hw|read|revision/i.test(title)) type='Homework';
-    items.push({ title:title, description:txt.slice(0,800), type:type, subject:course, dueDate:dueDate, source:'Google Classroom', url:'' });
-  }
-  if(!items.length){
-    var bodyLines=(document.body.innerText||'').split('\\n').map(function(l){return l.trim();}).filter(Boolean);
-    for(var k=0;k<bodyLines.length;k++){
-      var line=bodyLines[k];
-      if(line.length<4||line.length>200) continue;
-      if(/^(To-do|Missing|Assigned|Done|Classwork|People|Grades|Home|Menu|Stream|Classroom|Calendar|Settings|View all|See all)$/i.test(line)) continue;
-      var foundDue=null;
-      for(var j=k+1;j<Math.min(k+4,bodyLines.length);j++){
-        var dm=bodyLines[j].match(/^Due\\s+(.+)/i);
-        if(dm){ foundDue=parseDue(dm[1]); break; }
-      }
-      if(foundDue===null) continue;
-      var key=line.toLowerCase();
-      if(seen[key]) continue;
-      seen[key]=true;
-      items.push({ title:line, description:'', type:/test|exam|quiz/i.test(line)?'Test':'Assignment', subject:'', dueDate:foundDue, source:'Google Classroom', url:'' });
-    }
-  }
-  if(!items.length){
-    alert('Could not find assignments.\\n\\nMake sure you are on the Classroom "To-do" or "Upcoming" page, and try scrolling down first to load more.');
-    return;
-  }
-  var payload=JSON.stringify({ studentos:'classroom-text', items:items, exportedAt:new Date().toISOString() });
-  if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(payload).then(function(){
-      alert('Copied '+items.length+' item'+(items.length===1?'':'s')+'!\\n\\nNow switch to StudentOS and click "Paste from Classroom".');
-    }).catch(function(){
-      prompt('Copy this and paste into StudentOS:', payload);
-    });
-  } else {
-    prompt('Copy this and paste into StudentOS:', payload);
-  }
-})();`;
-
-const BOOKMARKLET_HREF = 'javascript:' + BOOKMARKLET_CODE;
 
 const $  = (sel, root=document) => root.querySelector(sel);
 const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
@@ -917,15 +842,8 @@ function confirmDialog(title, message, confirmLabel='Confirm', danger=false){
 function loadConfig(){
   let stored = null;
   try { const raw = localStorage.getItem(LS_CONFIG); if (raw) stored = JSON.parse(raw); } catch {}
-  return {
-    firebase: (stored && stored.firebase) || DEFAULT_CONFIG.firebase,
-    googleClientId: (stored && stored.googleClientId) || DEFAULT_CONFIG.googleClientId
-  };
+  return { firebase: (stored && stored.firebase) || DEFAULT_CONFIG.firebase };
 }
-function saveConfig(cfg){
-  localStorage.setItem(LS_CONFIG, JSON.stringify({ firebase: DEFAULT_CONFIG.firebase, googleClientId: cfg.googleClientId || "" }));
-}
-function clearConfig(){ localStorage.removeItem(LS_CONFIG); }
 function isFirebaseConfigured(cfg){ return !!(cfg?.firebase?.apiKey && cfg?.firebase?.projectId && cfg?.firebase?.appId); }
 
 const FB = { ready:false, app:null, auth:null, db:null, mod:{}, user:null };
@@ -962,7 +880,6 @@ const Store = {
     }
     this.ensureShape();
     ensureBuiltinCalendar(this.cache);
-    cleanBadSubscriptions();
     return this.cache;
   },
 
@@ -1075,19 +992,6 @@ function ensureBuiltinCalendar(cache){
   }
 }
 
-function cleanBadSubscriptions(){
-  const subs = Store.cache.settings.calendarSubscriptions || [];
-  const before = subs.length;
-  Store.cache.settings.calendarSubscriptions = subs.filter(s => {
-    if (s.builtin) return true;
-    if (s.url && s.url.includes('/calendar/embed')) return false;
-    return true;
-  });
-  const removed = before - Store.cache.settings.calendarSubscriptions.length;
-  if (removed) Store.saveUserDoc();
-  return removed;
-}
-
 async function fetchCalendarUrl(url){
   try {
     const r = await fetch(url, { redirect: 'follow' });
@@ -1157,7 +1061,7 @@ async function dedupeExistingAssignments(){
 function detectType(text){
   const t = text.toLowerCase();
   if (/\b(exam|exams|final exam|midterm|mid-term|end of year exam|assessment week)\b/.test(t)) return 'Exam';
-  if (/\b(test|tests|quiz|quizzes|spot test|unit test|topic test)\b/.test(t)) return 'Test';
+  if (/\b(test|tests|quiz|quizzes|spot test|unit test|topic test|assessment)\b/.test(t)) return 'Test';
   if (/\b(project|portfolio|presentation|group project|inquiry)\b/.test(t)) return 'Project';
   if (/\b(homework|home work|hw|worksheet|exercise|practice|revision|read chapter|reading)\b/.test(t)) return 'Homework';
   if (/\b(assignment|coursework|task|activity|submit|hand in|hand-in|essay|report|lab report)\b/.test(t)) return 'Assignment';
@@ -1259,8 +1163,160 @@ function estimateMinutes(item){
   }
 }
 
-/* ── SMART PASTE (for emails/text) ───────────────────────────── */
-function smartPaste(text){
+/* ================================================================
+   SMART PASTE
+   ================================================================
+   Two-stage parser:
+   1. If the text looks like a Google Classroom To-do page, use the
+      classroom-specific parser (understands course/title/Due-line
+      structure, skips section headers, ignores "No due date" section).
+   2. Otherwise fall back to generic email/text parsing.
+   ================================================================ */
+
+/* Classroom To-do page headers that are NOT assignments */
+const CLASSROOM_SECTION_HEADERS = new Set([
+  'to-do','todo','missing','done','all classes','all topics','topic','topics',
+  'next week','this week','later','today','tomorrow','yesterday',
+  'no due date','no due date:','due soon','upcoming','all work','recently assigned',
+  'assigned','posted','turned in','graded','view','see all','view all'
+]);
+
+function looksLikeClassroomPage(text){
+  if (!text) return false;
+  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  if (lines.length < 3) return false;
+  let dueCount = 0;
+  let headerCount = 0;
+  for (const line of lines.slice(0, 60)){
+    const lower = line.toLowerCase().replace(/[:\-–—]/g, '').trim();
+    if (/^due\s+/i.test(line)) dueCount++;
+    if (CLASSROOM_SECTION_HEADERS.has(lower)) headerCount++;
+  }
+  return dueCount >= 1 && (dueCount + headerCount) >= 2;
+}
+
+/* Parse a "Due ..." line into a timestamp. Handles:
+   today / tomorrow / next week / Friday / Fri 3 Oct / 3 October / 15/10/2026 */
+function parseClassroomDue(raw){
+  if (!raw) return null;
+  const t = raw.replace(/^due\s*/i, '').replace(/^(?:on|by|at)\s*/i, '').trim();
+  if (!t) return null;
+
+  const ref = new Date();
+
+  if (/^today\b/i.test(t)) {
+    const d = new Date(ref); d.setHours(23,59,0,0); return d.getTime();
+  }
+  if (/^tomorrow\b/i.test(t)) {
+    const d = new Date(ref); d.setDate(d.getDate() + 1); d.setHours(23,59,0,0); return d.getTime();
+  }
+  if (/^next\s+week\b/i.test(t)) {
+    const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime();
+  }
+
+  // "Fri 3 Oct" / "Friday 3 October" / "3 Oct"
+  const dm = t.match(/^(?:(mon|tue|tues|wed|thu|thur|thurs|fri|sat|sun|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\s+)?(\d{1,2})(?:st|nd|rd|th)?\s+(jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)\b/i);
+  if (dm){
+    const day = parseInt(dm[2]);
+    const mon = MONTH_MAP[dm[3].toLowerCase()];
+    let d = new Date(ref.getFullYear(), mon, day, 23, 59);
+    if (d.getTime() < ref.getTime() - 180*86400000) d.setFullYear(d.getFullYear() + 1);
+    return d.getTime();
+  }
+
+  // Day-of-week only
+  const dow = t.match(/^(mon|tue|tues|wed|thu|thur|thurs|fri|sat|sun|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/i);
+  if (dow){
+    const key = dow[1].toLowerCase().slice(0,3);
+    const target = { sun:0, mon:1, tue:2, wed:3, thu:4, fri:5, sat:6 }[key];
+    const d = new Date(ref);
+    let delta = (target - d.getDay() + 7) % 7;
+    if (delta === 0) delta = 7;
+    d.setDate(d.getDate() + delta);
+    d.setHours(23, 59, 0, 0);
+    return d.getTime();
+  }
+
+  // Fall back to general parseDate
+  return parseDate(t);
+}
+
+function smartPasteClassroom(text){
+  const rawLines = text.split(/\r?\n/).map(l => l.replace(/\s+/g,' ').trim()).filter(Boolean);
+  if (!rawLines.length) return [];
+
+  // Stop at "No due date" — user shouldn't include those, and we skip them.
+  let cutoff = rawLines.length;
+  for (let i = 0; i < rawLines.length; i++){
+    const lower = rawLines[i].toLowerCase().replace(/[:\-–—]/g, '').trim();
+    if (lower === 'no due date'){ cutoff = i; break; }
+  }
+  const lines = rawLines.slice(0, cutoff);
+
+  const isSectionHeader = (line) => {
+    const lower = line.toLowerCase().replace(/[:\-–—]/g, '').trim();
+    return CLASSROOM_SECTION_HEADERS.has(lower);
+  };
+  const isDueLine = (line) => /^due\s+/i.test(line);
+  const isTimeEstimate = (line) => /^~?\d+\s*(min|mins|minutes|hr|hrs|hour|hours)\b/i.test(line) || /^\d+\s*\/\s*\d+$/.test(line);
+  const isMetaLine = (line) => /^(posted|assigned|turned in|graded|view|see|open|attached)/i.test(line);
+
+  const pending = [];
+  const rawAssignments = [];
+
+  for (const line of lines){
+    if (isSectionHeader(line)){ pending.length = 0; continue; }
+    if (isTimeEstimate(line) || isMetaLine(line)) continue;
+
+    if (isDueLine(line)){
+      // A "Due" line closes an assignment. Title = last non-header line,
+      // course = the line before that (if we have two).
+      if (pending.length >= 1){
+        const title = pending[pending.length - 1];
+        const course = pending.length >= 2 ? pending[pending.length - 2] : '';
+        if (title && title.length >= 2) rawAssignments.push({ title, course, dueRaw: line });
+      }
+      pending.length = 0;
+      continue;
+    }
+
+    pending.push(line);
+    if (pending.length > 3) pending.shift();
+  }
+
+  const courses = Store.all('courses');
+  const seen = new Set();
+  const results = [];
+  for (const a of rawAssignments){
+    const key = a.title.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+
+    const dueDate = parseClassroomDue(a.dueRaw);
+    const type = detectType(a.title);
+    let subject = '';
+    if (a.course){
+      subject = detectSubject(a.course, courses);
+      if (!subject && /^[A-Za-z][A-Za-z\s&\-']{2,40}$/.test(a.course)) subject = a.course;
+    }
+    if (!subject) subject = detectSubject(a.title, courses);
+
+    results.push({
+      id: `paste-${uid()}`,
+      title: sanitiseText(a.title, 200),
+      description: a.course ? `From ${a.course}` : '',
+      type, subject, dueDate: dueDate || null,
+      source: 'Google Classroom', url: '',
+      sources: [{ source: 'Google Classroom', url: '', addedAt: now() }],
+      completed: false, manual: false,
+      priority: computePriority({ type, dueDate }),
+      mergedCount: 1, createdAt: now()
+    });
+  }
+  return results;
+}
+
+function smartPasteGeneral(text){
   if (!text || !text.trim()) return [];
   const lines = text.split(/\r?\n/);
 
@@ -1338,54 +1394,13 @@ function smartPaste(text){
   return results;
 }
 
-/* ── CLASSROOM JSON PARSER (bookmarklet output) ───────────────── */
-function parseClassroomJSON(text){
-  const trimmed = text.trim();
-  if (!trimmed.startsWith('{')) return null;
-  let parsed;
-  try { parsed = JSON.parse(trimmed); } catch { return null; }
-  if (!parsed || !Array.isArray(parsed.items)) return null;
-  if (parsed.studentos !== 'classroom' && parsed.studentos !== 'classroom-text') return null;
-
-  const courses = Store.all('courses');
-  const results = [];
-  for (const raw of parsed.items){
-    const title = sanitiseText(raw.title || '', 200);
-    if (!title) continue;
-    const course = raw.course ? sanitiseText(raw.course, 60) : (raw.subject ? sanitiseText(raw.subject, 60) : '');
-    let due = null;
-    if (raw.dueDate){
-      due = typeof raw.dueDate === 'number' ? raw.dueDate : parseDate(String(raw.dueDate));
-    }
-    let detectedSubject = '';
-    if (course){
-      detectedSubject = detectSubject(course, courses);
-      if (!detectedSubject && /^[A-Za-z][A-Za-z\s]{2,30}$/.test(course) && !/^\d/.test(course)){
-        detectedSubject = course;
-      }
-    }
-    if (!detectedSubject) detectedSubject = detectSubject(title, courses);
-    const type = raw.type || detectType(title + ' ' + course);
-    results.push({
-      id: `gc-${uid()}`,
-      title,
-      description: sanitiseText(raw.description || '', 2000),
-      type, subject: detectedSubject,
-      dueDate: due || null,
-      source: 'Google Classroom', url: raw.url || '',
-      sources: [{ source: 'Google Classroom', url: raw.url || '', addedAt: now() }],
-      completed: false, manual: false,
-      priority: computePriority({ type, dueDate: due }),
-      mergedCount: 1, createdAt: now()
-    });
+function smartPaste(text){
+  if (!text || !text.trim()) return [];
+  if (looksLikeClassroomPage(text)){
+    const items = smartPasteClassroom(text);
+    if (items.length) return items;
   }
-  return results;
-}
-
-function parsePaste(text){
-  const classroomJSON = parseClassroomJSON(text);
-  if (classroomJSON) return classroomJSON;
-  return smartPaste(text);
+  return smartPasteGeneral(text);
 }
 
 /* ── ICS PARSING ─────────────────────────────────────────────── */
@@ -1439,10 +1454,6 @@ async function syncCalendarSubscriptions(){
   const errors = [];
   for (const sub of subs){
     try {
-      if (sub.url.includes('/calendar/embed')){
-        sub.error = 'Skipped: that was the embed URL, not the ICS URL.';
-        continue;
-      }
       const r = await fetchCalendarUrl(sub.url);
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const text = await r.text();
@@ -1482,7 +1493,42 @@ async function syncCalendarSubscriptions(){
   return { added: totalAdded, subs: subs.length, errors };
 }
 
-/* ── DUPLICATE DETECTION ─────────────────────────────────────── */
+/* ── APPS SCRIPT SYNC ────────────────────────────────────────── */
+async function syncFromAppsScript({ silent = false } = {}){
+  const url = Store.cache.settings.appsScriptUrl;
+  if (!url){
+    if (!silent) toast('No Apps Script URL set — open Integrations to set it up.', 'warn');
+    return { added: 0, merged: 0, skipped: true };
+  }
+  const res = await fetch(url, { redirect: 'follow' });
+  if (!res.ok) throw new Error(`Apps Script responded with HTTP ${res.status}`);
+  const data = await res.json();
+  if (!data || !Array.isArray(data.items)) throw new Error('Unexpected response — make sure the script returns JSON with an "items" array.');
+
+  const rawAssignments = data.items.map(it => ({
+    id: `as-${uid()}`,
+    title: it.title || 'Untitled',
+    description: it.description || '',
+    dueDate: it.dueDate || null,
+    subject: it.course || it.subject || '',
+    typeHint: it.type || 'Assignment',
+    url: it.url || '',
+    source: 'Google Classroom'
+  }));
+
+  const r = await importItems(rawAssignments, 'Google Classroom');
+  Store.cache.integrations.classroom = {
+    id: 'classroom',
+    connected: true,
+    lastSync: now(),
+    imported: Store.all('assignments').filter(a => (a.sources||[]).some(s => s.source === 'Google Classroom')).length,
+    method: 'apps-script'
+  };
+  await Store.saveUserDoc();
+  return r;
+}
+
+/* ── DUPLICATE DETECTION & IMPORT ────────────────────────────── */
 function tokenSet(s){
   return new Set(String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 2 && !STOP_WORDS.has(w)));
 }
@@ -1524,7 +1570,6 @@ function mergeInto(existing, incoming){
   };
 }
 
-/* ── IMPORTER ────────────────────────────────────────────────── */
 async function importItems(rawItems, sourceLabel){
   const courses = Store.all('courses');
   let added = 0, merged = 0;
@@ -1543,7 +1588,6 @@ async function importItems(rawItems, sourceLabel){
       source: sourceLabel, url: raw.url || '',
       sources: raw.sources || [{ source: sourceLabel, url: raw.url || '', addedAt: now() }],
       completed: false, manual: false, priority: 'low',
-      externalId: raw.externalId || '', courseId: raw.courseId || '',
       createdAt: now()
     };
     candidate.priority = computePriority(candidate);
@@ -1579,29 +1623,6 @@ async function importItems(rawItems, sourceLabel){
     }
   }
   return { added, merged };
-}
-
-async function importNotices(rawItems, sourceLabel){
-  let count = 0;
-  for (const raw of rawItems){
-    const title = sanitiseText(raw.title, 220) || 'Notice';
-    const body = sanitiseText(raw.description, 4000);
-    const date = raw.date || parseDate(`${title} ${body}`) || now();
-    const wk = isoWeekKey(date);
-    const note = {
-      id: raw.id || uid(), title, body, date,
-      weekKey: wk.key, weekNumber: wk.week, weekYear: wk.year,
-      source: sourceLabel, url: raw.url || '',
-      kind: raw.kind || 'Notice',
-      read: false, important: false, saved: false, createdAt: now()
-    };
-    const exists = Store.all('weeklyNotes').some(n => n.title === note.title && Math.abs((n.date || 0) - note.date) < 3*86400000);
-    if (!exists){
-      await Store.put('weeklyNotes', note);
-      count++;
-    }
-  }
-  return count;
 }
 
 async function pushNotification({ kind, title, body='', link='', dedupeKey='' }){
@@ -1661,75 +1682,6 @@ async function checkDueSoon(){
   }
 }
 
-/* ── GOOGLE OAUTH (kept for personal accounts; hidden in UI) ── */
-const GoogleAuth = {
-  tokenClient: null, accessToken: null, scopes: [], expiresAt: 0, ready: false,
-  async waitForLib(timeout = 8000){
-    const t0 = Date.now();
-    while (!(window.google?.accounts?.oauth2) && Date.now() - t0 < timeout){
-      await new Promise(r => setTimeout(r, 120));
-    }
-    return !!window.google?.accounts?.oauth2;
-  },
-  async ensureClient(clientId, scopes){
-    if (!clientId) throw new Error('No Google OAuth Client ID configured.');
-    if (!(await this.waitForLib())) throw new Error('Google Identity Services failed to load.');
-    const scopeKey = [...scopes].sort().join(' ');
-    if (this.tokenClient && this._scopeKey === scopeKey){ this.scopes = scopes; return; }
-    this.scopes = scopes;
-    this._scopeKey = scopeKey;
-    this.tokenClient = google.accounts.oauth2.initTokenClient({ client_id: clientId, scope: scopeKey, callback: () => {} });
-    this.ready = true;
-  },
-  requestToken(){
-    return new Promise((resolve, reject) => {
-      if (!this.tokenClient) return reject(new Error('OAuth not initialised.'));
-      this.tokenClient.callback = resp => {
-        if (resp.error){ return reject(new Error(resp.error_description || resp.error)); }
-        this.accessToken = resp.access_token;
-        this.expiresAt = now() + (Number(resp.expires_in || 3600) * 1000) - 30_000;
-        try { sessionStorage.setItem('studentos.gtoken', JSON.stringify({ t: this.accessToken, e: this.expiresAt, s: this.scopes })); } catch {}
-        resolve(this.accessToken);
-      };
-      this.tokenClient.error_callback = err => reject(new Error(err?.message || 'OAuth cancelled'));
-      try { this.tokenClient.requestAccessToken({ prompt: '' }); } catch (e){ reject(e); }
-    });
-  },
-  restore(){
-    try {
-      const raw = sessionStorage.getItem('studentos.gtoken');
-      if (!raw) return false;
-      const { t, e, s } = JSON.parse(raw);
-      if (e > now() + 5000){ this.accessToken = t; this.expiresAt = e; this.scopes = s || []; return true; }
-    } catch {}
-    return false;
-  },
-  async getToken(clientId, scopes, { interactive = true } = {}){
-    await this.ensureClient(clientId, scopes);
-    if (this.accessToken && this.expiresAt > now() + 5000){
-      const have = new Set(this.scopes);
-      if (scopes.every(s => have.has(s))) return this.accessToken;
-    }
-    if (!interactive) throw new Error('NEEDS_CONSENT');
-    return this.requestToken();
-  },
-  revoke(){
-    if (this.accessToken && window.google?.accounts?.oauth2){
-      try { google.accounts.oauth2.revoke(this.accessToken, () => {}); } catch {}
-    }
-    this.accessToken = null; this.expiresAt = 0;
-    try { sessionStorage.removeItem('studentos.gtoken'); } catch {}
-  }
-};
-async function gfetch(url, token){
-  const r = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
-  if (!r.ok){
-    const txt = await r.text().catch(() => '');
-    throw new Error(`Google API ${r.status}: ${txt.slice(0,200)}`);
-  }
-  return r.json();
-}
-
 /* ── MASTER SYNC ─────────────────────────────────────────────── */
 let syncing = false;
 async function syncAll({ silent = false } = {}){
@@ -1748,10 +1700,19 @@ async function syncAll({ silent = false } = {}){
     for (const e of r.errors) errors.push(e);
   } catch(e){ errors.push(`Calendar: ${e.message}`); }
 
+  if (Store.cache.settings.appsScriptUrl){
+    try {
+      const r = await syncFromAppsScript({ silent: true });
+      if (r.added) results.push(`Classroom: ${r.added} new`);
+    } catch(e){
+      errors.push(`Classroom auto-sync: ${e.message}`);
+    }
+  }
+
   const removedEvents = await dedupeExistingEvents();
   const removedItems = await dedupeExistingAssignments();
   if (removedEvents + removedItems > 0){
-    console.log(`Cleaned up ${removedEvents} duplicate events and ${removedItems} duplicate assignments`);
+    console.log(`Cleaned ${removedEvents} duplicate events and ${removedItems} duplicate assignments`);
   }
 
   await checkDueSoon();
@@ -1821,9 +1782,9 @@ function getChecklistState(){
   const d = Store.cache;
   return {
     account: true,
-    calendar: (d.events || []).length > 0,
-    classroom: (d.assignments || []).some(a => (a.sources || []).some(s => s.source === 'Google Classroom')),
     firstItem: (d.assignments || []).length > 0,
+    calendar: (d.events || []).length > 0,
+    autoSync: !!d.settings.appsScriptUrl,
     effort: (d.effortReports || []).length > 0
   };
 }
@@ -1835,9 +1796,9 @@ function renderChecklist(){
   if (done >= total) return '';
   const items = [
     { key:'account', icon:'👤', text:'Create your account', done: true },
-    { key:'classroom', icon:'🎓', text:'Import from Google Classroom', done: s.classroom, action:'get-bookmarklet' },
+    { key:'firstItem', icon:'📋', text:'Paste your first assignments from Classroom', done: s.firstItem, action:'paste-classroom' },
     { key:'calendar', icon:'📅', text:'School calendar synced', done: s.calendar, action:'sync-now' },
-    { key:'firstItem', icon:'📝', text:'Add or paste your first assignment', done: s.firstItem, action:'open-paste' },
+    { key:'autoSync', icon:'🔄', text:'Set up auto-sync (optional)', done: s.autoSync, action:'setup-apps-script' },
     { key:'effort', icon:'📊', text:'Log this week\'s effort report', done: s.effort, action:'log-effort' }
   ];
   return `
@@ -1991,12 +1952,12 @@ function renderWelcomeEmpty(){
   <div class="card card-pad" style="text-align:center;padding:44px 24px">
     <div style="font-size:52px;margin-bottom:14px">🎒</div>
     <h2 style="font-size:22px;margin-bottom:10px">Let's get your school life in one place</h2>
-    <p class="muted" style="max-width:540px;margin:0 auto 24px;font-size:14.5px;line-height:1.65">
-      Fastest way to start: <strong>import your Google Classroom work</strong> with one bookmarklet. Works on any school account — no admin approval, no setup fees.
+    <p class="muted" style="max-width:520px;margin:0 auto 24px;font-size:14.5px;line-height:1.65">
+      Fastest way to start: <strong>copy your Classroom To-do list</strong> and paste it in. Takes 10 seconds, works on any account.
     </p>
     <div class="row" style="justify-content:center;flex-wrap:wrap;gap:10px">
-      <button class="btn btn-primary" data-action="get-bookmarklet">🎓 Import from Classroom</button>
-      <button class="btn btn-ghost" data-action="open-paste">⚡ Paste an email</button>
+      <button class="btn btn-primary" data-action="paste-classroom">📋 Paste from Classroom</button>
+      <button class="btn btn-ghost" data-action="setup-apps-script">🔄 Set up auto-sync</button>
       <button class="btn btn-ghost" data-action="log-effort">📊 Log effort report</button>
     </div>
     <div class="row" style="justify-content:center;gap:20px;flex-wrap:wrap;margin-top:24px;font-size:12.5px;color:var(--text-3)">
@@ -2013,10 +1974,9 @@ function renderNextActions(){
     return `<div class="empty" style="padding:32px 12px">
       <div class="empty-ico">🌤️</div>
       <div class="empty-title">Nothing on your plate</div>
-      <div class="empty-sub">Import your Classroom work to fill this in automatically.</div>
+      <div class="empty-sub">Paste your Classroom To-do list to fill this in.</div>
       <div class="empty-actions">
-        <button class="btn btn-sm btn-primary" data-action="get-bookmarklet">🎓 Import from Classroom</button>
-        <button class="btn btn-sm btn-ghost" data-action="open-paste">⚡ Paste</button>
+        <button class="btn btn-sm btn-primary" data-action="paste-classroom">📋 Paste from Classroom</button>
       </div>
     </div>`;
   }
@@ -2173,7 +2133,7 @@ function viewAssignments(){
   <div class="page-head row-between wrap">
     <div><h1 class="page-title">Assignments</h1><p class="page-sub">${open} open · ${Store.all('assignments').length} total</p></div>
     <div class="row">
-      <button class="btn btn-primary" data-action="paste-classroom">🎓 Import from Classroom</button>
+      <button class="btn btn-primary" data-action="paste-classroom">📋 Paste from Classroom</button>
       <button class="btn btn-ghost" data-action="new-assignment">＋ New</button>
     </div>
   </div>
@@ -2191,10 +2151,9 @@ function viewAssignments(){
       <div class="empty">
         <div class="empty-ico">📝</div>
         <div class="empty-title">No assignments yet</div>
-        <div class="empty-sub">Import from Classroom or paste an email to add several at once.</div>
+        <div class="empty-sub">Paste your Classroom To-do list to add several at once.</div>
         <div class="empty-actions">
-          <button class="btn btn-sm btn-primary" data-action="paste-classroom">🎓 Import from Classroom</button>
-          <button class="btn btn-sm btn-ghost" data-action="open-paste">⚡ Paste</button>
+          <button class="btn btn-sm btn-primary" data-action="paste-classroom">📋 Paste from Classroom</button>
         </div>
       </div>`}
   </div>`;
@@ -2327,17 +2286,6 @@ function viewWeekly(){
       const list = grouped[wk].sort((a,b) => (b.date||0) - (a.date||0));
       const meta = isoWeekKey(list[0].date || list[0].createdAt);
       const unread = list.filter(n => !n.read).length;
-      const notices = list.filter(n => ['Notice','School Notice','Announcement'].includes(n.kind));
-      const events = list.filter(n => n.kind === 'Event');
-      const other = list.filter(n => !notices.includes(n) && !events.includes(n));
-      const renderGroup = (title, arr, icon) => !arr.length ? '' : `
-        <div style="margin-bottom:16px">
-          <div class="row" style="gap:7px;margin-bottom:8px">
-            <span>${icon}</span>
-            <span class="strong small" style="text-transform:uppercase;letter-spacing:.05em;font-size:11.5px;color:var(--text-3)">${title}</span>
-          </div>
-          ${arr.map(n => renderNoteItem(n)).join('')}
-        </div>`;
       return `
       <section class="card" style="margin-bottom:18px">
         <div class="card-head">
@@ -2345,9 +2293,7 @@ function viewWeekly(){
           <button class="btn btn-sm btn-ghost" data-action="mark-week-read" data-week="${wk}">Mark all read</button>
         </div>
         <div class="card-body">
-          ${renderGroup('School Notices', notices, '📢')}
-          ${renderGroup('Events & Important Dates', events, '🎪')}
-          ${renderGroup('General Information', other, '📄')}
+          ${list.map(n => renderNoteItem(n)).join('')}
         </div>
       </section>`;
     }).join('');
@@ -2378,7 +2324,6 @@ function viewWeekly(){
           <div class="effort-bar-val">${r.rating}</div>
         </div>`).join('')}
     </div>
-    <div class="tiny muted" style="margin-top:12px">Logged ${relativeTime(latestEffort.date)}</div>
   </div>` : `
   <div class="effort-banner">
     <div class="effort-header">
@@ -2448,8 +2393,7 @@ function viewEffort(){
   }).filter(x => x.count > 0).sort((a,b) => b.avg - a.avg);
   const latest = reports[0];
   const previous = reports[1];
-  let trendText = '';
-  let trendCls = '';
+  let trendText = '', trendCls = '';
   if (previous){
     const diff = avgOf(latest) - avgOf(previous);
     if (diff > 0.1){ trendText = `↑ ${diff.toFixed(1)} vs last week`; trendCls = 'chip-green'; }
@@ -2517,10 +2461,7 @@ function viewEffort(){
             <thead>
               <tr>
                 <th class="effort-sub-th">Subject</th>
-                ${recent.map(r => {
-                  const wk = isoWeekKey(r.date);
-                  return `<th title="${fmtDate(r.date)}">W${wk.week}</th>`;
-                }).join('')}
+                ${recent.map(r => { const wk = isoWeekKey(r.date); return `<th title="${fmtDate(r.date)}">W${wk.week}</th>`; }).join('')}
               </tr>
             </thead>
             <tbody>
@@ -2627,8 +2568,8 @@ function viewPlanner(){
           }).join('') : `<div class="empty" style="padding:34px 12px">
             <div class="empty-ico">🎯</div>
             <div class="empty-title">Nothing to plan yet</div>
-            <div class="empty-sub">Import your Classroom work and StudentOS will rank everything automatically.</div>
-            <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="get-bookmarklet">🎓 Import from Classroom</button></div>
+            <div class="empty-sub">Paste your Classroom work and StudentOS will rank everything automatically.</div>
+            <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="paste-classroom">📋 Paste from Classroom</button></div>
           </div>`}
         </div>
       </section>
@@ -2681,87 +2622,83 @@ function viewPlanner(){
 }
 
 /* ─────────────────────────────────────────────────────────────
-   INTEGRATIONS — bookmarklet-first, everything else secondary
+   INTEGRATIONS — exactly two ways to get Classroom work in
    ───────────────────────────────────────────────────────────── */
 function viewIntegrations(){
   const i = Store.cache.integrations || {};
-  const subs = Store.cache.settings.calendarSubscriptions || [];
   const classroomItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'Google Classroom'));
-  const classroomOn = classroomItems.length > 0 || i.classroom?.connected;
+  const hasAppsScript = !!Store.cache.settings.appsScriptUrl;
 
   return `
   <div class="page-head">
     <h1 class="page-title">Integrations</h1>
-    <p class="page-sub">Import your Classroom work in two clicks — no setup, no admin approval.</p>
+    <p class="page-sub">Two ways to get your Classroom work in. Pick whichever suits you — you can do both.</p>
   </div>
 
   <div class="stack">
 
-    <!-- HERO: Classroom bookmarklet -->
+    <!-- OPTION 1: Paste -->
     <section class="card card-pad int-card hero">
-      <div class="int-logo" style="background:linear-gradient(135deg,#34a853,#0f9d58);color:#fff;border:none;font-size:22px">🎓</div>
+      <div class="int-logo" style="background:linear-gradient(135deg,#6366f1,#4338ca);color:#fff;border:none;font-size:22px">📋</div>
       <div class="int-body">
         <div class="int-name">
-          Google Classroom
-          <span class="chip chip-green">No setup needed</span>
-          <span class="chip chip-green">Works on any account</span>
-          ${classroomOn ? '<span class="status-pill on"><span class="pdot"></span>Active</span>' : ''}
+          Paste from Classroom
+          <span class="chip chip-green">Works instantly</span>
+          <span class="chip chip-green">No setup</span>
         </div>
         <div class="int-desc int-hero-body">
-          Drag one button to your bookmarks bar. Then, whenever you want to sync, open Classroom,
-          click the bookmark, and paste into StudentOS. Takes about 10 seconds.
-          No OAuth, no admin approval, works on school accounts.
+          Copy your Classroom <strong>To-do</strong> list (Ctrl+A, Ctrl+C on that page), paste it in here,
+          and StudentOS pulls out every assignment, test and project — with due dates, subjects and
+          priorities. Takes about 10 seconds. Works on any account, no admin approval.
         </div>
-        ${classroomOn ? `
-        <div class="int-stats">
-          <div class="int-stat"><b>${classroomItems.length}</b>Classroom items imported</div>
-          <div class="int-stat"><b>${relativeTime(i.classroom?.lastSync)}</b>last import</div>
-        </div>` : ''}
         <div class="int-hero-actions">
-          <button class="btn btn-primary btn-lg" data-action="get-bookmarklet">🔖 ${classroomOn ? 'Sync again' : 'Get the bookmarklet'}</button>
-          <button class="btn btn-ghost" data-action="paste-classroom">📋 Paste from Classroom</button>
+          <button class="btn btn-primary btn-lg" data-action="paste-classroom">📋 Paste from Classroom</button>
         </div>
       </div>
     </section>
 
-    <!-- Fallback cards -->
-    <div class="cols cols-2">
-      <section class="card card-pad int-card">
-        <div class="int-logo" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;font-size:20px">📦</div>
-        <div class="int-body">
-          <div class="int-name">Google Takeout</div>
-          <div class="int-desc">Export your full Classroom history as files. Good for a one-time deep import.</div>
-          <div class="int-actions">
-            <button class="btn btn-ghost btn-sm" data-action="takeout-guide">How to import</button>
-          </div>
+    <!-- OPTION 2: Auto-sync via Apps Script -->
+    <section class="card card-pad int-card">
+      <div class="int-logo" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;font-size:22px">🔄</div>
+      <div class="int-body">
+        <div class="int-name">
+          Auto-sync (one-time setup)
+          ${hasAppsScript ? '<span class="status-pill on"><span class="pdot"></span>Connected</span>' : '<span class="chip chip-violet">Advanced</span>'}
         </div>
-      </section>
-      <section class="card card-pad int-card">
-        <div class="int-logo">📁</div>
-        <div class="int-body">
-          <div class="int-name">Import a file</div>
-          <div class="int-desc">CSV, JSON, or a Takeout export you already downloaded.</div>
-          <div class="int-actions">
-            <button class="btn btn-ghost btn-sm" data-action="open-import">Choose file…</button>
-          </div>
+        <div class="int-desc">
+          Set up a tiny script in your own Google account (5 minutes). After that,
+          StudentOS pulls new Classroom work every time you open it — no copying, no pasting.
+          This works on school accounts because the script runs under <em>your</em> permissions, not as a third-party app.
         </div>
-      </section>
-    </div>
+        ${hasAppsScript ? `
+        <div class="int-stats">
+          <div class="int-stat"><b>${classroomItems.length}</b>Classroom items imported</div>
+          <div class="int-stat"><b>${relativeTime(i.classroom?.lastSync)}</b>last sync</div>
+        </div>` : ''}
+        <div class="int-actions">
+          ${hasAppsScript
+            ? `<button class="btn btn-primary btn-sm" data-action="sync-apps-script">Sync now</button>
+               <button class="btn btn-ghost btn-sm" data-action="setup-apps-script">View setup</button>
+               <button class="btn btn-danger-soft btn-sm" data-action="remove-apps-script">Remove</button>`
+            : `<button class="btn btn-primary btn-lg" data-action="setup-apps-script">🔄 Set up auto-sync</button>`}
+        </div>
+      </div>
+    </section>
 
-    <!-- Calendars -->
+    <!-- School calendars -->
     <section class="card">
       <div class="card-head">
         <div class="card-title">📆 School calendars</div>
         <button class="btn btn-sm btn-ghost" data-action="add-calendar-sub">＋ Add calendar</button>
       </div>
       <div class="card-body" style="padding-top:8px;padding-bottom:8px">
-        ${subs.length ? subs.map(sub => `
+        ${(Store.cache.settings.calendarSubscriptions || []).map(sub => `
           <div class="set-row">
             <div class="set-info">
               <div class="set-name">
                 ${escapeHtml(sub.name)}
                 ${sub.builtin ? '<span class="chip chip-indigo" style="margin-left:6px">Built-in</span>' : ''}
-                ${sub.error ? '<span class="chip chip-red" style="margin-left:6px">Error</span>' : '<span class="status-pill on" style="margin-left:6px"><span class="pdot"></span>Active</span>'}
+                ${sub.error ? '<span class="chip chip-red" style="margin-left:6px">Error</span>' : ''}
               </div>
               <div class="set-desc truncate">${escapeHtml(sub.error || sub.url)}</div>
             </div>
@@ -2769,11 +2706,7 @@ function viewIntegrations(){
               <button class="btn btn-ghost btn-sm" data-sync="calendar">Sync</button>
               ${!sub.builtin ? `<button class="btn btn-danger-soft btn-sm" data-action="remove-calendar-sub" data-id="${sub.id}">Remove</button>` : ''}
             </div>
-          </div>`).join('') : `
-          <div class="empty" style="padding:26px 10px">
-            <div class="empty-title">No calendars yet</div>
-            <div class="empty-sub">Add a public ICS URL to pull in school events.</div>
-          </div>`}
+          </div>`).join('')}
       </div>
     </section>
   </div>`;
@@ -2782,7 +2715,7 @@ function viewIntegrations(){
 function viewSettings(){
   const s = Store.cache.settings;
   return `
-  <div class="page-head"><h1 class="page-title">Settings</h1><p class="page-sub">Account, connections, privacy and appearance</p></div>
+  <div class="page-head"><h1 class="page-title">Settings</h1><p class="page-sub">Account, privacy and appearance</p></div>
   <div class="cols cols-2">
     <section class="card">
       <div class="card-head"><div class="card-title">👤 Account</div></div>
@@ -2819,24 +2752,6 @@ function viewSettings(){
         ${notifRow('notifyNewAssignment', 'New assignments', 'Alert when a new assignment is imported.')}
         ${notifRow('notifyDueSoon', 'Approaching deadlines', 'Alert when work is due today or tomorrow.')}
         ${notifRow('notifyNewTest', 'New tests and exams', 'Alert when a test or exam is detected.')}
-        ${notifRow('notifyAnnouncements', 'Announcements and notices', 'Alert for new weekly notes.')}
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head"><div class="card-title">📅 Calendars</div></div>
-      <div class="card-body">
-        <p class="small muted" style="margin-bottom:14px">Every subscription syncs automatically. Duplicates are removed.</p>
-        ${(s.calendarSubscriptions || []).map(sub => `
-          <div class="set-row">
-            <div class="set-info">
-              <div class="set-name">${escapeHtml(sub.name)} ${sub.builtin ? '<span class="chip chip-indigo" style="margin-left:6px">Built-in</span>' : ''}</div>
-              <div class="set-desc truncate" style="max-width:100%">${escapeHtml(sub.url)}</div>
-            </div>
-            <div class="set-control">
-              ${!sub.builtin ? `<button class="btn btn-danger-soft btn-sm" data-action="remove-calendar-sub" data-id="${sub.id}">Remove</button>` : '<span class="chip chip-green">Active</span>'}
-            </div>
-          </div>`).join('')}
-        <button class="btn btn-primary btn-sm" data-action="add-calendar-sub" style="margin-top:12px">＋ Add calendar</button>
       </div>
     </section>
     <section class="card">
@@ -2854,7 +2769,7 @@ function viewSettings(){
       <div class="card-head"><div class="card-title">🛡️ Privacy &amp; data</div></div>
       <div class="card-body">
         <div class="set-row">
-          <div class="set-info"><div class="set-name">Clean up duplicates</div><div class="set-desc">Remove any duplicate events with the same title on the same day.</div></div>
+          <div class="set-info"><div class="set-name">Clean up duplicates</div><div class="set-desc">Remove duplicate events with the same title on the same day.</div></div>
           <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="cleanup-duplicates">Clean up now</button></div>
         </div>
         <div class="set-row">
@@ -2877,8 +2792,6 @@ function viewSettings(){
           <div class="shortcut-row"><span>Search</span><kbd>/</kbd></div>
           <div class="shortcut-row"><span>Sync now</span><kbd>S</kbd></div>
           <div class="shortcut-row"><span>Dashboard</span><kbd>G</kbd> <kbd>D</kbd></div>
-          <div class="shortcut-row"><span>Effort reports</span><kbd>G</kbd> <kbd>E</kbd></div>
-          <div class="shortcut-row"><span>Shortcuts</span><kbd>?</kbd></div>
         </div>
       </div>
     </section>
@@ -2934,7 +2847,6 @@ function bindViewEvents(){
       }
       case 'edit-assignment': openAssignmentModal(Store.get('assignments', id)); break;
       case 'new-assignment': openAssignmentModal(null, 'Assignment'); break;
-      case 'new-homework': openAssignmentModal(null, 'Homework'); break;
       case 'new-test': openAssignmentModal(null, 'Test'); break;
       case 'new-event': openAssignmentModal(null, 'Event'); break;
       case 'new-note': openNoteFormModal(); break;
@@ -2954,7 +2866,6 @@ function bindViewEvents(){
         }
         break;
       }
-      case 'clear-filters': App.filters = { ...App.filters, search:'', subject:'all', assignments:'all' }; render(); break;
       case 'cal-prev': App.calMonth--; if (App.calMonth < 0){ App.calMonth = 11; App.calYear--; } render(); break;
       case 'cal-next': App.calMonth++; if (App.calMonth > 11){ App.calMonth = 0; App.calYear++; } render(); break;
       case 'cal-today': App.calMonth = new Date().getMonth(); App.calYear = new Date().getFullYear(); render(); break;
@@ -3013,9 +2924,28 @@ function bindViewEvents(){
         break;
       }
       case 'open-paste': openSmartPaste(); break;
-      case 'takeout-guide': openTakeoutGuide(); break;
-      case 'get-bookmarklet': openBookmarkletModal(); break;
       case 'paste-classroom': openClassroomPasteModal(); break;
+      case 'setup-apps-script': openAppsScriptModal(); break;
+      case 'sync-apps-script': {
+        try {
+          const r = await syncFromAppsScript();
+          toast(`${r.added} new${r.merged ? `, ${r.merged} merged` : ''}`, 'success', 'Classroom synced');
+          render();
+        } catch(e){
+          toast(e.message, 'error', 'Sync failed');
+        }
+        break;
+      }
+      case 'remove-apps-script': {
+        if (await confirmDialog('Remove auto-sync?', 'The setup will be cleared. Existing assignments stay. You can paste manually instead.', 'Remove', true)){
+          Store.cache.settings.appsScriptUrl = '';
+          delete Store.cache.integrations.classroom;
+          await Store.saveUserDoc();
+          toast('Auto-sync removed', 'success');
+          render();
+        }
+        break;
+      }
       case 'sync-now': syncAll({ silent: false }); break;
       case 'save-effort-subjects': saveEffortSubjects(); break;
       case 'cleanup-duplicates': {
@@ -3055,7 +2985,6 @@ function bindViewEvents(){
         }
         break;
       }
-      case 'open-import': openImportModal(); break;
     }
   });
 
@@ -3073,110 +3002,78 @@ function bindViewEvents(){
   });
 }
 
-/* ── BOOKMARKLET MODAL ───────────────────────────────────────── */
-function openBookmarkletModal(){
-  openModal({
-    title: '🔖 One-time setup: Add the bookmarklet',
-    subtitle: 'Drag one button to your bookmarks bar — that\'s the whole setup',
-    xl: true,
-    body: `
-      <div class="alert alert-success" style="margin-bottom:18px">
-        <span>✨</span>
-        <div>
-          <strong>No OAuth, no admin approval.</strong> The bookmarklet runs in your browser and reads only what you can already see on the Classroom page.
-        </div>
-      </div>
-
-      <h4 style="font-size:15px;margin-bottom:10px">Step 1 — Show your bookmarks bar</h4>
-      <p class="small" style="color:var(--text-2);line-height:1.6;margin-bottom:20px">
-        <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd> (Windows) or <kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd> (Mac) — or right-click the top of your browser and tick <em>"Show bookmarks bar"</em>.
-      </p>
-
-      <h4 style="font-size:15px;margin-bottom:10px">Step 2 — Drag this button to the bookmarks bar</h4>
-      <div class="bookmarklet-bar">
-        <a id="bookmarklet-link" class="bookmarklet-btn" href="#" draggable="true">
-          🎓 Send to StudentOS
-        </a>
-        <div class="tiny muted" style="margin-top:12px">← Drag this up to your bookmarks bar →</div>
-      </div>
-
-      <h4 style="font-size:15px;margin-top:24px;margin-bottom:10px">Step 3 — Use it on Google Classroom</h4>
-      <ol style="list-style:decimal;padding-left:22px;font-size:13.5px;line-height:1.85;color:var(--text-2)">
-        <li>Open <a href="https://classroom.google.com/u/0/h" target="_blank" rel="noopener">classroom.google.com</a> and go to your <strong>To-do</strong> or <strong>Upcoming</strong> list.</li>
-        <li>Wait for the assignments to load, then scroll down to load any more.</li>
-        <li>Click the <strong>"Send to StudentOS"</strong> bookmark in your bookmarks bar.</li>
-        <li>You'll see a message like <em>"Copied 12 items!"</em></li>
-        <li>Come back here and click <strong>Paste from Classroom</strong>.</li>
-      </ol>
-
-      <div class="alert alert-info" style="margin-top:18px">
-        <span>💡</span>
-        <div>That's it — repeat steps 3–5 whenever you want to sync. Takes about 10 seconds.</div>
-      </div>
-    `,
-    footer: `
-      <button class="btn btn-ghost" data-close>Close</button>
-      <button class="btn btn-primary" id="bm-paste">I've copied the data →</button>
-    `,
-    onMount(el, close){
-      const link = $('#bookmarklet-link', el);
-      link.href = BOOKMARKLET_HREF;
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        toast('Drag this button up to your bookmarks bar — don\'t just click it!', 'warn');
-      });
-      $('#bm-paste', el).addEventListener('click', () => {
-        close();
-        openClassroomPasteModal();
-      });
-    }
-  });
-}
-
 /* ── CLASSROOM PASTE MODAL ───────────────────────────────────── */
 function openClassroomPasteModal(){
   let parsedItems = [];
   openModal({
-    title: '📥 Import from Google Classroom',
-    subtitle: 'Paste the data copied by the bookmarklet',
+    title: '📋 Paste from Google Classroom',
+    subtitle: 'Copy your To-do list, paste it here — StudentOS will sort it out',
     xl: true,
     body: `
-      <div id="cp-status" class="alert alert-info">
-        <span>🔄</span>
-        <div>Checking your clipboard…</div>
+      <div class="alert alert-info" style="margin-bottom:16px">
+        <span>💡</span>
+        <div>
+          <strong>How to copy:</strong>
+          Open <a href="https://classroom.google.com/u/0/h" target="_blank" rel="noopener">classroom.google.com</a>,
+          go to your <strong>To-do</strong> list, click anywhere on the page, then press
+          <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Ctrl</kbd>+<kbd>C</kbd>
+          (<kbd>⌘</kbd>+<kbd>A</kbd> / <kbd>⌘</kbd>+<kbd>C</kbd> on Mac) and paste below.
+        </div>
       </div>
 
-      <div class="field" style="margin-top:16px">
-        <label class="label">Classroom data</label>
-        <textarea class="textarea" id="cp-input" style="min-height:140px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px" placeholder='Click "Get the bookmarklet" first, run it on Classroom, then paste here — or just paste automatically from your clipboard.'></textarea>
+      <div class="alert alert-warn" style="margin-bottom:16px">
+        <span>⚠️</span>
+        <div>
+          <strong>Don't include the "No due date" section.</strong>
+          Anything under "No due date" has no deadline, so StudentOS can't schedule it.
+          Everything else — including <em>This week</em>, <em>Next week</em> and <em>Later</em> — works perfectly.
+        </div>
       </div>
 
-      <div class="row-between" style="margin-top:14px;margin-bottom:8px">
-        <label class="label">Preview</label>
-        <span class="chip chip-violet" id="cp-count">0</span>
-      </div>
-      <div class="paste-preview" id="cp-preview">
-        <div class="paste-empty">Nothing detected yet.</div>
-      </div>
-    `,
+      <div class="paste-grid">
+        <div>
+          <label class="label" style="display:block;margin-bottom:6px">Paste here</label>
+          <textarea class="textarea paste-input" id="cp-input" placeholder="Example:
+
+Mathematics
+Chapter 5 questions
+Due tomorrow
+
+English
+Read chapters 3-4
+Due Friday
+
+Next week
+Science
+Science test — chapters 4 to 6
+Due Wed 8 Oct"></textarea>
+        </div>
+        <div>
+          <div class="row-between" style="margin-bottom:6px">
+            <label class="label">Detected items</label>
+            <span class="chip chip-violet" id="cp-count">0</span>
+          </div>
+          <div class="paste-preview" id="cp-preview">
+            <div class="paste-empty">Paste on the left, or click<br><strong>Detect</strong><br>to see what StudentOS finds.</div>
+          </div>
+        </div>
+      </div>`,
     footer: `
       <button class="btn btn-ghost" data-close>Cancel</button>
-      <button class="btn btn-subtle" id="cp-detect">🔍 Detect</button>
-      <button class="btn btn-primary" id="cp-import" disabled>Import 0 items</button>
-    `,
+      <button class="btn btn-subtle" id="cp-detect">🔍 Detect items</button>
+      <button class="btn btn-primary" id="cp-import" disabled>Add 0 items</button>`,
     onMount(el, close){
       const input = $('#cp-input', el);
       const preview = $('#cp-preview', el);
       const countChip = $('#cp-count', el);
       const importBtn = $('#cp-import', el);
-      const status = $('#cp-status', el);
 
       const renderPreview = () => {
         if (!parsedItems.length){
-          preview.innerHTML = `<div class="paste-empty">Nothing detected yet.<br>Paste the copied Classroom data above, or click <strong>Detect</strong>.</div>`;
+          preview.innerHTML = `<div class="paste-empty">Nothing detected yet.<br>Paste your To-do list on the left, or click <strong>Detect items</strong>.</div>`;
           countChip.textContent = '0';
           importBtn.disabled = true;
-          importBtn.textContent = 'Import 0 items';
+          importBtn.textContent = 'Add 0 items';
           return;
         }
         preview.innerHTML = `
@@ -3198,7 +3095,7 @@ function openClassroomPasteModal(){
             </div>`).join('')}`;
         countChip.textContent = String(parsedItems.length);
         importBtn.disabled = false;
-        importBtn.textContent = `Import ${parsedItems.length} item${parsedItems.length === 1 ? '' : 's'}`;
+        importBtn.textContent = `Add ${parsedItems.length} item${parsedItems.length === 1 ? '' : 's'}`;
         $$('.paste-item', preview).forEach(node => {
           const idx = Number(node.dataset.idx);
           node.querySelectorAll('[data-field]').forEach(field => {
@@ -3206,6 +3103,7 @@ function openClassroomPasteModal(){
               const k = field.dataset.field;
               if (k === 'dueDate'){
                 parsedItems[idx].dueDate = field.value ? new Date(field.value + 'T23:59:00').getTime() : null;
+                parsedItems[idx].priority = computePriority(parsedItems[idx]);
               } else {
                 parsedItems[idx][k] = field.value;
               }
@@ -3218,248 +3116,198 @@ function openClassroomPasteModal(){
         });
       };
 
-      const detect = (rawText) => {
-        const text = rawText !== undefined ? rawText : input.value;
+      const detect = () => {
+        const text = input.value;
         if (!text || !text.trim()){ parsedItems = []; renderPreview(); return; }
-        const classroomItems = parseClassroomJSON(text);
-        parsedItems = classroomItems || parsePaste(text);
+        parsedItems = smartPaste(text);
         renderPreview();
       };
 
-      $('#cp-detect', el).addEventListener('click', () => detect());
+      $('#cp-detect', el).addEventListener('click', detect);
+      input.addEventListener('paste', () => setTimeout(detect, 60));
       input.addEventListener('input', () => {
-        clearTimeout(input._t);
-        input._t = setTimeout(() => detect(), 500);
+        if (input.value.length > 20){
+          clearTimeout(input._t);
+          input._t = setTimeout(detect, 600);
+        }
       });
 
       importBtn.addEventListener('click', async () => {
         if (!parsedItems.length) return;
-        let added = 0, merged = 0;
-        for (const item of parsedItems){
-          const record = {
-            id: item.id || `gc-bm-${uid()}`,
-            title: sanitiseText(item.title, 220),
-            description: sanitiseText(item.description || '', 4000),
-            type: item.type || 'Assignment',
-            subject: sanitiseText(item.subject || '', 60),
-            dueDate: item.dueDate || null,
-            source: 'Google Classroom',
-            url: item.url || '',
-            sources: [{ source: 'Google Classroom', url: item.url || '', addedAt: now() }],
-            completed: false, manual: false,
-            priority: computePriority({ type: item.type, dueDate: item.dueDate }),
-            mergedCount: 1
-          };
-          if (record.dueDate){
-            const dayKey = startOfDay(new Date(record.dueDate));
-            const norm = normalizeTitle(record.title);
-            const exactDup = Store.all('assignments').find(a =>
-              a.dueDate && startOfDay(new Date(a.dueDate)) === dayKey && normalizeTitle(a.title) === norm
-            );
-            if (exactDup){
-              await Store.put('assignments', mergeInto(exactDup, record));
-              merged++;
-              continue;
-            }
-          }
-          const dup = findDuplicate(record, Store.all('assignments'));
-          if (dup){
-            await Store.put('assignments', mergeInto(dup, record));
-            merged++;
-          } else {
-            await Store.put('assignments', record);
-            if (record.dueDate || record.type === 'Test' || record.type === 'Exam'){
-              await maybeNotify(record);
-            }
-            added++;
-          }
-        }
-
+        const r = await importItems(parsedItems, 'Google Classroom');
         Store.cache.integrations.classroom = {
           id: 'classroom',
           connected: true,
           lastSync: now(),
-          imported: Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'Google Classroom')).length,
-          method: 'bookmarklet'
+          imported: Store.all('assignments').filter(a => (a.sources||[]).some(s => s.source === 'Google Classroom')).length,
+          method: 'paste'
         };
         await Store.saveUserDoc();
-
         close();
         const parts = [];
-        if (added) parts.push(`${added} added`);
-        if (merged) parts.push(`${merged} merged`);
+        if (r.added) parts.push(`${r.added} added`);
+        if (r.merged) parts.push(`${r.merged} merged with existing`);
         toast(parts.join(', ') || 'Nothing new', 'success', 'Classroom import complete');
         setSyncUI('ok', `Classroom: ${relativeTime(now())}`);
         render();
       });
 
-      // Try to auto-read clipboard
-      (async () => {
-        try {
-          if (navigator.clipboard && navigator.clipboard.readText){
-            const text = await navigator.clipboard.readText();
-            if (text && text.trim().length > 20){
-              // Only auto-fill if it looks like our data
-              if (text.includes('"studentos"') || /Due\s+/i.test(text) || text.trim().startsWith('{')){
-                input.value = text;
-                status.className = 'alert alert-success';
-                status.innerHTML = '<span>✅</span><div><strong>Found data on your clipboard!</strong> Review the preview below and click Import.</div>';
-                detect(text);
-                return;
-              }
-            }
-            status.className = 'alert alert-info';
-            status.innerHTML = '<span>💡</span><div>Paste the copied Classroom data below, or click <strong>Get the bookmarklet</strong> if you haven\'t set it up yet.</div>';
-          } else {
-            status.className = 'alert alert-warn';
-            status.innerHTML = '<span>⚠️</span><div>Your browser doesn\'t allow clipboard reading. Please paste manually below.</div>';
-          }
-        } catch (e){
-          status.className = 'alert alert-info';
-          status.innerHTML = '<span>💡</span><div>Paste the copied Classroom data below.</div>';
-        }
-      })();
+      setTimeout(() => input.focus(), 80);
     }
   });
 }
 
-/* ── TAKEOUT GUIDE ───────────────────────────────────────────── */
-function openTakeoutGuide(){
+/* ── APPS SCRIPT SETUP MODAL ─────────────────────────────────── */
+const APPS_SCRIPT_CODE = `function doGet() {
+  var courses = Classroom.Courses.list({ pageSize: 50 }).courses || [];
+  var items = [];
+  for (var i = 0; i < courses.length; i++) {
+    var c = courses[i];
+    var cw = Classroom.Courses.CourseWork.list(c.id, { pageSize: 100 }).courseWork || [];
+    for (var j = 0; j < cw.length; j++) {
+      var w = cw[j];
+      var due = null;
+      if (w.dueDate) {
+        var h = (w.dueTime && w.dueTime.hours != null) ? w.dueTime.hours : 23;
+        var m = (w.dueTime && w.dueTime.minutes != null) ? w.dueTime.minutes : 59;
+        due = new Date(w.dueDate.year, w.dueDate.month - 1, w.dueDate.day, h, m).getTime();
+      }
+      items.push({
+        title: w.title || 'Untitled',
+        course: c.name || '',
+        description: w.description || '',
+        dueDate: due,
+        url: w.alternateLink || '',
+        type: w.workType === 'ASSIGNMENT' ? 'Assignment' : 'Homework'
+      });
+    }
+  }
+  return ContentService
+    .createTextOutput(JSON.stringify({ items: items, exportedAt: new Date().toISOString() }))
+    .setMimeType(ContentService.MimeType.JSON);
+}`;
+
+function openAppsScriptModal(){
+  const current = Store.cache.settings.appsScriptUrl || '';
   openModal({
-    title: '📦 Import from Google Takeout',
-    subtitle: 'Google\'s own export tool — works on any account',
+    title: '🔄 Set up auto-sync from Classroom',
+    subtitle: 'One-time setup in your own Google account — 5 minutes',
     xl: true,
     body: `
-      <div class="alert alert-info" style="margin-bottom:20px">
-        <span>💡</span>
+      <div class="alert alert-success" style="margin-bottom:18px">
+        <span>🔒</span>
         <div>
-          <strong>Try the bookmarklet first — it's easier.</strong>
-          Takeout is a great fallback, but it takes a few hours for Google to prepare your files.
+          <strong>Why this works on school accounts:</strong>
+          the script runs under <em>your</em> Google identity, not as a third-party app.
+          Your school doesn't need to approve anything. Only you can see the URL.
         </div>
       </div>
 
-      <ol style="list-style:decimal;padding-left:22px;font-size:14px;line-height:1.9;color:var(--text-2)">
-        <li>
-          <strong style="color:var(--text)">Open Google Takeout</strong><br>
-          Go to <a href="https://takeout.google.com" target="_blank" rel="noopener">takeout.google.com</a>
-          and sign in with your <strong>school account</strong>.
-        </li>
-        <li>
-          <strong style="color:var(--text)">Deselect everything</strong><br>
-          Click <em>"Deselect all"</em>, then scroll down and tick only <strong>Classroom</strong>.
-        </li>
-        <li>
-          <strong style="color:var(--text)">Choose export settings</strong><br>
-          Click <em>"Next step"</em>. Delivery method: <em>"Send download link via email"</em>.
-          Frequency: <em>"Export once"</em>. File type: <strong>.zip</strong>.
-        </li>
-        <li>
-          <strong style="color:var(--text)">Create the export</strong><br>
-          Click <em>"Create export"</em>. Google takes <strong>5 minutes to a few hours</strong>.
-        </li>
-        <li>
-          <strong style="color:var(--text)">Download and unzip</strong><br>
-          When the email arrives, download the ZIP and extract it.
-        </li>
-        <li>
-          <strong style="color:var(--text)">Find your Classroom folder</strong><br>
-          Inside the extracted folder, go to <code>Takeout/Classroom/</code>.
-        </li>
-        <li>
-          <strong style="color:var(--text)">Upload to StudentOS</strong><br>
-          Click the button below, then select all the JSON files from inside <code>Takeout/Classroom/</code>.
-        </li>
+      ${current ? `
+      <div class="alert alert-info" style="margin-bottom:18px">
+        <span>✅</span>
+        <div>Auto-sync is already connected. You can paste a new URL below to replace it.</div>
+      </div>` : ''}
+
+      <h4 style="font-size:15px;margin-bottom:10px">Step 1 — Open Apps Script</h4>
+      <p class="small" style="color:var(--text-2);line-height:1.7;margin-bottom:18px">
+        Go to <a href="https://script.google.com/home" target="_blank" rel="noopener">script.google.com</a>
+        and click <strong>+ New project</strong>. Sign in with the same Google account you use for Classroom.
+      </p>
+
+      <h4 style="font-size:15px;margin-bottom:10px">Step 2 — Paste this code</h4>
+      <p class="small" style="color:var(--text-2);line-height:1.7;margin-bottom:10px">
+        Delete whatever is in the editor, then paste this in:
+      </p>
+      <div class="code-block">
+        <button class="copy-code" data-copy="apps-script">📋 Copy</button>
+        <pre id="apps-script-code" style="margin:0;white-space:pre-wrap">${escapeHtml(APPS_SCRIPT_CODE)}</pre>
+      </div>
+
+      <h4 style="font-size:15px;margin-top:24px;margin-bottom:10px">Step 3 — Enable the Classroom service</h4>
+      <ol class="step-list" style="margin-bottom:18px">
+        <li>In the left sidebar, click <strong>Services</strong> (the <code>+</code> next to it).</li>
+        <li>Find <strong>Google Classroom API</strong> in the list.</li>
+        <li>Click <strong>Add</strong>. Leave the identifier as <code>Classroom</code>.</li>
       </ol>
 
-      <div class="alert alert-warn" style="margin-top:20px">
-        <span>⚠️</span>
-        <div>
-          <strong>Do not</strong> upload the raw ZIP here — StudentOS works with the extracted JSON files.
-        </div>
+      <h4 style="font-size:15px;margin-top:24px;margin-bottom:10px">Step 4 — Deploy as a web app</h4>
+      <ol class="step-list" style="margin-bottom:18px">
+        <li>Click the blue <strong>Deploy</strong> button, then <strong>New deployment</strong>.</li>
+        <li>Click the gear icon → <strong>Web app</strong>.</li>
+        <li>Description: <em>StudentOS sync</em> (anything works).</li>
+        <li>Execute as: <strong>Me</strong>.</li>
+        <li>Who has access: <strong>Anyone</strong> — this is required so StudentOS can read it from your browser. The URL is a long random string that only you'll have.</li>
+        <li>Click <strong>Deploy</strong>. Authorize the script when prompted (it will ask to read your Classroom data — this is you granting <em>your own script</em> access).</li>
+        <li>Copy the <strong>Web app URL</strong> (starts with <code>https://script.google.com/macros/s/…</code>).</li>
+      </ol>
+
+      <h4 style="font-size:15px;margin-top:24px;margin-bottom:10px">Step 5 — Paste the URL here</h4>
+      <div class="field">
+        <label class="label">Web app URL</label>
+        <input class="input" id="as-url" placeholder="https://script.google.com/macros/s/…/exec" value="${escapeHtml(current)}" style="font-family:ui-monospace,monospace;font-size:12px">
+        <div class="hint">Ends in <code>/exec</code>. Do not use the /dev URL.</div>
       </div>`,
     footer: `
       <button class="btn btn-ghost" data-close>Close</button>
-      <button class="btn btn-primary" id="takeout-open">Open Takeout now</button>
-      <button class="btn btn-primary" id="takeout-upload">I have the files — upload</button>`,
+      <button class="btn btn-subtle" id="as-test">Test connection</button>
+      <button class="btn btn-primary" id="as-save">Save &amp; sync now</button>`,
     onMount(el, close){
-      $('#takeout-open', el).addEventListener('click', () => window.open('https://takeout.google.com', '_blank'));
-      $('#takeout-upload', el).addEventListener('click', () => { close(); openImportModal(); });
+      $$('.copy-code', el).forEach(btn => {
+        btn.addEventListener('click', () => {
+          const code = APPS_SCRIPT_CODE;
+          navigator.clipboard.writeText(code).then(() => {
+            btn.textContent = '✓ Copied';
+            setTimeout(() => btn.textContent = '📋 Copy', 1600);
+          });
+        });
+      });
+
+      $('#as-test', el).addEventListener('click', async () => {
+        const url = $('#as-url', el).value.trim();
+        if (!url){ toast('Paste the URL first', 'warn'); return; }
+        const btn = $('#as-test', el);
+        btn.disabled = true; btn.textContent = 'Testing…';
+        try {
+          const res = await fetch(url, { redirect: 'follow' });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+          if (!data || !Array.isArray(data.items)) throw new Error('Unexpected response');
+          toast(`Connected! Found ${data.items.length} item${data.items.length === 1 ? '' : 's'}`, 'success', 'Connection OK');
+        } catch (e){
+          toast(`Test failed: ${e.message}`, 'error');
+        } finally {
+          btn.disabled = false; btn.textContent = 'Test connection';
+        }
+      });
+
+      $('#as-save', el).addEventListener('click', async () => {
+        const url = $('#as-url', el).value.trim();
+        if (!url || !/^https:\/\/script\.google\.com\//.test(url)){
+          toast('That doesn\'t look like an Apps Script URL', 'error');
+          return;
+        }
+        Store.cache.settings.appsScriptUrl = url;
+        await Store.saveUserDoc();
+        close();
+        toast('Saved — running first sync…', 'info');
+        try {
+          const r = await syncFromAppsScript({ silent: true });
+          const parts = [];
+          if (r.added) parts.push(`${r.added} added`);
+          if (r.merged) parts.push(`${r.merged} merged`);
+          toast(parts.join(', ') || 'Already up to date', 'success', 'Auto-sync connected');
+        } catch (e){
+          toast(`Sync failed: ${e.message}`, 'error', 'Saved, but sync failed');
+        }
+        setSyncUI('ok', `Classroom: ${relativeTime(now())}`);
+        render();
+      });
     }
   });
 }
 
-/* ── TAKEOUT PARSER ──────────────────────────────────────────── */
-async function importTakeout(parsed){
-  const courses = [];
-  const courseworkItems = [];
-  const announcementItems = [];
-
-  function classify(obj, inheritedCourseName){
-    if (!obj || typeof obj !== 'object') return;
-    if (obj.name && (obj.ownerId || obj.courseState || obj.enrollmentCode)) courses.push(obj);
-    if (obj.title && (obj.workType || obj.dueDate || obj.creationTime) && !obj.text){
-      courseworkItems.push({ ...obj, _courseName: inheritedCourseName });
-    }
-    if (obj.text && (obj.creationTime || obj.alternateLink) && !obj.title){
-      announcementItems.push({ ...obj, _courseName: inheritedCourseName });
-    }
-    const courseName = obj.name && (obj.ownerId || obj.courseState) ? obj.name : inheritedCourseName;
-    for (const k of Object.keys(obj)){
-      const v = obj[k];
-      if (v && typeof v === 'object'){
-        if (Array.isArray(v)) v.forEach(item => classify(item, courseName));
-        else classify(v, courseName);
-      }
-    }
-  }
-  classify(parsed, null);
-
-  const rawAssignments = [];
-  for (const w of courseworkItems){
-    let due = null;
-    if (w.dueDate){
-      const y = w.dueDate.year, mo = (w.dueDate.month || 1) - 1, d = w.dueDate.day || 1;
-      const h = w.dueTime?.hours ?? 23, mi = w.dueTime?.minutes ?? 59;
-      due = new Date(y, mo, d, h, mi).getTime();
-    } else if (typeof w.dueDate === 'string'){
-      due = new Date(w.dueDate).getTime();
-    }
-    rawAssignments.push({
-      id: `tk-${w.id || uid()}`,
-      title: sanitiseText(w.title || 'Untitled', 200),
-      description: sanitiseText(w.description || '', 3000),
-      dueDate: due,
-      subject: w._courseName || '',
-      typeHint: mapCourseWorkType(w.workType),
-      url: w.alternateLink || '',
-      source: 'Google Classroom'
-    });
-  }
-
-  const notices = announcementItems.map(a => ({
-    id: `tk-an-${a.id || uid()}`,
-    title: `${a._courseName || 'Classroom'}: ${sanitiseText(a.text, 90)}`,
-    description: a.text || '',
-    date: a.creationTime ? new Date(a.creationTime).getTime() : now(),
-    url: a.alternateLink || '',
-    kind: 'Announcement'
-  }));
-
-  const a = await importItems(rawAssignments, 'Google Classroom');
-  const n = await importNotices(notices, 'Google Classroom');
-
-  return { assignments: a.added, merged: a.merged, notices: n, events: 0, courses: courses.length };
-}
-function mapCourseWorkType(w){
-  switch(w){
-    case 'ASSIGNMENT': return 'Assignment';
-    case 'SHORT_ANSWER_QUESTION':
-    case 'MULTIPLE_CHOICE_QUESTION': return 'Homework';
-    default: return null;
-  }
-}
-
-/* ── SMART PASTE MODAL ───────────────────────────────────────── */
+/* ── SMART PASTE MODAL (emails, notices, anything) ───────────── */
 function openSmartPaste(){
   let pastePreviewItems = [];
   openModal({
@@ -3469,7 +3317,7 @@ function openSmartPaste(){
     body: `
       <div class="paste-hint" style="margin-bottom:14px">
         <span>💡</span>
-        <div><strong>Works with anything.</strong> Paste the whole email, a screenshot transcription, a bulleted list, or your teacher's message.</div>
+        <div><strong>Works with anything.</strong> Paste the whole email, a bulleted list, or your teacher's message. If it looks like a Classroom To-do page, we'll parse it that way automatically.</div>
       </div>
       <div class="paste-grid">
         <div>
@@ -3553,8 +3401,7 @@ Also remember the Science test is next Wednesday — revise chapters 4–6."></t
       };
 
       const detect = () => {
-        pastePreviewItems = parsePaste(input.value);
-        pastePreviewItems.forEach(it => { it.title = it.title || 'Untitled'; it.type = it.type || 'Assignment'; });
+        pastePreviewItems = smartPaste(input.value);
         renderPreview();
       };
       detectBtn.addEventListener('click', detect);
@@ -3565,214 +3412,18 @@ Also remember the Science test is next Wednesday — revise chapters 4–6."></t
 
       saveBtn.addEventListener('click', async () => {
         if (!pastePreviewItems.length) return;
-        let added = 0, merged = 0;
-        for (const item of pastePreviewItems){
-          const record = {
-            id: `paste-${uid()}`,
-            title: sanitiseText(item.title, 220),
-            description: sanitiseText(item.description, 4000),
-            type: item.type,
-            subject: sanitiseText(item.subject || '', 60),
-            dueDate: item.dueDate || null,
-            source: item.source || 'Paste', url: item.url || '',
-            sources: item.sources || [{ source: 'Paste', url: '', addedAt: now() }],
-            completed: false, manual: false,
-            priority: computePriority({ type: item.type, dueDate: item.dueDate }),
-            mergedCount: 1
-          };
-          if (record.dueDate){
-            const dayKey = startOfDay(new Date(record.dueDate));
-            const norm = normalizeTitle(record.title);
-            const exactDup = Store.all('assignments').find(a =>
-              a.dueDate && startOfDay(new Date(a.dueDate)) === dayKey && normalizeTitle(a.title) === norm
-            );
-            if (exactDup){ await Store.put('assignments', mergeInto(exactDup, record)); merged++; continue; }
-          }
-          const dup = findDuplicate(record, Store.all('assignments'));
-          if (dup){ await Store.put('assignments', mergeInto(dup, record)); merged++; }
-          else {
-            await Store.put('assignments', record);
-            if (record.dueDate || record.type === 'Test' || record.type === 'Exam') await maybeNotify(record);
-            added++;
-          }
-        }
+        const r = await importItems(pastePreviewItems, 'Paste');
         close();
-        if (added || merged){
-          const parts = [];
-          if (added) parts.push(`${added} added`);
-          if (merged) parts.push(`${merged} merged`);
-          toast(parts.join(', '), 'success', 'Smart Paste complete');
-        }
+        const parts = [];
+        if (r.added) parts.push(`${r.added} added`);
+        if (r.merged) parts.push(`${r.merged} merged`);
+        toast(parts.join(', ') || 'Nothing new', 'success', 'Smart Paste complete');
         render();
       });
 
       setTimeout(() => input.focus(), 80);
     }
   });
-}
-
-function openImportModal(){
-  openModal({
-    title: 'Import from file',
-    subtitle: 'CSV, JSON, or a Google Takeout export',
-    wide: true,
-    body: `
-      <div class="alert alert-info" style="margin-bottom:16px">
-        <span>💡</span>
-        <div><strong>Takeout:</strong> unzip the archive and select all JSON files from <code>Takeout/Classroom/</code>.<br><strong>CSV:</strong> header row with <code>title,date,description</code>.<br><strong>JSON:</strong> array of objects or a Takeout export.</div>
-      </div>
-      <div class="field">
-        <label class="label">Upload file(s)</label>
-        <input class="input" type="file" id="import-file" accept=".csv,.json,.txt" multiple>
-      </div>
-      <div class="field">
-        <label class="label">…or paste contents</label>
-        <textarea class="textarea" id="import-text" placeholder='title,date,description
-Chapter 5,2026-09-25,Complete questions 1-12' style="min-height:150px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
-      </div>`,
-    footer: `
-      <button class="btn btn-ghost" data-close>Cancel</button>
-      <button class="btn btn-primary" id="import-go">Import</button>`,
-    onMount(el, close){
-      $('#import-go', el).addEventListener('click', async () => {
-        const files = $('#import-file', el).files;
-        const text = $('#import-text', el).value.trim();
-        if (!files.length && !text){ toast('Choose a file or paste some content', 'warn'); return; }
-        let totals = { assignments: 0, notices: 0, events: 0 };
-        try {
-          if (files.length){
-            for (const f of files){
-              const content = await f.text();
-              const r = await importAnyFile(content, f.name);
-              totals.assignments += r.assignments || 0;
-              totals.notices += r.notices || 0;
-              totals.events += r.events || 0;
-            }
-          } else {
-            const r = await importAnyFile(text, 'pasted');
-            totals.assignments += r.assignments || 0;
-            totals.notices += r.notices || 0;
-            totals.events += r.events || 0;
-          }
-          close();
-          const parts = [];
-          if (totals.assignments) parts.push(`${totals.assignments} task${totals.assignments===1?'':'s'}`);
-          if (totals.notices) parts.push(`${totals.notices} notice${totals.notices===1?'':'s'}`);
-          if (totals.events) parts.push(`${totals.events} event${totals.events===1?'':'s'}`);
-          toast(parts.length ? `Imported ${parts.join(', ')}` : 'Nothing new to import', 'success', 'Import complete');
-          render();
-        } catch (err){
-          toast(`Could not import: ${err.message}`, 'error');
-        }
-      });
-    }
-  });
-}
-
-async function importAnyFile(text, filename){
-  const trimmed = text.trim();
-  if (trimmed.startsWith('{') || trimmed.startsWith('[')){
-    let parsed;
-    try { parsed = JSON.parse(trimmed); }
-    catch (e) { throw new Error(`Invalid JSON: ${e.message}`); }
-
-    // Bookmarklet format
-    if ((parsed.studentos === 'classroom' || parsed.studentos === 'classroom-text') && Array.isArray(parsed.items)){
-      const classroomItems = parseClassroomJSON(trimmed);
-      if (classroomItems){
-        const r = await importItems(classroomItems, 'Google Classroom');
-        return { assignments: r.added, notices: 0, events: 0 };
-      }
-    }
-
-    // Takeout detection
-    const looksLikeTakeout =
-      parsed.courseWork || parsed.coursework || parsed.topics ||
-      parsed.courseState || parsed.enrollmentCode ||
-      (Array.isArray(parsed) && parsed.some(x => x && (x.courseWork || x.coursework)));
-
-    if (looksLikeTakeout) {
-      const r = await importTakeout(parsed);
-      return { assignments: r.assignments, notices: r.notices, events: 0 };
-    }
-
-    // Generic JSON
-    const arr = Array.isArray(parsed) ? parsed : (parsed.notices || parsed.items || []);
-    const assignments = [], notices = [], events = [];
-    for (const x of arr){
-      const type = (x.type || x.kind || '').toLowerCase();
-      if (type === 'event' || x.start) events.push(x);
-      else if (['notice','announcement','school notice'].includes(type)) notices.push(x);
-      else if (['assignment','homework','test','exam','project'].includes(type)) assignments.push(x);
-      else notices.push(x);
-    }
-    let a = { added:0, merged:0 };
-    if (assignments.length){
-      a = await importItems(assignments.map(x => ({
-        id: `imp-${uid()}`,
-        title: x.title || x.subject || 'Imported item',
-        description: x.description || x.body || '',
-        typeHint: x.type || x.kind,
-        dueDate: x.dueDate ? new Date(x.dueDate).getTime() : (x.date ? new Date(x.date).getTime() : null),
-        subject: x.subject, url: x.url || ''
-      })), 'Import');
-    }
-    const n = await importNotices(notices.map(x => ({
-      id: `imp-${uid()}`,
-      title: x.title || x.name || 'Notice',
-      description: x.body || x.description || x.text || '',
-      date: x.date ? new Date(x.date).getTime() : now(),
-      url: x.url || '', kind: x.type || x.kind || 'Notice'
-    })), 'Import');
-    for (const e of (parsed.events || events)){
-      if (eventExists(e.title || e.name, e.start || e.date)) continue;
-      await Store.put('events', {
-        id: `imp-${uid()}`,
-        title: sanitiseText(e.title || e.name || 'Event', 200),
-        description: sanitiseText(e.description || '', 2000),
-        start: e.start ? new Date(e.start).getTime() : (e.date ? new Date(e.date).getTime() : now()),
-        source: 'Import', manual: false, createdAt: now()
-      });
-    }
-    return { assignments: a.added, notices: n, events: events.length };
-  }
-
-  // CSV
-  const lines = trimmed.split(/\r?\n/).filter(Boolean);
-  if (lines.length < 2) throw new Error('No data rows found');
-  const header = parseCsvLine(lines[0]).map(h => h.toLowerCase());
-  const rows = lines.slice(1).map(parseCsvLine);
-  const idxTitle = header.findIndex(h => h.includes('title') || h.includes('name') || h.includes('subject'));
-  const idxDate = header.findIndex(h => h.includes('date') || h.includes('due'));
-  const idxDesc = header.findIndex(h => h.includes('desc') || h.includes('body') || h.includes('detail'));
-  const idxType = header.findIndex(h => h.includes('type') || h.includes('kind'));
-  const idxSubj = header.findIndex(h => h.includes('subject') || h.includes('course'));
-  if (idxTitle === -1) throw new Error('No "title" column found');
-  const items = rows.filter(r => r.length).map(r => ({
-    id: `csv-${uid()}`,
-    title: r[idxTitle] || '',
-    date: idxDate >= 0 && r[idxDate] ? new Date(r[idxDate]).getTime() : null,
-    description: idxDesc >= 0 ? (r[idxDesc] || '') : '',
-    type: idxType >= 0 ? r[idxType] : '',
-    subject: idxSubj >= 0 ? r[idxSubj] : ''
-  }));
-  const assignments = items.filter(i => ['assignment','homework','test','exam','project'].includes((i.type||'').toLowerCase()));
-  const others = items.filter(i => !assignments.includes(i));
-  const a = assignments.length ? await importItems(assignments.map(x => ({ ...x, dueDate: x.date })), 'Import') : { added:0 };
-  const n = await importNotices(others.map(x => ({ ...x, date: x.date || now(), kind: x.type || 'Notice' })), 'Import');
-  return { assignments: a.added, notices: n, events: 0 };
-}
-
-function parseCsvLine(line){
-  const out = []; let cur = ''; let q = false;
-  for (let i = 0; i < line.length; i++){
-    const c = line[i];
-    if (c === '"'){ if (q && line[i+1] === '"'){ cur += '"'; i++; } else q = !q; }
-    else if (c === ',' && !q){ out.push(cur.trim()); cur = ''; }
-    else cur += c;
-  }
-  out.push(cur.trim());
-  return out;
 }
 
 function openAssignmentModal(existing, presetType){
@@ -3961,7 +3612,7 @@ function openEffortModal(existing){
         })).filter(r => r.subject);
         if (!ratings.length){ toast('Add at least one subject', 'error'); return; }
         const dateVal2 = $('#e-date', el).value;
-        const date = dateVal2 ? new Date(dateVal2 + 'T15:00:00').getTime() : lastFriday();
+        const date = dateVal2 ? new Date(dateVal2 + 'T15:00:00').getTime() : Date.now();
         const wk = isoWeekKey(date);
         const record = {
           id: existing?.id || uid(),
@@ -3983,7 +3634,7 @@ function effortRowHtml(subject, rating, idx){
   return `<div class="effort-edit-row" data-row="${idx}">
     <input class="input subject effort-subject" placeholder="Subject name" value="${escapeHtml(subject || '')}">
     <div class="effort-rating-options">
-      ${[1,2,3,4,5].map(n => `<button type="button" class="effort-rating-btn ${rating === n ? 'on' : ''} ${ratingClass(n)}" data-rating="${n}">${n}</button>`).join('')}
+      ${[1,2,3,4,5].map(n => `<button type="button" class="effort-rating-btn ${rating === n ? 'on' : ''} ${rating === n ? ratingClass(n) : ''}" data-rating="${n}">${n}</button>`).join('')}
     </div>
     <button class="icon-btn effort-del" style="color:var(--red-600)">✕</button>
   </div>`;
@@ -4020,7 +3671,7 @@ function openAddCalendarModal(){
       <div class="field">
         <label class="label">ICS URL</label>
         <input class="input" id="cal-url" placeholder="https://…/basic.ics" style="font-family:ui-monospace,monospace;font-size:12px">
-        <div class="hint">The URL must end in <code>.ics</code> or serve an ICS feed. Not the /calendar/embed URL.</div>
+        <div class="hint">Must be an .ics feed, not the /calendar/embed URL.</div>
       </div>`,
     footer: `
       <button class="btn btn-ghost" data-close>Cancel</button>
@@ -4030,7 +3681,7 @@ function openAddCalendarModal(){
         const name = $('#cal-name', el).value.trim() || 'Calendar';
         const url = $('#cal-url', el).value.trim();
         if (!url || !/^https?:\/\//.test(url)){ toast('Please paste a valid URL', 'error'); return; }
-        if (url.includes('/calendar/embed')){ toast('That\'s the embed URL — you need the ICS URL. Look for "Secret address in iCal format".', 'error'); return; }
+        if (url.includes('/calendar/embed')){ toast('That\'s the embed URL — you need the ICS URL.', 'error'); return; }
         Store.cache.settings.calendarSubscriptions.push({
           id: uid(), name, url, builtin: false, lastSync: null, count: 0, error: null
         });
@@ -4085,20 +3736,20 @@ function renderOnb(){
     </div>`;
   } else if (onbStep === 2){
     body = `<div class="onb-content">
-      <h2>How would you like to start?</h2>
-      <p class="lead">Classroom import is the fastest path — one bookmarklet, no setup.</p>
+      <h2>How would you like to import?</h2>
+      <p class="lead">Both work on school accounts — pick whichever you prefer.</p>
       <div class="onb-cards">
-        <button class="onb-card ${onbData.path === 'classroom' ? 'on' : ''}" data-onb-card="classroom">
-          <div class="onb-card-ico">🎓</div>
-          <div class="onb-card-body"><h4>Import from Google Classroom</h4><p>Drag one button to your bookmarks bar. Two clicks per sync. Works on any school account.</p></div>
-        </button>
         <button class="onb-card ${onbData.path === 'paste' ? 'on' : ''}" data-onb-card="paste">
-          <div class="onb-card-ico">⚡</div>
-          <div class="onb-card-body"><h4>Paste my school emails</h4><p>Paste any email and StudentOS extracts the tasks automatically.</p></div>
+          <div class="onb-card-ico">📋</div>
+          <div class="onb-card-body"><h4>Paste from Classroom (instant)</h4><p>Copy your To-do list, paste it in. Works right now, no setup.</p></div>
+        </button>
+        <button class="onb-card ${onbData.path === 'autosync' ? 'on' : ''}" data-onb-card="autosync">
+          <div class="onb-card-ico">🔄</div>
+          <div class="onb-card-body"><h4>Auto-sync (one-time setup)</h4><p>5-minute Apps Script setup in your own Google account. After that, updates are automatic.</p></div>
         </button>
         <button class="onb-card ${onbData.path === 'effort' ? 'on' : ''}" data-onb-card="effort">
           <div class="onb-card-ico">📊</div>
-          <div class="onb-card-body"><h4>Track my weekly effort reports</h4><p>Log your Friday ratings and see your progress over time.</p></div>
+          <div class="onb-card-body"><h4>Just track effort reports</h4><p>Log your Friday ratings and see progress over time.</p></div>
         </button>
       </div>
     </div>
@@ -4112,16 +3763,16 @@ function renderOnb(){
       <p class="lead">Four things to know:</p>
       <div class="onb-feature-list">
         <div class="onb-feature">
-          <div class="onb-feature-ico">🎓</div>
-          <div><strong>Classroom import</strong>Drag the bookmarklet once, then two clicks per sync.</div>
+          <div class="onb-feature-ico">📋</div>
+          <div><strong>Paste from Classroom</strong>Copy the To-do page, paste in. Skip the "No due date" section.</div>
         </div>
         <div class="onb-feature">
-          <div class="onb-feature-ico">📅</div>
-          <div><strong>School calendar auto-syncs</strong>Events flow in automatically every time you open the app.</div>
+          <div class="onb-feature-ico">🔄</div>
+          <div><strong>Auto-sync</strong>Optional one-time Apps Script setup — after that, it just runs.</div>
         </div>
         <div class="onb-feature">
           <div class="onb-feature-ico">⚡</div>
-          <div><strong>Smart Paste</strong>Press <kbd>P</kbd> anywhere to paste an email.</div>
+          <div><strong>Smart Paste</strong>Press <kbd>P</kbd> anywhere for emails and notices.</div>
         </div>
         <div class="onb-feature">
           <div class="onb-feature-ico">📊</div>
@@ -4156,14 +3807,15 @@ function renderOnb(){
       if (action === 'next' && onbStep === 2){ onbStep = 3; renderOnb(); return; }
       if (action === 'finish'){
         closeOnboarding();
-        if (onbData.path === 'classroom'){
+        if (onbData.path === 'paste'){
+          location.hash = '#/dashboard';
+          setTimeout(() => openClassroomPasteModal(), 400);
+        } else if (onbData.path === 'autosync'){
           location.hash = '#/integrations';
-          setTimeout(() => openBookmarkletModal(), 400);
+          setTimeout(() => openAppsScriptModal(), 400);
         } else if (onbData.path === 'effort'){
           location.hash = '#/effort';
           setTimeout(() => openEffortModal(), 400);
-        } else if (onbData.path === 'paste'){
-          setTimeout(() => openSmartPaste(), 300);
         } else {
           location.hash = '#/dashboard';
         }
@@ -4414,24 +4066,18 @@ async function onUserSignedIn(user){
   const removedEvents = await dedupeExistingEvents();
   const removedItems = await dedupeExistingAssignments();
   if (removedEvents + removedItems > 0){
-    console.log(`Cleaned up ${removedEvents} duplicate events and ${removedItems} duplicate assignments on load`);
+    console.log(`Cleaned ${removedEvents} duplicate events and ${removedItems} duplicate assignments on load`);
   }
 
   document.documentElement.dataset.theme = Store.cache.settings.theme || 'light';
-  GoogleAuth.restore();
   showApp();
   render();
   checkDueSoon();
 
+  // Auto-sync calendar and Apps Script (silently) shortly after load
   setTimeout(() => {
-    syncCalendarSubscriptions().then(async r => {
-      const removed = await dedupeExistingEvents();
-      if (r.added || removed){
-        setSyncUI('ok', `Synced ${relativeTime(now())}`);
-        render();
-      }
-    }).catch(e => console.warn('Calendar auto-sync failed', e));
-  }, 500);
+    syncAll({ silent: true });
+  }, 800);
 
   if (!Store.cache.settings.onboardingSeen){
     setTimeout(() => showOnboarding(), 700);
@@ -4439,7 +4085,6 @@ async function onUserSignedIn(user){
 }
 async function signOut(){
   if (FB.auth){ try { await FB.mod.signOut(FB.auth); } catch {} }
-  GoogleAuth.revoke();
   try { localStorage.removeItem(LS_SESSION); } catch {}
   App.user = null; Store.uid = null; Store.cache = null;
   location.hash = '';
@@ -4457,9 +4102,9 @@ function seedDemoData(){
     { id:'c3', name:'English', section:'10B', room:'E7' }
   ];
   d.assignments = [
-    { id:'a1', title:'Chapter 5 questions', description:'Complete questions 1–12 on quadratic equations.', type:'Homework', subject:'Maths', dueDate: today + day, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*2 },
-    { id:'a2', title:'Science test — chapters 4 to 6', description:'Unit test covering ecosystems and food chains.', type:'Test', subject:'Science', dueDate: today + day*3, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*3 },
-    { id:'a3', title:'Read chapters 3–4 of the novel', description:'Annotate key themes.', type:'Homework', subject:'English', dueDate: today + day*5, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'medium', mergedCount:1, createdAt: now() - day }
+    { id:'a1', title:'Chapter 5 questions', description:'From Maths', type:'Homework', subject:'Maths', dueDate: today + day, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*2 },
+    { id:'a2', title:'Science test — chapters 4 to 6', description:'From Science', type:'Test', subject:'Science', dueDate: today + day*3, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*3 },
+    { id:'a3', title:'Read chapters 3–4 of the novel', description:'From English', type:'Homework', subject:'English', dueDate: today + day*5, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'medium', mergedCount:1, createdAt: now() - day }
   ];
   d.events = [
     { id:'e1', title:'Whole school assembly', description:'Sports awards and term overview.', start: today + day*1 + 9*3600000, source:'School Calendar', manual:false, createdAt: now() - day*2 },
@@ -4487,22 +4132,6 @@ function seedDemoData(){
       { subject:'PE', rating:5 },{ subject:'Art', rating:4 }
     ])
   ];
-  const mkNote = (id, title, body, kind, daysAgo, source, extra = {}) => {
-    const date = today + daysAgo * day;
-    const wk = isoWeekKey(date);
-    return { id, title, body, date, kind, source, weekKey: wk.key, weekNumber: wk.week, weekYear: wk.year, url:'', read:false, important:false, saved:false, createdAt: now() - Math.abs(daysAgo)*day, ...extra };
-  };
-  d.weeklyNotes = [
-    mkNote('n1','Assembly Tuesday — sports awards','Whole school assembly in the hall at 9am.','School Notice', 1, 'School Calendar'),
-    mkNote('n2','Mufti Day Friday','Bring a gold coin donation.','School Notice', 4, 'School Calendar')
-  ];
-  d.notifications = [
-    { id:'nt1', kind:'test', title:'New test: Science test', body:'On Wednesday · Science', link:'#/assignments', read:false, dedupeKey:'test:a2', createdAt: now() - 3600000 },
-    { id:'nt2', kind:'assignment', title:'New homework: Chapter 5 questions', body:'Due tomorrow · Maths', link:'#/assignments', read:false, dedupeKey:'new:a1', createdAt: now() - 7200000 }
-  ];
-  d.integrations = {
-    classroom: { id:'classroom', connected:true, lastSync: now() - 300000, imported: 3, method:'bookmarklet', demo:true }
-  };
   d.settings.timetable = [
     { day:1, start:'09:00', end:'10:00', subject:'Maths', room:'M12' },
     { day:1, start:'10:05', end:'11:05', subject:'English', room:'E7' },
@@ -4575,7 +4204,7 @@ function wireGlobalUI(){
     if (e.key === '?' || (e.shiftKey && e.key === '/')){ e.preventDefault(); openHelpModal(); return; }
     const k = e.key.toLowerCase();
     if (k === 'n'){ e.preventDefault(); openAssignmentModal(null, 'Assignment'); return; }
-    if (k === 'p'){ e.preventDefault(); openSmartPaste(); return; }
+    if (k === 'p'){ e.preventDefault(); openClassroomPasteModal(); return; }
     if (k === 'e'){ e.preventDefault(); openEffortModal(); return; }
     if (k === 's'){ e.preventDefault(); $('#sync-btn')?.click(); return; }
     if (k === 'g'){ gPressed = true; setTimeout(() => { gPressed = false; }, 800); return; }
@@ -4593,6 +4222,24 @@ function wireGlobalUI(){
     if (sync){ syncOne(sync.dataset.sync); return; }
   });
 }
+async function syncOne(key){
+  const btn = document.querySelector(`[data-sync="${key}"]`);
+  if (btn){ btn.disabled = true; btn.textContent = 'Syncing…'; }
+  try {
+    if (key === 'calendar'){
+      const r = await syncCalendarSubscriptions();
+      const removed = await dedupeExistingEvents();
+      toast(`${r.added} new event${r.added===1?'':'s'}${removed ? `, ${removed} duplicate${removed===1?'':'s'} removed` : ''}`, 'success', 'Calendar synced');
+    }
+    await checkDueSoon();
+    setSyncUI('ok', `Synced ${relativeTime(now())}`);
+  } catch (err){
+    toast(err.message, 'error', 'Sync failed');
+  } finally {
+    if (btn){ btn.disabled = false; btn.textContent = 'Sync'; }
+    render();
+  }
+}
 function toggleFab(){
   App.fabOpen = !App.fabOpen;
   $('#fab').classList.toggle('open', App.fabOpen);
@@ -4601,14 +4248,11 @@ function toggleFab(){
 }
 function renderFabMenu(){
   $('#fab-menu').innerHTML = `
-    <button class="fab-item highlight" data-quick="get-bookmarklet">
-      <span class="fab-ico">🎓</span><span>Import from Classroom</span><span class="fab-badge">NEW</span>
-    </button>
     <button class="fab-item highlight" data-quick="paste-classroom">
-      <span class="fab-ico">📋</span><span>Paste from Classroom</span>
+      <span class="fab-ico">📋</span><span>Paste from Classroom</span><kbd>P</kbd>
     </button>
-    <button class="fab-item" data-quick="open-paste">
-      <span class="fab-ico">⚡</span><span>Smart Paste (email)</span><kbd>P</kbd>
+    <button class="fab-item" data-quick="setup-apps-script">
+      <span class="fab-ico">🔄</span><span>Auto-sync setup</span>
     </button>
     <button class="fab-item" data-quick="log-effort">
       <span class="fab-ico">📊</span><span>Log effort report</span><kbd>E</kbd>
@@ -4619,21 +4263,18 @@ function renderFabMenu(){
     <button class="fab-item" data-quick="new-event"><span class="fab-ico">📅</span><span>Event</span></button>
     <button class="fab-item" data-quick="new-note"><span class="fab-ico">📢</span><span>Note / notice</span></button>
     <div class="menu-sep"></div>
-    <button class="fab-item" data-quick="open-import"><span class="fab-ico">📁</span><span>Import from file</span></button>
     <button class="fab-item" data-quick="sync-now"><span class="fab-ico">🔄</span><span>Sync everything</span></button>`;
   $$('#fab-menu .fab-item').forEach(btn => {
     btn.addEventListener('click', () => {
       const q = btn.dataset.quick;
       toggleFab();
-      if (q === 'get-bookmarklet') openBookmarkletModal();
-      else if (q === 'paste-classroom') openClassroomPasteModal();
-      else if (q === 'open-paste') openSmartPaste();
+      if (q === 'paste-classroom') openClassroomPasteModal();
+      else if (q === 'setup-apps-script') openAppsScriptModal();
       else if (q === 'log-effort') openEffortModal();
       else if (q === 'new-assignment') openAssignmentModal(null, 'Assignment');
       else if (q === 'new-test') openAssignmentModal(null, 'Test');
       else if (q === 'new-event') openAssignmentModal(null, 'Event');
       else if (q === 'new-note') openNoteFormModal();
-      else if (q === 'open-import') openImportModal();
       else if (q === 'sync-now') syncAll({ silent: false });
     });
   });
@@ -4643,7 +4284,7 @@ function openHelpModal(){
     title: 'Keyboard shortcuts',
     subtitle: 'Press ? anytime to see this',
     body: `<div class="shortcut-grid">
-      <div class="shortcut-row"><span>Smart Paste</span><kbd>P</kbd></div>
+      <div class="shortcut-row"><span>Paste from Classroom</span><kbd>P</kbd></div>
       <div class="shortcut-row"><span>Effort report</span><kbd>E</kbd></div>
       <div class="shortcut-row"><span>New assignment</span><kbd>N</kbd></div>
       <div class="shortcut-row"><span>Search</span><kbd>/</kbd></div>
@@ -4738,14 +4379,13 @@ async function boot(){
 boot();
 
 window.StudentOS = {
-  version: '2.1.0',
+  version: '3.0.0',
   get state(){ return Store.cache; },
   get config(){ return loadConfig(); },
-  syncAll, clearConfig, exportData,
-  showOnboarding, openSmartPaste, openEffortModal, openTakeoutGuide,
-  openBookmarkletModal, openClassroomPasteModal,
-  dedupeExistingEvents, dedupeExistingAssignments, cleanBadSubscriptions,
-  BOOKMARKLET_CODE
+  syncAll, exportData,
+  showOnboarding, openSmartPaste, openEffortModal,
+  openClassroomPasteModal, openAppsScriptModal,
+  dedupeExistingEvents, dedupeExistingAssignments
 };
 </script>
 </body>
