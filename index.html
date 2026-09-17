@@ -288,7 +288,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .next-item.urgent .next-rank{background:var(--red-500)}
 .next-item.high .next-rank{background:var(--amber-500)}
 .next-item.low .next-rank{background:var(--gray-400)}
-.effort-banner{background:linear-gradient(135deg,var(--violet-50) 0%,var(--indigo-50) 100%);border:1px solid rgba(139,92,246,.25);border-radius:var(--radius-lg);padding:20px;margin-bottom:20px}
 .effort-avg{display:inline-flex;align-items:baseline;gap:4px;padding:6px 14px;border-radius:99px;background:var(--surface);font-size:13px;font-weight:700;color:var(--text);border:1px solid var(--border)}
 .effort-avg b{font-size:20px;color:var(--violet-600);letter-spacing:-.02em}
 [data-theme="dark"] .effort-avg b{color:var(--violet-500)}
@@ -303,7 +302,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .effort-bar-fill.r4{background:linear-gradient(90deg,#84cc16,#a3e635)}
 .effort-bar-fill.r5{background:linear-gradient(90deg,#10b981,#34d399)}
 .effort-bar-val{width:40px;flex:none;text-align:right;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
-.effort-cell{display:inline-grid;place-items:center;width:38px;height:34px;border-radius:8px;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
 .checklist-card{background:linear-gradient(135deg,var(--indigo-50) 0%,var(--violet-50) 100%);border:1px solid var(--indigo-200);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:24px}
 [data-theme="dark"] .checklist-card{background:linear-gradient(135deg,rgba(99,102,241,.16) 0%,rgba(139,92,246,.12) 100%);border-color:var(--border)}
 .checklist-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
@@ -345,12 +343,13 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .paste-item-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:11.5px}
 .paste-item-meta select,.paste-item-meta input{font-size:11.5px;padding:3px 8px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-weight:600}
 .paste-empty{text-align:center;padding:50px 20px;color:var(--text-3);font-size:13px;line-height:1.6}
-.paste-hint{display:flex;align-items:flex-start;gap:8px;padding:11px 13px;background:var(--violet-50);color:var(--violet-600);border-radius:9px;font-size:12.5px;line-height:1.55;border:1px solid rgba(139,92,246,.2)}
-.paste-hint strong{font-weight:700}
 .format-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:99px;font-size:12px;font-weight:700;background:var(--primary-soft);color:var(--primary);border:1px solid rgba(99,102,241,.3)}
 .format-badge.email{background:var(--sky-50);color:#0284c7;border-color:rgba(14,165,233,.3)}
 .format-badge.classroom{background:var(--green-50);color:var(--green-600);border-color:rgba(16,185,129,.3)}
 .format-badge.generic{background:var(--violet-50);color:var(--violet-600);border-color:rgba(139,92,246,.3)}
+.format-badge.ai{background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(99,102,241,.15));color:var(--violet-600);border-color:rgba(139,92,246,.4)}
+.format-badge.ai.working{animation:aiPulse 1.4s ease-in-out infinite}
+@keyframes aiPulse{0%,100%{opacity:1}50%{opacity:.6}}
 .howto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:16px 0}
 .howto-step{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:13px 14px;display:flex;gap:11px;align-items:flex-start}
 .howto-num{width:26px;height:26px;border-radius:8px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:800;flex:none}
@@ -377,7 +376,7 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 @media(max-width:640px){.set-row{flex-direction:column;gap:10px}.set-control{width:100%}}
 code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5px;background:var(--gray-100);padding:2px 6px;border-radius:5px}
 [data-theme="dark"] code{background:var(--surface-2)}
-.spinner{width:15px;height:15px;border:2px solid var(--border-strong);border-top-color:var(--primary);border-radius:99px;animation:spin .7s linear infinite;flex:none}
+.spinner{width:15px;height:15px;border:2px solid var(--border-strong);border-top-color:var(--primary);border-radius:99px;animation:spin .7s linear infinite;flex:none;display:inline-block}
 .sync-spinner{width:12px;height:12px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:99px;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .shortcut-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -432,7 +431,6 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .fab-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;font-size:13.5px;font-weight:500;width:100%;text-align:left;transition:.13s;color:var(--text)}
 .fab-item:hover{background:var(--surface-2)}
 .fab-item.highlight{background:var(--violet-50)}
-.fab-item kbd{margin-left:auto;font-size:10.5px}
 .onboarding{position:fixed;inset:0;z-index:1500;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px;animation:fadeIn .2s ease;overflow-y:auto}
 .onboarding-card{background:var(--surface);border-radius:var(--radius-xl);width:100%;max-width:580px;box-shadow:var(--shadow-xl);padding:32px 32px 26px;position:relative;animation:slideUp .3s cubic-bezier(.2,.9,.3,1);margin:auto}
 .onboarding-skip{position:absolute;top:16px;right:16px;font-size:12.5px;font-weight:600;color:var(--text-3);padding:6px 10px;border-radius:8px}
@@ -443,7 +441,6 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .onb-content p.lead{font-size:15px;color:var(--text-2);line-height:1.6;margin-bottom:22px}
 .onb-cards{display:grid;gap:10px;margin-bottom:20px}
 .onb-card{display:flex;gap:13px;align-items:flex-start;padding:14px 16px;border:2px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:.15s;text-align:left;background:var(--surface);width:100%}
-.onb-card:hover{border-color:var(--border-strong);background:var(--surface-2)}
 .onb-card.on{border-color:var(--primary);background:var(--primary-soft)}
 .onb-card-ico{font-size:22px;flex:none;line-height:1.2}
 .onb-card-body h4{font-size:14.5px;margin-bottom:3px;font-weight:700}
@@ -452,6 +449,7 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .onb-feature-list{display:flex;flex-direction:column;gap:12px;margin-bottom:8px}
 .onb-feature{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.55}
 .onb-feature-ico{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;flex:none;background:var(--primary-soft);font-size:16px}
+.onb-feature strong{display:block;margin-bottom:1px}
 .toasts{position:fixed;bottom:22px;left:22px;z-index:2000;display:flex;flex-direction:column;gap:10px;pointer-events:none}
 .toast{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--primary);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:12px 16px;min-width:270px;max-width:380px;display:flex;gap:11px;align-items:flex-start;pointer-events:auto;animation:toastIn .24s cubic-bezier(.2,.9,.3,1)}
 @keyframes toastIn{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
@@ -478,16 +476,16 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
     <div class="auth-hero-inner">
       <div class="brand brand-light"><span class="brand-mark">S</span><span>StudentOS</span></div>
       <h1 class="auth-headline">Every assignment, test and effort report.<br>One calm dashboard.</h1>
-      <p class="auth-sub">Paste your Classroom To-do, any school email, or a list. StudentOS figures out what it is and sorts it out.</p>
+      <p class="auth-sub">Paste anything — Classroom, an email, a message. StudentOS figures it out and plans around your week.</p>
       <ul class="auth-features">
-        <li><span class="tick">✓</span> <strong>Smart Paste</strong> — Classroom, emails, anything</li>
-        <li><span class="tick">✓</span> <strong>Upload your effort report PDF</strong></li>
-        <li><span class="tick">✓</span> <strong>Study planner</strong> — works around your tutoring and sport</li>
+        <li><span class="tick">✓</span> <strong>Smart Paste</strong> — works with any source, optionally AI-powered</li>
+        <li><span class="tick">✓</span> <strong>Upload your effort report PDF</strong> — auto-reads every subject</li>
+        <li><span class="tick">✓</span> <strong>Study planner</strong> — schedules around tutoring and sport</li>
       </ul>
       <div class="auth-badges">
         <span class="chip chip-glass">$0 to run</span>
         <span class="chip chip-glass">No admin approval</span>
-        <span class="chip chip-glass">Your data stays yours</span>
+        <span class="chip chip-glass">Works offline</span>
       </div>
     </div>
   </aside>
@@ -548,7 +546,7 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
       <div id="search-results" class="search-results" hidden></div>
     </div>
     <div class="topbar-actions">
-      <button class="btn btn-primary btn-sm" id="smart-paste-btn" title="Smart paste anything (P)">
+      <button class="btn btn-primary btn-sm" id="smart-paste-btn" title="Smart Paste (P)">
         ✨ <span>Smart Paste</span>
       </button>
       <button class="btn btn-ghost btn-sm" id="sync-btn" title="Sync school calendar">
@@ -618,10 +616,7 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 
 <script type="module">
 /* ================================================================
-   STUDENTOS v4.1
-   — Smart Paste now detects Classroom / Email / Plain text
-   — Subject normalisation (PE = Health = PE & Health, etc.)
-   — PDF effort reports, activity-aware study planner
+   STUDENTOS v4.2 — AI-assisted Smart Paste
    ================================================================ */
 
 const LS_CONFIG = 'studentos.config.v1';
@@ -629,6 +624,21 @@ const LS_SESSION = 'studentos.session.v1';
 const LS_DATA = uid => `studentos.data.${uid}.v1`;
 const PDFJS_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
 const PDFJS_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+const AI_PROVIDER_INFO = {
+  gemini: {
+    name: 'Google Gemini',
+    keyUrl: 'https://aistudio.google.com/app/apikey',
+    defaultModel: 'gemini-2.0-flash',
+    hint: 'Free tier: 15 requests/minute, no card required.'
+  },
+  openai: {
+    name: 'OpenAI',
+    keyUrl: 'https://platform.openai.com/api-keys',
+    defaultModel: 'gpt-4o-mini',
+    hint: 'Pay-as-you-go — gpt-4o-mini is very cheap for this use.'
+  }
+};
 
 const DEFAULT_CONFIG = {
   firebase: {
@@ -661,124 +671,51 @@ const DEFAULT_SETTINGS = {
   notifyNewAssignment: true,
   notifyDueSoon: true,
   notifyNewTest: true,
-  onboardingSeen: false
+  onboardingSeen: false,
+  aiProvider: 'off',
+  aiApiKey: '',
+  aiModel: ''
 };
 
-/* ── SUBJECT NORMALIZATION ──────────────────────────────────────
-   Different sources call the same subject different things.
-   PE, Health, PE & Health, Physical Education — all the same thing.
-   This map collapses every variant to one canonical name. */
 const SUBJECT_ALIASES = {
-  // PE / Health family
-  'pe': 'PE & Health',
-  'p.e.': 'PE & Health',
-  'p.e': 'PE & Health',
-  'phys ed': 'PE & Health',
-  'physed': 'PE & Health',
-  'physical education': 'PE & Health',
-  'physical education and health': 'PE & Health',
-  'physical ed': 'PE & Health',
-  'pe & health': 'PE & Health',
-  'pe and health': 'PE & Health',
-  'pe/health': 'PE & Health',
-  'health': 'PE & Health',
-  'health and physical education': 'PE & Health',
-  'hpe': 'PE & Health',
-  // Mathematics
-  'math': 'Mathematics',
-  'maths': 'Mathematics',
-  'mathematics': 'Mathematics',
-  'maths methods': 'Mathematics',
-  'mathematics methods': 'Mathematics',
-  // English
-  'english': 'English',
-  'eng': 'English',
-  // Sciences
-  'science': 'Science',
-  'sci': 'Science',
-  'biology': 'Biology',
-  'bio': 'Biology',
-  'chemistry': 'Chemistry',
-  'chem': 'Chemistry',
-  'physics': 'Physics',
-  'phys': 'Physics',
-  // Social sciences
-  'history': 'History',
-  'hist': 'History',
-  'geography': 'Geography',
-  'geo': 'Geography',
-  'social studies': 'Social Studies',
-  'social science': 'Social Studies',
-  'social sciences': 'Social Studies',
-  'soc sci': 'Social Studies',
-  'economics': 'Economics',
-  'econ': 'Economics',
-  'eco': 'Economics',
-  'accounting': 'Accounting',
-  'acc': 'Accounting',
-  'accnt': 'Accounting',
-  'business': 'Business',
-  'business studies': 'Business',
+  'pe': 'PE & Health','p.e.': 'PE & Health','p.e': 'PE & Health','phys ed': 'PE & Health','physed': 'PE & Health',
+  'physical education': 'PE & Health','physical education and health': 'PE & Health','physical ed': 'PE & Health',
+  'pe & health': 'PE & Health','pe and health': 'PE & Health','pe/health': 'PE & Health','health': 'PE & Health',
+  'health and physical education': 'PE & Health','hpe': 'PE & Health',
+  'math': 'Mathematics','maths': 'Mathematics','mathematics': 'Mathematics','maths methods': 'Mathematics','mathematics methods': 'Mathematics',
+  'english': 'English','eng': 'English',
+  'science': 'Science','sci': 'Science',
+  'biology': 'Biology','bio': 'Biology',
+  'chemistry': 'Chemistry','chem': 'Chemistry',
+  'physics': 'Physics','phys': 'Physics',
+  'history': 'History','hist': 'History',
+  'geography': 'Geography','geo': 'Geography',
+  'social studies': 'Social Studies','social science': 'Social Studies','social sciences': 'Social Studies','soc sci': 'Social Studies',
+  'economics': 'Economics','econ': 'Economics','eco': 'Economics',
+  'accounting': 'Accounting','acc': 'Accounting','accnt': 'Accounting',
+  'business': 'Business','business studies': 'Business',
   'commerce': 'Commerce',
-  'media studies': 'Media Studies',
-  'media': 'Media Studies',
-  'classical studies': 'Classical Studies',
-  'classics': 'Classical Studies',
-  // Arts
-  'art': 'Art',
-  'visual art': 'Art',
-  'visual arts': 'Art',
+  'media studies': 'Media Studies','media': 'Media Studies',
+  'classical studies': 'Classical Studies','classics': 'Classical Studies',
+  'art': 'Art','visual art': 'Art','visual arts': 'Art',
   'music': 'Music',
   'drama': 'Drama',
   'dance': 'Dance',
-  // Technology
-  'ict': 'Digital Technology',
-  'computing': 'Digital Technology',
-  'computer science': 'Digital Technology',
-  'computer studies': 'Digital Technology',
-  'digital technology': 'Digital Technology',
-  'digital tech': 'Digital Technology',
-  'digital technologies': 'Digital Technology',
-  'technology': 'Technology',
-  'tech': 'Technology',
-  'hard materials': 'Technology',
-  'soft materials': 'Technology',
-  'food technology': 'Food Technology',
-  'food tech': 'Food Technology',
-  'graphics': 'Design',
-  'design': 'Design',
-  'dvc': 'Design',
-  // Languages
-  'te reo': 'Te Reo Maori',
-  'te reo maori': 'Te Reo Maori',
-  'te reo māori': 'Te Reo Maori',
-  'maori': 'Te Reo Maori',
-  'māori': 'Te Reo Maori',
-  'french': 'French',
-  'spanish': 'Spanish',
-  'german': 'German',
-  'japanese': 'Japanese',
-  'chinese': 'Chinese',
-  // Religious Ed
-  're': 'Religious Education',
-  'r.e.': 'Religious Education',
-  'religious education': 'Religious Education',
-  'religious ed': 'Religious Education',
-  'theology': 'Religious Education',
-  // Other
-  'stats': 'Statistics',
-  'statistics': 'Statistics',
-  'homeroom': 'Homeroom',
-  'form class': 'Homeroom',
-  'tutor': 'Homeroom',
+  'ict': 'Digital Technology','computing': 'Digital Technology','computer science': 'Digital Technology',
+  'computer studies': 'Digital Technology','digital technology': 'Digital Technology','digital tech': 'Digital Technology','digital technologies': 'Digital Technology',
+  'technology': 'Technology','tech': 'Technology','hard materials': 'Technology','soft materials': 'Technology',
+  'food technology': 'Food Technology','food tech': 'Food Technology',
+  'graphics': 'Design','design': 'Design','dvc': 'Design',
+  'te reo': 'Te Reo Maori','te reo maori': 'Te Reo Maori','te reo māori': 'Te Reo Maori','maori': 'Te Reo Maori','māori': 'Te Reo Maori',
+  'french': 'French','spanish': 'Spanish','german': 'German','japanese': 'Japanese','chinese': 'Chinese',
+  're': 'Religious Education','r.e.': 'Religious Education','religious education': 'Religious Education','religious ed': 'Religious Education','theology': 'Religious Education',
+  'stats': 'Statistics','statistics': 'Statistics',
+  'homeroom': 'Homeroom','form class': 'Homeroom','tutor': 'Homeroom',
   'pastoral': 'Pastoral',
-  'outdoor education': 'Outdoor Education',
-  'outdoor ed': 'Outdoor Education',
+  'outdoor education': 'Outdoor Education','outdoor ed': 'Outdoor Education',
   'scholarship': 'Scholarship',
-  'esol': 'ESOL',
-  'esl': 'ESOL',
-  'reading': 'Reading',
-  'library': 'Library'
+  'esol': 'ESOL','esl': 'ESOL',
+  'reading': 'Reading','library': 'Library'
 };
 
 function normalizeSubject(name){
@@ -787,11 +724,9 @@ function normalizeSubject(name){
   return SUBJECT_ALIASES[k] || String(name).trim();
 }
 
-/* ── detectSubject: alias-aware word-boundary scan ────────────── */
 function detectSubject(text){
   if (!text) return '';
   const t = String(text).toLowerCase();
-  // Try longer aliases first so "pe & health" wins over "pe"
   const keys = Object.keys(SUBJECT_ALIASES).sort((a,b) => b.length - a.length);
   for (const alias of keys){
     let idx = t.indexOf(alias);
@@ -1206,11 +1141,9 @@ function parseDate(text, ref = new Date()){
   if (/\bnext week\b/.test(t)){
     const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime();
   }
-  // Day-of-week fallback (matches "Friday", "Fri", "on Friday")
   m = t.match(/\b(sunday|sun|monday|mon|tuesday|tue|tues|wednesday|wed|thursday|thu|thur|thurs|friday|fri|saturday|sat)\b/);
   if (m){
-    const key = m[1].slice(0,3);
-    const target = DAY_ABBR[key];
+    const target = DAY_ABBR[m[1].slice(0,3)];
     if (target !== undefined){
       const d = new Date(ref);
       let delta = (target - d.getDay() + 7) % 7;
@@ -1250,14 +1183,182 @@ function estimateMinutes(item){
 }
 
 /* ================================================================
-   SMART PASTE — v4.1
-   Three parsers, picked automatically based on input format:
-   — Classroom To-do page (has "assignment"/"material" markers + dates)
-   — Email (has From/To/Subject headers)
-   — Generic text (fallback for plain lists, pasted messages)
+   AI PARSING
    ================================================================ */
+function buildAiPrompt(text){
+  const now = new Date();
+  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const todayIso = now.toISOString().slice(0,10);
+  const dayName = dayNames[now.getDay()];
 
-/* ── FORMAT DETECTION ─────────────────────────────────────────── */
+  const subjectList = [...new Set(Object.values(SUBJECT_ALIASES))].sort().join(', ');
+
+  return `You are a school assignment parser. Extract every assignment, test, exam, project, event or reminder from the text below.
+
+Return ONLY valid JSON in this exact shape:
+{
+  "items": [
+    {
+      "title": "concise assignment name",
+      "description": "optional extra context, empty string if none",
+      "type": "Assignment" | "Homework" | "Test" | "Exam" | "Project" | "Event" | "Reminder" | "Other",
+      "subject": "one of the canonical subject names listed below, or the course name from the text, or empty string",
+      "dueDate": "YYYY-MM-DD" or null
+    }
+  ]
+}
+
+Today is ${dayName}, ${todayIso}.
+
+Canonical subject names (always use these when the text matches any of them, even if the text uses an abbreviation like "PE" or "Maths"):
+${subjectList}
+
+Rules:
+1. Resolve relative dates ("Friday", "tomorrow", "next week", "Monday 21 Sept") to actual calendar dates. If the resolved date is in the past and no year was given, assume next year.
+2. If a Classroom-style section header says "No due date", skip ALL items below it — they have no deadline.
+3. Skip section headers themselves: "Next week", "This week", "Later", "To-do", "Missing", "Done", "Upcoming".
+4. Google Classroom To-do items usually appear as three lines: title, course code (e.g. "10ENG" or "Y10 - Te Reo - 2026"), and a date. Use the first line as title, last as due date, middle as subject if it matches a known subject.
+5. For emails: use the Subject: header (without "Re:"/"Fwd:") as the title, and search the body for dates and context. If the body contains a bullet list of 2+ distinct tasks, return each bullet as its own item.
+6. Apply the full alias map: "PE", "P.E.", "Health", "Physical Education", "Phys Ed", "HPE" all become "PE & Health". "Maths", "Math", "Mathematics" all become "Mathematics". "RE", "Religious Ed", "Theology" all become "Religious Education". Follow the canonical list above for every subject.
+7. If no due date is stated, set dueDate to null. Do NOT invent one.
+8. If nothing useful is found, return { "items": [] }.
+9. Return ONLY the JSON. No markdown, no commentary.
+
+Text to parse:
+---
+${text.slice(0, 20000)}
+---`;
+}
+
+function parseAiJson(raw){
+  if (!raw) return [];
+  let text = String(raw).trim();
+  text = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+  let parsed;
+  try { parsed = JSON.parse(text); }
+  catch (e){
+    const m = text.match(/\{[\s\S]*\}/);
+    if (!m) throw new Error('AI returned non-JSON text');
+    try { parsed = JSON.parse(m[0]); }
+    catch { throw new Error('AI returned invalid JSON'); }
+  }
+  const items = Array.isArray(parsed) ? parsed : (parsed.items || []);
+  if (!Array.isArray(items)) throw new Error('AI response missing items array');
+  return items;
+}
+
+function normalizeAiItems(aiItems){
+  const out = [];
+  for (const raw of aiItems){
+    if (!raw || typeof raw !== 'object') continue;
+    let title = String(raw.title || '').trim();
+    if (!title || title.length < 2) continue;
+    title = sanitiseText(title, 200);
+    const validTypes = ['Assignment','Homework','Test','Exam','Project','Event','Reminder','Other'];
+    const type = validTypes.includes(raw.type) ? raw.type : 'Assignment';
+    const subject = normalizeSubject(String(raw.subject || '').trim());
+    let dueDate = null;
+    if (raw.dueDate){
+      const m = String(raw.dueDate).match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (m) dueDate = new Date(+m[1], +m[2]-1, +m[3], 23, 59).getTime();
+      else dueDate = parseDate(String(raw.dueDate));
+    }
+    out.push({
+      id: `ai-${uid()}`,
+      title,
+      description: sanitiseText(String(raw.description || ''), 2000),
+      type, subject, dueDate,
+      source: 'AI Paste', url: '',
+      sources: [{ source: 'AI Paste', url: '', addedAt: now() }],
+      completed: false, manual: false,
+      priority: computePriority({ type, dueDate }),
+      mergedCount: 1, createdAt: now()
+    });
+  }
+  return out;
+}
+
+async function fetchWithTimeout(url, options, ms = 45000){
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function aiParseGemini(prompt, apiKey, modelOverride){
+  const model = modelOverride || AI_PROVIDER_INFO.gemini.defaultModel;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+  const res = await fetchWithTimeout(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        responseMimeType: 'application/json',
+        temperature: 0.1,
+        maxOutputTokens: 4096
+      }
+    })
+  });
+  if (!res.ok){
+    const errText = await res.text().catch(() => '');
+    if (res.status === 400 && /API[_ ]?KEY[_ ]?INVALID/i.test(errText)) throw new Error('Invalid Gemini API key. Check Settings.');
+    if (res.status === 403) throw new Error('Gemini API access denied — check your key permissions.');
+    if (res.status === 429) throw new Error('Gemini rate limit hit. Wait a minute and try again.');
+    if (res.status >= 500) throw new Error('Gemini is having issues. Try again shortly.');
+    throw new Error(`Gemini ${res.status}: ${errText.slice(0, 140)}`);
+  }
+  const data = await res.json();
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  return parseAiJson(text);
+}
+
+async function aiParseOpenAI(prompt, apiKey, modelOverride){
+  const model = modelOverride || AI_PROVIDER_INFO.openai.defaultModel;
+  const res = await fetchWithTimeout('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: 'system', content: 'You return only valid JSON. No prose.' },
+        { role: 'user', content: prompt }
+      ],
+      response_format: { type: 'json_object' },
+      temperature: 0.1
+    })
+  });
+  if (!res.ok){
+    const errText = await res.text().catch(() => '');
+    if (res.status === 401) throw new Error('Invalid OpenAI API key. Check Settings.');
+    if (res.status === 429) throw new Error('OpenAI rate limit hit. Wait a minute and try again.');
+    if (res.status >= 500) throw new Error('OpenAI is having issues. Try again shortly.');
+    throw new Error(`OpenAI ${res.status}: ${errText.slice(0, 140)}`);
+  }
+  const data = await res.json();
+  const content = data.choices?.[0]?.message?.content || '';
+  return parseAiJson(content);
+}
+
+async function aiParse(text, settings){
+  const provider = settings.aiProvider;
+  const apiKey = settings.aiApiKey;
+  if (!provider || provider === 'off' || !apiKey) return null;
+  const prompt = buildAiPrompt(text);
+  if (provider === 'gemini') return await aiParseGemini(prompt, apiKey, settings.aiModel);
+  if (provider === 'openai') return await aiParseOpenAI(prompt, apiKey, settings.aiModel);
+  throw new Error(`Unknown AI provider: ${provider}`);
+}
+
+/* ================================================================
+   SMART PASTE PARSERS (local fallback)
+   ================================================================ */
 function looksLikeEmail(text){
   if (!text) return false;
   const lines = text.split(/\r?\n/).slice(0, 30);
@@ -1289,12 +1390,10 @@ function isDateLine(line){
 
 function looksLikeClassroomPage(text){
   if (!text) return false;
-  if (looksLikeEmail(text)) return false; // emails can contain "Assignment" text
+  if (looksLikeEmail(text)) return false;
   const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
   if (lines.length < 3) return false;
-  let markerCount = 0;
-  let dateCount = 0;
-  let dueCount = 0;
+  let markerCount = 0, dateCount = 0, dueCount = 0;
   for (const line of lines.slice(0, 100)){
     if (CLASSROOM_TYPE_MARKER.test(line)) markerCount++;
     if (/^due\s+/i.test(line)) dueCount++;
@@ -1313,18 +1412,15 @@ function detectPasteFormat(text){
   return 'generic';
 }
 
-/* ── CLASSROOM PARSER ─────────────────────────────────────────── */
 function parseClassroomDue(raw){
   if (!raw) return null;
   let t = String(raw).trim();
   t = t.replace(/^due\s*/i, '').replace(/^(?:on|by|at)\s*/i, '').trim();
   if (!t || t.length > 40) return null;
   const ref = new Date();
-
   if (/^today\b|^tonight\b/i.test(t)) { const d = new Date(ref); d.setHours(23,59,0,0); return d.getTime(); }
   if (/^tomorrow\b|^tmrw\b|^tmr\b/i.test(t)) { const d = new Date(ref); d.setDate(d.getDate() + 1); d.setHours(23,59,0,0); return d.getTime(); }
   if (/^next\s+week\b/i.test(t)) { const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime(); }
-
   let m = t.match(new RegExp(`^(?:(?:${DOW_ABBR})\\s+)?(\\d{1,2})(?:st|nd|rd|th)?\\s+(${MONTH_ABBR})$`, 'i'));
   if (m){
     const day = parseInt(m[1], 10);
@@ -1349,23 +1445,19 @@ function parseClassroomDue(raw){
 function smartPasteClassroom(text){
   const rawLines = text.split(/\r?\n/).map(l => l.replace(/\s+/g,' ').trim()).filter(Boolean);
   if (!rawLines.length) return [];
-
   let cutoff = rawLines.length;
   for (let i = 0; i < rawLines.length; i++){
     const clean = rawLines[i].toLowerCase().replace(/[:\-–—]/g, '').trim();
     if (clean === 'no due date'){ cutoff = i; break; }
   }
   const lines = rawLines.slice(0, cutoff).filter(l => !CLASSROOM_SECTION_HEADER.test(l));
-
   const blocks = [];
   let current = null;
   for (const line of lines){
     if (CLASSROOM_TYPE_MARKER.test(line)){
       if (current && current.lines.length) blocks.push(current);
       current = { marker: line.toLowerCase(), lines: [] };
-    } else if (current){
-      current.lines.push(line);
-    }
+    } else if (current){ current.lines.push(line); }
   }
   if (current && current.lines.length) blocks.push(current);
 
@@ -1374,13 +1466,11 @@ function smartPasteClassroom(text){
   for (const block of blocks){
     const bl = block.lines;
     if (!bl.length) continue;
-
     let dueDate = null, dueIdx = -1;
     for (let i = bl.length - 1; i >= 0; i--){
       const d = parseClassroomDue(bl[i]);
       if (d){ dueDate = d; dueIdx = i; break; }
     }
-
     let title, course;
     if (dueIdx >= 0){
       const before = bl.slice(0, dueIdx);
@@ -1390,22 +1480,17 @@ function smartPasteClassroom(text){
       title = bl[0] || '';
       course = bl.length > 1 ? bl[bl.length - 1] : '';
     }
-    title = title.trim();
-    course = course.trim();
+    title = title.trim(); course = course.trim();
     if (!title || title.length < 2) continue;
-
     const key = title.toLowerCase();
     if (seen.has(key)) continue;
     seen.add(key);
-
     let type = 'Assignment';
     const titleType = detectType(title);
     if (titleType !== 'Assignment') type = titleType;
     else if (/quiz|question/i.test(block.marker)) type = 'Homework';
     else if (/exam/i.test(block.marker)) type = 'Exam';
     else if (/homework/i.test(block.marker)) type = 'Homework';
-
-    // Subject: try course line first (aliases already normalise), then title
     let subject = '';
     if (course){
       subject = detectSubject(course);
@@ -1413,13 +1498,11 @@ function smartPasteClassroom(text){
     }
     if (!subject) subject = detectSubject(title);
     subject = normalizeSubject(subject);
-
     results.push({
       id: `paste-${uid()}`,
       title: sanitiseText(title, 200),
       description: course ? `From ${course}` : '',
-      type, subject,
-      dueDate: dueDate || null,
+      type, subject, dueDate: dueDate || null,
       source: 'Google Classroom', url: '',
       sources: [{ source: 'Google Classroom', url: '', addedAt: now() }],
       completed: false, manual: false,
@@ -1430,45 +1513,28 @@ function smartPasteClassroom(text){
   return results;
 }
 
-/* ── EMAIL PARSER ─────────────────────────────────────────────── */
-function stripReplyPrefix(s){
-  return String(s || '').replace(/^\s*(?:(?:re|fwd|fw|aw)\s*:\s*)+/i, '').trim();
-}
+function stripReplyPrefix(s){ return String(s || '').replace(/^\s*(?:(?:re|fwd|fw|aw)\s*:\s*)+/i, '').trim(); }
 
 function smartPasteEmail(text){
   const lines = text.split(/\r?\n/);
   const headers = {};
-  let bodyStart = 0;
-  let inHeader = true;
-
+  let bodyStart = 0, inHeader = true;
   for (let i = 0; i < lines.length; i++){
     const line = lines[i];
     if (inHeader){
       const m = line.match(/^\s*(from|to|cc|bcc|sent|date|subject|reply-to)\s*:\s*(.*)$/i);
-      if (m){
-        headers[m[1].toLowerCase()] = m[2].trim();
-        bodyStart = i + 1;
-      } else if (line.trim() === '' && Object.keys(headers).length > 0){
-        bodyStart = i + 1;
-        inHeader = false;
-        break;
-      } else if (Object.keys(headers).length > 0){
-        bodyStart = i;
-        inHeader = false;
-        break;
-      }
+      if (m){ headers[m[1].toLowerCase()] = m[2].trim(); bodyStart = i + 1; }
+      else if (line.trim() === '' && Object.keys(headers).length > 0){ bodyStart = i + 1; inHeader = false; break; }
+      else if (Object.keys(headers).length > 0){ bodyStart = i; inHeader = false; break; }
     }
   }
-
   const body = lines.slice(bodyStart).join('\n').trim();
   const subjectHeader = stripReplyPrefix(headers.subject || '');
   const haystack = `${subjectHeader}\n${body}`;
-
   const globalType = detectType(haystack);
   const globalSubject = normalizeSubject(detectSubject(haystack));
   const globalDue = parseDate(haystack);
 
-  // Look for a bullet list in the body — if 2+ bullets, split into separate items
   const bulletItems = [];
   let currentBullet = null;
   const bulletRe = /^\s*(?:[-*•·▪◦‣]|\d+[.)]|[a-z][.)])\s+(.+)$/;
@@ -1477,9 +1543,7 @@ function smartPasteEmail(text){
     if (m){
       if (currentBullet) bulletItems.push(currentBullet);
       currentBullet = m[1].trim();
-    } else if (currentBullet && rawLine.trim()){
-      currentBullet += ' ' + rawLine.trim();
-    }
+    } else if (currentBullet && rawLine.trim()){ currentBullet += ' ' + rawLine.trim(); }
   }
   if (currentBullet) bulletItems.push(currentBullet);
 
@@ -1496,8 +1560,7 @@ function smartPasteEmail(text){
       const itemDue = parseDate(b) || globalDue;
       results.push({
         id: `email-${uid()}`,
-        title,
-        description: sanitiseText(b, 2000),
+        title, description: sanitiseText(b, 2000),
         type: itemType, subject: itemSubject,
         dueDate: itemDue || null,
         source: 'Email', url: '',
@@ -1510,19 +1573,16 @@ function smartPasteEmail(text){
     if (results.length) return results;
   }
 
-  // Single-item email
   let title = subjectHeader;
   if (!title || title.length < 3){
     const firstLine = body.split(/\n/).map(l => l.trim()).find(l => l.length > 3 && !/^(hi|hello|kia ora|dear|hey|good (morning|afternoon|evening))\b/i.test(l));
     title = firstLine ? firstLine.split(/[.!?]/)[0] : 'Email item';
   }
-
   return [{
     id: `email-${uid()}`,
     title: sanitiseText(title, 200),
     description: sanitiseText(body, 3000),
-    type: globalType,
-    subject: globalSubject,
+    type: globalType, subject: globalSubject,
     dueDate: globalDue || null,
     source: 'Email', url: '',
     sources: [{ source: 'Email', url: '', addedAt: now() }],
@@ -1532,7 +1592,6 @@ function smartPasteEmail(text){
   }];
 }
 
-/* ── GENERIC TEXT PARSER ──────────────────────────────────────── */
 function smartPasteGeneral(text){
   if (!text || !text.trim()) return [];
   const lines = text.split(/\r?\n/);
@@ -1547,13 +1606,10 @@ function smartPasteGeneral(text){
     if (/^~?\d+\s*min$/i.test(t)) return true;
     return false;
   };
-
   const chunks = [];
   let current = '';
   const flush = () => { const c = current.trim(); if (c.length >= 3) chunks.push(c); current = ''; };
-
   const isBullet = l => /^\s*(?:[-*•·▪◦‣]|\d+[.)]|[a-z][.)])\s+/.test(l);
-
   for (const raw of lines){
     if (isNoise(raw)){ flush(); continue; }
     const line = raw.replace(/\s+/g, ' ').trim();
@@ -1562,7 +1618,6 @@ function smartPasteGeneral(text){
     current += (current ? ' ' : '') + line;
   }
   flush();
-
   const seen = new Set();
   const results = [];
   for (const chunk of chunks){
@@ -1589,33 +1644,42 @@ function smartPasteGeneral(text){
   return results;
 }
 
-/* ── SMART PASTE ROUTER ───────────────────────────────────────── */
-function smartPaste(text){
+/* ── Smart Paste router — AI first, local fallback ───────────── */
+async function smartPaste(text){
   if (!text || !text.trim()) return [];
+  const settings = Store.cache?.settings || {};
+  const aiOn = settings.aiProvider && settings.aiProvider !== 'off' && settings.aiApiKey;
+
+  if (aiOn){
+    try {
+      const raw = await aiParse(text, settings);
+      if (Array.isArray(raw)){
+        const items = normalizeAiItems(raw);
+        if (items.length) return items;
+      }
+      // AI returned empty — fall through to local
+    } catch (e){
+      console.warn('AI parse failed:', e);
+      toast(`AI parse failed — used built-in parser instead. (${e.message})`, 'warn', 'Smart Paste');
+    }
+  }
+
   const fmt = detectPasteFormat(text);
-  if (fmt === 'classroom'){
-    const items = smartPasteClassroom(text);
-    if (items.length) return items;
-  }
-  if (fmt === 'email'){
-    const items = smartPasteEmail(text);
-    if (items.length) return items;
-  }
+  if (fmt === 'classroom'){ const items = smartPasteClassroom(text); if (items.length) return items; }
+  if (fmt === 'email'){ const items = smartPasteEmail(text); if (items.length) return items; }
   return smartPasteGeneral(text);
 }
 
 /* ================================================================
-   EFFORT REPORT PDF PARSER (unchanged logic, safer multi-match)
+   EFFORT REPORT PDF PARSER (unchanged)
    ================================================================ */
 async function loadPdfJs(){
   if (window.pdfjsLib) return window.pdfjsLib;
   return new Promise((resolve, reject) => {
     const existing = document.querySelector(`script[src="${PDFJS_CDN}"]`);
     const onReady = () => {
-      if (window.pdfjsLib){
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER;
-        resolve(window.pdfjsLib);
-      } else reject(new Error('pdf.js loaded but not available'));
+      if (window.pdfjsLib){ window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER; resolve(window.pdfjsLib); }
+      else reject(new Error('pdf.js loaded but not available'));
     };
     if (existing){ existing.addEventListener('load', onReady); existing.addEventListener('error', reject); return; }
     const script = document.createElement('script');
@@ -1646,69 +1710,24 @@ async function extractPdfText(file){
   return out;
 }
 
-const KNOWN_SUBJECTS = [
-  'Physical Education and Health',
-  'Physical Education',
-  'Religious Education',
-  'Social Studies',
-  'Media Studies',
-  'Digital Technology',
-  'Business Studies',
-  'Te Reo Maori',
-  'Mathematics',
-  'Commerce',
-  'English',
-  'Science',
-  'History',
-  'Geography',
-  'Economics',
-  'Accounting',
-  'Biology',
-  'Chemistry',
-  'Physics',
-  'Art',
-  'Music',
-  'Drama',
-  'Dance',
-  'Health',
-  'ICT',
-  'PE',
-  'Technology',
-  'Languages',
-  'French',
-  'Spanish',
-  'German',
-  'Japanese',
-  'Maori',
-  'Stats',
-  'Statistics'
-];
+const KNOWN_SUBJECTS = ['Physical Education and Health','Physical Education','Religious Education','Social Studies','Media Studies','Digital Technology','Business Studies','Te Reo Maori','Mathematics','Commerce','English','Science','History','Geography','Economics','Accounting','Biology','Chemistry','Physics','Art','Music','Drama','Dance','Health','ICT','PE','Technology','Languages','French','Spanish','German','Japanese','Maori','Stats','Statistics'];
 
 function parseEffortReportText(rawText){
   const text = rawText.replace(/\s+/g, ' ').trim();
-  const attendance = (() => {
-    const m = text.match(/Attendance[:\s]*([\d.]+)\s*%/i);
-    return m ? Number(m[1]) : null;
-  })();
+  const attendance = (() => { const m = text.match(/Attendance[:\s]*([\d.]+)\s*%/i); return m ? Number(m[1]) : null; })();
   const studentCodeMatch = text.match(/\b(\d{1,2}[A-Z]{2,5})\b/);
   const studentCode = studentCodeMatch ? studentCodeMatch[1] : '';
-
   const ratings = [];
-  // Track remaining text so we don't double-match "Physical Education" inside
-  // "Physical Education and Health" (which would create a phantom subject).
   let remaining = text;
-
   for (const sub of KNOWN_SUBJECTS){
     const escaped = sub.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const re = new RegExp(escaped + '[\\s\\S]{0,240}?Year\\s*\\d+\\s*([0-9\\-\\.]+)', 'i');
     const m = remaining.match(re);
     if (!m) continue;
-
     const data = m[1];
     const avgMatch = data.match(/(\d+\.\d+)\s*$/);
     const yearAvg = avgMatch ? parseFloat(avgMatch[1]) : null;
     const beforeAvg = avgMatch ? data.slice(0, data.lastIndexOf(avgMatch[1])) : data;
-
     const weekRatings = [];
     for (const ch of beforeAvg){
       if (/[1-5]/.test(ch)) weekRatings.push(Number(ch));
@@ -1716,25 +1735,17 @@ function parseEffortReportText(rawText){
     }
     const nonNull = weekRatings.filter(r => r !== null);
     const latest = nonNull.length ? nonNull[nonNull.length - 1] : null;
-
     ratings.push({
-      subject: sub,
-      weekRatings,
-      yearAvg,
+      subject: sub, weekRatings, yearAvg,
       rating: latest !== null ? latest : (yearAvg !== null ? Math.round(yearAvg) : 3)
     });
-
-    // Blank out the matched region so the same chars can't be re-matched
     const startIdx = remaining.indexOf(m[0]);
-    if (startIdx >= 0){
-      remaining = remaining.slice(0, startIdx) + ' '.repeat(m[0].length) + remaining.slice(startIdx + m[0].length);
-    }
+    if (startIdx >= 0) remaining = remaining.slice(0, startIdx) + ' '.repeat(m[0].length) + remaining.slice(startIdx + m[0].length);
   }
-
   return { attendance, studentCode, ratings };
 }
 
-/* ── ACTIVITY & TIMETABLE TEXT PARSERS ────────────────────────── */
+/* ── ACTIVITY & TIMETABLE PARSERS ─────────────────────────────── */
 function normalizeTimeInput(s){
   if (!s) return null;
   const parts = String(s).trim().split(':');
@@ -1749,25 +1760,19 @@ function parseActivitiesText(text){
   const out = [];
   const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
   const dayRegex = /^(sun(?:day)?|mon(?:day)?|tue(?:s|sday)?|wed(?:nesday)?|thu(?:rs?|rsday)?|fri(?:day)?|sat(?:urday)?)\s*[:\-]?\s*(.+)$/i;
-
   for (const line of lines){
     const m = line.match(dayRegex);
     if (!m) continue;
-    const dayKey = m[1].toLowerCase().slice(0, 3);
-    const day = DAY_ABBR[dayKey];
+    const day = DAY_ABBR[m[1].toLowerCase().slice(0, 3)];
     if (day === undefined) continue;
-
     const rest = m[2].trim();
     const timeMatch = rest.match(/(\d{1,2}(?::\d{2})?)\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?)/i);
     if (!timeMatch) continue;
-
     const start = normalizeTimeInput(timeMatch[1]);
     const end = normalizeTimeInput(timeMatch[2]);
     if (!start || !end) continue;
-
     const name = rest.replace(timeMatch[0], '').replace(/\s+/g, ' ').trim().replace(/^[:\-–—]\s*/, '').trim();
     if (!name) continue;
-
     out.push({ id: uid(), day, start, end, name });
   }
   return out;
@@ -1777,26 +1782,21 @@ function parseTimetableText(text){
   const out = [];
   const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
   const dayRegex = /(sun(?:day)?|mon(?:day)?|tue(?:s|sday)?|wed(?:nesday)?|thu(?:rs?|rsday)?|fri(?:day)?|sat(?:urday)?)/i;
-
   for (const line of lines){
     const dayMatch = line.match(dayRegex);
     if (!dayMatch) continue;
-    const dayKey = dayMatch[1].toLowerCase().slice(0, 3);
-    const day = DAY_ABBR[dayKey];
+    const day = DAY_ABBR[dayMatch[1].toLowerCase().slice(0, 3)];
     if (day === undefined) continue;
-
     const timeMatch = line.match(/(\d{1,2}(?::\d{2})?)\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?)/i);
     if (!timeMatch) continue;
     const start = normalizeTimeInput(timeMatch[1]);
     const end = normalizeTimeInput(timeMatch[2]);
-
     let rest = line.replace(dayMatch[0], '').replace(timeMatch[0], '').replace(/[|,]/g, ' ').replace(/\s+/g, ' ').trim();
     const roomMatch = rest.match(/\b([A-Z]{1,3}\d{1,3})\b/);
     const room = roomMatch ? roomMatch[1] : '';
     if (room) rest = rest.replace(room, '').replace(/\s+/g, ' ').trim();
     const subject = rest.replace(/^[:\-–—]\s*/, '').trim();
     if (!subject && !room) continue;
-
     out.push({ day, start, end, subject: subject || 'Class', room });
   }
   return out;
@@ -1851,11 +1851,9 @@ async function importItems(rawItems, sourceLabel){
     const cleanDesc  = sanitiseText(raw.description, 4000);
     const haystack = `${cleanTitle} ${cleanDesc}`;
     const type = raw.typeHint || raw.type || detectType(haystack);
-    // Normalize subject — even if a source skipped it
     const rawSubject = raw.subject || detectSubject(haystack);
     const subject = normalizeSubject(rawSubject);
     const dueDate = raw.dueDate || parseDate(haystack);
-
     const candidate = {
       id: raw.id || uid(),
       title: cleanTitle, description: cleanDesc, type, subject,
@@ -1866,7 +1864,6 @@ async function importItems(rawItems, sourceLabel){
       createdAt: now()
     };
     candidate.priority = computePriority(candidate);
-
     if (dueDate){
       const dayKey = startOfDay(new Date(dueDate));
       const normalized = normalizeTitle(cleanTitle);
@@ -1880,20 +1877,14 @@ async function importItems(rawItems, sourceLabel){
         const idx = Store.cache.assignments.findIndex(x => x.id === exactDup.id);
         if (idx >= 0) Store.cache.assignments.splice(idx, 1);
         await Store.put('assignments', mergedRecord);
-        merged++;
-        continue;
+        merged++; continue;
       }
     }
-
     const dup = findDuplicate(candidate, Store.all('assignments'));
-    if (dup){
-      await Store.put('assignments', mergeInto(dup, candidate));
-      merged++;
-    } else {
+    if (dup){ await Store.put('assignments', mergeInto(dup, candidate)); merged++; }
+    else {
       await Store.put('assignments', candidate);
-      if (candidate.dueDate || candidate.type === 'Test' || candidate.type === 'Exam'){
-        await maybeNotify(candidate);
-      }
+      if (candidate.dueDate || candidate.type === 'Test' || candidate.type === 'Exam') await maybeNotify(candidate);
       added++;
     }
   }
@@ -1916,24 +1907,16 @@ async function maybeNotify(item){
   const s = Store.cache.settings;
   if (item.type === 'Test' || item.type === 'Exam'){
     if (s.notifyNewTest){
-      await pushNotification({
-        kind: 'test',
-        title: `New ${item.type.toLowerCase()}: ${item.title}`,
+      await pushNotification({ kind:'test', title:`New ${item.type.toLowerCase()}: ${item.title}`,
         body: item.dueDate ? `On ${fmtDateLong(item.dueDate)}${item.subject ? ' · ' + item.subject : ''}` : '',
-        link: '#/assignments',
-        dedupeKey: `test:${item.title}:${item.dueDate || ''}`
-      });
+        link:'#/assignments', dedupeKey:`test:${item.title}:${item.dueDate || ''}` });
     }
     return;
   }
   if (s.notifyNewAssignment){
-    await pushNotification({
-      kind: 'assignment',
-      title: `New ${item.type.toLowerCase()}: ${item.title}`,
+    await pushNotification({ kind:'assignment', title:`New ${item.type.toLowerCase()}: ${item.title}`,
       body: item.dueDate ? `Due ${fmtDateLong(item.dueDate)}${item.subject ? ' · ' + item.subject : ''}` : '',
-      link: '#/assignments',
-      dedupeKey: `new:${item.title}:${item.dueDate || ''}`
-    });
+      link:'#/assignments', dedupeKey:`new:${item.title}:${item.dueDate || ''}` });
   }
 }
 
@@ -1943,13 +1926,9 @@ async function checkDueSoon(){
     if (a.completed || !a.dueDate) continue;
     const d = daysUntil(a.dueDate);
     if (d === 0 || d === 1){
-      await pushNotification({
-        kind: 'due',
-        title: `${a.title} is due ${d === 0 ? 'today' : 'tomorrow'}`,
+      await pushNotification({ kind:'due', title:`${a.title} is due ${d === 0 ? 'today' : 'tomorrow'}`,
         body: a.subject ? `${a.subject} · ${a.type}` : a.type,
-        link: '#/assignments',
-        dedupeKey: `due:${a.id}:${startOfDay(new Date(a.dueDate))}`
-      });
+        link:'#/assignments', dedupeKey:`due:${a.id}:${startOfDay(new Date(a.dueDate))}` });
     }
   }
 }
@@ -1982,17 +1961,13 @@ function parseICSDate(v){
   const m = String(v).match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2}))?(Z?)$/);
   if (!m) return null;
   const [, y, mo, d, h='00', mi='00', s='00', z] = m;
-  const dt = z ? new Date(Date.UTC(+y, +mo-1, +d, +h, +mi, +s)) : new Date(+y, +mo-1, +d, +h, +mi, +s);
-  return dt.getTime();
+  return (z ? new Date(Date.UTC(+y, +mo-1, +d, +h, +mi, +s)) : new Date(+y, +mo-1, +d, +h, +mi, +s)).getTime();
 }
-
 function eventExists(title, start, excludeId = null){
   if (!start) return false;
   const dayKey = startOfDay(new Date(start));
   const norm = normalizeTitle(title);
-  return Store.all('events').some(e =>
-    e.id !== excludeId && e.start && startOfDay(new Date(e.start)) === dayKey && normalizeTitle(e.title) === norm
-  );
+  return Store.all('events').some(e => e.id !== excludeId && e.start && startOfDay(new Date(e.start)) === dayKey && normalizeTitle(e.title) === norm);
 }
 
 async function syncCalendarSubscriptions(){
@@ -2015,27 +1990,18 @@ async function syncCalendarSubscriptions(){
           id: existing ? existing.id : `ics-${uid()}`,
           title: sanitiseText(ev.title, 200),
           description: sanitiseText(ev.description || '', 2000),
-          start: ev.start,
-          end: ev.end || null,
+          start: ev.start, end: ev.end || null,
           location: sanitiseText(ev.location || '', 200),
-          source: sub.name || 'Calendar',
-          url: ev.url || '',
-          icsUid: ev.uid,
-          icsSource: sub.url,
-          manual: false,
+          source: sub.name || 'Calendar', url: ev.url || '',
+          icsUid: ev.uid, icsSource: sub.url, manual: false,
           createdAt: existing ? existing.createdAt : now()
         };
         await Store.put('events', record);
         if (!existing) added++;
       }
       totalAdded += added;
-      sub.lastSync = now();
-      sub.count = events.length;
-      sub.error = null;
-    } catch (e){
-      sub.error = e.message;
-      errors.push(`${sub.name || sub.url}: ${e.message}`);
-    }
+      sub.lastSync = now(); sub.count = events.length; sub.error = null;
+    } catch (e){ sub.error = e.message; errors.push(`${sub.name || sub.url}: ${e.message}`); }
   }
   await Store.saveUserDoc();
   return { added: totalAdded, subs: subs.length, errors };
@@ -2049,34 +2015,20 @@ async function syncAll({ silent = false } = {}){
   setSyncUI('busy', 'Syncing…');
   const btn = $('#sync-btn');
   if (btn){ btn.disabled = true; $('.sync-spinner', btn).hidden = false; $('.sync-label', btn).textContent = 'Syncing…'; }
-
-  const results = [];
-  const errors = [];
-
+  const results = [], errors = [];
   try {
     const r = await syncCalendarSubscriptions();
     if (r.added) results.push(`Calendar: ${r.added} new events`);
     for (const e of r.errors) errors.push(e);
   } catch(e){ errors.push(`Calendar: ${e.message}`); }
-
   await dedupeExistingEvents();
   await dedupeExistingAssignments();
   await checkDueSoon();
-
   syncing = false;
   if (btn){ btn.disabled = false; $('.sync-spinner', btn).hidden = true; $('.sync-label', btn).textContent = 'Sync'; }
-
-  if (results.length){
-    setSyncUI('ok', `Synced ${relativeTime(now())}`);
-    if (!silent) toast(results.join(' · '), 'success', 'Sync complete');
-  } else if (!errors.length){
-    setSyncUI('ok', `Synced ${relativeTime(now())}`);
-    if (!silent) toast('Everything is up to date.', 'success');
-  }
-  for (const err of errors){
-    toast(err, 'error', 'Sync problem');
-    setSyncUI('err', 'Sync error');
-  }
+  if (results.length){ setSyncUI('ok', `Synced ${relativeTime(now())}`); if (!silent) toast(results.join(' · '), 'success', 'Sync complete'); }
+  else if (!errors.length){ setSyncUI('ok', `Synced ${relativeTime(now())}`); if (!silent) toast('Everything is up to date.', 'success'); }
+  for (const err of errors){ toast(err, 'error', 'Sync problem'); setSyncUI('err', 'Sync error'); }
   render();
   return { results, errors };
 }
@@ -2173,15 +2125,12 @@ function viewDashboard(){
   const dueToday = open.filter(a => a.dueDate && daysUntil(a.dueDate) === 0);
   const dueWeek = open.filter(a => a.dueDate && daysUntil(a.dueDate) >= 0 && daysUntil(a.dueDate) <= 7);
   const tests = open.filter(a => a.type === 'Test' || a.type === 'Exam');
-
   const name = (App.user?.displayName || '').split(' ')[0] || 'there';
   const hour = new Date().getHours();
   const greet = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
-
   const todayEvents = events.filter(e => e.start && sameDay(e.start, now()));
   const todayItems = [...dueToday, ...overdue];
   const isEmpty = !assignments.length && !events.length;
-
   const efforts = Store.all('effortReports').sort((a,b) => b.date - a.date);
   const latestEffort = efforts[0];
   const effortCard = latestEffort ? `
@@ -2195,74 +2144,53 @@ function viewDashboard(){
     <section class="card">
       <div class="card-head"><div class="card-title">📊 Effort reports</div></div>
       <div class="card-body">
-        <p class="small muted" style="margin-bottom:14px">Upload your weekly PDF from school — StudentOS reads every subject and rating for you.</p>
+        <p class="small muted" style="margin-bottom:14px">Upload your weekly PDF from school — StudentOS reads every subject and rating.</p>
         <button class="btn btn-primary btn-sm" data-action="upload-effort">📤 Upload effort report</button>
       </div>
     </section>`;
-
   return `
   <div class="page-head">
     <h1 class="page-title">${greet}, ${escapeHtml(name)} 👋</h1>
     <p class="page-sub">${new Date().toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'})} · ${open.length} open item${open.length===1?'':'s'}</p>
   </div>
-
   ${renderChecklist()}
-
   ${isEmpty ? renderWelcomeEmpty() : `
   <div class="stat-grid">
     <div class="stat ${overdue.length ? 'warn' : ''}">
-      <div class="stat-label">Overdue</div>
-      <div class="stat-value">${overdue.length}</div>
+      <div class="stat-label">Overdue</div><div class="stat-value">${overdue.length}</div>
       <div class="stat-sub">${overdue.length ? 'Needs attention first' : 'All clear'}</div>
     </div>
-    <div class="stat">
-      <div class="stat-label">Due today</div>
-      <div class="stat-value">${dueToday.length}</div>
-      <div class="stat-sub">${dueToday.length ? 'Finish these today' : 'Nothing due today'}</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Next 7 days</div>
-      <div class="stat-value">${dueWeek.length}</div>
-      <div class="stat-sub">Assignments &amp; tasks</div>
-    </div>
+    <div class="stat"><div class="stat-label">Due today</div><div class="stat-value">${dueToday.length}</div>
+      <div class="stat-sub">${dueToday.length ? 'Finish these today' : 'Nothing due today'}</div></div>
+    <div class="stat"><div class="stat-label">Next 7 days</div><div class="stat-value">${dueWeek.length}</div>
+      <div class="stat-sub">Assignments &amp; tasks</div></div>
     <div class="stat ${tests.length ? 'warn' : 'good'}">
-      <div class="stat-label">Tests &amp; exams</div>
-      <div class="stat-value">${tests.length}</div>
-      <div class="stat-sub">${tests.length ? 'Start revising early' : 'None scheduled'}</div>
-    </div>
+      <div class="stat-label">Tests &amp; exams</div><div class="stat-value">${tests.length}</div>
+      <div class="stat-sub">${tests.length ? 'Start revising early' : 'None scheduled'}</div></div>
   </div>`}
-
   <div class="cols cols-main">
     <div class="stack">
       <section class="card">
-        <div class="card-head">
-          <div class="card-title">🎯 What should I do next?</div>
-          <a class="btn btn-sm btn-ghost" href="#/planner">Planner</a>
-        </div>
+        <div class="card-head"><div class="card-title">🎯 What should I do next?</div>
+          <a class="btn btn-sm btn-ghost" href="#/planner">Planner</a></div>
         <div class="card-body" style="padding-top:6px;padding-bottom:10px">${renderNextActions()}</div>
       </section>
       <section class="card">
-        <div class="card-head">
-          <div class="card-title">📌 Today</div>
-          <span class="chip chip-gray">${todayItems.length + todayEvents.length} item${(todayItems.length+todayEvents.length)===1?'':'s'}</span>
-        </div>
+        <div class="card-head"><div class="card-title">📌 Today</div>
+          <span class="chip chip-gray">${todayItems.length + todayEvents.length} item${(todayItems.length+todayEvents.length)===1?'':'s'}</span></div>
         ${renderTodaySection(todayItems, todayEvents)}
       </section>
     </div>
     <div class="stack">
       ${effortCard}
       <section class="card">
-        <div class="card-head">
-          <div class="card-title">🗓️ Today's timetable</div>
-          <button class="btn btn-sm btn-subtle" data-action="edit-timetable">Edit</button>
-        </div>
+        <div class="card-head"><div class="card-title">🗓️ Today's timetable</div>
+          <button class="btn btn-sm btn-subtle" data-action="edit-timetable">Edit</button></div>
         <div class="card-body">${renderTimetable(settings.timetable)}</div>
       </section>
       <section class="card">
-        <div class="card-head">
-          <div class="card-title">🏃 Weekly activities</div>
-          <button class="btn btn-sm btn-subtle" data-action="edit-activities">Edit</button>
-        </div>
+        <div class="card-head"><div class="card-title">🏃 Weekly activities</div>
+          <button class="btn btn-sm btn-subtle" data-action="edit-activities">Edit</button></div>
         <div class="card-body">${renderActivitiesToday(settings.weeklyActivities)}</div>
       </section>
     </div>
@@ -2274,10 +2202,8 @@ function renderEffortSummaryMini(report){
   const avg = report.ratings.reduce((s, r) => s + r.rating, 0) / report.ratings.length;
   return `
     <div class="row-between" style="margin-bottom:12px">
-      <div>
-        <div class="small muted">${fmtDateLong(report.date)}</div>
-        <div class="strong" style="font-size:15px;margin-top:2px">${report.ratings.length} subjects rated</div>
-      </div>
+      <div><div class="small muted">${fmtDateLong(report.date)}</div>
+        <div class="strong" style="font-size:15px;margin-top:2px">${report.ratings.length} subjects rated</div></div>
       <div class="effort-avg"><b>${avg.toFixed(1)}</b>/ 5</div>
     </div>
     <div class="effort-bars">
@@ -2298,16 +2224,14 @@ function renderWelcomeEmpty(){
     <h2 style="font-size:22px;margin-bottom:10px">Let's get your school life in one place</h2>
     <p class="muted" style="max-width:520px;margin:0 auto 24px;font-size:14.5px;line-height:1.65">
       <strong>Smart Paste</strong> handles Classroom To-do pages, school emails, or plain lists.
-      Just copy, paste, and StudentOS sorts it out.
+      Optionally plug in an AI key in Settings for even smarter parsing.
     </p>
     <div class="row" style="justify-content:center;flex-wrap:wrap;gap:10px">
       <button class="btn btn-primary" data-action="paste-classroom">✨ Smart Paste</button>
       <button class="btn btn-ghost" data-action="upload-effort">📤 Upload effort report</button>
     </div>
     <div class="row" style="justify-content:center;gap:20px;flex-wrap:wrap;margin-top:24px;font-size:12.5px;color:var(--text-3)">
-      <span>Press <kbd>P</kbd> to paste</span>
-      <span>Press <kbd>E</kbd> for effort report</span>
-      <span>Press <kbd>N</kbd> for new task</span>
+      <span>Press <kbd>P</kbd> to paste</span><span>Press <kbd>E</kbd> for effort report</span><span>Press <kbd>N</kbd> for new task</span>
     </div>
   </div>`;
 }
@@ -2319,9 +2243,7 @@ function renderNextActions(){
       <div class="empty-ico">🌤️</div>
       <div class="empty-title">Nothing on your plate</div>
       <div class="empty-sub">Smart paste your Classroom, an email, or any list to fill this in.</div>
-      <div class="empty-actions">
-        <button class="btn btn-sm btn-primary" data-action="paste-classroom">✨ Smart Paste</button>
-      </div>
+      <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="paste-classroom">✨ Smart Paste</button></div>
     </div>`;
   }
   const scored = items.map(i => ({ i, score: plannerScore(i) })).sort((a,b) => b.score - a.score).slice(0, 5);
@@ -2360,101 +2282,75 @@ function plannerScore(i){
 function renderTodaySection(todayItems, todayEvents){
   if (!todayItems.length && !todayEvents.length){
     return `<div class="empty" style="padding:34px 20px">
-      <div class="empty-ico">✅</div>
-      <div class="empty-title">Nothing due today</div>
-      <div class="empty-sub">A good moment to get ahead on something from this week.</div>
-    </div>`;
+      <div class="empty-ico">✅</div><div class="empty-title">Nothing due today</div>
+      <div class="empty-sub">A good moment to get ahead on something from this week.</div></div>`;
   }
   let html = '';
   for (const e of todayEvents){
-    html += `
-    <div class="item">
-      <div class="item-check" style="border-color:var(--sky-500);background:var(--sky-50);cursor:default">📅</div>
-      <div class="item-main">
-        <div class="item-title">${escapeHtml(e.title || e.name)}</div>
-        <div class="item-meta">
-          <span class="chip chip-sky">Event</span>
-          ${e.source ? `<span class="chip chip-gray">${escapeHtml(e.source)}</span>` : ''}
-          ${e.start ? `<span class="tiny muted">${fmtTime(e.start)}</span>` : ''}
-        </div>
-      </div>
-    </div>`;
+    html += `<div class="item"><div class="item-check" style="border-color:var(--sky-500);background:var(--sky-50);cursor:default">📅</div>
+      <div class="item-main"><div class="item-title">${escapeHtml(e.title || e.name)}</div>
+      <div class="item-meta"><span class="chip chip-sky">Event</span>
+        ${e.source ? `<span class="chip chip-gray">${escapeHtml(e.source)}</span>` : ''}
+        ${e.start ? `<span class="tiny muted">${fmtTime(e.start)}</span>` : ''}</div></div></div>`;
   }
   for (const a of todayItems){
     const due = dueLabel(a.dueDate);
-    html += `
-    <div class="item ${a.completed ? 'done' : ''}">
+    html += `<div class="item ${a.completed ? 'done' : ''}">
       <div class="item-check ${a.completed ? 'on' : ''}" data-action="complete" data-id="${a.id}">${a.completed ? '✓' : ''}</div>
-      <div class="item-main">
-        <div class="item-title">${escapeHtml(a.title)}</div>
+      <div class="item-main"><div class="item-title">${escapeHtml(a.title)}</div>
         ${a.description ? `<div class="item-desc">${escapeHtml(a.description)}</div>` : ''}
         <div class="item-meta">
           ${a.subject ? `<span class="chip chip-indigo">${escapeHtml(a.subject)}</span>` : ''}
-          <span class="chip chip-gray">${escapeHtml(a.type)}</span>
-        </div>
-      </div>
-      <div class="item-side"><span class="due ${due.cls}">${escapeHtml(due.text)}</span></div>
-    </div>`;
+          <span class="chip chip-gray">${escapeHtml(a.type)}</span></div></div>
+      <div class="item-side"><span class="due ${due.cls}">${escapeHtml(due.text)}</span></div></div>`;
   }
   return html;
 }
 
 function renderTimetable(timetable){
   if (!timetable || !timetable.length){
-    return `<div class="empty" style="padding:24px 12px">
-      <div class="empty-ico">🕘</div>
+    return `<div class="empty" style="padding:24px 12px"><div class="empty-ico">🕘</div>
       <div class="empty-title">No timetable yet</div>
       <div class="empty-sub">Add your periods once and StudentOS shows today's lessons here.</div>
-      <button class="btn btn-sm btn-primary" style="margin-top:12px" data-action="edit-timetable">Add timetable</button>
-    </div>`;
+      <button class="btn btn-sm btn-primary" style="margin-top:12px" data-action="edit-timetable">Add timetable</button></div>`;
   }
   const todayDow = new Date().getDay();
   const todays = timetable.filter(t => Number(t.day) === todayDow).sort((a,b) => (a.start||'').localeCompare(b.start||''));
   if (!todays.length){
-    return `<div class="empty" style="padding:24px 12px">
-      <div class="empty-ico">🎉</div>
+    return `<div class="empty" style="padding:24px 12px"><div class="empty-ico">🎉</div>
       <div class="empty-title">No classes today</div>
-      <div class="empty-sub">Enjoy the break — or get ahead on upcoming work.</div>
-    </div>`;
+      <div class="empty-sub">Enjoy the break — or get ahead on upcoming work.</div></div>`;
   }
   const nowHM = new Date().toTimeString().slice(0,5);
   return todays.map(t => {
     const isNow = t.start && t.end && nowHM >= t.start && nowHM <= t.end;
     return `<div class="tt-row ${isNow ? 'tt-now' : ''}">
       <div class="tt-time">${escapeHtml(t.start || '')}${t.end ? '–' + escapeHtml(t.end) : ''}</div>
-      <div style="flex:1;min-width:0">
-        <div class="tt-sub">${escapeHtml(t.subject || 'Class')}</div>
-        ${t.room ? `<div class="tiny muted">Room ${escapeHtml(t.room)}</div>` : ''}
-      </div>
-      ${isNow ? '<span class="chip chip-indigo">Now</span>' : ''}
-    </div>`;
+      <div style="flex:1;min-width:0"><div class="tt-sub">${escapeHtml(t.subject || 'Class')}</div>
+        ${t.room ? `<div class="tiny muted">Room ${escapeHtml(t.room)}</div>` : ''}</div>
+      ${isNow ? '<span class="chip chip-indigo">Now</span>' : ''}</div>`;
   }).join('');
 }
 
 function renderActivitiesToday(activities){
   if (!activities || !activities.length){
-    return `<div class="empty" style="padding:24px 12px">
-      <div class="empty-ico">🎾</div>
+    return `<div class="empty" style="padding:24px 12px"><div class="empty-ico">🎾</div>
       <div class="empty-title">No activities yet</div>
       <div class="empty-sub">Add your weekly activities so the planner can schedule around them.</div>
-      <button class="btn btn-sm btn-primary" style="margin-top:12px" data-action="edit-activities">Add activities</button>
-    </div>`;
+      <button class="btn btn-sm btn-primary" style="margin-top:12px" data-action="edit-activities">Add activities</button></div>`;
   }
   const todayDow = new Date().getDay();
   const todays = activities.filter(a => Number(a.day) === todayDow).sort((a,b) => (a.start||'').localeCompare(b.start||''));
   if (!todays.length){
-    return `<div class="empty" style="padding:24px 12px">
-      <div class="empty-ico">☀️</div>
+    return `<div class="empty" style="padding:24px 12px"><div class="empty-ico">☀️</div>
       <div class="empty-title">Free after school</div>
-      <div class="empty-sub">No activities scheduled today.</div>
-    </div>`;
+      <div class="empty-sub">No activities scheduled today.</div></div>`;
   }
   return todays.map(a => `
     <div class="tt-row">
       <div class="tt-time">${escapeHtml(a.start)}–${escapeHtml(a.end)}</div>
       <div style="flex:1;min-width:0"><div class="tt-sub">${escapeHtml(a.name)}</div></div>
-      <span class="chip chip-violet">Activity</span>
-    </div>`).join('');
+      <span class="chip chip-violet">Activity</span></div>`).join('');
 }
 
 function viewAssignments(){
@@ -2470,11 +2366,9 @@ function viewAssignments(){
   if (f.sort === 'due') items.sort((a,b) => (a.dueDate || Infinity) - (b.dueDate || Infinity));
   else if (f.sort === 'priority'){ const rank = { urgent:0, high:1, medium:2, low:3 }; items.sort((a,b) => (rank[a.priority]??3) - (rank[b.priority]??3)); }
   else items.sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
-
   const subjects = [...new Set(Store.all('assignments').map(a => a.subject).filter(Boolean))].sort();
   const open = Store.all('assignments').filter(a => !a.completed).length;
   const seg = (val, label) => `<button class="${f.assignments === val ? 'on' : ''}" data-filter="assignments" data-value="${val}">${label}</button>`;
-
   return `
   <div class="page-head row-between wrap">
     <div><h1 class="page-title">Assignments</h1><p class="page-sub">${open} open · ${Store.all('assignments').length} total</p></div>
@@ -2494,13 +2388,10 @@ function viewAssignments(){
   </div>
   <div class="card">
     ${items.length ? items.map(renderAssignmentItem).join('') : `
-      <div class="empty">
-        <div class="empty-ico">📝</div>
+      <div class="empty"><div class="empty-ico">📝</div>
         <div class="empty-title">No assignments yet</div>
         <div class="empty-sub">Smart paste a Classroom To-do, an email, or any list.</div>
-        <div class="empty-actions">
-          <button class="btn btn-sm btn-primary" data-action="paste-classroom">✨ Smart Paste</button>
-        </div>
+        <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="paste-classroom">✨ Smart Paste</button></div>
       </div>`}
   </div>`;
 }
@@ -2527,8 +2418,8 @@ function renderAssignmentItem(a){
     <div class="item-side">
       <span class="due ${due.cls}">${escapeHtml(due.text)}</span>
       <div class="row" style="gap:4px">
-        <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="edit-assignment" data-id="${a.id}" title="Edit">✏️</button>
-        <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="delete-assignment" data-id="${a.id}" title="Delete">🗑️</button>
+        <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="edit-assignment" data-id="${a.id}">✏️</button>
+        <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="delete-assignment" data-id="${a.id}">🗑️</button>
       </div>
     </div>
   </div>`;
@@ -2547,7 +2438,6 @@ function viewCalendar(){
   }
   const todayTs = startOfDay();
   const upcoming = allEvents.filter(e => startOfDay(new Date(e.date)) >= todayTs).sort((a,b) => a.date - b.date).slice(0, 14);
-
   return `
   <div class="page-head row-between wrap">
     <div><h1 class="page-title">Calendar</h1><p class="page-sub">Deadlines, tests and school events</p></div>
@@ -2593,10 +2483,8 @@ function viewCalendar(){
             <span class="due ${cls}" style="font-size:11px">${d === 0 ? 'Today' : d === 1 ? 'Tomorrow' : `in ${d}d`}</span>
           </div>`;
         }).join('') : `<div class="empty" style="padding:30px 10px">
-          <div class="empty-ico">📅</div>
-          <div class="empty-title">Nothing upcoming</div>
-          <div class="empty-sub">Your school calendar will fill this in on the next sync.</div>
-        </div>`}
+          <div class="empty-ico">📅</div><div class="empty-title">Nothing upcoming</div>
+          <div class="empty-sub">Your school calendar will fill this in on the next sync.</div></div>`}
       </div>
     </div>
   </div>`;
@@ -2606,10 +2494,8 @@ function viewEffort(){
   const reports = Store.all('effortReports').sort((a,b) => b.date - a.date);
   if (!reports.length){
     return `
-    <div class="page-head">
-      <h1 class="page-title">Effort Reports</h1>
-      <p class="page-sub">Upload your weekly report PDF — StudentOS reads every subject and rating</p>
-    </div>
+    <div class="page-head"><h1 class="page-title">Effort Reports</h1>
+      <p class="page-sub">Upload your weekly report PDF — StudentOS reads every subject and rating</p></div>
     <div class="int-upload-card">
       <div style="font-size:48px;margin-bottom:12px">📤</div>
       <h3 style="font-size:18px;margin-bottom:6px">Upload your effort report</h3>
@@ -2620,21 +2506,14 @@ function viewEffort(){
       <div class="tiny muted" style="margin-top:14px">Or press <kbd>E</kbd> anywhere</div>
     </div>`;
   }
-
-  const allSubjects = new Set();
-  for (const r of reports) r.ratings.forEach(x => allSubjects.add(x.subject));
   const latest = reports[0];
   const avgOf = r => r.ratings.length ? r.ratings.reduce((s, x) => s + x.rating, 0) / r.ratings.length : 0;
-
   return `
   <div class="page-head row-between wrap">
-    <div>
-      <h1 class="page-title">Effort Reports</h1>
-      <p class="page-sub">${reports.length} report${reports.length===1?'':'s'} · upload a new PDF each Friday</p>
-    </div>
+    <div><h1 class="page-title">Effort Reports</h1>
+      <p class="page-sub">${reports.length} report${reports.length===1?'':'s'} · upload a new PDF each Friday</p></div>
     <button class="btn btn-primary" data-action="upload-effort">📤 Upload report</button>
   </div>
-
   <section class="card" style="margin-bottom:20px">
     <div class="card-head">
       <div class="card-title">📊 This week · ${escapeHtml(latest.studentCode || '')}</div>
@@ -2652,7 +2531,6 @@ function viewEffort(){
       </div>
     </div>
   </section>
-
   <section class="card">
     <div class="card-head"><div class="card-title">📜 All reports</div></div>
     <div class="card-body" style="padding-top:8px">
@@ -2669,27 +2547,23 @@ function viewEffort(){
             <div class="tiny muted truncate">${r.ratings.map(x => `${x.subject}: ${x.rating}`).join(' · ')}</div>
           </div>
           <div class="effort-avg" style="padding:4px 10px;font-size:11px"><b style="font-size:15px">${avg.toFixed(1)}</b></div>
-          <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="delete-effort" data-id="${r.id}" title="Delete">🗑️</button>
+          <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="delete-effort" data-id="${r.id}">🗑️</button>
         </div>`;
       }).join('')}
     </div>
   </section>`;
 }
 
-/* ================================================================
-   STUDY PLANNER
-   ================================================================ */
+/* ── STUDY PLANNER ──────────────────────────────────────────── */
 function findFreeSlots(dayKey, durationMin, activities){
   const dayOfWeek = new Date(dayKey).getDay();
   const dayActivities = activities
     .filter(a => Number(a.day) === dayOfWeek)
     .map(a => ({ start: timeToMin(a.start), end: timeToMin(a.end), name: a.name }))
     .sort((a,b) => a.start - b.start);
-
   const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
   const windowStart = isWeekend ? 9 * 60 : 15 * 60 + 30;
   const windowEnd = 21 * 60;
-
   const slots = [];
   let cursor = windowStart;
   for (const act of dayActivities){
@@ -2698,9 +2572,7 @@ function findFreeSlots(dayKey, durationMin, activities){
     }
     cursor = Math.max(cursor, act.end);
   }
-  if (windowEnd - cursor >= durationMin){
-    slots.push({ start: cursor, end: windowEnd, blocked: null });
-  }
+  if (windowEnd - cursor >= durationMin) slots.push({ start: cursor, end: windowEnd, blocked: null });
   return slots;
 }
 
@@ -2708,14 +2580,12 @@ function scheduleSession(assignment, sessionDays, totalMinutes, activities, busy
   const d = daysUntil(assignment.dueDate);
   const perSession = Math.round(totalMinutes / sessionDays);
   const out = [];
-
   for (let k = 0; k < sessionDays; k++){
     const dayOffset = d === null ? k : Math.max(0, d - (sessionDays - 1 - k));
     const dayKey = startOfDay(new Date(Date.now() + dayOffset * 86400000));
     const daySessions = busy[dayKey] || [];
     const free = findFreeSlots(dayKey, perSession, activities);
     free.sort((a,b) => a.start - b.start);
-
     let placed = null;
     for (const slot of free){
       let start = slot.start;
@@ -2726,19 +2596,13 @@ function scheduleSession(assignment, sessionDays, totalMinutes, activities, busy
       }
       if (start + perSession <= slot.end){ placed = { start, end: start + perSession }; break; }
     }
-
     if (!placed) continue;
-
     (busy[dayKey] = busy[dayKey] || []).push(placed);
     out.push({
       assignmentId: assignment.id,
       title: `${k === 0 ? 'Start' : k === sessionDays - 1 ? 'Finish' : 'Continue'}: ${assignment.title}`,
-      subject: assignment.subject,
-      minutes: perSession,
-      day: dayKey,
-      start: placed.start,
-      end: placed.end,
-      type: assignment.type
+      subject: assignment.subject, minutes: perSession,
+      day: dayKey, start: placed.start, end: placed.end, type: assignment.type
     });
   }
   return out;
@@ -2749,7 +2613,6 @@ function viewPlanner(){
   const sessions = Store.all('studySessions').sort((a,b) => (a.start||0) - (b.start||0));
   const activities = Store.cache.settings.weeklyActivities || [];
   const ranked = items.map(i => ({ i, score: plannerScore(i) })).sort((a,b) => b.score - a.score);
-
   const busy = {};
   const suggestions = [];
   for (const { i } of ranked){
@@ -2763,7 +2626,6 @@ function viewPlanner(){
   for (const s of suggestions){ (byDay[s.day] = byDay[s.day] || []).push(s); }
   Object.values(byDay).forEach(arr => arr.sort((a,b) => a.start - b.start));
   const days = Object.keys(byDay).map(Number).sort((a,b) => a - b).slice(0, 7);
-
   const activityHtml = activities.length ? activities.slice().sort((a,b) => a.day - b.day || a.start.localeCompare(b.start)).map(a => `
     <div class="activity-row">
       <div class="activity-day">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][a.day]}</div>
@@ -2771,12 +2633,9 @@ function viewPlanner(){
       <div class="activity-name truncate">${escapeHtml(a.name)}</div>
       <button class="icon-btn" style="width:26px;height:26px;font-size:13px;color:var(--red-500)" data-action="delete-activity" data-id="${a.id}">✕</button>
     </div>`).join('') : `<div class="empty" style="padding:22px 12px">
-      <div class="empty-ico">🎾</div>
-      <div class="empty-title">No activities yet</div>
+      <div class="empty-ico">🎾</div><div class="empty-title">No activities yet</div>
       <div class="empty-sub">Add tutoring, sport or music so the planner can schedule around them.</div>
-      <button class="btn btn-sm btn-primary" style="margin-top:12px" data-action="edit-activities">Add activities</button>
-    </div>`;
-
+      <button class="btn btn-sm btn-primary" style="margin-top:12px" data-action="edit-activities">Add activities</button></div>`;
   return `
   <div class="page-head row-between wrap">
     <div><h1 class="page-title">Study Planner</h1><p class="page-sub">Recommended sessions built around your week</p></div>
@@ -2785,13 +2644,9 @@ function viewPlanner(){
   <div class="cols cols-main">
     <div class="stack">
       <section class="card">
-        <div class="card-head">
-          <div class="card-title">🏃 Weekly activities</div>
-          <button class="btn btn-sm btn-ghost" data-action="edit-activities">Edit</button>
-        </div>
-        <div class="card-body" style="padding-top:8px;padding-bottom:8px">
-          ${activityHtml}
-        </div>
+        <div class="card-head"><div class="card-title">🏃 Weekly activities</div>
+          <button class="btn btn-sm btn-ghost" data-action="edit-activities">Edit</button></div>
+        <div class="card-body" style="padding-top:8px;padding-bottom:8px">${activityHtml}</div>
       </section>
       <section class="card">
         <div class="card-head"><div class="card-title">📋 Priority order</div><span class="chip chip-gray">${ranked.length}</span></div>
@@ -2812,8 +2667,7 @@ function viewPlanner(){
               </div>
             </div>`;
           }).join('') : `<div class="empty" style="padding:34px 12px">
-            <div class="empty-ico">🎯</div>
-            <div class="empty-title">Nothing to plan yet</div>
+            <div class="empty-ico">🎯</div><div class="empty-title">Nothing to plan yet</div>
             <div class="empty-sub">Smart paste your Classroom work and StudentOS will rank everything automatically.</div>
             <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="paste-classroom">✨ Smart Paste</button></div>
           </div>`}
@@ -2843,10 +2697,8 @@ function viewPlanner(){
                 </div>`).join('')}
             </div>`;
           }).join('') : `<div class="empty" style="padding:30px 10px">
-            <div class="empty-ico">✨</div>
-            <div class="empty-title">No sessions needed</div>
-            <div class="empty-sub">You're all caught up.</div>
-          </div>`}
+            <div class="empty-ico">✨</div><div class="empty-title">No sessions needed</div>
+            <div class="empty-sub">You're all caught up.</div></div>`}
         </div>
       </section>
       ${sessions.length ? `
@@ -2872,13 +2724,14 @@ function viewIntegrations(){
   const subs = Store.cache.settings.calendarSubscriptions || [];
   const classroomItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'Google Classroom'));
   const emailItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'Email'));
-
+  const aiItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'AI Paste'));
+  const s = Store.cache.settings;
+  const aiOn = s.aiProvider && s.aiProvider !== 'off' && s.aiApiKey;
   return `
   <div class="page-head">
     <h1 class="page-title">Integrations</h1>
-    <p class="page-sub">Everything you need is already built in — no setup required.</p>
+    <p class="page-sub">Everything you need is built in. AI is optional for the smartest parsing.</p>
   </div>
-
   <div class="stack">
     <section class="card card-pad int-card hero">
       <div class="int-logo" style="background:linear-gradient(135deg,#6366f1,#4338ca);color:#fff;border:none;font-size:22px">✨</div>
@@ -2886,39 +2739,33 @@ function viewIntegrations(){
         <div class="int-name">
           Smart Paste
           <span class="chip chip-green">Works instantly</span>
-          <span class="chip chip-green">Any source</span>
+          ${aiOn ? '<span class="chip chip-violet">🤖 AI-assisted</span>' : ''}
         </div>
         <div class="int-desc int-hero-body">
-          Copy your Classroom <strong>To-do</strong> page, an email from school, or just a list.
-          StudentOS figures out what it is and pulls out every assignment with due dates, subjects and priorities.
+          Copy your Classroom <strong>To-do</strong> page, an email from school, or a plain list.
+          StudentOS detects the format and extracts every assignment with due dates, subjects and priorities.
+          ${aiOn ? '<strong>AI is currently enabled</strong> — paste anything and it will be parsed by your chosen model.' : ''}
         </div>
         <div class="int-stats">
           ${classroomItems.length ? `<div class="int-stat"><b>${classroomItems.length}</b>from Classroom</div>` : ''}
           ${emailItems.length ? `<div class="int-stat"><b>${emailItems.length}</b>from email</div>` : ''}
+          ${aiItems.length ? `<div class="int-stat"><b>${aiItems.length}</b>from AI</div>` : ''}
         </div>
         <div class="int-hero-actions">
           <button class="btn btn-primary btn-lg" data-action="paste-classroom">✨ Smart Paste</button>
           <button class="btn btn-ghost" data-action="show-paste-help">How it works</button>
+          ${!aiOn ? `<button class="btn btn-ghost" data-nav="#/settings">Enable AI parsing</button>` : ''}
         </div>
       </div>
     </section>
-
     <section class="card card-pad int-card" style="border:2px solid var(--violet-500);background:linear-gradient(135deg,var(--violet-50) 0%,#fff 100%)">
       <div class="int-logo" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;border:none;font-size:22px">📤</div>
       <div class="int-body">
-        <div class="int-name">
-          Upload effort report PDF
-          <span class="chip chip-violet">Every Friday</span>
-        </div>
-        <div class="int-desc">
-          Drop in your weekly PDF from school. StudentOS reads every subject, weekly rating and your year average.
-        </div>
-        <div class="int-hero-actions">
-          <button class="btn btn-primary" data-action="upload-effort">📤 Upload report</button>
-        </div>
+        <div class="int-name">Upload effort report PDF <span class="chip chip-violet">Every Friday</span></div>
+        <div class="int-desc">Drop in your weekly PDF from school. StudentOS reads every subject, weekly rating and your year average.</div>
+        <div class="int-hero-actions"><button class="btn btn-primary" data-action="upload-effort">📤 Upload report</button></div>
       </div>
     </section>
-
     <section class="card">
       <div class="card-head">
         <div class="card-title">📆 School calendars</div>
@@ -2939,11 +2786,9 @@ function viewIntegrations(){
               <button class="btn btn-ghost btn-sm" data-sync="calendar">Sync</button>
               ${!sub.builtin ? `<button class="btn btn-danger-soft btn-sm" data-action="remove-calendar-sub" data-id="${sub.id}">Remove</button>` : ''}
             </div>
-          </div>`).join('') : `
-          <div class="empty" style="padding:26px 10px">
-            <div class="empty-title">No calendars yet</div>
-            <div class="empty-sub">Add a public ICS URL to pull in school events.</div>
-          </div>`}
+          </div>`).join('') : `<div class="empty" style="padding:26px 10px">
+          <div class="empty-title">No calendars yet</div>
+          <div class="empty-sub">Add a public ICS URL to pull in school events.</div></div>`}
       </div>
     </section>
   </div>`;
@@ -2951,8 +2796,9 @@ function viewIntegrations(){
 
 function viewSettings(){
   const s = Store.cache.settings;
+  const aiInfo = AI_PROVIDER_INFO[s.aiProvider];
   return `
-  <div class="page-head"><h1 class="page-title">Settings</h1><p class="page-sub">Account, privacy and appearance</p></div>
+  <div class="page-head"><h1 class="page-title">Settings</h1><p class="page-sub">Account, AI, privacy and appearance</p></div>
   <div class="cols cols-2">
     <section class="card">
       <div class="card-head"><div class="card-title">👤 Account</div></div>
@@ -2983,6 +2829,46 @@ function viewSettings(){
         </div>
       </div>
     </section>
+    <section class="card" style="grid-column:1/-1">
+      <div class="card-head">
+        <div class="card-title">🤖 AI-assisted Smart Paste <span class="chip ${s.aiProvider !== 'off' && s.aiApiKey ? 'chip-green' : 'chip-gray'}">${s.aiProvider !== 'off' && s.aiApiKey ? 'Active' : 'Optional'}</span></div>
+      </div>
+      <div class="card-body">
+        <p class="small muted" style="margin-bottom:14px;line-height:1.6">
+          By default Smart Paste uses built-in rules — fast, free, works offline.
+          You can optionally plug in an AI provider for even smarter parsing of messy or unusual text.
+          Your key is stored locally and only sent to the provider you choose — never to us.
+        </p>
+        <div class="set-row">
+          <div class="set-info">
+            <div class="set-name">AI provider</div>
+            <div class="set-desc">Choose "Off" to disable AI and use the built-in parser.</div>
+          </div>
+          <div class="set-control">
+            <select class="select" data-setting="aiProvider" style="width:200px">
+              <option value="off" ${s.aiProvider === 'off' ? 'selected' : ''}>Off (built-in)</option>
+              <option value="gemini" ${s.aiProvider === 'gemini' ? 'selected' : ''}>Google Gemini</option>
+              <option value="openai" ${s.aiProvider === 'openai' ? 'selected' : ''}>OpenAI</option>
+            </select>
+          </div>
+        </div>
+        <div class="set-row" id="ai-key-row" ${s.aiProvider === 'off' ? 'hidden' : ''}>
+          <div class="set-info">
+            <div class="set-name">API key</div>
+            <div class="set-desc">${aiInfo ? aiInfo.hint : ''}</div>
+          </div>
+          <div class="set-control" style="flex-direction:column;align-items:flex-end;gap:8px">
+            <input class="input" type="password" data-setting="aiApiKey" placeholder="Paste your API key" value="${escapeHtml(s.aiApiKey || '')}" style="width:280px;font-family:ui-monospace,monospace;font-size:12px">
+            <button class="btn btn-ghost btn-sm" data-action="test-ai">Test connection</button>
+          </div>
+        </div>
+        <div id="ai-hint" class="alert ${s.aiProvider === 'off' ? 'alert-info' : 'alert-success'}" style="margin-top:14px">
+          ${s.aiProvider === 'off'
+            ? '<span>💡</span><div><strong>Built-in parser active.</strong> Fast, free, works offline. Enable an AI provider above for smarter handling of messy text.</div>'
+            : `<span>🔑</span><div><strong>Get a key for ${escapeHtml(aiInfo?.name || '')}:</strong> <a href="${aiInfo?.keyUrl || '#'}" target="_blank" rel="noopener">${(aiInfo?.keyUrl || '').replace('https://','')}</a><br><span class="tiny">${escapeHtml(aiInfo?.hint || '')}</span></div>`}
+        </div>
+      </div>
+    </section>
     <section class="card">
       <div class="card-head"><div class="card-title">🔔 Notifications</div></div>
       <div class="card-body">
@@ -3008,7 +2894,7 @@ function viewSettings(){
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" style="grid-column:1/-1">
       <div class="card-head"><div class="card-title">⌨️ Keyboard shortcuts</div></div>
       <div class="card-body">
         <div class="shortcut-grid">
@@ -3066,8 +2952,7 @@ function bindViewEvents(){
         if (!item) break;
         if (await confirmDialog('Delete assignment?', `"${item.title}" will be removed.`, 'Delete', true)){
           await Store.remove('assignments', id);
-          toast('Deleted', 'success');
-          render();
+          toast('Deleted', 'success'); render();
         }
         break;
       }
@@ -3078,8 +2963,7 @@ function bindViewEvents(){
       case 'upload-effort': openEffortUploadModal(); break;
       case 'delete-effort': {
         if (await confirmDialog('Delete effort report?', 'This week\'s ratings will be removed.', 'Delete', true)){
-          await Store.remove('effortReports', id);
-          render();
+          await Store.remove('effortReports', id); render();
         }
         break;
       }
@@ -3093,11 +2977,9 @@ function bindViewEvents(){
           id: uid(), title: action.dataset.title,
           assignmentId: action.dataset.assignment,
           minutes: Number(action.dataset.minutes),
-          start: day + startMin * 60000,
-          createdAt: now()
+          start: day + startMin * 60000, createdAt: now()
         });
-        toast('Session saved', 'success');
-        render();
+        toast('Session saved', 'success'); render();
         break;
       }
       case 'delete-session': await Store.remove('studySessions', id); render(); break;
@@ -3113,22 +2995,18 @@ function bindViewEvents(){
       case 'delete-activity': {
         const acts = Store.cache.settings.weeklyActivities;
         const idx = acts.findIndex(x => x.id === id);
-        if (idx >= 0){
-          acts.splice(idx, 1);
-          await Store.saveUserDoc();
-          render();
-        }
+        if (idx >= 0){ acts.splice(idx, 1); await Store.saveUserDoc(); render(); }
         break;
       }
       case 'dismiss-checklist': {
         Store.cache.settings.onboardingSeen = true;
-        await Store.saveUserDoc();
-        render();
+        await Store.saveUserDoc(); render();
         break;
       }
       case 'paste-classroom': openClassroomPasteModal(); break;
       case 'show-paste-help': openPasteHelpModal(); break;
       case 'sync-now': syncAll({ silent: false }); break;
+      case 'test-ai': await testAiConnection(); break;
       case 'cleanup-duplicates': {
         const removedEvents = await dedupeExistingEvents();
         const removedItems = await dedupeExistingAssignments();
@@ -3140,16 +3018,13 @@ function bindViewEvents(){
       case 'export-data': exportData(); break;
       case 'replay-onboarding': {
         Store.cache.settings.onboardingSeen = false;
-        await Store.saveUserDoc();
-        render();
-        showOnboarding();
+        await Store.saveUserDoc(); render(); showOnboarding();
         break;
       }
       case 'wipe-data': {
         if (await confirmDialog('Delete all data?', 'Every item will be permanently removed. This cannot be undone.', 'Delete everything', true)){
           await Store.removeAll();
-          toast('Data deleted', 'success');
-          render();
+          toast('Data deleted', 'success'); render();
         }
         break;
       }
@@ -3159,9 +3034,7 @@ function bindViewEvents(){
         const idx = subs.findIndex(x => x.id === id);
         if (idx >= 0 && !subs[idx].builtin){
           if (await confirmDialog('Remove this calendar?', 'Its events will no longer sync.', 'Remove', true)){
-            subs.splice(idx, 1);
-            await Store.saveUserDoc();
-            render();
+            subs.splice(idx, 1); await Store.saveUserDoc(); render();
           }
         }
         break;
@@ -3178,9 +3051,37 @@ function bindViewEvents(){
       Store.cache.settings[setting] = isBool ? e.target.checked : e.target.value;
       await Store.saveUserDoc();
       if (setting === 'theme') document.documentElement.dataset.theme = e.target.value;
+      if (setting === 'aiProvider'){ render(); return; }
       toast('Saved', 'success');
     }
   });
+}
+
+/* ── TEST AI CONNECTION ──────────────────────────────────────── */
+async function testAiConnection(){
+  const s = Store.cache.settings;
+  if (!s.aiProvider || s.aiProvider === 'off'){ toast('Choose an AI provider first', 'warn'); return; }
+  if (!s.aiApiKey){ toast('Paste your API key first', 'warn'); return; }
+
+  const sample = `assignment
+Chapter 5 questions
+10 Maths
+Monday 21 Sept`;
+  const btn = $('[data-action="test-ai"]');
+  if (btn){ btn.disabled = true; btn.textContent = 'Testing…'; }
+  try {
+    const raw = await aiParse(sample, s);
+    const items = normalizeAiItems(raw);
+    if (items.length){
+      toast(`AI is working! Test parsed ${items.length} item.`, 'success', 'Connection OK');
+    } else {
+      toast('AI responded but found no items', 'warn');
+    }
+  } catch (e){
+    toast(e.message, 'error', 'AI test failed');
+  } finally {
+    if (btn){ btn.disabled = false; btn.textContent = 'Test connection'; }
+  }
 }
 
 /* ── EFFORT UPLOAD MODAL ─────────────────────────────────────── */
@@ -3204,14 +3105,11 @@ function openEffortUploadModal(){
       </div>
       <div id="eu-step2" hidden>
         <div id="eu-status" class="alert alert-info" style="margin-bottom:14px">
-          <span class="spinner"></span>
-          <div>Reading your PDF…</div>
+          <span class="spinner"></span><div>Reading your PDF…</div>
         </div>
         <div id="eu-preview"></div>
       </div>`,
-    footer: `
-      <button class="btn btn-ghost" data-close>Cancel</button>
-      <button class="btn btn-primary" id="eu-save" disabled>Save report</button>`,
+    footer: `<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="eu-save" disabled>Save report</button>`,
     onMount(el, close){
       const drop = $('#eu-drop', el);
       const fileInput = $('#eu-file', el);
@@ -3227,7 +3125,6 @@ function openEffortUploadModal(){
         status.className = 'alert alert-info';
         status.innerHTML = `<span class="spinner"></span><div>Reading your PDF…</div>`;
         preview.innerHTML = '';
-
         try {
           const text = await extractPdfText(file);
           parsed = parseEffortReportText(text);
@@ -3278,7 +3175,6 @@ function openEffortUploadModal(){
       ['dragenter','dragover'].forEach(evt => drop.addEventListener(evt, e => { e.preventDefault(); drop.classList.add('drag'); }));
       ['dragleave','drop'].forEach(evt => drop.addEventListener(evt, e => { e.preventDefault(); drop.classList.remove('drag'); }));
       drop.addEventListener('drop', e => { handleFile(e.dataTransfer.files[0]); });
-
       $('#eu-cancel', el).addEventListener('click', close);
 
       saveBtn.addEventListener('click', async () => {
@@ -3301,48 +3197,53 @@ function openEffortUploadModal(){
 
 /* ── PASTE HELP MODAL ────────────────────────────────────────── */
 function openPasteHelpModal(){
+  const aiOn = Store.cache.settings.aiProvider && Store.cache.settings.aiProvider !== 'off' && Store.cache.settings.aiApiKey;
   openModal({
     title: '✨ How Smart Paste works',
     wide: true,
     body: `
       <p class="small" style="color:var(--text-2);line-height:1.65;margin-bottom:16px">
-        Smart Paste looks at what you paste and figures out the format automatically. It handles three kinds of input:
+        Smart Paste figures out what you've pasted and sorts it into assignments automatically.
+        ${aiOn
+          ? '<strong>AI parsing is currently ON</strong> — your paste will be sent to your chosen AI provider for the smartest possible extraction.'
+          : 'You can optionally turn on AI parsing in Settings for even smarter handling of messy text.'}
       </p>
       <div class="howto-grid">
         <div class="howto-step">
           <div class="howto-num">🎓</div>
           <div class="howto-step-body">
             <strong>Google Classroom To-do</strong>
-            Open <a href="https://classroom.google.com/u/0/h" target="_blank" rel="noopener">classroom.google.com</a> → <em>To-do</em>. Click on the page, <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Ctrl</kbd>+<kbd>C</kbd> (or <kbd>⌘</kbd>+<kbd>A</kbd> / <kbd>⌘</kbd>+<kbd>C</kbd>), then paste here.
+            Open <a href="https://classroom.google.com/u/0/h" target="_blank" rel="noopener">classroom.google.com</a> → <em>To-do</em>.
+            Click on the page, <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Ctrl</kbd>+<kbd>C</kbd>, then paste here.
           </div>
         </div>
         <div class="howto-step">
           <div class="howto-num">📧</div>
           <div class="howto-step-body">
             <strong>Any school email</strong>
-            Select the whole email (including the <code>From:</code> / <code>Subject:</code> headers) and paste. StudentOS uses the subject line as the title and pulls dates out of the body.
+            Select the whole email (including the <code>From:</code> / <code>Subject:</code> headers) and paste.
+            StudentOS uses the subject line as the title and pulls dates from the body.
           </div>
         </div>
         <div class="howto-step">
           <div class="howto-num">📝</div>
           <div class="howto-step-body">
             <strong>Any list or message</strong>
-            A bullet list, a note from a teacher, a screenshot transcription — anything. Each line becomes a task.
+            A bullet list, a note from a teacher, anything. Each line becomes a task.
           </div>
         </div>
       </div>
-      <div class="alert alert-info" style="margin-top:16px">
-        <span>💡</span>
+      <div class="alert ${aiOn ? 'alert-success' : 'alert-info'}" style="margin-top:16px">
+        <span>${aiOn ? '🤖' : '💡'}</span>
         <div>
-          For Classroom: <strong>skip the "No due date" section</strong> — items without deadlines can't be scheduled, so StudentOS ignores them anyway.
+          ${aiOn
+            ? '<strong>AI is enabled.</strong> Messy text, screenshots, non-standard formats — all handled. Your API key stays in this browser and is only ever sent to your chosen provider.'
+            : '<strong>Fast, free, offline.</strong> The built-in parser handles the common cases instantly. Enable AI in Settings if you need smarter handling of messy input.'}
         </div>
       </div>
       <div class="alert alert-success" style="margin-top:12px">
         <span>✓</span>
-        <div>
-          <strong>Subjects are unified.</strong> "PE", "Health", "Physical Education" and "PE & Health" all become
-          one subject. Same for Maths/Math/Mathematics, RE/Religious Ed, and Te Reo/Maori.
-        </div>
+        <div><strong>Subjects are unified.</strong> "PE", "Health", "Physical Education" and "PE & Health" all become one subject.</div>
       </div>`,
     footer: `<button class="btn btn-ghost" data-close>Got it</button><button class="btn btn-primary" id="ph-go">Open Smart Paste</button>`,
     onMount(el, close){ $('#ph-go', el).addEventListener('click', () => { close(); openClassroomPasteModal(); }); }
@@ -3352,6 +3253,7 @@ function openPasteHelpModal(){
 /* ── SMART PASTE MODAL ───────────────────────────────────────── */
 function openClassroomPasteModal(){
   let parsedItems = [];
+  let detectToken = 0;
   openModal({
     title: '✨ Smart Paste',
     subtitle: 'Paste anything — Classroom, email, or a list. StudentOS figures it out.',
@@ -3360,9 +3262,8 @@ function openClassroomPasteModal(){
       <div class="alert alert-info" style="margin-bottom:14px">
         <span>💡</span>
         <div>
-          <strong>Works with anything.</strong>
-          Copy your Classroom To-do page, select an entire email, or paste a simple list.
-          StudentOS detects the format automatically.
+          <strong>Works with anything.</strong> Copy your Classroom To-do page, select an entire email,
+          or paste a simple list. ${Store.cache.settings.aiProvider !== 'off' && Store.cache.settings.aiApiKey ? '<strong>AI is on — the parser will use your key.</strong>' : ''}
         </div>
       </div>
       <div class="paste-grid">
@@ -3409,11 +3310,12 @@ Or a list:
       const formatChip = $('#cp-format', el);
       const importBtn = $('#cp-import', el);
 
-      const setFormatChip = (fmt) => {
+      const setFormatChip = (fmt, working = false) => {
         formatChip.className = 'format-badge';
         if (fmt === 'classroom'){ formatChip.classList.add('classroom'); formatChip.textContent = '🎓 Classroom To-do'; }
         else if (fmt === 'email'){ formatChip.classList.add('email'); formatChip.textContent = '📧 Email'; }
         else if (fmt === 'generic'){ formatChip.classList.add('generic'); formatChip.textContent = '📝 Text'; }
+        else if (fmt === 'ai'){ formatChip.classList.add('ai'); if (working) formatChip.classList.add('working'); formatChip.textContent = working ? '🤖 Thinking…' : '🤖 AI-assisted'; }
         else { formatChip.textContent = '—'; }
       };
 
@@ -3461,7 +3363,8 @@ Or a list:
         });
       };
 
-      const detect = () => {
+      const detect = async () => {
+        const myToken = ++detectToken;
         const text = input.value;
         if (!text || !text.trim()){
           parsedItems = [];
@@ -3469,15 +3372,36 @@ Or a list:
           renderPreview();
           return;
         }
-        setFormatChip(detectPasteFormat(text));
-        parsedItems = smartPaste(text);
-        renderPreview();
+
+        const s = Store.cache.settings;
+        const aiOn = s.aiProvider && s.aiProvider !== 'off' && s.aiApiKey;
+
+        if (aiOn){
+          setFormatChip('ai', true);
+          countChip.textContent = '…';
+          importBtn.disabled = true;
+          preview.innerHTML = `<div class="paste-empty"><span class="spinner" style="vertical-align:middle;margin-right:8px"></span>Asking AI…</div>`;
+        } else {
+          setFormatChip(detectPasteFormat(text));
+        }
+
+        try {
+          const result = await smartPaste(text);
+          if (myToken !== detectToken) return; // superseded
+          parsedItems = result;
+          if (aiOn) setFormatChip('ai', false);
+          renderPreview();
+        } catch (e){
+          if (myToken !== detectToken) return;
+          parsedItems = [];
+          renderPreview();
+        }
       };
 
       $('#cp-detect', el).addEventListener('click', detect);
       input.addEventListener('paste', () => setTimeout(detect, 60));
       input.addEventListener('input', () => {
-        if (input.value.length > 20){ clearTimeout(input._t); input._t = setTimeout(detect, 600); }
+        if (input.value.length > 20){ clearTimeout(input._t); input._t = setTimeout(detect, 700); }
       });
 
       importBtn.addEventListener('click', async () => {
@@ -3537,15 +3461,13 @@ function openAssignmentModal(existing, presetType){
         record.priority = computePriority(record);
         await Store.put('assignments', record);
         close();
-        toast(isEdit ? 'Updated' : 'Added', 'success');
-        render();
+        toast(isEdit ? 'Updated' : 'Added', 'success'); render();
       });
       setTimeout(() => $('#m-title', el)?.focus(), 60);
     }
   });
 }
 
-/* ── TIMETABLE MODAL ─────────────────────────────────────────── */
 function openTimetableModal(){
   const tt = Store.cache.settings.timetable || [];
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -3556,17 +3478,13 @@ function openTimetableModal(){
     body: `
       <div class="alert alert-info" style="margin-bottom:14px">
         <span>💡</span>
-        <div>
-          <strong>Fastest way:</strong> paste lines like
-          <code>Monday 9:00-10:00 Maths M12</code> — one per period — into the box below and click <em>Auto-fill</em>.
-        </div>
+        <div><strong>Fastest way:</strong> paste lines like <code>Monday 9:00-10:00 Maths M12</code> — one per period — and click <em>Auto-fill</em>.</div>
       </div>
       <div class="field" style="margin-bottom:14px">
         <label class="label">Paste your timetable</label>
         <textarea class="textarea" id="tt-paste" placeholder="Monday 9:00-10:00 Maths M12
 Monday 10:05-11:05 English E7
-Tuesday 9:00-10:00 Science S3
-Wednesday 9:00-10:00 English E7" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
+Tuesday 9:00-10:00 Science S3" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
       </div>
       <button class="btn btn-subtle btn-sm" id="tt-autofill">✨ Auto-fill from text</button>
       <div style="height:1px;background:var(--border);margin:18px 0"></div>
@@ -3583,7 +3501,6 @@ Wednesday 9:00-10:00 English E7" style="min-height:120px;font-family:ui-monospac
         $('#tt-rows', el).appendChild(wrap.firstElementChild);
       };
       $('#tt-add', el).addEventListener('click', () => addRow({ day:1, start:'', end:'', subject:'', room:'' }));
-
       $('#tt-autofill', el).addEventListener('click', () => {
         const parsed = parseTimetableText($('#tt-paste', el).value);
         if (!parsed.length){ toast('Couldn\'t find any timetable lines', 'warn'); return; }
@@ -3592,7 +3509,6 @@ Wednesday 9:00-10:00 English E7" style="min-height:120px;font-family:ui-monospac
         parsed.forEach(p => addRow(p));
         toast(`Added ${parsed.length} period${parsed.length === 1 ? '' : 's'}`, 'success');
       });
-
       $('#tt-save', el).addEventListener('click', async () => {
         const rows = $$('.tt-row-input', el).map(r => ({
           day: Number($('.tt-day', r).value),
@@ -3604,10 +3520,8 @@ Wednesday 9:00-10:00 English E7" style="min-height:120px;font-family:ui-monospac
         Store.cache.settings.timetable = rows;
         await Store.saveUserDoc();
         close();
-        toast(`Saved ${rows.length} period${rows.length===1?'':'s'}`, 'success');
-        render();
+        toast(`Saved ${rows.length} period${rows.length===1?'':'s'}`, 'success'); render();
       });
-
       el.addEventListener('click', e => { if (e.target.closest('.tt-del')) e.target.closest('.tt-row-input').remove(); });
     }
   });
@@ -3625,7 +3539,6 @@ function ttRowHtml(t, idx, days){
   </div>`;
 }
 
-/* ── ACTIVITIES MODAL ────────────────────────────────────────── */
 function openActivitiesModal(){
   openModal({
     title: '🏃 Weekly activities',
@@ -3634,16 +3547,13 @@ function openActivitiesModal(){
     body: `
       <div class="alert alert-info" style="margin-bottom:14px">
         <span>💡</span>
-        <div>
-          <strong>Fastest way:</strong> paste lines like <code>Monday: Tutoring 4-4:30</code> — one per activity — and click <em>Auto-fill</em>.
-        </div>
+        <div><strong>Fastest way:</strong> paste lines like <code>Monday: Tutoring 4-4:30</code> and click <em>Auto-fill</em>.</div>
       </div>
       <div class="field" style="margin-bottom:14px">
         <label class="label">Paste your weekly activities</label>
         <textarea class="textarea" id="act-paste" placeholder="Monday: Tutoring 4-4:30
 Tuesday: Tutoring 4-5
-Wednesday: Padel 3:15-4:00
-Thursday: Football training 4:30-6:00" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
+Wednesday: Padel 3:15-4:00" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
       </div>
       <button class="btn btn-subtle btn-sm" id="act-autofill">✨ Auto-fill from text</button>
       <div style="height:1px;background:var(--border);margin:18px 0"></div>
@@ -3654,7 +3564,6 @@ Thursday: Football training 4:30-6:00" style="min-height:120px;font-family:ui-mo
       const rows = $('#act-rows', el);
       const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
       const existing = Store.cache.settings.weeklyActivities || [];
-
       const renderRow = (data) => {
         const div = document.createElement('div');
         div.className = 'row';
@@ -3670,12 +3579,9 @@ Thursday: Football training 4:30-6:00" style="min-height:120px;font-family:ui-mo
           <button class="icon-btn act-del" style="color:var(--red-600)">✕</button>`;
         rows.appendChild(div);
       };
-
       if (existing.length) existing.forEach(renderRow);
       else renderRow({ day: 1, start:'16:00', end:'17:00', name:'' });
-
       $('#act-add', el).addEventListener('click', () => renderRow({ day:1, start:'16:00', end:'17:00', name:'' }));
-
       $('#act-autofill', el).addEventListener('click', () => {
         const parsed = parseActivitiesText($('#act-paste', el).value);
         if (!parsed.length){ toast('Couldn\'t find any activity lines', 'warn'); return; }
@@ -3683,7 +3589,6 @@ Thursday: Football training 4:30-6:00" style="min-height:120px;font-family:ui-mo
         parsed.forEach(renderRow);
         toast(`Added ${parsed.length} activit${parsed.length === 1 ? 'y' : 'ies'}`, 'success');
       });
-
       $('#act-save', el).addEventListener('click', async () => {
         const list = $$('.row[data-act]', el).map(r => ({
           id: r.dataset.act,
@@ -3695,10 +3600,8 @@ Thursday: Football training 4:30-6:00" style="min-height:120px;font-family:ui-mo
         Store.cache.settings.weeklyActivities = list;
         await Store.saveUserDoc();
         close();
-        toast(`Saved ${list.length} activit${list.length === 1 ? 'y' : 'ies'}`, 'success');
-        render();
+        toast(`Saved ${list.length} activit${list.length === 1 ? 'y' : 'ies'}`, 'success'); render();
       });
-
       el.addEventListener('click', e => { if (e.target.closest('.act-del')) e.target.closest('.row[data-act]').remove(); });
     }
   });
@@ -3713,8 +3616,7 @@ function openAddCalendarModal(){
         <input class="input" id="cal-name" placeholder="e.g. Sports Fixtures"></div>
       <div class="field"><label class="label">ICS URL</label>
         <input class="input" id="cal-url" placeholder="https://…/basic.ics" style="font-family:ui-monospace,monospace;font-size:12px">
-        <div class="hint">Must be an .ics feed.</div>
-      </div>`,
+        <div class="hint">Must be an .ics feed.</div></div>`,
     footer: `<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="cal-add">Add calendar</button>`,
     onMount(el, close){
       $('#cal-add', el).addEventListener('click', async () => {
@@ -3724,8 +3626,7 @@ function openAddCalendarModal(){
         Store.cache.settings.calendarSubscriptions.push({ id: uid(), name, url, builtin: false, lastSync: null, count: 0, error: null });
         await Store.saveUserDoc();
         close();
-        toast('Calendar added — syncing…', 'success');
-        render();
+        toast('Calendar added — syncing…', 'success'); render();
         syncCalendarSubscriptions().then(() => render());
       });
     }
@@ -3795,18 +3696,12 @@ function renderOnb(){
       <h2>You're all set 🎉</h2>
       <p class="lead">Three things to know:</p>
       <div class="onb-feature-list">
-        <div class="onb-feature">
-          <div class="onb-feature-ico">✨</div>
-          <div><strong>Smart Paste</strong>Press <kbd>P</kbd> anywhere. Handles Classroom, emails, and any list.</div>
-        </div>
-        <div class="onb-feature">
-          <div class="onb-feature-ico">📊</div>
-          <div><strong>Upload effort reports</strong>Press <kbd>E</kbd> to drop in this week's PDF.</div>
-        </div>
-        <div class="onb-feature">
-          <div class="onb-feature-ico">🎯</div>
-          <div><strong>Study planner</strong>Add your activities once and the planner schedules around them.</div>
-        </div>
+        <div class="onb-feature"><div class="onb-feature-ico">✨</div>
+          <div><strong>Smart Paste</strong>Press <kbd>P</kbd> anywhere. Handles Classroom, emails, and any list. Turn on AI in Settings for even smarter parsing.</div></div>
+        <div class="onb-feature"><div class="onb-feature-ico">📊</div>
+          <div><strong>Upload effort reports</strong>Press <kbd>E</kbd> to drop in this week's PDF.</div></div>
+        <div class="onb-feature"><div class="onb-feature-ico">🎯</div>
+          <div><strong>Study planner</strong>Add your activities once and the planner schedules around them.</div></div>
       </div>
     </div>
     <div class="onb-actions">
@@ -3814,10 +3709,7 @@ function renderOnb(){
       <button class="btn btn-primary" data-onb="finish">Open StudentOS →</button>
     </div>`;
   }
-  card.innerHTML = `
-    <button class="onboarding-skip" data-onb="skip">Skip tour</button>
-    <div class="onb-progress">${dots}</div>
-    ${body}`;
+  card.innerHTML = `<button class="onboarding-skip" data-onb="skip">Skip tour</button><div class="onb-progress">${dots}</div>${body}`;
   card.addEventListener('click', async (e) => {
     const btn = e.target.closest('[data-onb]');
     const cardBtn = e.target.closest('[data-onb-card]');
@@ -3942,9 +3834,7 @@ async function submitEmailAuth(){
   if (!email || !email.includes('@')){ showAuthError('Please enter a valid email.'); return; }
   if (!password || password.length < 6){ showAuthError('Passwords must be at least 6 characters.'); return; }
   if (authMode === 'signup' && !name){ showAuthError('Please enter your name.'); return; }
-  const btn = $('#email-submit-btn');
-  const spinner = $('#email-spinner');
-  const label = $('#email-submit-label');
+  const btn = $('#email-submit-btn'), spinner = $('#email-spinner'), label = $('#email-submit-label');
   const orig = label.textContent;
   btn.disabled = true; spinner.hidden = false;
   label.textContent = authMode === 'signup' ? 'Creating…' : 'Signing in…';
@@ -3959,9 +3849,7 @@ async function submitEmailAuth(){
     await onUserSignedIn({
       uid: cred.user.uid,
       displayName: cred.user.displayName || name || 'Student',
-      email: cred.user.email,
-      photoURL: cred.user.photoURL || '',
-      real: true
+      email: cred.user.email, photoURL: cred.user.photoURL || '', real: true
     });
   } catch (err){ showAuthError(friendlyAuthError(err)); }
   finally { btn.disabled = false; spinner.hidden = true; label.textContent = orig; }
@@ -3973,8 +3861,7 @@ function friendlyAuthError(err){
     case 'auth/invalid-email': return 'That email address looks wrong.';
     case 'auth/weak-password': return 'Password too weak. Use at least 6 characters.';
     case 'auth/user-not-found': return 'No account found. Create one instead?';
-    case 'auth/wrong-password':
-    case 'auth/invalid-credential': return 'Incorrect email or password.';
+    case 'auth/wrong-password': case 'auth/invalid-credential': return 'Incorrect email or password.';
     case 'auth/too-many-requests': return 'Too many attempts. Wait a minute.';
     default: return err.message || 'Sign-in failed.';
   }
@@ -4030,17 +3917,8 @@ async function signInGoogle(){
     const provider = new FB.mod.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
     const result = await FB.mod.signInWithPopup(FB.auth, provider);
-    await onUserSignedIn({
-      uid: result.user.uid,
-      displayName: result.user.displayName,
-      email: result.user.email,
-      photoURL: result.user.photoURL,
-      real: true
-    });
-  } catch (err){
-    errBox.hidden = false;
-    errBox.textContent = `Sign-in failed: ${err.message}`;
-  }
+    await onUserSignedIn({ uid: result.user.uid, displayName: result.user.displayName, email: result.user.email, photoURL: result.user.photoURL, real: true });
+  } catch (err){ errBox.hidden = false; errBox.textContent = `Sign-in failed: ${err.message}`; }
 }
 async function enterDemoMode(){
   const session = { uid: 'demo-user', displayName: 'Demo Student', email: 'demo@studentos.local', photoURL: '', real: false };
@@ -4052,20 +3930,12 @@ async function onUserSignedIn(user){
   try { localStorage.setItem(LS_SESSION, JSON.stringify(user)); } catch {}
   await Store.init(user);
   if (Store.mode === 'firebase') await Store.loadFromFirestore();
-
   await dedupeExistingEvents();
   await dedupeExistingAssignments();
-
   document.documentElement.dataset.theme = Store.cache.settings.theme || 'light';
-  showApp();
-  render();
-  checkDueSoon();
-
+  showApp(); render(); checkDueSoon();
   setTimeout(() => { syncAll({ silent: true }); }, 800);
-
-  if (!Store.cache.settings.onboardingSeen){
-    setTimeout(() => showOnboarding(), 700);
-  }
+  if (!Store.cache.settings.onboardingSeen) setTimeout(() => showOnboarding(), 700);
 }
 async function signOut(){
   if (FB.auth){ try { await FB.mod.signOut(FB.auth); } catch {} }
@@ -4289,9 +4159,7 @@ async function exportData(){
 /* ── BOOT ────────────────────────────────────────────────────── */
 async function boot(){
   const bootEl = $('#boot');
-  const safety = setTimeout(() => {
-    if (!bootEl.classList.contains('gone')){ console.warn('Boot timed out'); showAuth(); }
-  }, 6000);
+  const safety = setTimeout(() => { if (!bootEl.classList.contains('gone')){ console.warn('Boot timed out'); showAuth(); } }, 6000);
   try {
     const cfg = loadConfig();
     if (isFirebaseConfigured(cfg)){
@@ -4305,15 +4173,11 @@ async function boot(){
           await onUserSignedIn({
             uid: user.uid,
             displayName: user.displayName || (user.email ? user.email.split('@')[0] : 'Student'),
-            email: user.email,
-            photoURL: user.photoURL || '',
-            real: true
+            email: user.email, photoURL: user.photoURL || '', real: true
           });
         } else {
           const raw = localStorage.getItem(LS_SESSION);
-          if (raw){
-            try { const cached = JSON.parse(raw); if (!cached.real){ await onUserSignedIn(cached); return; } } catch {}
-          }
+          if (raw){ try { const cached = JSON.parse(raw); if (!cached.real){ await onUserSignedIn(cached); return; } } catch {} }
           showAuth();
         }
       });
@@ -4338,14 +4202,15 @@ async function boot(){
 boot();
 
 window.StudentOS = {
-  version: '4.1.0',
+  version: '4.2.0',
   get state(){ return Store.cache; },
   get config(){ return loadConfig(); },
   syncAll, exportData,
   showOnboarding,
   openEffortUploadModal, openClassroomPasteModal, openActivitiesModal, openTimetableModal,
   dedupeExistingEvents, dedupeExistingAssignments,
-  smartPaste, smartPasteClassroom, smartPasteEmail, smartPasteGeneral,
+  smartPaste, aiParse, testAiConnection,
+  smartPasteClassroom, smartPasteEmail, smartPasteGeneral,
   detectPasteFormat, detectSubject, normalizeSubject,
   parseEffortReportText, parseActivitiesText, parseTimetableText
 };
