@@ -93,7 +93,6 @@ img{max-width:100%;display:block}
 .btn-block{width:100%}
 .btn-sm{padding:7px 12px;font-size:13px}
 .btn-lg{padding:13px 22px;font-size:15px;border-radius:var(--radius)}
-.btn-xl{padding:15px 26px;font-size:15.5px;border-radius:var(--radius);font-weight:700}
 .btn-google{background:#fff;color:#3c4043;border:1px solid #dadce0;font-weight:600;font-size:15px;padding:13px 20px;box-shadow:var(--shadow-xs)}
 .btn-google:hover{background:#f8f9fa;border-color:#c6c9cc}
 [data-theme="dark"] .btn-google{background:#fff;color:#202124}
@@ -254,8 +253,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .item-side{display:flex;flex-direction:column;align-items:flex-end;gap:7px;flex:none}
 .due{font-size:12px;font-weight:700;white-space:nowrap}
 .due.overdue{color:var(--red-600)}.due.soon{color:var(--amber-600)}.due.ok{color:var(--text-2)}
-.src-link{font-size:11.5px;font-weight:600;color:var(--primary);display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;background:var(--primary-soft)}
-.src-link:hover{text-decoration:none;background:var(--indigo-100)}
 .empty{padding:52px 24px;text-align:center;color:var(--text-3)}
 .empty-ico{font-size:36px;margin-bottom:12px;opacity:.65}
 .empty-title{font-weight:600;color:var(--text-2);margin-bottom:4px;font-size:14.5px}
@@ -279,7 +276,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .cal-ev{font-size:10.5px;font-weight:600;padding:2px 6px;border-radius:5px;background:var(--primary-soft);color:var(--primary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cal-ev.test{background:var(--red-50);color:var(--red-600)}
 .cal-ev.event{background:var(--sky-50);color:#0284c7}
-.cal-ev.notice{background:var(--amber-50);color:var(--amber-600)}
 .cal-more{font-size:10px;color:var(--text-3);font-weight:600;padding-left:3px}
 .tt-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--border);align-items:center}
 .tt-row:last-child{border-bottom:none}
@@ -302,7 +298,7 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 [data-theme="dark"] .effort-avg b{color:var(--violet-500)}
 .effort-bars{display:flex;flex-direction:column;gap:9px}
 .effort-bar-row{display:flex;align-items:center;gap:12px}
-.effort-bar-subject{width:110px;flex:none;font-size:13px;font-weight:600}
+.effort-bar-subject{width:150px;flex:none;font-size:13px;font-weight:600}
 .effort-bar-track{flex:1;height:12px;background:var(--surface);border-radius:99px;overflow:hidden;border:1px solid var(--border);position:relative}
 .effort-bar-fill{height:100%;border-radius:99px;transition:width .4s ease}
 .effort-bar-fill.r1{background:linear-gradient(90deg,#ef4444,#f87171)}
@@ -310,11 +306,11 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .effort-bar-fill.r3{background:linear-gradient(90deg,#eab308,#facc15)}
 .effort-bar-fill.r4{background:linear-gradient(90deg,#84cc16,#a3e635)}
 .effort-bar-fill.r5{background:linear-gradient(90deg,#10b981,#34d399)}
-.effort-bar-val{width:34px;flex:none;text-align:right;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.effort-bar-val{width:40px;flex:none;text-align:right;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
 .effort-trend{overflow-x:auto;margin-top:16px;border-top:1px solid var(--border);padding-top:14px}
 .effort-table{border-collapse:separate;border-spacing:4px;width:100%;min-width:420px}
 .effort-table th{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);text-align:center;padding:4px 6px}
-.effort-table th.effort-sub-th{text-align:left;width:110px}
+.effort-table th.effort-sub-th{text-align:left;width:150px}
 .effort-table td{text-align:center;padding:0}
 .effort-table td.effort-sub-td{text-align:left;font-size:12.5px;font-weight:600;padding:4px 6px;white-space:nowrap}
 .effort-cell{display:inline-grid;place-items:center;width:38px;height:34px;border-radius:8px;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
@@ -329,7 +325,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 [data-theme="dark"] .effort-cell.r4{background:rgba(132,204,22,.25);color:#bef264}
 [data-theme="dark"] .effort-cell.r5{background:rgba(16,185,129,.25);color:#6ee7b7}
 .effort-cell.empty{background:var(--surface-2);color:var(--text-3);font-size:11px;font-weight:500}
-.effort-cell.current{outline:2px solid var(--violet-500);outline-offset:1px}
 .effort-edit-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
 .effort-edit-row .input.subject{flex:1.4}
 .effort-rating-options{display:flex;gap:6px}
@@ -397,10 +392,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .int-stats{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--text-2);margin-bottom:13px}
 .int-stat b{display:block;font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.02em}
 .int-actions{display:flex;gap:8px;flex-wrap:wrap}
-.status-pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--gray-100);color:var(--gray-600)}
-[data-theme="dark"] .status-pill{background:var(--surface-2);color:var(--text-2)}
-.status-pill.on{background:var(--green-50);color:var(--green-600)}
-.status-pill .pdot{width:6px;height:6px;border-radius:99px;background:currentColor}
 .int-card.hero{border:2px solid var(--indigo-200);background:linear-gradient(135deg,var(--indigo-50) 0%,#fff 100%)}
 [data-theme="dark"] .int-card.hero{border-color:var(--primary);background:linear-gradient(135deg,rgba(99,102,241,.14) 0%,var(--surface) 100%)}
 .int-hero-body{padding:8px 0}
@@ -414,13 +405,35 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 @media(max-width:640px){.set-row{flex-direction:column;gap:10px}.set-control{width:100%}}
 code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5px;background:var(--gray-100);padding:2px 6px;border-radius:5px}
 [data-theme="dark"] code{background:var(--surface-2)}
-.divider{height:1px;background:var(--border);margin:18px 0}
 .spinner{width:15px;height:15px;border:2px solid var(--border-strong);border-top-color:var(--primary);border-radius:99px;animation:spin .7s linear infinite;flex:none}
 .sync-spinner{width:12px;height:12px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:99px;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .shortcut-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .shortcut-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;background:var(--surface-2);border-radius:9px;font-size:13px}
 @media(max-width:520px){.shortcut-grid{grid-template-columns:1fr}}
+.alert{padding:12px 15px;border-radius:var(--radius);font-size:13px;line-height:1.55;border:1px solid transparent;display:flex;gap:10px;align-items:flex-start}
+.alert-error{background:var(--red-50);color:var(--red-600);border-color:rgba(239,68,68,.22)}
+.alert-warn{background:var(--amber-50);color:var(--amber-600);border-color:rgba(245,158,11,.25)}
+.alert-info{background:var(--sky-50);color:#0284c7;border-color:rgba(14,165,233,.22)}
+.alert-success{background:var(--green-50);color:var(--green-600);border-color:rgba(16,185,129,.22)}
+.alert strong{font-weight:700}
+.drop-zone{border:2px dashed var(--border-strong);border-radius:16px;padding:32px 20px;text-align:center;transition:.18s;cursor:pointer;background:var(--surface-2)}
+.drop-zone:hover,.drop-zone.drag{border-color:var(--primary);background:var(--primary-soft)}
+.drop-zone-ico{font-size:40px;margin-bottom:10px;opacity:.7}
+.drop-zone-title{font-weight:700;font-size:15px;margin-bottom:4px}
+.drop-zone-sub{font-size:12.5px;color:var(--text-2);line-height:1.55}
+.activity-row{display:flex;gap:8px;align-items:center;padding:10px 12px;border:1px solid var(--border);border-radius:10px;margin-bottom:6px;background:var(--surface-2)}
+.activity-day{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-3);width:80px;flex:none}
+.activity-time{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--text-2);width:110px;flex:none}
+.activity-name{flex:1;font-weight:600;font-size:13.5px;min-width:0}
+.activity-del{color:var(--red-500)}
+.picker{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:12px}
+.picker button{padding:8px 4px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:600;color:var(--text-2);transition:.13s}
+.picker button:hover{border-color:var(--border-strong)}
+.picker button.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.pdf-preview{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px;max-height:280px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;line-height:1.5;color:var(--text-2);white-space:pre-wrap}
+.int-upload-card{border:2px solid var(--violet-500);background:linear-gradient(135deg,var(--violet-50) 0%,#fff 100%);border-radius:var(--radius-lg);padding:22px;text-align:center}
+[data-theme="dark"] .int-upload-card{border-color:var(--violet-500);background:linear-gradient(135deg,rgba(139,92,246,.14) 0%,var(--surface) 100%)}
 @media(max-width:960px){.auth{grid-template-columns:1fr}.auth-hero{display:none}.auth-panel{padding:32px 20px}}
 @media(max-width:900px){
   .only-mobile{display:grid}
@@ -437,14 +450,11 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
   .stat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
   .stat-value{font-size:24px}
   .page-title{font-size:21px}
-  .toasts{left:14px;right:14px;bottom:14px}
-  .toast{min-width:0;max-width:none}
   .cal-day{min-height:62px;padding:4px}
-  .cal-ev{font-size:9.5px;padding:1px 4px}
   .onboarding-card{padding:26px 20px 20px}
   .onb-content h2{font-size:20px}
   .paste-grid{grid-template-columns:1fr}
-  .effort-bar-subject{width:70px;font-size:12px}
+  .effort-bar-subject{width:90px;font-size:12px}
   .int-card{flex-direction:column}
 }
 .fab{position:fixed;right:24px;bottom:24px;z-index:700;width:56px;height:56px;border-radius:99px;background:linear-gradient(135deg,var(--indigo-500),var(--indigo-700));color:#fff;font-size:26px;font-weight:300;display:grid;place-items:center;box-shadow:0 12px 28px -8px rgba(79,70,229,.55),0 4px 12px rgba(79,70,229,.25);transition:.2s cubic-bezier(.2,.9,.3,1)}
@@ -459,7 +469,6 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .fab-item.highlight:hover{background:rgba(139,92,246,.18)}
 [data-theme="dark"] .fab-item.highlight{background:rgba(139,92,246,.14)}
 .fab-ico{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:14px;flex:none;background:var(--surface-2)}
-[data-theme="dark"] .fab-ico{background:var(--surface-3)}
 .fab-item kbd{margin-left:auto;font-size:10.5px}
 .onboarding{position:fixed;inset:0;z-index:1500;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px;animation:fadeIn .2s ease;overflow-y:auto}
 .onboarding-card{background:var(--surface);border-radius:var(--radius-xl);width:100%;max-width:580px;box-shadow:var(--shadow-xl);padding:32px 32px 26px;position:relative;animation:slideUp .3s cubic-bezier(.2,.9,.3,1);margin:auto}
@@ -482,7 +491,6 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .onb-feature-list{display:flex;flex-direction:column;gap:12px;margin-bottom:8px}
 .onb-feature{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.55}
 .onb-feature-ico{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;flex:none;background:var(--primary-soft);font-size:16px}
-[data-theme="dark"] .onb-feature-ico{background:var(--surface-2)}
 .onb-feature strong{display:block;margin-bottom:1px}
 .toasts{position:fixed;bottom:22px;left:22px;z-index:2000;display:flex;flex-direction:column;gap:10px;pointer-events:none}
 .toast{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--primary);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:12px 16px;min-width:270px;max-width:380px;display:flex;gap:11px;align-items:flex-start;pointer-events:auto;animation:toastIn .24s cubic-bezier(.2,.9,.3,1)}
@@ -495,12 +503,6 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .toast-ico{font-size:16px;line-height:1.3;flex:none}
 .toast-title{font-weight:600;font-size:13.5px;margin-bottom:1px}
 .toast-msg{font-size:12.5px;color:var(--text-2);line-height:1.5}
-.alert{padding:12px 15px;border-radius:var(--radius);font-size:13px;line-height:1.55;border:1px solid transparent;display:flex;gap:10px;align-items:flex-start}
-.alert-error{background:var(--red-50);color:var(--red-600);border-color:rgba(239,68,68,.22)}
-.alert-warn{background:var(--amber-50);color:var(--amber-600);border-color:rgba(245,158,11,.25)}
-.alert-info{background:var(--sky-50);color:#0284c7;border-color:rgba(14,165,233,.22)}
-.alert-success{background:var(--green-50);color:var(--green-600);border-color:rgba(16,185,129,.22)}
-.alert strong{font-weight:700}
 </style>
 </head>
 
@@ -515,12 +517,12 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
   <aside class="auth-hero">
     <div class="auth-hero-inner">
       <div class="brand brand-light"><span class="brand-mark">S</span><span>StudentOS</span></div>
-      <h1 class="auth-headline">Every assignment, test and notice.<br>One calm dashboard.</h1>
-      <p class="auth-sub">Copy your Classroom To-do list, paste it in. Everything gets sorted — due dates, subjects, priorities. Works on any school account.</p>
+      <h1 class="auth-headline">Every assignment, test and effort report.<br>One calm dashboard.</h1>
+      <p class="auth-sub">Paste your Classroom To-do. Upload your weekly effort report. StudentOS tracks everything and plans your study around your life.</p>
       <ul class="auth-features">
         <li><span class="tick">✓</span> <strong>Paste from Classroom</strong> — 10 seconds, no setup</li>
-        <li><span class="tick">✓</span> <strong>Smart dates</strong> — understands "Monday 21 Sept"</li>
-        <li><span class="tick">✓</span> <strong>Effort reports</strong> — track your Friday ratings</li>
+        <li><span class="tick">✓</span> <strong>Upload your effort report PDF</strong> — auto-extracts every rating</li>
+        <li><span class="tick">✓</span> <strong>Study planner</strong> — works around your tutoring and sport</li>
         <li><span class="tick">✓</span> <strong>School calendar</strong> — synced automatically</li>
       </ul>
       <div class="auth-badges">
@@ -552,7 +554,6 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
         <div class="field">
           <label class="label" for="auth-password">Password</label>
           <input class="input" type="password" id="auth-password" placeholder="At least 6 characters" autocomplete="current-password" required minlength="6">
-          <div class="hint" id="password-hint" hidden>Choose a password with at least 6 characters.</div>
         </div>
         <button type="submit" class="btn btn-primary btn-block" id="email-submit-btn">
           <span id="email-submit-label">Sign in</span>
@@ -573,7 +574,6 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
       </button>
       <div class="auth-divider"><span>or</span></div>
       <button class="btn btn-ghost btn-block" id="demo-btn">Explore demo mode</button>
-      <p class="auth-fineprint">StudentOS stores everything on your own device or in your own Firebase project. Nothing is sent to us.</p>
     </div>
   </main>
 </div>
@@ -584,7 +584,7 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
     <a class="brand" href="#/dashboard"><span class="brand-mark">S</span><span class="brand-text">StudentOS</span></a>
     <div class="topbar-search">
       <span class="search-ico">⌕</span>
-      <input id="global-search" class="input" type="search" placeholder="Search assignments, tests, notices…" aria-label="Search" autocomplete="off">
+      <input id="global-search" class="input" type="search" placeholder="Search assignments, tests…" aria-label="Search" autocomplete="off">
       <kbd>/</kbd>
       <div id="search-results" class="search-results" hidden></div>
     </div>
@@ -635,9 +635,8 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
       </div>
       <div class="sidebar-group">
         <div class="sidebar-label">Organise</div>
-        <a class="nav-item" href="#/weekly"><span class="nav-ico">🗒️</span><span>Weekly Notes</span></a>
-        <a class="nav-item" href="#/effort"><span class="nav-ico">📊</span><span>Effort Reports</span></a>
         <a class="nav-item" href="#/planner"><span class="nav-ico">🎯</span><span>Study Planner</span></a>
+        <a class="nav-item" href="#/effort"><span class="nav-ico">📊</span><span>Effort Reports</span></a>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-label">Account</div>
@@ -660,12 +659,17 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 
 <script type="module">
 /* ================================================================
-   STUDENTOS v3.1 — paste-only Classroom sync
+   STUDENTOS v4.0
+   — paste-only Classroom sync
+   — PDF effort report upload (pdf.js)
+   — study planner aware of weekly activities
    ================================================================ */
 
 const LS_CONFIG = 'studentos.config.v1';
 const LS_SESSION = 'studentos.session.v1';
 const LS_DATA = uid => `studentos.data.${uid}.v1`;
+const PDFJS_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+const PDFJS_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
 const DEFAULT_CONFIG = {
   firebase: {
@@ -693,8 +697,8 @@ const DEFAULT_CALENDAR_SUBSCRIPTIONS = [
 const DEFAULT_SETTINGS = {
   theme: 'light',
   timetable: [],
+  weeklyActivities: [],
   calendarSubscriptions: [],
-  effortSubjects: ['Maths','English','Science','History','PE','Art','Music','Technology'],
   notifyNewAssignment: true,
   notifyDueSoon: true,
   notifyNewTest: true,
@@ -706,7 +710,8 @@ const SUBJECTS = ['Maths','Mathematics','English','Science','Biology','Chemistry
   'Physical Education','Health','Computing','Computer Science','ICT','Digital Technology',
   'Technology','Languages','French','Spanish','German','Japanese','Maori','Te Reo Maori',
   'Social Studies','Media Studies','Design','Graphics','Food Technology','Woodwork','Stats',
-  'Religious Education','RE','Theology','Pastoral','Homeroom','Debate','Scholarship'];
+  'Religious Education','RE','Theology','Pastoral','Homeroom','Debate','Scholarship',
+  'Commerce'];
 
 const STOP_WORDS = new Set(['the','and','for','with','this','that','from','your','you','are','was',
   'have','has','will','due','the','a','an','of','to','in','on','at','by','is','it','be','or','as',
@@ -783,6 +788,14 @@ function ratingClass(r){
 }
 function normalizeTitle(s){
   return String(s || '').toLowerCase().trim().replace(/\s+/g, ' ').replace(/[^\w\s]/g, '');
+}
+function timeToMin(t){
+  if (!t) return 0;
+  const [h, m] = t.split(':').map(Number);
+  return (h || 0) * 60 + (m || 0);
+}
+function minToTime(m){
+  return String(Math.floor(m/60)).padStart(2,'0') + ':' + String(m%60).padStart(2,'0');
 }
 
 function toast(msg, type='info', title=''){
@@ -878,14 +891,15 @@ const Store = {
 
   ensureShape(){
     const d = this.cache;
-    for (const k of ['assignments','events','weeklyNotes','notifications','courses','studySessions','effortReports']){
+    for (const k of ['assignments','events','notifications','courses','studySessions','effortReports']){
       if (!Array.isArray(d[k])) d[k] = [];
     }
     if (!d.integrations || typeof d.integrations !== 'object') d.integrations = {};
     if (!d.settings) d.settings = { ...DEFAULT_SETTINGS };
     d.settings = { ...DEFAULT_SETTINGS, ...d.settings };
     if (!Array.isArray(d.settings.calendarSubscriptions)) d.settings.calendarSubscriptions = [];
-    if (!Array.isArray(d.settings.effortSubjects)) d.settings.effortSubjects = [...DEFAULT_SETTINGS.effortSubjects];
+    if (!Array.isArray(d.settings.timetable)) d.settings.timetable = [];
+    if (!Array.isArray(d.settings.weeklyActivities)) d.settings.weeklyActivities = [];
     if (!d.profile) d.profile = {};
   },
 
@@ -923,13 +937,13 @@ const Store = {
   },
 
   async removeAll(){
-    for (const k of ['assignments','events','weeklyNotes','notifications','courses','studySessions','effortReports']){
+    for (const k of ['assignments','events','notifications','courses','studySessions','effortReports']){
       this.cache[k] = [];
     }
     this.cache.integrations = {};
     this.persistNow();
     if (this.mode === 'firebase' && FB.db){
-      for (const k of ['assignments','events','weeklyNotes','notifications','courses','studySessions','effortReports']){
+      for (const k of ['assignments','events','notifications','courses','studySessions','effortReports']){
         for (const item of this.all(k)){
           try { const { doc: fdoc, deleteDoc } = FB.mod.fs; await deleteDoc(fdoc(FB.db, 'users', this.uid, k, item.id)); } catch {}
         }
@@ -940,7 +954,7 @@ const Store = {
   async loadFromFirestore(){
     if (this.mode !== 'firebase' || !FB.db) return this.cache;
     const { collection, getDocs, query, limit } = FB.mod.fs;
-    const cols = ['assignments','events','weeklyNotes','notifications','courses','studySessions','effortReports'];
+    const cols = ['assignments','events','notifications','courses','studySessions','effortReports'];
     for (const c of cols){
       try {
         const snap = await getDocs(query(collection(FB.db,'users',this.uid,c), limit(500)));
@@ -1003,7 +1017,7 @@ async function fetchCalendarUrl(url){
 
 function emptyData(){
   return {
-    assignments: [], events: [], weeklyNotes: [], notifications: [],
+    assignments: [], events: [], notifications: [],
     courses: [], studySessions: [], effortReports: [],
     integrations: {}, settings: { ...DEFAULT_SETTINGS }, profile: {}
   };
@@ -1059,8 +1073,6 @@ function detectType(text){
   if (/\b(homework|home work|hw|worksheet|exercise|practice|revision|read chapter|reading)\b/.test(t)) return 'Homework';
   if (/\b(assignment|coursework|task|activity|submit|hand in|hand-in|essay|report|lab report)\b/.test(t)) return 'Assignment';
   if (/\b(assembly|mufti|mufti day|sports day|athletics|carnival|excursion|trip|concert|production|fundraiser|book week|fete|open day|interview|holiday|term start|term end)\b/.test(t)) return 'Event';
-  if (/\b(newsletter|weekly notice|weekly notes|principal|school notice|reminder|important notice|bulletin)\b/.test(t)) return 'School Notice';
-  if (/\b(announcement|announcements|heads up|just a note|fyi)\b/.test(t)) return 'Announcement';
   if (/\b(due|deadline|remember|don't forget|dont forget)\b/.test(t)) return 'Reminder';
   return 'Assignment';
 }
@@ -1081,6 +1093,7 @@ function detectSubject(text, courses = []){
 const MONTH_MAP = { jan:0,january:0,feb:1,february:1,mar:2,march:2,apr:3,april:3,may:4,
   jun:5,june:5,jul:6,july:6,aug:7,august:7,sep:8,sept:8,september:8,oct:9,october:9,
   nov:10,november:10,dec:11,december:11 };
+const DAY_ABBR = { sun:0, mon:1, tue:2, wed:3, thu:4, fri:5, sat:6 };
 
 function parseDate(text, ref = new Date()){
   if (!text) return null;
@@ -1110,9 +1123,6 @@ function parseDate(text, ref = new Date()){
   if (/\btoday\b|\btonight\b/.test(t)) return new Date(ref.getFullYear(), ref.getMonth(), ref.getDate(), 23, 59).getTime();
   if (/\btomorrow\b|\btmrw\b|\btmr\b/.test(t)){
     const d = new Date(ref); d.setDate(d.getDate() + 1); d.setHours(23,59,0,0); return d.getTime();
-  }
-  if (/\bnext week\b/.test(t)){
-    const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime();
   }
   return null;
 }
@@ -1144,20 +1154,13 @@ function estimateMinutes(item){
 }
 
 /* ================================================================
-   SMART PASTE
-   ================================================================
-   Handles two formats:
-   1. Classroom To-do copy — "assignment" markers followed by
-      title / course / date blocks. This is the modern format.
-   2. Generic emails / notices — falls back to the older parser.
+   SMART PASTE (Classroom To-do + general emails)
    ================================================================ */
-
 const CLASSROOM_TYPE_MARKER = /^(assignment|material|quiz|question|exam|homework|short answer question|multiple choice question)$/i;
 const CLASSROOM_SECTION_HEADER = /^(to-?do|missing|done|all classes|all topics|next week|this week|later|today|tomorrow|yesterday|upcoming|recently assigned|assigned|posted|turned in|graded|view|see all|view all|no due date)$/i;
 const MONTH_ABBR = 'jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december';
 const DOW_ABBR = 'mon|tue|tues|wed|thu|thur|thurs|fri|sat|sun|monday|tuesday|wednesday|thursday|friday|saturday|sunday';
 
-/* A date-only line like "Monday 21 Sept", "Fri 3 Oct", "3 October", "15/10/2026" */
 function isDateLine(line){
   if (!line) return false;
   const t = String(line).trim();
@@ -1189,7 +1192,6 @@ function parseClassroomDue(raw){
     const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime();
   }
 
-  // "Monday 21 Sept" / "Friday 3 October" / "3 Oct"
   let m = t.match(new RegExp(`^(?:(?:${DOW_ABBR})\\s+)?(\\d{1,2})(?:st|nd|rd|th)?\\s+(${MONTH_ABBR})$`, 'i'));
   if (m){
     const day = parseInt(m[1], 10);
@@ -1199,21 +1201,10 @@ function parseClassroomDue(raw){
     return d.getTime();
   }
 
-  // "21 Sept" (no day)
-  m = t.match(new RegExp(`^(\\d{1,2})(?:st|nd|rd|th)?\\s+(${MONTH_ABBR})$`, 'i'));
-  if (m){
-    const day = parseInt(m[1], 10);
-    const mon = MONTH_MAP[m[2].toLowerCase()];
-    let d = new Date(ref.getFullYear(), mon, day, 23, 59);
-    if (d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
-    return d.getTime();
-  }
-
-  // Day-of-week only
   m = t.match(new RegExp(`^(${DOW_ABBR})$`, 'i'));
   if (m){
     const key = m[1].toLowerCase().slice(0,3);
-    const target = { sun:0, mon:1, tue:2, wed:3, thu:4, fri:5, sat:6 }[key];
+    const target = DAY_ABBR[key];
     const d = new Date(ref);
     let delta = (target - d.getDay() + 7) % 7;
     if (delta === 0) delta = 7;
@@ -1247,7 +1238,6 @@ function smartPasteClassroom(text){
   const rawLines = text.split(/\r?\n/).map(l => l.replace(/\s+/g,' ').trim()).filter(Boolean);
   if (!rawLines.length) return [];
 
-  // Cut off at "No due date" — everything after has no deadline
   let cutoff = rawLines.length;
   for (let i = 0; i < rawLines.length; i++){
     const clean = rawLines[i].toLowerCase().replace(/[:\-–—]/g, '').trim();
@@ -1255,7 +1245,6 @@ function smartPasteClassroom(text){
   }
   const lines = rawLines.slice(0, cutoff).filter(l => !CLASSROOM_SECTION_HEADER.test(l));
 
-  // Group into blocks by type markers
   const blocks = [];
   let current = null;
   for (const line of lines){
@@ -1274,7 +1263,6 @@ function smartPasteClassroom(text){
     const bl = block.lines;
     if (!bl.length) continue;
 
-    // Find the due date: check last line first, then work backward
     let dueDate = null;
     let dueIdx = -1;
     for (let i = bl.length - 1; i >= 0; i--){
@@ -1286,7 +1274,6 @@ function smartPasteClassroom(text){
     if (dueIdx >= 0){
       const before = bl.slice(0, dueIdx);
       title = before[0] || '';
-      // If more than one line before the date, the last one is the course
       course = before.length > 1 ? before[before.length - 1] : '';
     } else {
       title = bl[0] || '';
@@ -1301,7 +1288,6 @@ function smartPasteClassroom(text){
     if (seen.has(key)) continue;
     seen.add(key);
 
-    // Work out the type — prefer the title if it says "test" etc.
     let type = 'Assignment';
     const titleType = detectType(title);
     if (titleType !== 'Assignment') type = titleType;
@@ -1309,7 +1295,6 @@ function smartPasteClassroom(text){
     else if (/exam/i.test(block.marker)) type = 'Exam';
     else if (/homework/i.test(block.marker)) type = 'Homework';
 
-    // Subject — try the course name first
     let subject = '';
     if (course){
       const detected = detectSubject(course, []);
@@ -1331,14 +1316,12 @@ function smartPasteClassroom(text){
       mergedCount: 1, createdAt: now()
     });
   }
-
   return results;
 }
 
 function smartPasteGeneral(text){
   if (!text || !text.trim()) return [];
   const lines = text.split(/\r?\n/);
-
   const isNoise = l => {
     const t = l.trim();
     if (!t) return true;
@@ -1346,54 +1329,25 @@ function smartPasteGeneral(text){
     if (/^more_vert/i.test(t)) return true;
     if (/^Open your work for/i.test(t)) return true;
     if (/^Posted\s+\w+,\s+\w+\s+\d+/i.test(t)) return true;
-    if (/^(Join class|Create class|All classes|To-do|Home|Calendar|Enrolled|Assigned|Missing|Done|Settings|Menu|Close)$/i.test(t)) return true;
-    if (/^Next week Course:/i.test(t)) return true;
-    if (/^Later Course:/i.test(t)) return true;
-    if (/^No due date Course:/i.test(t)) return true;
-    if (/^Course:\s*\d+\s*$/i.test(t)) return true;
-    if (/^~?\d+\s*min$/i.test(t)) return true;
     if (/^\d+$/.test(t)) return true;
-    if (/^(Assignment|Homework|Test|Exam|Project|Quiz)$/i.test(t)) return true;
+    if (/^~?\d+\s*min$/i.test(t)) return true;
     return false;
   };
-
-  const cleanLine = l => l
-    .replace(/Loading[\s\S]*$/i, '')
-    .replace(/more_vert[\s\S]*$/i, '')
-    .replace(/Open your work for[\s\S]*$/i, '')
-    .replace(/Posted\s+\w+,\s+\w+\s+\d+/gi, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-
   const chunks = [];
   let current = '';
-  const isBulletLine = l => /^\s*(?:[-*•·▪◦‣]|\d+[.)]|[a-z][.)])\s+/i.test(l);
-  const isHeaderLine = l => /^\s*(?:subject|from|to|date|re|due|homework|task|assignment|test|exam|project|notice|reminder|event|important)\s*[:\-]/i.test(l);
-  const isMetaLine = l => /^\s*(?:from|to|sent|cc|bcc|reply-to|unsubscribe|view in browser|this email was sent)\s*[:\-]/i.test(l);
   const flush = () => { const c = current.trim(); if (c.length >= 3) chunks.push(c); current = ''; };
-
   for (const raw of lines){
-    const rawLine = raw.replace(/\s+$/, '');
-    if (isNoise(rawLine)){ flush(); continue; }
-    const line = cleanLine(rawLine);
-    if (!line || line.length < 3){ flush(); continue; }
-    if (isMetaLine(line)) continue;
-    if (isBulletLine(line)){ flush(); current = line.replace(/^\s*(?:[-*•·▪◦‣]|\d+[.)]|[a-z][.)])\s+/i, ''); continue; }
-    if (isHeaderLine(line) && current){ flush(); current = line; continue; }
-    current += (current ? ' ' : '') + line;
+    if (isNoise(raw)){ flush(); continue; }
+    current += (current ? ' ' : '') + raw.replace(/\s+/g,' ').trim();
   }
   flush();
-
-  const courses = Store.all('courses');
   const seen = new Set();
   const results = [];
   for (const chunk of chunks){
     const type = detectType(chunk);
-    const subject = detectSubject(chunk, courses);
+    const subject = detectSubject(chunk, []);
     const dueDate = parseDate(chunk);
-    let title = chunk.split(/\n|\.\s/)[0].trim();
-    title = title.replace(/^(?:re|fwd|fw)\s*:\s*/i, '');
-    title = title.replace(/^assignment\s*/i, '').trim();
+    let title = chunk.split(/\n|\.\s/)[0].trim().replace(/^(?:re|fwd|fw)\s*:\s*/i, '');
     title = sanitiseText(title, 120);
     if (!title || title.length < 3) continue;
     const key = title.toLowerCase();
@@ -1422,97 +1376,247 @@ function smartPaste(text){
   return smartPasteGeneral(text);
 }
 
-/* ── ICS PARSING ─────────────────────────────────────────────── */
-function parseICS(text){
-  if (!text) return [];
-  const events = [];
-  const unfolded = text.replace(/\r?\n[ \t]/g, '');
-  const blocks = unfolded.split(/BEGIN:VEVENT/i).slice(1);
-  for (const block of blocks){
-    const ev = {};
-    for (const line of block.split(/\r?\n/)){
-      const m = line.match(/^([A-Z-]+)(?:;[^:]*)?:(.*)$/);
-      if (!m) continue;
-      const [, key, value] = m;
-      if (key === 'SUMMARY') ev.title = value;
-      else if (key === 'DESCRIPTION') ev.description = value;
-      else if (key === 'DTSTART') ev.start = parseICSDate(value);
-      else if (key === 'DTEND') ev.end = parseICSDate(value);
-      else if (key === 'URL') ev.url = value;
-      else if (key === 'UID') ev.uid = value;
-      else if (key === 'LOCATION') ev.location = value;
+/* ================================================================
+   EFFORT REPORT PDF PARSER
+   ================================================================
+   Handles Sacred Heart College style reports:
+   - Student code like "10SWG" at the top
+   - Attendance percentage
+   - Per-subject rows: SubjectNameWk 22Wk 23...YearYear 10{values}{yearAvg}
+   ================================================================ */
+async function loadPdfJs(){
+  if (window.pdfjsLib) return window.pdfjsLib;
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector(`script[src="${PDFJS_CDN}"]`);
+    const onReady = () => {
+      if (window.pdfjsLib){
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER;
+        resolve(window.pdfjsLib);
+      } else reject(new Error('pdf.js loaded but not available'));
+    };
+    if (existing){ existing.addEventListener('load', onReady); existing.addEventListener('error', reject); return; }
+    const script = document.createElement('script');
+    script.src = PDFJS_CDN;
+    script.onload = onReady;
+    script.onerror = () => reject(new Error('Could not load pdf.js — check your internet connection.'));
+    document.head.appendChild(script);
+  });
+}
+
+async function extractPdfText(file){
+  const pdfjsLib = await loadPdfJs();
+  const buf = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+  let out = '';
+  for (let i = 1; i <= pdf.numPages; i++){
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    // Join items with a space; add newline when the transform's Y changes
+    let lastY = null;
+    for (const item of content.items){
+      const y = item.transform[5];
+      if (lastY !== null && Math.abs(y - lastY) > 3) out += '\n';
+      out += item.str;
+      lastY = y;
     }
-    if (ev.title && ev.start) events.push(ev);
+    out += '\n\n';
   }
-  return events;
-}
-function parseICSDate(v){
-  const m = String(v).match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2}))?(Z?)$/);
-  if (!m) return null;
-  const [, y, mo, d, h='00', mi='00', s='00', z] = m;
-  const dt = z ? new Date(Date.UTC(+y, +mo-1, +d, +h, +mi, +s)) : new Date(+y, +mo-1, +d, +h, +mi, +s);
-  return dt.getTime();
+  return out;
 }
 
-function eventExists(title, start, excludeId = null){
-  if (!start) return false;
-  const dayKey = startOfDay(new Date(start));
-  const norm = normalizeTitle(title);
-  return Store.all('events').some(e =>
-    e.id !== excludeId &&
-    e.start &&
-    startOfDay(new Date(e.start)) === dayKey &&
-    normalizeTitle(e.title) === norm
-  );
-}
+/* Known subject names — order matters, longer first so "Physical Education and Health"
+   matches before "Physical Education". */
+const KNOWN_SUBJECTS = [
+  'Physical Education and Health',
+  'Physical Education',
+  'Religious Education',
+  'Social Studies',
+  'Media Studies',
+  'Digital Technology',
+  'Business Studies',
+  'Te Reo Maori',
+  'Mathematics',
+  'Commerce',
+  'English',
+  'Science',
+  'History',
+  'Geography',
+  'Economics',
+  'Accounting',
+  'Biology',
+  'Chemistry',
+  'Physics',
+  'Art',
+  'Music',
+  'Drama',
+  'Dance',
+  'Health',
+  'ICT',
+  'PE',
+  'Technology',
+  'Languages',
+  'French',
+  'Spanish',
+  'German',
+  'Japanese',
+  'Maori',
+  'Stats',
+  'Statistics'
+];
 
-async function syncCalendarSubscriptions(){
-  const subs = Store.cache.settings.calendarSubscriptions || [];
-  if (!subs.length) return { added: 0, subs: 0, errors: [] };
-  let totalAdded = 0;
-  const errors = [];
-  for (const sub of subs){
-    try {
-      const r = await fetchCalendarUrl(sub.url);
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const text = await r.text();
-      const events = parseICS(text);
-      let added = 0;
-      for (const ev of events){
-        if (ev.start < now() - 90*86400000) continue;
-        const existing = Store.all('events').find(e => e.icsUid === ev.uid && e.icsSource === sub.url);
-        if (!existing && eventExists(ev.title, ev.start)) continue;
-        const record = {
-          id: existing ? existing.id : `ics-${uid()}`,
-          title: sanitiseText(ev.title, 200),
-          description: sanitiseText(ev.description || '', 2000),
-          start: ev.start,
-          end: ev.end || null,
-          location: sanitiseText(ev.location || '', 200),
-          source: sub.name || 'Calendar',
-          url: ev.url || '',
-          icsUid: ev.uid,
-          icsSource: sub.url,
-          manual: false,
-          createdAt: existing ? existing.createdAt : now()
-        };
-        await Store.put('events', record);
-        if (!existing) added++;
+function parseEffortReportText(rawText){
+  const text = rawText.replace(/\s+/g, ' ').trim();
+  const attendance = (() => {
+    const m = text.match(/Attendance[:\s]*([\d.]+)\s*%/i);
+    return m ? Number(m[1]) : null;
+  })();
+  const studentCodeMatch = text.match(/\b(\d{1,2}[A-Z]{2,5})\b/);
+  const studentCode = studentCodeMatch ? studentCodeMatch[1] : '';
+
+  const ratings = [];
+  const usedSubjects = new Set();
+
+  for (const sub of KNOWN_SUBJECTS){
+    if (usedSubjects.has(sub)) continue;
+    // Look for the subject name followed by Wk data and then "Year 10"
+    const escaped = sub.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    // Pattern: SubjectWk 22...(header repeats)...Year 10{digits-and-dashes}{yearAvg}
+    const re = new RegExp(escaped + '[^]{0,220}?Year\\s*\\d+\\s*([0-9\\-\\.]+)', 'i');
+    const m = text.match(re);
+    if (!m) continue;
+
+    const data = m[1];
+    // The year average is the trailing decimal like 4.7
+    const avgMatch = data.match(/(\d+\.\d+)\s*$/);
+    const yearAvg = avgMatch ? parseFloat(avgMatch[1]) : null;
+    const beforeAvg = avgMatch ? data.slice(0, data.lastIndexOf(avgMatch[1])) : data;
+
+    const weekRatings = [];
+    for (const ch of beforeAvg){
+      if (/[1-5]/.test(ch)) weekRatings.push(Number(ch));
+      else if (ch === '-') weekRatings.push(null);
+    }
+    const nonNull = weekRatings.filter(r => r !== null);
+    const latest = nonNull.length ? nonNull[nonNull.length - 1] : null;
+
+    ratings.push({
+      subject: sub,
+      weekRatings,
+      yearAvg,
+      rating: latest !== null ? latest : (yearAvg !== null ? Math.round(yearAvg) : 3)
+    });
+    usedSubjects.add(sub);
+  }
+
+  // Fallback: if the regex approach failed badly, try a looser per-line scan
+  if (!ratings.length){
+    for (const sub of KNOWN_SUBJECTS){
+      const idx = text.indexOf(sub);
+      if (idx === -1) continue;
+      const chunk = text.slice(idx, idx + 300);
+      const yearMatch = chunk.match(/Year\s*\d+\s*([0-9\-\.]+)/);
+      if (!yearMatch) continue;
+      const data = yearMatch[1];
+      const avgMatch = data.match(/(\d+\.\d+)\s*$/);
+      const yearAvg = avgMatch ? parseFloat(avgMatch[1]) : null;
+      if (yearAvg === null) continue;
+      const beforeAvg = data.slice(0, data.lastIndexOf(avgMatch[1]));
+      const weekRatings = [];
+      for (const ch of beforeAvg){
+        if (/[1-5]/.test(ch)) weekRatings.push(Number(ch));
+        else if (ch === '-') weekRatings.push(null);
       }
-      totalAdded += added;
-      sub.lastSync = now();
-      sub.count = events.length;
-      sub.error = null;
-    } catch (e){
-      sub.error = e.message;
-      errors.push(`${sub.name || sub.url}: ${e.message}`);
+      const nonNull = weekRatings.filter(r => r !== null);
+      ratings.push({
+        subject: sub,
+        weekRatings,
+        yearAvg,
+        rating: nonNull.length ? nonNull[nonNull.length - 1] : Math.round(yearAvg)
+      });
     }
   }
-  await Store.saveUserDoc();
-  return { added: totalAdded, subs: subs.length, errors };
+
+  return { attendance, studentCode, ratings };
 }
 
-/* ── DUPLICATE DETECTION & IMPORT ────────────────────────────── */
+/* ================================================================
+   ACTIVITY & TIMETABLE TEXT PARSERS
+   ================================================================ */
+function normalizeTimeInput(s){
+  if (!s) return null;
+  const parts = String(s).trim().split(':');
+  let h = parseInt(parts[0], 10);
+  const m = parts[1] ? parseInt(parts[1], 10) : 0;
+  if (isNaN(h)) return null;
+  // If no colon and hour <= 7, assume afternoon (PM)
+  if (!parts[1] && h >= 1 && h <= 7) h += 12;
+  return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+}
+
+function parseActivitiesText(text){
+  const out = [];
+  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  const dayRegex = /^(sun(?:day)?|mon(?:day)?|tue(?:s|sday)?|wed(?:nesday)?|thu(?:rs?|rsday)?|fri(?:day)?|sat(?:urday)?)\s*[:\-]?\s*(.+)$/i;
+
+  for (const line of lines){
+    const m = line.match(dayRegex);
+    if (!m) continue;
+    const dayKey = m[1].toLowerCase().slice(0, 3);
+    const day = DAY_ABBR[dayKey];
+    if (day === undefined) continue;
+
+    const rest = m[2].trim();
+    // Find a time range: "4-4:30", "3:15-4:00", "4 to 5"
+    const timeMatch = rest.match(/(\d{1,2}(?::\d{2})?)\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?)/i);
+    if (!timeMatch) continue;
+
+    const start = normalizeTimeInput(timeMatch[1]);
+    const end = normalizeTimeInput(timeMatch[2]);
+    if (!start || !end) continue;
+
+    const name = rest.replace(timeMatch[0], '').replace(/\s+/g, ' ').trim().replace(/^[:\-–—]\s*/, '').trim();
+    if (!name) continue;
+
+    out.push({ id: uid(), day, start, end, name });
+  }
+  return out;
+}
+
+function parseTimetableText(text){
+  const out = [];
+  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  const dayRegex = /(sun(?:day)?|mon(?:day)?|tue(?:s|sday)?|wed(?:nesday)?|thu(?:rs?|rsday)?|fri(?:day)?|sat(?:urday)?)/i;
+
+  for (const line of lines){
+    const dayMatch = line.match(dayRegex);
+    if (!dayMatch) continue;
+    const dayKey = dayMatch[1].toLowerCase().slice(0, 3);
+    const day = DAY_ABBR[dayKey];
+    if (day === undefined) continue;
+
+    // Time range
+    const timeMatch = line.match(/(\d{1,2}(?::\d{2})?)\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?)/i);
+    if (!timeMatch) continue;
+    const start = normalizeTimeInput(timeMatch[1]);
+    const end = normalizeTimeInput(timeMatch[2]);
+
+    // Everything else becomes subject + room
+    let rest = line.replace(dayMatch[0], '').replace(timeMatch[0], '').replace(/[|,]/g, ' ').replace(/\s+/g, ' ').trim();
+    // Try to find a room number like M12, S3, E7
+    const roomMatch = rest.match(/\b([A-Z]{1,3}\d{1,3})\b/);
+    const room = roomMatch ? roomMatch[1] : '';
+    if (room) rest = rest.replace(room, '').replace(/\s+/g, ' ').trim();
+    const subject = rest.replace(/^[:\-–—]\s*/, '').trim();
+    if (!subject && !room) continue;
+
+    out.push({ day, start, end, subject: subject || 'Class', room });
+  }
+  return out;
+}
+
+/* ================================================================
+   DUPLICATE DETECTION & IMPORT
+   ================================================================ */
 function tokenSet(s){
   return new Set(String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 2 && !STOP_WORDS.has(w)));
 }
@@ -1614,10 +1718,7 @@ async function pushNotification({ kind, title, body='', link='', dedupeKey='' })
     const dupe = Store.all('notifications').find(n => n.dedupeKey === dedupeKey && (now() - n.createdAt) < 7*86400000);
     if (dupe) return null;
   }
-  const n = {
-    id: uid(), kind, title: sanitiseText(title, 200), body: sanitiseText(body, 400),
-    link, read: false, dedupeKey, createdAt: now()
-  };
+  const n = { id: uid(), kind, title: sanitiseText(title, 200), body: sanitiseText(body, 400), link, read: false, dedupeKey, createdAt: now() };
   await Store.put('notifications', n);
   renderNotifDot();
   if ($('#notif-panel') && !$('#notif-panel').hidden) renderNotifPanel();
@@ -1666,6 +1767,93 @@ async function checkDueSoon(){
   }
 }
 
+/* ── ICS ─────────────────────────────────────────────────────── */
+function parseICS(text){
+  if (!text) return [];
+  const events = [];
+  const unfolded = text.replace(/\r?\n[ \t]/g, '');
+  const blocks = unfolded.split(/BEGIN:VEVENT/i).slice(1);
+  for (const block of blocks){
+    const ev = {};
+    for (const line of block.split(/\r?\n/)){
+      const m = line.match(/^([A-Z-]+)(?:;[^:]*)?:(.*)$/);
+      if (!m) continue;
+      const [, key, value] = m;
+      if (key === 'SUMMARY') ev.title = value;
+      else if (key === 'DESCRIPTION') ev.description = value;
+      else if (key === 'DTSTART') ev.start = parseICSDate(value);
+      else if (key === 'DTEND') ev.end = parseICSDate(value);
+      else if (key === 'URL') ev.url = value;
+      else if (key === 'UID') ev.uid = value;
+      else if (key === 'LOCATION') ev.location = value;
+    }
+    if (ev.title && ev.start) events.push(ev);
+  }
+  return events;
+}
+function parseICSDate(v){
+  const m = String(v).match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2}))?(Z?)$/);
+  if (!m) return null;
+  const [, y, mo, d, h='00', mi='00', s='00', z] = m;
+  const dt = z ? new Date(Date.UTC(+y, +mo-1, +d, +h, +mi, +s)) : new Date(+y, +mo-1, +d, +h, +mi, +s);
+  return dt.getTime();
+}
+
+function eventExists(title, start, excludeId = null){
+  if (!start) return false;
+  const dayKey = startOfDay(new Date(start));
+  const norm = normalizeTitle(title);
+  return Store.all('events').some(e =>
+    e.id !== excludeId && e.start && startOfDay(new Date(e.start)) === dayKey && normalizeTitle(e.title) === norm
+  );
+}
+
+async function syncCalendarSubscriptions(){
+  const subs = Store.cache.settings.calendarSubscriptions || [];
+  if (!subs.length) return { added: 0, subs: 0, errors: [] };
+  let totalAdded = 0;
+  const errors = [];
+  for (const sub of subs){
+    try {
+      const r = await fetchCalendarUrl(sub.url);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const text = await r.text();
+      const events = parseICS(text);
+      let added = 0;
+      for (const ev of events){
+        if (ev.start < now() - 90*86400000) continue;
+        const existing = Store.all('events').find(e => e.icsUid === ev.uid && e.icsSource === sub.url);
+        if (!existing && eventExists(ev.title, ev.start)) continue;
+        const record = {
+          id: existing ? existing.id : `ics-${uid()}`,
+          title: sanitiseText(ev.title, 200),
+          description: sanitiseText(ev.description || '', 2000),
+          start: ev.start,
+          end: ev.end || null,
+          location: sanitiseText(ev.location || '', 200),
+          source: sub.name || 'Calendar',
+          url: ev.url || '',
+          icsUid: ev.uid,
+          icsSource: sub.url,
+          manual: false,
+          createdAt: existing ? existing.createdAt : now()
+        };
+        await Store.put('events', record);
+        if (!existing) added++;
+      }
+      totalAdded += added;
+      sub.lastSync = now();
+      sub.count = events.length;
+      sub.error = null;
+    } catch (e){
+      sub.error = e.message;
+      errors.push(`${sub.name || sub.url}: ${e.message}`);
+    }
+  }
+  await Store.saveUserDoc();
+  return { added: totalAdded, subs: subs.length, errors };
+}
+
 /* ── MASTER SYNC ─────────────────────────────────────────────── */
 let syncing = false;
 async function syncAll({ silent = false } = {}){
@@ -1684,12 +1872,8 @@ async function syncAll({ silent = false } = {}){
     for (const e of r.errors) errors.push(e);
   } catch(e){ errors.push(`Calendar: ${e.message}`); }
 
-  const removedEvents = await dedupeExistingEvents();
-  const removedItems = await dedupeExistingAssignments();
-  if (removedEvents + removedItems > 0){
-    console.log(`Cleaned ${removedEvents} duplicate events and ${removedItems} duplicate assignments`);
-  }
-
+  await dedupeExistingEvents();
+  await dedupeExistingAssignments();
   await checkDueSoon();
 
   syncing = false;
@@ -1733,7 +1917,6 @@ function render(){
   switch(route){
     case '#/assignments': view.innerHTML = viewAssignments(); break;
     case '#/calendar': view.innerHTML = viewCalendar(); break;
-    case '#/weekly': view.innerHTML = viewWeekly(); break;
     case '#/effort': view.innerHTML = viewEffort(); break;
     case '#/planner': view.innerHTML = viewPlanner(); break;
     case '#/integrations': view.innerHTML = viewIntegrations(); break;
@@ -1772,10 +1955,10 @@ function renderChecklist(){
     { key:'account', icon:'👤', text:'Create your account', done: true },
     { key:'firstItem', icon:'📋', text:'Paste your first assignments from Classroom', done: s.firstItem, action:'paste-classroom' },
     { key:'calendar', icon:'📅', text:'School calendar synced', done: s.calendar, action:'sync-now' },
-    { key:'effort', icon:'📊', text:'Log this week\'s effort report', done: s.effort, action:'log-effort' }
+    { key:'effort', icon:'📊', text:'Upload your first effort report', done: s.effort, action:'upload-effort' }
   ];
   return `
-  <section class="checklist-card" id="checklist-card">
+  <section class="checklist-card">
     <div class="checklist-head">
       <div class="checklist-title">🚀 Getting started</div>
       <div class="row" style="gap:8px">
@@ -1797,7 +1980,6 @@ function renderChecklist(){
 function viewDashboard(){
   const assignments = Store.all('assignments');
   const events = Store.all('events');
-  const notes = Store.all('weeklyNotes');
   const settings = Store.cache.settings;
   const open = assignments.filter(a => !a.completed);
   const overdue = open.filter(a => a.dueDate && daysUntil(a.dueDate) < 0);
@@ -1809,12 +1991,9 @@ function viewDashboard(){
   const hour = new Date().getHours();
   const greet = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
 
-  const todayEvents = [
-    ...events.filter(e => e.start && sameDay(e.start, now())),
-    ...notes.filter(n => n.date && sameDay(n.date, now()))
-  ];
+  const todayEvents = events.filter(e => e.start && sameDay(e.start, now()));
   const todayItems = [...dueToday, ...overdue];
-  const isEmpty = !assignments.length && !events.length && !notes.length;
+  const isEmpty = !assignments.length && !events.length;
 
   const efforts = Store.all('effortReports').sort((a,b) => b.date - a.date);
   const latestEffort = efforts[0];
@@ -1825,7 +2004,16 @@ function viewDashboard(){
         <a class="btn btn-sm btn-ghost" href="#/effort">All reports</a>
       </div>
       <div class="card-body">${renderEffortSummaryMini(latestEffort)}</div>
-    </section>` : '';
+    </section>` : `
+    <section class="card">
+      <div class="card-head">
+        <div class="card-title">📊 Effort reports</div>
+      </div>
+      <div class="card-body">
+        <p class="small muted" style="margin-bottom:14px">Upload your weekly PDF from school — StudentOS reads every subject and rating for you.</p>
+        <button class="btn btn-primary btn-sm" data-action="upload-effort">📤 Upload effort report</button>
+      </div>
+    </section>`;
 
   return `
   <div class="page-head">
@@ -1887,10 +2075,10 @@ function viewDashboard(){
       </section>
       <section class="card">
         <div class="card-head">
-          <div class="card-title">📰 Recent school information</div>
-          <a class="btn btn-sm btn-ghost" href="#/weekly">All notes</a>
+          <div class="card-title">🏃 Weekly activities</div>
+          <button class="btn btn-sm btn-subtle" data-action="edit-activities">Edit</button>
         </div>
-        ${renderRecentNotes(notes)}
+        <div class="card-body">${renderActivitiesToday(settings.weeklyActivities)}</div>
       </section>
     </div>
   </div>`;
@@ -1908,16 +2096,14 @@ function renderEffortSummaryMini(report){
       <div class="effort-avg"><b>${avg.toFixed(1)}</b>/ 5</div>
     </div>
     <div class="effort-bars">
-      ${report.ratings.slice(0, 4).map(r => `
+      ${report.ratings.slice(0, 5).map(r => `
         <div class="effort-bar-row">
           <div class="effort-bar-subject truncate">${escapeHtml(r.subject)}</div>
-          <div class="effort-bar-track">
-            <div class="effort-bar-fill ${ratingClass(r.rating)}" style="width:${r.rating/5*100}%"></div>
-          </div>
+          <div class="effort-bar-track"><div class="effort-bar-fill ${ratingClass(r.rating)}" style="width:${r.rating/5*100}%"></div></div>
           <div class="effort-bar-val">${r.rating}</div>
         </div>`).join('')}
     </div>
-    ${report.ratings.length > 4 ? `<div class="tiny muted" style="margin-top:8px">+${report.ratings.length - 4} more subjects</div>` : ''}`;
+    ${report.ratings.length > 5 ? `<div class="tiny muted" style="margin-top:8px">+${report.ratings.length - 5} more subjects</div>` : ''}`;
 }
 
 function renderWelcomeEmpty(){
@@ -1926,11 +2112,11 @@ function renderWelcomeEmpty(){
     <div style="font-size:52px;margin-bottom:14px">🎒</div>
     <h2 style="font-size:22px;margin-bottom:10px">Let's get your school life in one place</h2>
     <p class="muted" style="max-width:520px;margin:0 auto 24px;font-size:14.5px;line-height:1.65">
-      Fastest way to start: <strong>copy your Classroom To-do list</strong> and paste it in. Takes 10 seconds, works on any account.
+      Two quick steps: <strong>paste your Classroom To-do list</strong>, then <strong>upload this week's effort report PDF</strong>. Takes under a minute.
     </p>
     <div class="row" style="justify-content:center;flex-wrap:wrap;gap:10px">
       <button class="btn btn-primary" data-action="paste-classroom">📋 Paste from Classroom</button>
-      <button class="btn btn-ghost" data-action="log-effort">📊 Log effort report</button>
+      <button class="btn btn-ghost" data-action="upload-effort">📤 Upload effort report</button>
     </div>
     <div class="row" style="justify-content:center;gap:20px;flex-wrap:wrap;margin-top:24px;font-size:12.5px;color:var(--text-3)">
       <span>Press <kbd>P</kbd> to paste</span>
@@ -2029,17 +2215,17 @@ function renderTodaySection(todayItems, todayEvents){
 
 function renderTimetable(timetable){
   if (!timetable || !timetable.length){
-    return `<div class="empty" style="padding:28px 12px">
+    return `<div class="empty" style="padding:24px 12px">
       <div class="empty-ico">🕘</div>
       <div class="empty-title">No timetable yet</div>
-      <div class="empty-sub">Add your periods once and StudentOS will show today's lessons here.</div>
+      <div class="empty-sub">Add your periods once and StudentOS shows today's lessons here.</div>
       <button class="btn btn-sm btn-primary" style="margin-top:12px" data-action="edit-timetable">Add timetable</button>
     </div>`;
   }
   const todayDow = new Date().getDay();
   const todays = timetable.filter(t => Number(t.day) === todayDow).sort((a,b) => (a.start||'').localeCompare(b.start||''));
   if (!todays.length){
-    return `<div class="empty" style="padding:28px 12px">
+    return `<div class="empty" style="padding:24px 12px">
       <div class="empty-ico">🎉</div>
       <div class="empty-title">No classes today</div>
       <div class="empty-sub">Enjoy the break — or get ahead on upcoming work.</div>
@@ -2059,27 +2245,31 @@ function renderTimetable(timetable){
   }).join('');
 }
 
-function renderRecentNotes(notes){
-  const recent = [...notes].sort((a,b) => (b.date||0) - (a.date||0)).slice(0, 5);
-  if (!recent.length){
-    return `<div class="empty" style="padding:34px 20px">
-      <div class="empty-ico">📭</div>
-      <div class="empty-title">No notices yet</div>
-      <div class="empty-sub">Paste an email or wait for the next sync — notices will show up here.</div>
+function renderActivitiesToday(activities){
+  if (!activities || !activities.length){
+    return `<div class="empty" style="padding:24px 12px">
+      <div class="empty-ico">🎾</div>
+      <div class="empty-title">No activities yet</div>
+      <div class="empty-sub">Add your weekly activities so the planner can schedule around them.</div>
+      <button class="btn btn-sm btn-primary" style="margin-top:12px" data-action="edit-activities">Add activities</button>
     </div>`;
   }
-  const icons = { Notice:'📢', Announcement:'📣', Event:'🎪', 'School Notice':'📌' };
-  return recent.map(n => `
-    <div class="item" data-action="open-note" data-id="${n.id}" style="cursor:pointer">
-      <div class="item-check" style="border:none;background:transparent;cursor:pointer;font-size:17px">${icons[n.kind] || '📄'}</div>
-      <div class="item-main">
-        <div class="item-title" style="font-size:13.8px">${escapeHtml(n.title)}</div>
-        <div class="item-meta">
-          <span class="chip chip-gray">${escapeHtml(n.kind)}</span>
-          <span class="tiny muted">${relativeTime(n.date)}</span>
-          ${!n.read ? '<span class="chip chip-indigo">New</span>' : ''}
-        </div>
+  const todayDow = new Date().getDay();
+  const todays = activities.filter(a => Number(a.day) === todayDow).sort((a,b) => (a.start||'').localeCompare(b.start||''));
+  if (!todays.length){
+    return `<div class="empty" style="padding:24px 12px">
+      <div class="empty-ico">☀️</div>
+      <div class="empty-title">Free after school</div>
+      <div class="empty-sub">No activities scheduled today.</div>
+    </div>`;
+  }
+  return todays.map(a => `
+    <div class="tt-row">
+      <div class="tt-time">${escapeHtml(a.start)}–${escapeHtml(a.end)}</div>
+      <div style="flex:1;min-width:0">
+        <div class="tt-sub">${escapeHtml(a.name)}</div>
       </div>
+      <span class="chip chip-violet">Activity</span>
     </div>`).join('');
 }
 
@@ -2171,15 +2361,12 @@ function viewCalendar(){
   for (const e of Store.all('events')){
     if (e.start) allEvents.push({ date: e.start, title: e.title, kind: 'event', id: e.id, source: e.source });
   }
-  for (const n of Store.all('weeklyNotes')){
-    if (n.date) allEvents.push({ date: n.date, title: n.title, kind: 'notice', id: n.id });
-  }
   const todayTs = startOfDay();
   const upcoming = allEvents.filter(e => startOfDay(new Date(e.date)) >= todayTs).sort((a,b) => a.date - b.date).slice(0, 14);
 
   return `
   <div class="page-head row-between wrap">
-    <div><h1 class="page-title">Calendar</h1><p class="page-sub">Deadlines, tests, events and study sessions</p></div>
+    <div><h1 class="page-title">Calendar</h1><p class="page-sub">Deadlines, tests and school events</p></div>
     <div class="row">
       <button class="btn btn-ghost btn-sm" data-action="cal-prev">←</button>
       <div class="strong" style="min-width:170px;text-align:center">${monthName}</div>
@@ -2198,7 +2385,7 @@ function viewCalendar(){
           const out = d.getMonth() !== m;
           return `<div class="cal-day ${out ? 'out' : ''} ${isToday ? 'today' : ''}">
             <div class="cal-num">${d.getDate()}</div>
-            ${dayEvents.slice(0,3).map(e => `<div class="cal-ev ${e.kind === 'test' ? 'test' : e.kind === 'event' ? 'event' : e.kind === 'notice' ? 'notice' : ''}" title="${escapeHtml(e.title)}">${escapeHtml(e.title)}</div>`).join('')}
+            ${dayEvents.slice(0,3).map(e => `<div class="cal-ev ${e.kind === 'test' ? 'test' : e.kind === 'event' ? 'event' : ''}" title="${escapeHtml(e.title)}">${escapeHtml(e.title)}</div>`).join('')}
             ${dayEvents.length > 3 ? `<div class="cal-more">+${dayEvents.length - 3} more</div>` : ''}
           </div>`;
         }).join('')}
@@ -2217,7 +2404,7 @@ function viewCalendar(){
             </div>
             <div style="flex:1;min-width:0">
               <div class="small strong truncate">${escapeHtml(e.title)}</div>
-              <div class="tiny muted">${escapeHtml(e.kind === 'test' ? 'Test / Exam' : e.kind === 'event' ? (e.source || 'Event') : e.kind === 'notice' ? 'Notice' : 'Assignment')}</div>
+              <div class="tiny muted">${escapeHtml(e.kind === 'test' ? 'Test / Exam' : e.kind === 'event' ? (e.source || 'Event') : 'Assignment')}</div>
             </div>
             <span class="due ${cls}" style="font-size:11px">${d === 0 ? 'Today' : d === 1 ? 'Tomorrow' : `in ${d}d`}</span>
           </div>`;
@@ -2231,288 +2418,217 @@ function viewCalendar(){
   </div>`;
 }
 
-function viewWeekly(){
-  const notes = Store.all('weeklyNotes');
-  const efforts = Store.all('effortReports').sort((a,b) => b.date - a.date);
-  const latestEffort = efforts[0];
-
-  const notesHtml = !notes.length ? `
-    <div class="card"><div class="empty">
-      <div class="empty-ico">🗒️</div>
-      <div class="empty-title">No weekly notes yet</div>
-      <div class="empty-sub">Paste an email or wait for the next sync — school notices will be grouped here automatically.</div>
-    </div></div>` : (() => {
-    const grouped = {};
-    for (const n of notes){
-      const wk = n.weekKey || isoWeekKey(n.date || n.createdAt).key;
-      (grouped[wk] = grouped[wk] || []).push(n);
-    }
-    const weeks = Object.keys(grouped).sort().reverse();
-    return weeks.map(wk => {
-      const list = grouped[wk].sort((a,b) => (b.date||0) - (a.date||0));
-      const meta = isoWeekKey(list[0].date || list[0].createdAt);
-      const unread = list.filter(n => !n.read).length;
-      return `
-      <section class="card" style="margin-bottom:18px">
-        <div class="card-head">
-          <div><div class="card-title">Week ${meta.week} · ${meta.year}</div><div class="tiny muted" style="margin-top:2px">${list.length} item${list.length===1?'':'s'}${unread ? ` · ${unread} unread` : ''}</div></div>
-          <button class="btn btn-sm btn-ghost" data-action="mark-week-read" data-week="${wk}">Mark all read</button>
-        </div>
-        <div class="card-body">
-          ${list.map(n => renderNoteItem(n)).join('')}
-        </div>
-      </section>`;
-    }).join('');
-  })();
-
-  return `
-  <div class="page-head row-between wrap">
-    <div><h1 class="page-title">Weekly Notes</h1><p class="page-sub">School notices and your Friday effort reports</p></div>
-  </div>
-
-  ${latestEffort ? `
-  <div class="effort-banner">
-    <div class="effort-header">
-      <div class="effort-title">📊 This week's effort report</div>
-      <div class="row">
-        <div class="effort-avg"><b>${(latestEffort.ratings.reduce((s,r)=>s+r.rating,0)/latestEffort.ratings.length).toFixed(1)}</b>/ 5</div>
-        <a class="btn btn-sm btn-ghost" href="#/effort">View all reports</a>
-        <button class="btn btn-sm btn-primary" data-action="log-effort">Log new week</button>
-      </div>
-    </div>
-    <div class="effort-bars">
-      ${latestEffort.ratings.map(r => `
-        <div class="effort-bar-row">
-          <div class="effort-bar-subject truncate">${escapeHtml(r.subject)}</div>
-          <div class="effort-bar-track">
-            <div class="effort-bar-fill ${ratingClass(r.rating)}" style="width:${r.rating/5*100}%"></div>
-          </div>
-          <div class="effort-bar-val">${r.rating}</div>
-        </div>`).join('')}
-    </div>
-  </div>` : `
-  <div class="effort-banner">
-    <div class="effort-header">
-      <div class="effort-title">📊 Effort Reports</div>
-      <button class="btn btn-sm btn-primary" data-action="log-effort">Log this week's report</button>
-    </div>
-    <p class="small" style="color:var(--text-2);line-height:1.6">
-      Log your weekly effort ratings from the Friday email. StudentOS will track your progress subject by subject, week by week.
-    </p>
-  </div>`}
-
-  ${notesHtml}`;
-}
-
-function renderNoteItem(n){
-  const icons = { Notice:'📢', Announcement:'📣', Event:'🎪', 'School Notice':'📌' };
-  return `
-  <div class="item" style="padding-left:0;padding-right:0">
-    <div class="item-check" style="border:none;background:transparent;cursor:default;font-size:17px">${icons[n.kind] || '📄'}</div>
-    <div class="item-main">
-      <div class="item-title" style="font-size:13.9px">
-        ${escapeHtml(n.title)}
-        ${!n.read ? '<span class="chip chip-indigo">New</span>' : ''}
-        ${n.important ? '<span class="chip chip-amber">★</span>' : ''}
-      </div>
-      ${n.body ? `<div class="item-desc">${escapeHtml(n.body)}</div>` : ''}
-      <div class="item-meta">
-        <span class="chip chip-gray">${escapeHtml(n.kind)}</span>
-        <span class="chip chip-gray">${escapeHtml(n.source)}</span>
-        <span class="tiny muted">${fmtDateLong(n.date)}</span>
-      </div>
-    </div>
-    <div class="item-side">
-      <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-action="toggle-note-read" data-id="${n.id}">${n.read ? '📬' : '📭'}</button>
-      <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-action="toggle-note-important" data-id="${n.id}">${n.important ? '⭐' : '☆'}</button>
-      <button class="icon-btn" style="width:30px;height:30px;font-size:13px" data-action="delete-note" data-id="${n.id}">🗑️</button>
-    </div>
-  </div>`;
-}
-
 function viewEffort(){
   const reports = Store.all('effortReports').sort((a,b) => b.date - a.date);
   if (!reports.length){
     return `
     <div class="page-head">
       <h1 class="page-title">Effort Reports</h1>
-      <p class="page-sub">Track your weekly ratings from the Friday email</p>
+      <p class="page-sub">Upload your weekly report PDF — StudentOS reads every subject and rating</p>
     </div>
-    <div class="card"><div class="empty">
-      <div class="empty-ico">📊</div>
-      <div class="empty-title">No effort reports yet</div>
-      <div class="empty-sub">Every Friday you receive a PDF from school with an effort rating (1–5) per subject. Log them here to see how you're going over time.</div>
-      <div class="empty-actions">
-        <button class="btn btn-sm btn-primary" data-action="log-effort">📊 Log this week's report</button>
-      </div>
-    </div></div>`;
+    <div class="int-upload-card">
+      <div style="font-size:48px;margin-bottom:12px">📤</div>
+      <h3 style="font-size:18px;margin-bottom:6px">Upload your effort report</h3>
+      <p class="small muted" style="max-width:420px;margin:0 auto 18px;line-height:1.6">
+        Drag in the PDF from your Friday email. StudentOS pulls out every subject, weekly rating, and your year average automatically.
+      </p>
+      <button class="btn btn-primary btn-lg" data-action="upload-effort">📤 Choose PDF</button>
+      <div class="tiny muted" style="margin-top:14px">Or press <kbd>E</kbd> anywhere</div>
+    </div>`;
   }
+
   const allSubjects = new Set();
   for (const r of reports) r.ratings.forEach(x => allSubjects.add(x.subject));
   const subjectList = [...allSubjects];
-  const recent = reports.slice(0, 12).reverse();
-  const avgOf = r => r.ratings.length ? r.ratings.reduce((s, x) => s + x.rating, 0) / r.ratings.length : 0;
-  const overallAvg = reports.reduce((s, r) => s + avgOf(r), 0) / reports.length;
-  const bestSubject = subjectList.map(sub => {
-    const ratings = reports.map(r => r.ratings.find(x => x.subject === sub)?.rating).filter(x => x !== undefined);
-    return { sub, avg: ratings.length ? ratings.reduce((s,x) => s+x, 0) / ratings.length : 0, count: ratings.length };
-  }).filter(x => x.count > 0).sort((a,b) => b.avg - a.avg);
   const latest = reports[0];
-  const previous = reports[1];
-  let trendText = '', trendCls = '';
-  if (previous){
-    const diff = avgOf(latest) - avgOf(previous);
-    if (diff > 0.1){ trendText = `↑ ${diff.toFixed(1)} vs last week`; trendCls = 'chip-green'; }
-    else if (diff < -0.1){ trendText = `↓ ${Math.abs(diff).toFixed(1)} vs last week`; trendCls = 'chip-red'; }
-    else { trendText = 'Same as last week'; trendCls = 'chip-gray'; }
-  }
+  const avgOf = r => r.ratings.length ? r.ratings.reduce((s, x) => s + x.rating, 0) / r.ratings.length : 0;
+
   return `
   <div class="page-head row-between wrap">
     <div>
       <h1 class="page-title">Effort Reports</h1>
-      <p class="page-sub">${reports.length} week${reports.length===1?'':'s'} logged · your effort ratings over time</p>
+      <p class="page-sub">${reports.length} report${reports.length===1?'':'s'} · upload a new PDF each Friday</p>
     </div>
-    <button class="btn btn-primary" data-action="log-effort">＋ Log this week</button>
+    <button class="btn btn-primary" data-action="upload-effort">📤 Upload report</button>
   </div>
-  <div class="stat-grid">
-    <div class="stat ${overallAvg >= 4 ? 'good' : overallAvg < 3 ? 'warn' : ''}">
-      <div class="stat-label">Overall average</div>
-      <div class="stat-value">${overallAvg.toFixed(1)}</div>
-      <div class="stat-sub">across ${reports.length} week${reports.length===1?'':'s'}</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">This week</div>
-      <div class="stat-value">${avgOf(latest).toFixed(1)}</div>
-      <div class="stat-sub">${trendText ? `<span class="chip ${trendCls}">${trendText}</span>` : 'First week logged'}</div>
-    </div>
-    <div class="stat good">
-      <div class="stat-label">Strongest</div>
-      <div class="stat-value" style="font-size:18px;letter-spacing:-.01em">${bestSubject[0] ? escapeHtml(bestSubject[0].sub) : '—'}</div>
-      <div class="stat-sub">${bestSubject[0] ? bestSubject[0].avg.toFixed(1) + ' average' : ''}</div>
-    </div>
-    <div class="stat ${bestSubject.length && bestSubject[bestSubject.length-1].avg < 3 ? 'warn' : ''}">
-      <div class="stat-label">Needs focus</div>
-      <div class="stat-value" style="font-size:18px;letter-spacing:-.01em">${bestSubject.length ? escapeHtml(bestSubject[bestSubject.length-1].sub) : '—'}</div>
-      <div class="stat-sub">${bestSubject.length ? bestSubject[bestSubject.length-1].avg.toFixed(1) + ' average' : ''}</div>
-    </div>
+
+  <div class="int-upload-card" style="margin-bottom:20px">
+    <div style="font-size:36px;margin-bottom:8px">📤</div>
+    <h3 style="font-size:16px;margin-bottom:4px">Upload this week's report</h3>
+    <p class="small muted" style="max-width:420px;margin:0 auto 14px;line-height:1.55">
+      Drag the PDF in, or click to choose it. Everything gets read automatically.
+    </p>
+    <button class="btn btn-primary" data-action="upload-effort">📤 Choose PDF</button>
   </div>
-  <div class="stack">
-    <section class="card">
-      <div class="card-head">
-        <div class="card-title">📊 This week</div>
-        <div class="effort-avg"><b>${avgOf(latest).toFixed(1)}</b>/ 5</div>
+
+  <section class="card" style="margin-bottom:20px">
+    <div class="card-head">
+      <div class="card-title">📊 This week · ${escapeHtml(latest.studentCode || '')}</div>
+      <div class="effort-avg"><b>${avgOf(latest).toFixed(1)}</b>/ 5</div>
+    </div>
+    <div class="card-body">
+      ${latest.attendance != null ? `<div class="row" style="gap:10px;margin-bottom:14px"><span class="chip chip-green">Attendance ${latest.attendance}%</span><span class="chip chip-gray">${fmtDateLong(latest.date)}</span></div>` : `<div class="tiny muted" style="margin-bottom:14px">Week of ${fmtDateLong(latest.date)}</div>`}
+      <div class="effort-bars">
+        ${latest.ratings.sort((a,b) => a.rating - b.rating).map(r => `
+          <div class="effort-bar-row">
+            <div class="effort-bar-subject truncate">${escapeHtml(r.subject)}</div>
+            <div class="effort-bar-track"><div class="effort-bar-fill ${ratingClass(r.rating)}" style="width:${r.rating/5*100}%"></div></div>
+            <div class="effort-bar-val">${r.rating}${r.yearAvg != null ? `<span class="tiny muted" style="font-weight:500"> · ${r.yearAvg.toFixed(1)}</span>` : ''}</div>
+          </div>`).join('')}
       </div>
-      <div class="card-body">
-        <div class="tiny muted" style="margin-bottom:14px">Week of ${fmtDateLong(latest.date)}</div>
-        <div class="effort-bars">
-          ${latest.ratings.sort((a,b) => a.rating - b.rating).map(r => `
-            <div class="effort-bar-row">
-              <div class="effort-bar-subject truncate">${escapeHtml(r.subject)}</div>
-              <div class="effort-bar-track">
-                <div class="effort-bar-fill ${ratingClass(r.rating)}" style="width:${r.rating/5*100}%"></div>
-              </div>
-              <div class="effort-bar-val">${r.rating}</div>
-            </div>`).join('')}
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <div class="card-title">📈 Trend</div>
-        <span class="chip chip-gray">Last ${recent.length} week${recent.length===1?'':'s'}</span>
-      </div>
-      <div class="card-body">
-        <div class="effort-trend">
-          <table class="effort-table">
-            <thead>
-              <tr>
-                <th class="effort-sub-th">Subject</th>
-                ${recent.map(r => { const wk = isoWeekKey(r.date); return `<th title="${fmtDate(r.date)}">W${wk.week}</th>`; }).join('')}
-              </tr>
-            </thead>
-            <tbody>
-              ${subjectList.map(sub => `
-                <tr>
-                  <td class="effort-sub-td">${escapeHtml(sub)}</td>
-                  ${recent.map((r, idx) => {
-                    const rating = r.ratings.find(x => x.subject === sub)?.rating;
-                    const isCurrent = idx === recent.length - 1;
-                    if (rating === undefined) return `<td><span class="effort-cell empty">—</span></td>`;
-                    return `<td><span class="effort-cell ${ratingClass(rating)} ${isCurrent ? 'current' : ''}">${rating}</span></td>`;
-                  }).join('')}
-                </tr>`).join('')}
-              <tr style="border-top:2px solid var(--border)">
-                <td class="effort-sub-td" style="color:var(--text-2)"><em>Average</em></td>
-                ${recent.map((r, idx) => {
-                  const avg = avgOf(r);
-                  const isCurrent = idx === recent.length - 1;
-                  return `<td><span class="effort-cell ${ratingClass(avg)} ${isCurrent ? 'current' : ''}" style="font-weight:700">${avg.toFixed(1)}</span></td>`;
-                }).join('')}
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head"><div class="card-title">📜 All reports</div></div>
-      <div class="card-body" style="padding-top:8px">
-        ${reports.map(r => {
-          const avg = avgOf(r);
-          return `
-          <div class="row" style="padding:11px 0;border-bottom:1px solid var(--border);gap:12px;align-items:center">
-            <div style="width:52px;flex:none;text-align:center">
-              <div style="font-size:10.5px;font-weight:700;color:var(--text-3);text-transform:uppercase">${new Date(r.date).toLocaleDateString(undefined,{month:'short'})}</div>
-              <div style="font-size:17px;font-weight:800;letter-spacing:-.03em">${new Date(r.date).getDate()}</div>
-            </div>
-            <div style="flex:1;min-width:0">
-              <div class="small strong">${r.ratings.length} subject${r.ratings.length===1?'':'s'} rated</div>
-              <div class="tiny muted truncate">${r.ratings.map(x => `${x.subject}: ${x.rating}`).join(' · ')}</div>
-            </div>
-            <div class="effort-avg" style="padding:4px 10px;font-size:11px"><b style="font-size:15px">${avg.toFixed(1)}</b></div>
-            <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="edit-effort" data-id="${r.id}" title="Edit">✏️</button>
-            <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="delete-effort" data-id="${r.id}" title="Delete">🗑️</button>
-          </div>`;
-        }).join('')}
-      </div>
-    </section>
-  </div>`;
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><div class="card-title">📜 All reports</div></div>
+    <div class="card-body" style="padding-top:8px">
+      ${reports.map(r => {
+        const avg = avgOf(r);
+        return `
+        <div class="row" style="padding:11px 0;border-bottom:1px solid var(--border);gap:12px;align-items:center">
+          <div style="width:52px;flex:none;text-align:center">
+            <div style="font-size:10.5px;font-weight:700;color:var(--text-3);text-transform:uppercase">${new Date(r.date).toLocaleDateString(undefined,{month:'short'})}</div>
+            <div style="font-size:17px;font-weight:800;letter-spacing:-.03em">${new Date(r.date).getDate()}</div>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div class="small strong">${r.ratings.length} subject${r.ratings.length===1?'':'s'}${r.studentCode ? ` · ${escapeHtml(r.studentCode)}` : ''}</div>
+            <div class="tiny muted truncate">${r.ratings.map(x => `${x.subject}: ${x.rating}`).join(' · ')}</div>
+          </div>
+          <div class="effort-avg" style="padding:4px 10px;font-size:11px"><b style="font-size:15px">${avg.toFixed(1)}</b></div>
+          <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="delete-effort" data-id="${r.id}" title="Delete">🗑️</button>
+        </div>`;
+      }).join('')}
+    </div>
+  </section>`;
+}
+
+/* ================================================================
+   STUDY PLANNER
+   ================================================================ */
+function findFreeSlots(dayKey, durationMin, activities){
+  const dayOfWeek = new Date(dayKey).getDay();
+  const dayActivities = activities
+    .filter(a => Number(a.day) === dayOfWeek)
+    .map(a => ({ start: timeToMin(a.start), end: timeToMin(a.end), name: a.name }))
+    .sort((a,b) => a.start - b.start);
+
+  const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+  const windowStart = isWeekend ? 9 * 60 : 15 * 60 + 30; // 9am weekends, 3:30pm weekdays
+  const windowEnd = 21 * 60; // 9pm
+
+  const slots = [];
+  let cursor = windowStart;
+  for (const act of dayActivities){
+    if (act.start > cursor && act.start - cursor >= durationMin){
+      slots.push({ start: cursor, end: act.start, blocked: act.name });
+    }
+    cursor = Math.max(cursor, act.end);
+  }
+  if (windowEnd - cursor >= durationMin){
+    slots.push({ start: cursor, end: windowEnd, blocked: null });
+  }
+  return slots;
+}
+
+function scheduleSession(assignment, sessionDays, totalMinutes, activities, busy){
+  const d = daysUntil(assignment.dueDate);
+  const perSession = Math.round(totalMinutes / sessionDays);
+  const out = [];
+
+  for (let k = 0; k < sessionDays; k++){
+    const dayOffset = d === null ? k : Math.max(0, d - (sessionDays - 1 - k));
+    const dayKey = startOfDay(new Date(Date.now() + dayOffset * 86400000));
+    const dayOfWeek = new Date(dayKey).getDay();
+    const daySessions = busy[dayKey] || [];
+
+    const free = findFreeSlots(dayKey, perSession, activities);
+    // Sort free slots by earliest start
+    free.sort((a,b) => a.start - b.start);
+
+    let placed = null;
+    for (const slot of free){
+      // Find a start time that doesn't overlap existing sessions
+      let start = slot.start;
+      for (const s of daySessions){
+        if (s.end <= start) continue;
+        if (start + perSession <= s.start) break;
+        start = s.end;
+      }
+      if (start + perSession <= slot.end){
+        placed = { start, end: start + perSession };
+        break;
+      }
+    }
+
+    if (!placed){
+      // No slot available — skip this session
+      continue;
+    }
+
+    (busy[dayKey] = busy[dayKey] || []).push(placed);
+    out.push({
+      assignmentId: assignment.id,
+      title: `${k === 0 ? 'Start' : k === sessionDays - 1 ? 'Finish' : 'Continue'}: ${assignment.title}`,
+      subject: assignment.subject,
+      minutes: perSession,
+      day: dayKey,
+      start: placed.start,
+      end: placed.end,
+      type: assignment.type
+    });
+  }
+  return out;
 }
 
 function viewPlanner(){
   const items = Store.all('assignments').filter(a => !a.completed);
   const sessions = Store.all('studySessions').sort((a,b) => (a.start||0) - (b.start||0));
+  const activities = Store.cache.settings.weeklyActivities || [];
   const ranked = items.map(i => ({ i, score: plannerScore(i) })).sort((a,b) => b.score - a.score);
+
+  const busy = {};
   const suggestions = [];
-  const usedMinutes = {};
   for (const { i } of ranked){
     const mins = estimateMinutes(i);
     const d = daysUntil(i.dueDate);
     const sessionDays = Math.min(3, Math.max(1, d === null ? 2 : d));
-    for (let k = 0; k < sessionDays; k++){
-      const dayOffset = d === null ? k : Math.max(0, d - (sessionDays - 1 - k));
-      const dayKey = startOfDay(new Date(Date.now() + dayOffset * 86400000));
-      usedMinutes[dayKey] = (usedMinutes[dayKey] || 0) + Math.round(mins / sessionDays);
-      if (usedMinutes[dayKey] > 180) continue;
-      suggestions.push({
-        title: `${k === 0 ? 'Start' : k === sessionDays - 1 ? 'Finish' : 'Continue'}: ${i.title}`,
-        subject: i.subject, assignmentId: i.id,
-        minutes: Math.round(mins / sessionDays),
-        day: dayKey, type: i.type
-      });
-    }
+    const placed = scheduleSession(i, sessionDays, mins, activities, busy);
+    suggestions.push(...placed);
   }
   const byDay = {};
   for (const s of suggestions){ (byDay[s.day] = byDay[s.day] || []).push(s); }
+  Object.values(byDay).forEach(arr => arr.sort((a,b) => a.start - b.start));
   const days = Object.keys(byDay).map(Number).sort((a,b) => a - b).slice(0, 7);
+
+  const activityHtml = activities.length ? activities.slice().sort((a,b) => a.day - b.day || a.start.localeCompare(b.start)).map(a => `
+    <div class="activity-row">
+      <div class="activity-day">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][a.day]}</div>
+      <div class="activity-time">${escapeHtml(a.start)}–${escapeHtml(a.end)}</div>
+      <div class="activity-name truncate">${escapeHtml(a.name)}</div>
+      <button class="icon-btn activity-del" style="width:26px;height:26px;font-size:13px" data-action="delete-activity" data-id="${a.id}">✕</button>
+    </div>`).join('') : `<div class="empty" style="padding:22px 12px">
+      <div class="empty-ico">🎾</div>
+      <div class="empty-title">No activities yet</div>
+      <div class="empty-sub">Add tutoring, sport or music so the planner can schedule around them.</div>
+      <button class="btn btn-sm btn-primary" style="margin-top:12px" data-action="edit-activities">Add activities</button>
+    </div>`;
 
   return `
   <div class="page-head row-between wrap">
-    <div><h1 class="page-title">Study Planner</h1><p class="page-sub">Recommended sessions built from your deadlines</p></div>
-    ${sessions.length ? `<button class="btn btn-ghost" data-action="clear-sessions">Clear saved</button>` : ''}
+    <div><h1 class="page-title">Study Planner</h1><p class="page-sub">Recommended sessions built around your week</p></div>
+    ${sessions.length ? `<button class="btn btn-ghost" data-action="clear-sessions">Clear saved sessions</button>` : ''}
   </div>
   <div class="cols cols-main">
     <div class="stack">
+      <section class="card">
+        <div class="card-head">
+          <div class="card-title">🏃 Weekly activities</div>
+          <button class="btn btn-sm btn-ghost" data-action="edit-activities">Edit</button>
+        </div>
+        <div class="card-body" style="padding-top:8px;padding-bottom:8px">
+          ${activityHtml}
+        </div>
+      </section>
       <section class="card">
         <div class="card-head"><div class="card-title">📋 Priority order</div><span class="chip chip-gray">${ranked.length}</span></div>
         <div class="card-body" style="padding-top:8px">
@@ -2557,9 +2673,9 @@ function viewPlanner(){
                 <div class="row" style="padding:9px 11px;border:1px solid var(--border);border-radius:9px;margin-bottom:6px;gap:10px;background:var(--surface-2)">
                   <div style="flex:1;min-width:0">
                     <div class="small strong truncate">${escapeHtml(s.title)}</div>
-                    <div class="tiny muted">${escapeHtml(s.subject || s.type)} · ${s.minutes} min</div>
+                    <div class="tiny muted">${escapeHtml(s.subject || s.type)} · ${minToTime(s.start)}–${minToTime(s.end)}</div>
                   </div>
-                  <button class="btn btn-sm btn-subtle" data-action="save-session" data-assignment="${s.assignmentId}" data-title="${escapeHtml(s.title)}" data-minutes="${s.minutes}" data-day="${day}">Save</button>
+                  <button class="btn btn-sm btn-subtle" data-action="save-session" data-assignment="${s.assignmentId}" data-title="${escapeHtml(s.title)}" data-minutes="${s.minutes}" data-day="${day}" data-start="${s.start}">Save</button>
                 </div>`).join('')}
             </div>`;
           }).join('') : `<div class="empty" style="padding:30px 10px">
@@ -2587,9 +2703,7 @@ function viewPlanner(){
   </div>`;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   INTEGRATIONS — paste-first, plus calendars
-   ───────────────────────────────────────────────────────────── */
+/* ── INTEGRATIONS ───────────────────────────────────────────── */
 function viewIntegrations(){
   const subs = Store.cache.settings.calendarSubscriptions || [];
   const classroomItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'Google Classroom'));
@@ -2597,31 +2711,42 @@ function viewIntegrations(){
   return `
   <div class="page-head">
     <h1 class="page-title">Integrations</h1>
-    <p class="page-sub">Get your Classroom work in — takes 10 seconds, works on any account.</p>
+    <p class="page-sub">Two ways to keep StudentOS up to date.</p>
   </div>
 
   <div class="stack">
-
     <section class="card card-pad int-card hero">
       <div class="int-logo" style="background:linear-gradient(135deg,#6366f1,#4338ca);color:#fff;border:none;font-size:22px">📋</div>
       <div class="int-body">
         <div class="int-name">
           Paste from Classroom
           <span class="chip chip-green">Works instantly</span>
-          <span class="chip chip-green">No setup</span>
         </div>
         <div class="int-desc int-hero-body">
-          Copy your Classroom <strong>To-do</strong> list, paste it in, and StudentOS pulls out
-          every assignment, test and project with due dates, subjects and priorities.
-          No admin approval, no OAuth, no scripts.
+          Copy your Classroom <strong>To-do</strong> list, paste it in, and StudentOS pulls out every assignment
+          with due dates, subjects and priorities. No admin approval, no scripts.
         </div>
-        ${classroomItems.length ? `
-        <div class="int-stats">
-          <div class="int-stat"><b>${classroomItems.length}</b>Classroom items imported</div>
-        </div>` : ''}
+        ${classroomItems.length ? `<div class="int-stats"><div class="int-stat"><b>${classroomItems.length}</b>Classroom items imported</div></div>` : ''}
         <div class="int-hero-actions">
           <button class="btn btn-primary btn-lg" data-action="paste-classroom">📋 Paste from Classroom</button>
           <button class="btn btn-ghost" data-action="show-paste-help">How to copy</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card card-pad int-card" style="border:2px solid var(--violet-500);background:linear-gradient(135deg,var(--violet-50) 0%,#fff 100%)">
+      <div class="int-logo" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;border:none;font-size:22px">📤</div>
+      <div class="int-body">
+        <div class="int-name">
+          Upload effort report PDF
+          <span class="chip chip-violet">Every Friday</span>
+        </div>
+        <div class="int-desc">
+          Drop in your weekly PDF from school. StudentOS reads every subject, weekly rating and your
+          year average. No typing needed.
+        </div>
+        <div class="int-hero-actions">
+          <button class="btn btn-primary" data-action="upload-effort">📤 Upload report</button>
         </div>
       </div>
     </section>
@@ -2699,17 +2824,6 @@ function viewSettings(){
       </div>
     </section>
     <section class="card">
-      <div class="card-head"><div class="card-title">📊 Effort report subjects</div></div>
-      <div class="card-body">
-        <p class="small muted" style="margin-bottom:14px">Default subjects when logging a weekly effort report.</p>
-        <div class="field">
-          <label class="label">Subjects (comma separated)</label>
-          <input class="input" id="effort-subjects-input" value="${escapeHtml(s.effortSubjects.join(', '))}">
-        </div>
-        <button class="btn btn-primary btn-sm" data-action="save-effort-subjects">Save</button>
-      </div>
-    </section>
-    <section class="card">
       <div class="card-head"><div class="card-title">🛡️ Privacy &amp; data</div></div>
       <div class="card-body">
         <div class="set-row">
@@ -2731,10 +2845,10 @@ function viewSettings(){
       <div class="card-body">
         <div class="shortcut-grid">
           <div class="shortcut-row"><span>Paste from Classroom</span><kbd>P</kbd></div>
-          <div class="shortcut-row"><span>Effort report</span><kbd>E</kbd></div>
+          <div class="shortcut-row"><span>Upload effort report</span><kbd>E</kbd></div>
           <div class="shortcut-row"><span>New assignment</span><kbd>N</kbd></div>
           <div class="shortcut-row"><span>Search</span><kbd>/</kbd></div>
-          <div class="shortcut-row"><span>Sync now</span><kbd>S</kbd></div>
+          <div class="shortcut-row"><span>Sync calendar</span><kbd>S</kbd></div>
           <div class="shortcut-row"><span>Dashboard</span><kbd>G</kbd> <kbd>D</kbd></div>
         </div>
       </div>
@@ -2793,8 +2907,7 @@ function bindViewEvents(){
       case 'new-assignment': openAssignmentModal(null, 'Assignment'); break;
       case 'new-test': openAssignmentModal(null, 'Test'); break;
       case 'new-event': openAssignmentModal(null, 'Event'); break;
-      case 'log-effort': openEffortModal(); break;
-      case 'edit-effort': openEffortModal(Store.get('effortReports', id)); break;
+      case 'upload-effort': openEffortUploadModal(); break;
       case 'delete-effort': {
         if (await confirmDialog('Delete effort report?', 'This week\'s ratings will be removed.', 'Delete', true)){
           await Store.remove('effortReports', id);
@@ -2802,52 +2915,20 @@ function bindViewEvents(){
         }
         break;
       }
-      case 'delete-note': {
-        if (await confirmDialog('Delete note?', 'This note will be removed.', 'Delete', true)){
-          await Store.remove('weeklyNotes', id);
-          render();
-        }
-        break;
-      }
       case 'cal-prev': App.calMonth--; if (App.calMonth < 0){ App.calMonth = 11; App.calYear--; } render(); break;
       case 'cal-next': App.calMonth++; if (App.calMonth > 11){ App.calMonth = 0; App.calYear++; } render(); break;
       case 'cal-today': App.calMonth = new Date().getMonth(); App.calYear = new Date().getFullYear(); render(); break;
-      case 'toggle-note-read': {
-        const n = Store.get('weeklyNotes', id);
-        if (n){ n.read = !n.read; await Store.put('weeklyNotes', n); render(); }
-        break;
-      }
-      case 'toggle-note-important': {
-        const n = Store.get('weeklyNotes', id);
-        if (n){ n.important = !n.important; await Store.put('weeklyNotes', n); render(); }
-        break;
-      }
-      case 'open-note': {
-        const n = Store.get('weeklyNotes', id);
-        if (n && !n.read){ n.read = true; await Store.put('weeklyNotes', n); }
-        if (n) openNoteModal(n);
-        break;
-      }
-      case 'mark-week-read': {
-        const wk = action.dataset.week;
-        for (const n of Store.all('weeklyNotes')){
-          if ((n.weekKey || isoWeekKey(n.date || n.createdAt).key) === wk && !n.read){
-            n.read = true;
-            await Store.put('weeklyNotes', n);
-          }
-        }
-        render();
-        break;
-      }
       case 'save-session': {
+        const day = Number(action.dataset.day);
+        const startMin = Number(action.dataset.start);
         await Store.put('studySessions', {
           id: uid(), title: action.dataset.title,
           assignmentId: action.dataset.assignment,
           minutes: Number(action.dataset.minutes),
-          start: Number(action.dataset.day) + 16 * 3600000,
+          start: day + startMin * 60000,
           createdAt: now()
         });
-        toast('Session added', 'success');
+        toast('Session saved', 'success');
         render();
         break;
       }
@@ -2860,6 +2941,17 @@ function bindViewEvents(){
         break;
       }
       case 'edit-timetable': openTimetableModal(); break;
+      case 'edit-activities': openActivitiesModal(); break;
+      case 'delete-activity': {
+        const acts = Store.cache.settings.weeklyActivities;
+        const idx = acts.findIndex(x => x.id === id);
+        if (idx >= 0){
+          acts.splice(idx, 1);
+          await Store.saveUserDoc();
+          render();
+        }
+        break;
+      }
       case 'dismiss-checklist': {
         Store.cache.settings.onboardingSeen = true;
         await Store.saveUserDoc();
@@ -2869,7 +2961,6 @@ function bindViewEvents(){
       case 'paste-classroom': openClassroomPasteModal(); break;
       case 'show-paste-help': openPasteHelpModal(); break;
       case 'sync-now': syncAll({ silent: false }); break;
-      case 'save-effort-subjects': saveEffortSubjects(); break;
       case 'cleanup-duplicates': {
         const removedEvents = await dedupeExistingEvents();
         const removedItems = await dedupeExistingAssignments();
@@ -2924,6 +3015,133 @@ function bindViewEvents(){
   });
 }
 
+/* ── EFFORT UPLOAD MODAL ─────────────────────────────────────── */
+function openEffortUploadModal(){
+  let parsed = null;
+  openModal({
+    title: '📤 Upload effort report',
+    subtitle: 'Drop in the PDF from your Friday email — StudentOS reads it for you',
+    xl: true,
+    body: `
+      <div id="eu-step1">
+        <div class="drop-zone" id="eu-drop">
+          <div class="drop-zone-ico">📄</div>
+          <div class="drop-zone-title">Drop your PDF here</div>
+          <div class="drop-zone-sub">or click to choose a file<br>StudentOS reads every subject and rating automatically</div>
+          <input type="file" id="eu-file" accept="application/pdf,.pdf" hidden>
+        </div>
+        <div class="row" style="justify-content:center;margin-top:14px">
+          <button class="btn btn-ghost btn-sm" id="eu-cancel">Cancel</button>
+        </div>
+      </div>
+      <div id="eu-step2" hidden>
+        <div id="eu-status" class="alert alert-info" style="margin-bottom:14px">
+          <span class="spinner"></span>
+          <div>Reading your PDF…</div>
+        </div>
+        <div id="eu-preview"></div>
+      </div>`,
+    footer: `
+      <button class="btn btn-ghost" data-close>Cancel</button>
+      <button class="btn btn-primary" id="eu-save" disabled>Save report</button>`,
+    onMount(el, close){
+      const drop = $('#eu-drop', el);
+      const fileInput = $('#eu-file', el);
+      const status = $('#eu-status', el);
+      const preview = $('#eu-preview', el);
+      const saveBtn = $('#eu-save', el);
+
+      const handleFile = async (file) => {
+        if (!file) return;
+        if (!/\.pdf$/i.test(file.name) && file.type !== 'application/pdf'){
+          toast('Please upload a PDF file', 'error');
+          return;
+        }
+        $('#eu-step1', el).hidden = true;
+        $('#eu-step2', el).hidden = false;
+        status.className = 'alert alert-info';
+        status.innerHTML = `<span class="spinner"></span><div>Reading your PDF…</div>`;
+        preview.innerHTML = '';
+
+        try {
+          const text = await extractPdfText(file);
+          parsed = parseEffortReportText(text);
+          if (!parsed.ratings.length){
+            status.className = 'alert alert-warn';
+            status.innerHTML = `<span>⚠️</span><div>Couldn't find subject ratings in this PDF. It might be a different format — you can still add the report manually below.</div>`;
+          } else {
+            status.className = 'alert alert-success';
+            status.innerHTML = `<span>✅</span><div>Found <strong>${parsed.ratings.length} subjects</strong>${parsed.attendance != null ? ` · attendance ${parsed.attendance}%` : ''}${parsed.studentCode ? ` · ${escapeHtml(parsed.studentCode)}` : ''}.</div>`;
+          }
+          renderEffortPreview();
+          saveBtn.disabled = false;
+        } catch (err){
+          status.className = 'alert alert-error';
+          status.innerHTML = `<span>⚠️</span><div>Could not read the PDF: ${escapeHtml(err.message)}</div>`;
+        }
+      };
+
+      const renderEffortPreview = () => {
+        if (!parsed || !parsed.ratings.length){
+          preview.innerHTML = '<div class="empty" style="padding:30px 10px"><div class="empty-title">No subjects detected</div><div class="empty-sub">You can still save a blank report, but you might prefer to add one manually.</div></div>';
+          return;
+        }
+        preview.innerHTML = `
+          <div class="card" style="margin-bottom:12px">
+            <div class="card-body">
+              <div class="row-between" style="margin-bottom:14px">
+                <div>
+                  <div class="small muted">Report date</div>
+                  <input class="input" type="date" id="eu-date" value="${new Date().toISOString().slice(0,10)}" style="max-width:160px;margin-top:4px">
+                </div>
+                <div class="effort-avg"><b>${(parsed.ratings.reduce((s,x)=>s+x.rating,0)/parsed.ratings.length).toFixed(1)}</b>/ 5</div>
+              </div>
+              <div class="effort-bars">
+                ${parsed.ratings.map(r => `
+                  <div class="effort-bar-row">
+                    <div class="effort-bar-subject truncate">${escapeHtml(r.subject)}</div>
+                    <div class="effort-bar-track"><div class="effort-bar-fill ${ratingClass(r.rating)}" style="width:${r.rating/5*100}%"></div></div>
+                    <div class="effort-bar-val">${r.rating}${r.yearAvg != null ? `<span class="tiny muted" style="font-weight:500"> · ${r.yearAvg.toFixed(1)}</span>` : ''}</div>
+                  </div>`).join('')}
+              </div>
+            </div>
+          </div>`;
+      };
+
+      drop.addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
+      ['dragenter','dragover'].forEach(evt => drop.addEventListener(evt, e => { e.preventDefault(); drop.classList.add('drag'); }));
+      ['dragleave','drop'].forEach(evt => drop.addEventListener(evt, e => { e.preventDefault(); drop.classList.remove('drag'); }));
+      drop.addEventListener('drop', e => { handleFile(e.dataTransfer.files[0]); });
+
+      $('#eu-cancel', el).addEventListener('click', close);
+
+      saveBtn.addEventListener('click', async () => {
+        if (!parsed || !parsed.ratings.length){
+          toast('No subject ratings to save', 'warn');
+          return;
+        }
+        const dateVal = $('#eu-date', el)?.value;
+        const date = dateVal ? new Date(dateVal + 'T15:00:00').getTime() : Date.now();
+        const wk = isoWeekKey(date);
+        await Store.put('effortReports', {
+          id: uid(),
+          date,
+          weekKey: wk.key,
+          studentCode: parsed.studentCode,
+          attendance: parsed.attendance,
+          ratings: parsed.ratings,
+          source: 'PDF upload',
+          createdAt: now()
+        });
+        close();
+        toast(`Saved · ${parsed.ratings.length} subjects`, 'success', 'Effort report added');
+        render();
+      });
+    }
+  });
+}
+
 /* ── PASTE HELP MODAL ────────────────────────────────────────── */
 function openPasteHelpModal(){
   openModal({
@@ -2942,7 +3160,7 @@ function openPasteHelpModal(){
           <div class="howto-num">2</div>
           <div class="howto-step-body">
             <strong>Select everything</strong>
-            Click once on the page (not on any link), then press <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Ctrl</kbd>+<kbd>C</kbd>. On Mac use <kbd>⌘</kbd>+<kbd>A</kbd> / <kbd>⌘</kbd>+<kbd>C</kbd>.
+            Click once on the page, then press <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Ctrl</kbd>+<kbd>C</kbd>. On Mac use <kbd>⌘</kbd>+<kbd>A</kbd> / <kbd>⌘</kbd>+<kbd>C</kbd>.
           </div>
         </div>
         <div class="howto-step">
@@ -2953,22 +3171,9 @@ function openPasteHelpModal(){
           </div>
         </div>
       </div>
-
       <div class="alert alert-warn" style="margin-top:16px">
         <span>⚠️</span>
-        <div>
-          <strong>Skip the "No due date" section.</strong>
-          Items with no deadline can't be scheduled, so StudentOS ignores them.
-          Everything else — including <em>This week</em>, <em>Next week</em> and <em>Later</em> — works perfectly.
-        </div>
-      </div>
-
-      <div class="alert alert-info" style="margin-top:12px">
-        <span>💡</span>
-        <div>
-          StudentOS reads the copy just like you would — it recognises the title, course, and due date
-          for each item. You'll see a preview before anything is saved.
-        </div>
+        <div><strong>Skip the "No due date" section.</strong> Items without a deadline can't be scheduled, so StudentOS ignores them.</div>
       </div>`,
     footer: `<button class="btn btn-ghost" data-close>Got it</button><button class="btn btn-primary" id="ph-go">Open paste box</button>`,
     onMount(el, close){
@@ -2982,27 +3187,20 @@ function openClassroomPasteModal(){
   let parsedItems = [];
   openModal({
     title: '📋 Paste from Google Classroom',
-    subtitle: 'Copy your To-do list, paste it here — StudentOS will sort it out',
+    subtitle: 'Copy your To-do list, paste it here',
     xl: true,
     body: `
       <div class="alert alert-info" style="margin-bottom:14px">
         <span>💡</span>
         <div>
-          <strong>How to copy:</strong>
           Open <a href="https://classroom.google.com/u/0/h" target="_blank" rel="noopener">classroom.google.com</a> → <em>To-do</em>.
           Click on the page, then <kbd>Ctrl</kbd>+<kbd>A</kbd> / <kbd>Ctrl</kbd>+<kbd>C</kbd> (<kbd>⌘</kbd>+<kbd>A</kbd> / <kbd>⌘</kbd>+<kbd>C</kbd> on Mac).
-          Paste below.
         </div>
       </div>
-
       <div class="alert alert-warn" style="margin-bottom:14px">
         <span>⚠️</span>
-        <div>
-          <strong>Don't include the "No due date" section.</strong>
-          Anything without a deadline can't be scheduled. StudentOS will skip it even if you include it.
-        </div>
+        <div><strong>Don't include the "No due date" section.</strong> StudentOS will skip it anyway.</div>
       </div>
-
       <div class="paste-grid">
         <div>
           <label class="label" style="display:block;margin-bottom:6px">Paste here</label>
@@ -3056,8 +3254,7 @@ Thursday 24 Sept"></textarea>
               </div>
               <div class="paste-item-meta">
                 <select data-field="type">
-                  ${['Assignment','Homework','Test','Exam','Project','Event','Announcement','School Notice','Reminder','Other']
-                    .map(t => `<option ${it.type === t ? 'selected' : ''}>${t}</option>`).join('')}
+                  ${['Assignment','Homework','Test','Exam','Project','Event','Reminder','Other'].map(t => `<option ${it.type === t ? 'selected' : ''}>${t}</option>`).join('')}
                 </select>
                 <input type="date" data-field="dueDate" value="${it.dueDate ? new Date(it.dueDate).toISOString().slice(0,10) : ''}">
                 <input type="text" data-field="subject" placeholder="Subject" value="${escapeHtml(it.subject || '')}" style="width:120px">
@@ -3079,10 +3276,7 @@ Thursday 24 Sept"></textarea>
               }
             });
           });
-          node.querySelector('[data-remove]')?.addEventListener('click', () => {
-            parsedItems.splice(idx, 1);
-            renderPreview();
-          });
+          node.querySelector('[data-remove]')?.addEventListener('click', () => { parsedItems.splice(idx, 1); renderPreview(); });
         });
       };
 
@@ -3096,19 +3290,14 @@ Thursday 24 Sept"></textarea>
       $('#cp-detect', el).addEventListener('click', detect);
       input.addEventListener('paste', () => setTimeout(detect, 60));
       input.addEventListener('input', () => {
-        if (input.value.length > 20){
-          clearTimeout(input._t);
-          input._t = setTimeout(detect, 600);
-        }
+        if (input.value.length > 20){ clearTimeout(input._t); input._t = setTimeout(detect, 600); }
       });
 
       importBtn.addEventListener('click', async () => {
         if (!parsedItems.length) return;
         const r = await importItems(parsedItems, 'Google Classroom');
         Store.cache.integrations.classroom = {
-          id: 'classroom',
-          connected: true,
-          lastSync: now(),
+          id: 'classroom', connected: true, lastSync: now(),
           imported: Store.all('assignments').filter(a => (a.sources||[]).some(s => s.source === 'Google Classroom')).length,
           method: 'paste'
         };
@@ -3116,7 +3305,7 @@ Thursday 24 Sept"></textarea>
         close();
         const parts = [];
         if (r.added) parts.push(`${r.added} added`);
-        if (r.merged) parts.push(`${r.merged} merged with existing`);
+        if (r.merged) parts.push(`${r.merged} merged`);
         toast(parts.join(', ') || 'Nothing new', 'success', 'Classroom import complete');
         setSyncUI('ok', `Classroom: ${relativeTime(now())}`);
         render();
@@ -3140,8 +3329,7 @@ function openAssignmentModal(existing, presetType){
       <div class="row" style="gap:12px;align-items:flex-start">
         <div class="field" style="flex:1"><label class="label">Type</label>
           <select class="select" id="m-type">
-            ${['Assignment','Homework','Test','Exam','Project','Event','Announcement','School Notice','Reminder','Other']
-              .map(t => `<option ${a.type === t ? 'selected' : ''}>${t}</option>`).join('')}
+            ${['Assignment','Homework','Test','Exam','Project','Event','Reminder','Other'].map(t => `<option ${a.type === t ? 'selected' : ''}>${t}</option>`).join('')}
           </select></div>
         <div class="field" style="flex:1"><label class="label">Subject</label>
           <input class="input" id="m-subject" placeholder="Maths" value="${escapeHtml(a.subject)}"></div>
@@ -3176,22 +3364,31 @@ function openAssignmentModal(existing, presetType){
   });
 }
 
-function openNoteModal(n){
-  openModal({
-    title: n.title,
-    subtitle: `${n.kind} · ${n.source} · ${fmtDateLong(n.date)}`,
-    body: `${n.body ? `<p style="font-size:14px;line-height:1.75;white-space:pre-wrap;color:var(--text-2)">${escapeHtml(n.body)}</p>` : '<p class="muted">No further detail.</p>'}`,
-    footer: `<button class="btn btn-primary" data-close>Close</button>`
-  });
-}
-
+/* ── TIMETABLE MODAL ─────────────────────────────────────────── */
 function openTimetableModal(){
   const tt = Store.cache.settings.timetable || [];
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   openModal({
-    title: 'Weekly timetable',
-    wide: true,
+    title: '🗓️ Weekly timetable',
+    subtitle: 'Type each period, or paste a few lines at once',
+    xl: true,
     body: `
+      <div class="alert alert-info" style="margin-bottom:14px">
+        <span>💡</span>
+        <div>
+          <strong>Fastest way:</strong> paste lines like
+          <code>Monday 9:00-10:00 Maths M12</code> — one per period — into the box below and click <em>Auto-fill</em>.
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:14px">
+        <label class="label">Paste your timetable</label>
+        <textarea class="textarea" id="tt-paste" placeholder="Monday 9:00-10:00 Maths M12
+Monday 10:05-11:05 English E7
+Tuesday 9:00-10:00 Science S3
+Wednesday 9:00-10:00 English E7" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
+      </div>
+      <button class="btn btn-subtle btn-sm" id="tt-autofill">✨ Auto-fill from text</button>
+      <div class="divider" style="margin:18px 0"></div>
       <div id="tt-rows">
         ${tt.length ? tt.map((t, i) => ttRowHtml(t, i, days)).join('') : ttRowHtml({ day:1, start:'09:00', end:'10:00', subject:'', room:'' }, 0, days)}
       </div>
@@ -3199,11 +3396,23 @@ function openTimetableModal(){
     footer: `<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="tt-save">Save</button>`,
     onMount(el, close){
       let counter = $$('.tt-row-input', el).length;
-      $('#tt-add', el).addEventListener('click', () => {
+      const addRow = (data) => {
         const wrap = document.createElement('div');
-        wrap.innerHTML = ttRowHtml({ day:1, start:'', end:'', subject:'', room:'' }, counter++, days);
+        wrap.innerHTML = ttRowHtml(data, counter++, days);
         $('#tt-rows', el).appendChild(wrap.firstElementChild);
+      };
+      $('#tt-add', el).addEventListener('click', () => addRow({ day:1, start:'', end:'', subject:'', room:'' }));
+
+      $('#tt-autofill', el).addEventListener('click', () => {
+        const text = $('#tt-paste', el).value;
+        const parsed = parseTimetableText(text);
+        if (!parsed.length){ toast('Couldn\'t find any timetable lines', 'warn'); return; }
+        $('#tt-rows', el).innerHTML = '';
+        counter = 0;
+        parsed.forEach(p => addRow(p));
+        toast(`Added ${parsed.length} period${parsed.length === 1 ? '' : 's'}`, 'success');
       });
+
       $('#tt-save', el).addEventListener('click', async () => {
         const rows = $$('.tt-row-input', el).map(r => ({
           day: Number($('.tt-day', r).value),
@@ -3218,6 +3427,7 @@ function openTimetableModal(){
         toast(`Saved ${rows.length} period${rows.length===1?'':'s'}`, 'success');
         render();
       });
+
       el.addEventListener('click', e => {
         if (e.target.closest('.tt-del')) e.target.closest('.tt-row-input').remove();
       });
@@ -3237,117 +3447,106 @@ function ttRowHtml(t, idx, days){
   </div>`;
 }
 
-function openEffortModal(existing){
-  const isEdit = !!existing;
-  const s = Store.cache.settings;
-  const subjects = (existing?.ratings || s.effortSubjects.map(x => ({ subject: x, rating: 3 })));
-  const d = existing?.date ? new Date(existing.date) : new Date();
-  const dateVal = d.toISOString().slice(0,10);
+/* ── ACTIVITIES MODAL ────────────────────────────────────────── */
+function openActivitiesModal(){
   openModal({
-    title: isEdit ? 'Edit effort report' : '📊 Log effort report',
-    subtitle: 'Rate your effort for each subject (1 = low, 5 = excellent)',
+    title: '🏃 Weekly activities',
+    subtitle: 'Tutoring, sport, music — the planner schedules around these',
     xl: true,
     body: `
+      <div class="alert alert-info" style="margin-bottom:14px">
+        <span>💡</span>
+        <div>
+          <strong>Fastest way:</strong> paste lines like <code>Monday: Tutoring 4-4:30</code> — one per activity — and click <em>Auto-fill</em>.
+        </div>
+      </div>
       <div class="field" style="margin-bottom:14px">
-        <label class="label">Week ending (Friday date)</label>
-        <input class="input" type="date" id="e-date" value="${dateVal}">
+        <label class="label">Paste your weekly activities</label>
+        <textarea class="textarea" id="act-paste" placeholder="Monday: Tutoring 4-4:30
+Tuesday: Tutoring 4-5
+Wednesday: Padel 3:15-4:00
+Thursday: Football training 4:30-6:00" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
       </div>
-      <div id="e-rows">
-        ${subjects.map((r, i) => effortRowHtml(r.subject, r.rating, i)).join('')}
-      </div>
-      <button class="btn btn-ghost btn-sm" id="e-add" style="margin-top:12px">＋ Add subject</button>`,
-    footer: `
-      <button class="btn btn-ghost" data-close>Cancel</button>
-      <button class="btn btn-primary" id="e-save">${isEdit ? 'Save' : 'Log report'}</button>`,
+      <button class="btn btn-subtle btn-sm" id="act-autofill">✨ Auto-fill from text</button>
+      <div class="divider" style="margin:18px 0"></div>
+      <div id="act-rows"></div>
+      <button class="btn btn-ghost btn-sm" id="act-add" style="margin-top:12px">＋ Add activity</button>`,
+    footer: `<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="act-save">Save</button>`,
     onMount(el, close){
-      let counter = $$('.effort-edit-row', el).length;
-      $('#e-add', el).addEventListener('click', () => {
-        const wrap = document.createElement('div');
-        wrap.innerHTML = effortRowHtml('', 3, counter++);
-        $('#e-rows', el).appendChild(wrap.firstElementChild);
-        bindEffortRow(wrap.firstElementChild);
+      const rows = $('#act-rows', el);
+      const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const existing = Store.cache.settings.weeklyActivities || [];
+
+      const renderRow = (data) => {
+        const div = document.createElement('div');
+        div.className = 'row';
+        div.style.cssText = 'gap:8px;margin-bottom:8px;align-items:center';
+        div.dataset.act = data.id || uid();
+        div.innerHTML = `
+          <select class="select act-day" style="width:130px">
+            ${days.map((d, i) => `<option value="${i}" ${Number(data.day) === i ? 'selected' : ''}>${d}</option>`).join('')}
+          </select>
+          <input class="input act-start" type="time" value="${data.start || ''}" style="width:110px">
+          <input class="input act-end" type="time" value="${data.end || ''}" style="width:110px">
+          <input class="input act-name grow" placeholder="Tutoring, Padel…" value="${escapeHtml(data.name || '')}">
+          <button class="icon-btn act-del" style="color:var(--red-600)">✕</button>`;
+        rows.appendChild(div);
+      };
+
+      if (existing.length) existing.forEach(renderRow);
+      else renderRow({ day: 1, start:'16:00', end:'17:00', name:'' });
+
+      $('#act-add', el).addEventListener('click', () => renderRow({ day:1, start:'16:00', end:'17:00', name:'' }));
+
+      $('#act-autofill', el).addEventListener('click', () => {
+        const text = $('#act-paste', el).value;
+        const parsed = parseActivitiesText(text);
+        if (!parsed.length){ toast('Couldn\'t find any activity lines', 'warn'); return; }
+        rows.innerHTML = '';
+        parsed.forEach(renderRow);
+        toast(`Added ${parsed.length} activit${parsed.length === 1 ? 'y' : 'ies'}`, 'success');
       });
-      $$('.effort-edit-row', el).forEach(bindEffortRow);
-      $('#e-save', el).addEventListener('click', async () => {
-        const ratings = $$('.effort-edit-row', el).map(row => ({
-          subject: sanitiseText($('.effort-subject', row).value, 60),
-          rating: Number(row.querySelector('.effort-rating-btn.on')?.dataset.rating || 3)
-        })).filter(r => r.subject);
-        if (!ratings.length){ toast('Add at least one subject', 'error'); return; }
-        const dateVal2 = $('#e-date', el).value;
-        const date = dateVal2 ? new Date(dateVal2 + 'T15:00:00').getTime() : Date.now();
-        const wk = isoWeekKey(date);
-        const record = {
-          id: existing?.id || uid(),
-          date,
-          weekKey: wk.key, weekNumber: wk.week, weekYear: wk.year,
-          ratings,
-          createdAt: existing?.createdAt || now()
-        };
-        await Store.put('effortReports', record);
+
+      $('#act-save', el).addEventListener('click', async () => {
+        const list = $$('.row[data-act]', el).map(r => ({
+          id: r.dataset.act,
+          day: Number($('.act-day', r).value),
+          start: $('.act-start', r).value,
+          end: $('.act-end', r).value,
+          name: sanitiseText($('.act-name', r).value, 80)
+        })).filter(r => r.name && r.start && r.end);
+        Store.cache.settings.weeklyActivities = list;
+        await Store.saveUserDoc();
         close();
-        toast(isEdit ? 'Updated' : 'Logged', 'success', 'Effort report');
+        toast(`Saved ${list.length} activit${list.length === 1 ? 'y' : 'ies'}`, 'success');
         render();
       });
-      setTimeout(() => $('.effort-subject', el)?.focus(), 80);
+
+      el.addEventListener('click', e => {
+        if (e.target.closest('.act-del')) e.target.closest('.row[data-act]').remove();
+      });
     }
   });
 }
-function effortRowHtml(subject, rating, idx){
-  return `<div class="effort-edit-row" data-row="${idx}">
-    <input class="input subject effort-subject" placeholder="Subject name" value="${escapeHtml(subject || '')}">
-    <div class="effort-rating-options">
-      ${[1,2,3,4,5].map(n => `<button type="button" class="effort-rating-btn ${rating === n ? 'on' : ''} ${rating === n ? ratingClass(n) : ''}" data-rating="${n}">${n}</button>`).join('')}
-    </div>
-    <button class="icon-btn effort-del" style="color:var(--red-600)">✕</button>
-  </div>`;
-}
-function bindEffortRow(row){
-  row.querySelectorAll('.effort-rating-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      row.querySelectorAll('.effort-rating-btn').forEach(b => { b.classList.remove('on'); b.classList.remove('r1','r2','r3','r4','r5'); });
-      btn.classList.add('on');
-      const r = Number(btn.dataset.rating);
-      btn.classList.add(ratingClass(r));
-    });
-  });
-  row.querySelector('.effort-del')?.addEventListener('click', () => row.remove());
-}
-function saveEffortSubjects(){
-  const input = $('#effort-subjects-input');
-  if (!input) return;
-  const subjects = input.value.split(',').map(s => s.trim()).filter(Boolean);
-  Store.cache.settings.effortSubjects = subjects;
-  Store.saveUserDoc();
-  toast(`Saved ${subjects.length} subject${subjects.length===1?'':'s'}`, 'success');
-  render();
-}
+
 function openAddCalendarModal(){
   openModal({
     title: 'Add a calendar',
     subtitle: 'Paste any public ICS calendar URL',
     body: `
-      <div class="field">
-        <label class="label">Calendar name</label>
-        <input class="input" id="cal-name" placeholder="e.g. Sports Fixtures">
-      </div>
-      <div class="field">
-        <label class="label">ICS URL</label>
+      <div class="field"><label class="label">Calendar name</label>
+        <input class="input" id="cal-name" placeholder="e.g. Sports Fixtures"></div>
+      <div class="field"><label class="label">ICS URL</label>
         <input class="input" id="cal-url" placeholder="https://…/basic.ics" style="font-family:ui-monospace,monospace;font-size:12px">
-        <div class="hint">Must be an .ics feed, not the /calendar/embed URL.</div>
+        <div class="hint">Must be an .ics feed.</div>
       </div>`,
-    footer: `
-      <button class="btn btn-ghost" data-close>Cancel</button>
-      <button class="btn btn-primary" id="cal-add">Add calendar</button>`,
+    footer: `<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="cal-add">Add calendar</button>`,
     onMount(el, close){
       $('#cal-add', el).addEventListener('click', async () => {
         const name = $('#cal-name', el).value.trim() || 'Calendar';
         const url = $('#cal-url', el).value.trim();
         if (!url || !/^https?:\/\//.test(url)){ toast('Please paste a valid URL', 'error'); return; }
-        if (url.includes('/calendar/embed')){ toast('That\'s the embed URL — you need the ICS URL.', 'error'); return; }
-        Store.cache.settings.calendarSubscriptions.push({
-          id: uid(), name, url, builtin: false, lastSync: null, count: 0, error: null
-        });
+        Store.cache.settings.calendarSubscriptions.push({ id: uid(), name, url, builtin: false, lastSync: null, count: 0, error: null });
         await Store.saveUserDoc();
         close();
         toast('Calendar added — syncing…', 'success');
@@ -3400,15 +3599,15 @@ function renderOnb(){
   } else if (onbStep === 2){
     body = `<div class="onb-content">
       <h2>How would you like to start?</h2>
-      <p class="lead">Paste from Classroom works everywhere — no setup needed.</p>
+      <p class="lead">Both work on any school account — pick whichever you like.</p>
       <div class="onb-cards">
         <button class="onb-card ${onbData.path === 'paste' ? 'on' : ''}" data-onb-card="paste">
           <div class="onb-card-ico">📋</div>
-          <div class="onb-card-body"><h4>Paste from Classroom</h4><p>Copy your To-do list, paste it in. Takes 10 seconds, works on any school account.</p></div>
+          <div class="onb-card-body"><h4>Paste from Classroom</h4><p>Copy your To-do list, paste it in. Takes 10 seconds.</p></div>
         </button>
         <button class="onb-card ${onbData.path === 'effort' ? 'on' : ''}" data-onb-card="effort">
           <div class="onb-card-ico">📊</div>
-          <div class="onb-card-body"><h4>Just track effort reports</h4><p>Log your Friday ratings and see progress over time.</p></div>
+          <div class="onb-card-body"><h4>Upload my effort report</h4><p>Drop in the Friday PDF — StudentOS reads every subject and rating.</p></div>
         </button>
       </div>
     </div>
@@ -3426,12 +3625,12 @@ function renderOnb(){
           <div><strong>Paste from Classroom</strong>Press <kbd>P</kbd> anywhere to paste your To-do list.</div>
         </div>
         <div class="onb-feature">
-          <div class="onb-feature-ico">⚠️</div>
-          <div><strong>Skip "No due date"</strong>When copying, don't include items without deadlines.</div>
+          <div class="onb-feature-ico">📊</div>
+          <div><strong>Upload effort reports</strong>Press <kbd>E</kbd> to drop in this week's PDF.</div>
         </div>
         <div class="onb-feature">
-          <div class="onb-feature-ico">📊</div>
-          <div><strong>Effort reports</strong>Press <kbd>E</kbd> to log your Friday ratings.</div>
+          <div class="onb-feature-ico">🎯</div>
+          <div><strong>Study planner</strong>Add your activities once and the planner schedules around them.</div>
         </div>
       </div>
     </div>
@@ -3462,15 +3661,9 @@ function renderOnb(){
       if (action === 'next' && onbStep === 2){ onbStep = 3; renderOnb(); return; }
       if (action === 'finish'){
         closeOnboarding();
-        if (onbData.path === 'paste'){
-          location.hash = '#/dashboard';
-          setTimeout(() => openClassroomPasteModal(), 400);
-        } else if (onbData.path === 'effort'){
-          location.hash = '#/effort';
-          setTimeout(() => openEffortModal(), 400);
-        } else {
-          location.hash = '#/dashboard';
-        }
+        if (onbData.path === 'paste'){ location.hash = '#/dashboard'; setTimeout(() => openClassroomPasteModal(), 400); }
+        else if (onbData.path === 'effort'){ location.hash = '#/effort'; setTimeout(() => openEffortUploadModal(), 400); }
+        else location.hash = '#/dashboard';
       }
     }
   });
@@ -3486,7 +3679,7 @@ function renderNotifPanel(){
   const panel = $('#notif-panel');
   if (!panel) return;
   const list = [...Store.all('notifications')].sort((a,b) => b.createdAt - a.createdAt).slice(0, 30);
-  const icons = { assignment:'📝', due:'⏰', test:'📊', notice:'📢', event:'🎪' };
+  const icons = { assignment:'📝', due:'⏰', test:'📊' };
   panel.innerHTML = `
     <div class="notif-head">
       <div class="strong" style="font-size:14px">Notifications</div>
@@ -3535,35 +3728,20 @@ function runSearch(q){
     if (`${a.title} ${a.description} ${a.subject}`.toLowerCase().includes(q))
       hits.push({ icon:'📝', title:a.title, sub:`${a.subject || a.type} · ${dueLabel(a.dueDate).text}`, link:'#/assignments' });
   }
-  for (const n of Store.all('weeklyNotes')){
-    if (`${n.title} ${n.body}`.toLowerCase().includes(q))
-      hits.push({ icon:'📢', title:n.title, sub:`${n.kind} · ${fmtDate(n.date)}`, link:'#/weekly' });
-  }
   for (const e of Store.all('events')){
     if (`${e.title} ${e.description}`.toLowerCase().includes(q))
       hits.push({ icon:'🎪', title:e.title, sub:`${e.source || 'Event'} · ${fmtDate(e.start)}`, link:'#/calendar' });
-  }
-  for (const r of Store.all('effortReports')){
-    if (r.ratings.some(x => x.subject.toLowerCase().includes(q)))
-      hits.push({ icon:'📊', title:`Effort report — ${fmtDateLong(r.date)}`, sub:`Avg ${(r.ratings.reduce((s,x)=>s+x.rating,0)/r.ratings.length).toFixed(1)}`, link:'#/effort' });
   }
   const top = hits.slice(0, 8);
   box.innerHTML = top.length
     ? top.map(h => `<div class="search-item" data-link="${h.link}">
         <span style="font-size:16px">${h.icon}</span>
-        <div style="min-width:0">
-          <div class="t truncate">${escapeHtml(h.title)}</div>
-          <div class="tiny muted truncate">${escapeHtml(h.sub)}</div>
-        </div>
+        <div style="min-width:0"><div class="t truncate">${escapeHtml(h.title)}</div><div class="tiny muted truncate">${escapeHtml(h.sub)}</div></div>
       </div>`).join('')
     : `<div class="search-empty">No matches for "${escapeHtml(q)}"</div>`;
   box.hidden = false;
   $$('.search-item', box).forEach(item => {
-    item.addEventListener('click', () => {
-      location.hash = item.dataset.link;
-      box.hidden = true;
-      $('#global-search').value = '';
-    });
+    item.addEventListener('click', () => { location.hash = item.dataset.link; box.hidden = true; $('#global-search').value = ''; });
   });
 }
 
@@ -3574,14 +3752,10 @@ function setAuthMode(mode){
   const isSignup = mode === 'signup';
   $('#tab-signin').classList.toggle('on', !isSignup);
   $('#tab-signup').classList.toggle('on', isSignup);
-  $('#tab-signin').setAttribute('aria-selected', String(!isSignup));
-  $('#tab-signup').setAttribute('aria-selected', String(isSignup));
   $('#auth-heading').textContent = isSignup ? 'Create your account' : 'Welcome back';
-  $('#auth-subheading').textContent = isSignup ? 'Set up StudentOS in seconds — no card, no cost.' : 'Sign in to open your dashboard.';
+  $('#auth-subheading').textContent = isSignup ? 'Set up StudentOS in seconds.' : 'Sign in to open your dashboard.';
   $('#name-field').hidden = !isSignup;
-  $('#password-hint').hidden = !isSignup;
   $('#email-submit-label').textContent = isSignup ? 'Create account' : 'Sign in';
-  $('#auth-password').setAttribute('autocomplete', isSignup ? 'new-password' : 'current-password');
   $('#auth-error').hidden = true;
 }
 function showAuthError(m){ const b = $('#auth-error'); b.textContent = m; b.hidden = false; }
@@ -3615,11 +3789,8 @@ async function submitEmailAuth(){
       photoURL: cred.user.photoURL || '',
       real: true
     });
-  } catch (err){
-    showAuthError(friendlyAuthError(err));
-  } finally {
-    btn.disabled = false; spinner.hidden = true; label.textContent = orig;
-  }
+  } catch (err){ showAuthError(friendlyAuthError(err)); }
+  finally { btn.disabled = false; spinner.hidden = true; label.textContent = orig; }
 }
 function friendlyAuthError(err){
   const code = err.code || '';
@@ -3631,8 +3802,6 @@ function friendlyAuthError(err){
     case 'auth/wrong-password':
     case 'auth/invalid-credential': return 'Incorrect email or password.';
     case 'auth/too-many-requests': return 'Too many attempts. Wait a minute.';
-    case 'auth/network-request-failed': return 'Network error.';
-    case 'auth/operation-not-allowed': return 'Email sign-in is not enabled on this project.';
     default: return err.message || 'Sign-in failed.';
   }
 }
@@ -3640,10 +3809,8 @@ async function resetPassword(){
   const email = $('#auth-email').value.trim();
   if (!FB.ready || !FB.auth){ showAuthError('Firebase is not configured.'); return; }
   if (!email || !email.includes('@')){ showAuthError('Enter your email first.'); return; }
-  try {
-    await FB.mod.sendPasswordResetEmail(FB.auth, email);
-    toast('Reset email sent', 'success');
-  } catch (err){ showAuthError(friendlyAuthError(err)); }
+  try { await FB.mod.sendPasswordResetEmail(FB.auth, email); toast('Reset email sent', 'success'); }
+  catch (err){ showAuthError(friendlyAuthError(err)); }
 }
 function showAuth(){
   $('#boot').classList.add('gone');
@@ -3684,7 +3851,7 @@ function showApp(){
 async function signInGoogle(){
   const errBox = $('#auth-error');
   errBox.hidden = true;
-  if (!FB.ready || !FB.auth){ errBox.hidden = false; errBox.textContent = 'Firebase not configured. Please refresh.'; return; }
+  if (!FB.ready || !FB.auth){ errBox.hidden = false; errBox.textContent = 'Firebase not configured.'; return; }
   try {
     const provider = new FB.mod.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
@@ -3698,10 +3865,7 @@ async function signInGoogle(){
     });
   } catch (err){
     errBox.hidden = false;
-    if (err.code === 'auth/popup-blocked') errBox.textContent = 'Sign-in popup blocked. Allow popups and retry.';
-    else if (err.code === 'auth/unauthorized-domain') errBox.textContent = 'This domain is not authorised.';
-    else if (err.code === 'auth/operation-not-allowed') errBox.textContent = 'Google sign-in is not enabled.';
-    else errBox.textContent = `Sign-in failed: ${err.message}`;
+    errBox.textContent = `Sign-in failed: ${err.message}`;
   }
 }
 async function enterDemoMode(){
@@ -3715,11 +3879,8 @@ async function onUserSignedIn(user){
   await Store.init(user);
   if (Store.mode === 'firebase') await Store.loadFromFirestore();
 
-  const removedEvents = await dedupeExistingEvents();
-  const removedItems = await dedupeExistingAssignments();
-  if (removedEvents + removedItems > 0){
-    console.log(`Cleaned ${removedEvents} duplicate events and ${removedItems} duplicate assignments on load`);
-  }
+  await dedupeExistingEvents();
+  await dedupeExistingAssignments();
 
   document.documentElement.dataset.theme = Store.cache.settings.theme || 'light';
   showApp();
@@ -3745,40 +3906,30 @@ function seedDemoData(){
   const d = emptyData();
   const day = 86400000;
   const today = startOfDay();
-  d.courses = [
-    { id:'c1', name:'Maths', section:'10A', room:'M12' },
-    { id:'c2', name:'Science', section:'10A', room:'S3' },
-    { id:'c3', name:'English', section:'10B', room:'E7' }
-  ];
   d.assignments = [
     { id:'a1', title:'Chapter 5 questions', description:'From Maths', type:'Homework', subject:'Maths', dueDate: today + day, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*2 },
     { id:'a2', title:'Science test — chapters 4 to 6', description:'From Science', type:'Test', subject:'Science', dueDate: today + day*3, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'urgent', mergedCount:1, createdAt: now() - day*3 },
     { id:'a3', title:'Read chapters 3–4 of the novel', description:'From English', type:'Homework', subject:'English', dueDate: today + day*5, source:'Google Classroom', url:'', sources:[{source:'Google Classroom',url:''}], completed:false, manual:false, priority:'medium', mergedCount:1, createdAt: now() - day }
   ];
   d.events = [
-    { id:'e1', title:'Whole school assembly', description:'Sports awards and term overview.', start: today + day*1 + 9*3600000, source:'School Calendar', manual:false, createdAt: now() - day*2 },
-    { id:'e2', title:'Mufti day — gold coin donation', description:'Fundraiser for the local shelter.', start: today + day*4, source:'School Calendar', manual:false, createdAt: now() - day*2 }
+    { id:'e1', title:'Whole school assembly', description:'Sports awards.', start: today + day*1 + 9*3600000, source:'School Calendar', manual:false, createdAt: now() - day*2 }
   ];
-  const mkEffort = (daysAgo, weekNum, ratings) => ({
+  const mkEffort = (daysAgo, ratings) => ({
     id: `er-${daysAgo}`, date: today - daysAgo * day,
-    weekKey: `2026-W${weekNum}`, weekNumber: weekNum, weekYear: 2026,
-    ratings, createdAt: now() - daysAgo * day
+    studentCode: '10SWG', attendance: 96,
+    ratings, source: 'PDF upload', createdAt: now() - daysAgo * day
   });
   d.effortReports = [
-    mkEffort(2, 38, [
-      { subject:'Maths', rating:4 },{ subject:'English', rating:5 },
-      { subject:'Science', rating:3 },{ subject:'History', rating:4 },
-      { subject:'PE', rating:5 },{ subject:'Art', rating:4 }
-    ]),
-    mkEffort(9, 37, [
-      { subject:'Maths', rating:4 },{ subject:'English', rating:5 },
-      { subject:'Science', rating:4 },{ subject:'History', rating:3 },
-      { subject:'PE', rating:5 },{ subject:'Art', rating:4 }
-    ]),
-    mkEffort(16, 36, [
-      { subject:'Maths', rating:3 },{ subject:'English', rating:4 },
-      { subject:'Science', rating:3 },{ subject:'History', rating:3 },
-      { subject:'PE', rating:5 },{ subject:'Art', rating:4 }
+    mkEffort(2, [
+      { subject:'Commerce', rating:5, yearAvg:4.7, weekRatings:[5,5,5,5,null] },
+      { subject:'English', rating:5, yearAvg:5.0, weekRatings:[5,5,5,5,5,5,5,5,4,5] },
+      { subject:'ICT', rating:5, yearAvg:4.9, weekRatings:[4,4,5,5,5,5,5] },
+      { subject:'Mathematics', rating:5, yearAvg:4.9, weekRatings:[5,5,5,5,5,5,5,4] },
+      { subject:'Physical Education and Health', rating:4, yearAvg:4.0, weekRatings:[4,4,5,null] },
+      { subject:'Religious Education', rating:5, yearAvg:4.9, weekRatings:[5,5,5,5,5,5,5,null] },
+      { subject:'Science', rating:5, yearAvg:4.8, weekRatings:[5,5,5,5,5,5,null] },
+      { subject:'Social Studies', rating:5, yearAvg:5.0, weekRatings:[5,5,5,5,5,5,5,null] },
+      { subject:'Te Reo Maori', rating:5, yearAvg:4.9, weekRatings:[5,5,5,5,5,5,null] }
     ])
   ];
   d.settings.timetable = [
@@ -3786,9 +3937,13 @@ function seedDemoData(){
     { day:1, start:'10:05', end:'11:05', subject:'English', room:'E7' },
     { day:2, start:'09:00', end:'10:00', subject:'Science', room:'S3' },
     { day:3, start:'09:00', end:'10:00', subject:'English', room:'E7' },
-    { day:3, start:'10:05', end:'11:05', subject:'History', room:'H2' },
     { day:4, start:'09:00', end:'10:00', subject:'Maths', room:'M12' },
     { day:5, start:'09:00', end:'10:00', subject:'English', room:'E7' }
+  ];
+  d.settings.weeklyActivities = [
+    { id:'act1', day:1, start:'16:00', end:'16:30', name:'Tutoring' },
+    { id:'act2', day:2, start:'16:00', end:'17:00', name:'Tutoring' },
+    { id:'act3', day:3, start:'15:15', end:'16:00', name:'Padel' }
   ];
   d.settings.onboardingSeen = true;
   d.profile = { seeded:true };
@@ -3854,14 +4009,13 @@ function wireGlobalUI(){
     const k = e.key.toLowerCase();
     if (k === 'n'){ e.preventDefault(); openAssignmentModal(null, 'Assignment'); return; }
     if (k === 'p'){ e.preventDefault(); openClassroomPasteModal(); return; }
-    if (k === 'e'){ e.preventDefault(); openEffortModal(); return; }
+    if (k === 'e'){ e.preventDefault(); openEffortUploadModal(); return; }
     if (k === 's'){ e.preventDefault(); $('#sync-btn')?.click(); return; }
     if (k === 'g'){ gPressed = true; setTimeout(() => { gPressed = false; }, 800); return; }
     if (gPressed){
       if (k === 'd'){ location.hash = '#/dashboard'; gPressed = false; }
       else if (k === 'a'){ location.hash = '#/assignments'; gPressed = false; }
       else if (k === 'c'){ location.hash = '#/calendar'; gPressed = false; }
-      else if (k === 'w'){ location.hash = '#/weekly'; gPressed = false; }
       else if (k === 'e'){ location.hash = '#/effort'; gPressed = false; }
       else if (k === 'p'){ location.hash = '#/planner'; gPressed = false; }
     }
@@ -3877,17 +4031,12 @@ async function syncOne(key){
   try {
     if (key === 'calendar'){
       const r = await syncCalendarSubscriptions();
-      const removed = await dedupeExistingEvents();
-      toast(`${r.added} new event${r.added===1?'':'s'}${removed ? `, ${removed} duplicate${removed===1?'':'s'} removed` : ''}`, 'success', 'Calendar synced');
+      toast(`${r.added} new event${r.added===1?'':'s'}`, 'success', 'Calendar synced');
     }
     await checkDueSoon();
     setSyncUI('ok', `Synced ${relativeTime(now())}`);
-  } catch (err){
-    toast(err.message, 'error', 'Sync failed');
-  } finally {
-    if (btn){ btn.disabled = false; btn.textContent = 'Sync'; }
-    render();
-  }
+  } catch (err){ toast(err.message, 'error', 'Sync failed'); }
+  finally { if (btn){ btn.disabled = false; btn.textContent = 'Sync'; } render(); }
 }
 function toggleFab(){
   App.fabOpen = !App.fabOpen;
@@ -3900,28 +4049,26 @@ function renderFabMenu(){
     <button class="fab-item highlight" data-quick="paste-classroom">
       <span class="fab-ico">📋</span><span>Paste from Classroom</span><kbd>P</kbd>
     </button>
-    <button class="fab-item" data-quick="paste-help">
-      <span class="fab-ico">❓</span><span>How to copy</span>
-    </button>
-    <button class="fab-item" data-quick="log-effort">
-      <span class="fab-ico">📊</span><span>Log effort report</span><kbd>E</kbd>
+    <button class="fab-item highlight" data-quick="upload-effort">
+      <span class="fab-ico">📤</span><span>Upload effort report</span><kbd>E</kbd>
     </button>
     <div class="menu-sep"></div>
     <button class="fab-item" data-quick="new-assignment"><span class="fab-ico">📝</span><span>Assignment</span><kbd>N</kbd></button>
     <button class="fab-item" data-quick="new-test"><span class="fab-ico">📊</span><span>Test or exam</span></button>
     <button class="fab-item" data-quick="new-event"><span class="fab-ico">📅</span><span>Event</span></button>
     <div class="menu-sep"></div>
+    <button class="fab-item" data-quick="edit-activities"><span class="fab-ico">🏃</span><span>Weekly activities</span></button>
     <button class="fab-item" data-quick="sync-now"><span class="fab-ico">🔄</span><span>Sync calendar</span></button>`;
   $$('#fab-menu .fab-item').forEach(btn => {
     btn.addEventListener('click', () => {
       const q = btn.dataset.quick;
       toggleFab();
       if (q === 'paste-classroom') openClassroomPasteModal();
-      else if (q === 'paste-help') openPasteHelpModal();
-      else if (q === 'log-effort') openEffortModal();
+      else if (q === 'upload-effort') openEffortUploadModal();
       else if (q === 'new-assignment') openAssignmentModal(null, 'Assignment');
       else if (q === 'new-test') openAssignmentModal(null, 'Test');
       else if (q === 'new-event') openAssignmentModal(null, 'Event');
+      else if (q === 'edit-activities') openActivitiesModal();
       else if (q === 'sync-now') syncAll({ silent: false });
     });
   });
@@ -3932,13 +4079,13 @@ function openHelpModal(){
     subtitle: 'Press ? anytime to see this',
     body: `<div class="shortcut-grid">
       <div class="shortcut-row"><span>Paste from Classroom</span><kbd>P</kbd></div>
-      <div class="shortcut-row"><span>Effort report</span><kbd>E</kbd></div>
+      <div class="shortcut-row"><span>Upload effort report</span><kbd>E</kbd></div>
       <div class="shortcut-row"><span>New assignment</span><kbd>N</kbd></div>
       <div class="shortcut-row"><span>Search</span><kbd>/</kbd></div>
-      <div class="shortcut-row"><span>Sync now</span><kbd>S</kbd></div>
+      <div class="shortcut-row"><span>Sync calendar</span><kbd>S</kbd></div>
       <div class="shortcut-row"><span>Dashboard</span><kbd>G</kbd> <kbd>D</kbd></div>
       <div class="shortcut-row"><span>Assignments</span><kbd>G</kbd> <kbd>A</kbd></div>
-      <div class="shortcut-row"><span>Effort reports</span><kbd>G</kbd> <kbd>E</kbd></div>
+      <div class="shortcut-row"><span>Planner</span><kbd>G</kbd> <kbd>P</kbd></div>
     </div>`,
     footer: `<button class="btn btn-primary" data-close>Got it</button>`
   });
@@ -3949,7 +4096,7 @@ async function exportData(){
     user: { email: App.user?.email, name: App.user?.displayName },
     data: {
       assignments: Store.all('assignments'), events: Store.all('events'),
-      weeklyNotes: Store.all('weeklyNotes'), notifications: Store.all('notifications'),
+      notifications: Store.all('notifications'),
       studySessions: Store.all('studySessions'), courses: Store.all('courses'),
       effortReports: Store.all('effortReports'),
       settings: Store.cache.settings
@@ -3975,11 +4122,7 @@ async function boot(){
     const cfg = loadConfig();
     if (isFirebaseConfigured(cfg)){
       try { await initFirebase(cfg); }
-      catch (err){
-        console.error('Firebase init failed:', err);
-        toast('Firebase could not start.', 'error');
-        FB.ready = false;
-      }
+      catch (err){ console.error('Firebase init failed:', err); FB.ready = false; }
     }
     clearTimeout(safety);
     if (FB.ready && FB.auth){
@@ -3995,20 +4138,15 @@ async function boot(){
         } else {
           const raw = localStorage.getItem(LS_SESSION);
           if (raw){
-            try {
-              const cached = JSON.parse(raw);
-              if (!cached.real){ await onUserSignedIn(cached); return; }
-            } catch {}
+            try { const cached = JSON.parse(raw); if (!cached.real){ await onUserSignedIn(cached); return; } } catch {}
           }
           showAuth();
         }
       });
     } else {
       const raw = localStorage.getItem(LS_SESSION);
-      if (raw){
-        try { await onUserSignedIn(JSON.parse(raw)); }
-        catch { showAuth(); }
-      } else showAuth();
+      if (raw){ try { await onUserSignedIn(JSON.parse(raw)); } catch { showAuth(); } }
+      else showAuth();
     }
     wireGlobalUI();
   } catch (err){
@@ -4026,14 +4164,14 @@ async function boot(){
 boot();
 
 window.StudentOS = {
-  version: '3.1.0',
+  version: '4.0.0',
   get state(){ return Store.cache; },
   get config(){ return loadConfig(); },
   syncAll, exportData,
-  showOnboarding, openEffortModal,
-  openClassroomPasteModal, openPasteHelpModal,
+  showOnboarding,
+  openEffortUploadModal, openClassroomPasteModal, openActivitiesModal, openTimetableModal,
   dedupeExistingEvents, dedupeExistingAssignments,
-  smartPaste
+  smartPaste, parseEffortReportText, parseActivitiesText, parseTimetableText
 };
 </script>
 </body>
