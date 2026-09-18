@@ -94,7 +94,7 @@ img{max-width:100%;display:block}
 .btn-sm{padding:7px 12px;font-size:13px}
 .btn-lg{padding:13px 22px;font-size:15px;border-radius:var(--radius)}
 .btn-google{background:#fff;color:#3c4043;border:1px solid #dadce0;font-weight:600;font-size:15px;padding:13px 20px;box-shadow:var(--shadow-xs)}
-.btn-google:hover{background:#f8f9fa;border-color:#c6c9cc}
+.btn-google:hover:not(:disabled){background:#f8f9fa;border-color:#c6c9cc}
 [data-theme="dark"] .btn-google{background:#fff;color:#202124}
 .icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:var(--radius-sm);font-size:17px;color:var(--text-2);transition:.15s;position:relative;flex:none}
 .icon-btn:hover{background:var(--surface-2);color:var(--text)}
@@ -158,7 +158,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .auth-tabs{display:flex;background:var(--gray-100);border-radius:10px;padding:3px;gap:2px;margin-bottom:22px}
 [data-theme="dark"] .auth-tabs{background:var(--surface-2)}
 .auth-tab{flex:1;padding:8px 12px;border-radius:7px;font-size:13.5px;font-weight:600;color:var(--text-2);transition:.14s}
-.auth-tab:hover{color:var(--text)}
 .auth-tab.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow-xs)}
 [data-theme="dark"] .auth-tab.on{background:var(--surface-3)}
 #email-form .field{margin-bottom:14px}
@@ -243,7 +242,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .item:last-child{border-bottom:none}
 .item:hover{background:var(--surface-2)}
 .item-check{width:19px;height:19px;border-radius:6px;border:2px solid var(--border-strong);flex:none;margin-top:2px;display:grid;place-items:center;cursor:pointer;transition:.15s;background:var(--surface)}
-.item-check:hover{border-color:var(--primary)}
 .item-check.on{background:var(--green-500);border-color:var(--green-500);color:#fff;font-size:11px;font-weight:800}
 .item-main{flex:1;min-width:0}
 .item-title{font-weight:600;font-size:14.2px;margin-bottom:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -261,14 +259,12 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
 .seg{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:3px;gap:2px}
 .seg button{padding:6px 13px;border-radius:7px;font-size:13px;font-weight:600;color:var(--text-2);transition:.14s}
-.seg button:hover{color:var(--text)}
 .seg button.on{background:var(--primary);color:#fff;box-shadow:var(--shadow-xs)}
 .filters .input,.filters .select{width:auto;min-width:140px}
 .cal-head{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:6px}
 .cal-dow{text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);padding:6px 0}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
 .cal-day{min-height:88px;border:1px solid var(--border);border-radius:10px;padding:6px;background:var(--surface);display:flex;flex-direction:column;gap:3px;transition:.13s;cursor:pointer}
-.cal-day:hover{border-color:var(--border-strong);box-shadow:var(--shadow-xs)}
 .cal-day.out{opacity:.35}
 .cal-day.today{border-color:var(--primary);box-shadow:0 0 0 2px var(--primary-soft)}
 .cal-num{font-size:12px;font-weight:700;color:var(--text-2)}
@@ -309,10 +305,9 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 [data-theme="dark"] .checklist-title{color:var(--indigo-200)}
 .checklist-items{display:flex;flex-direction:column;gap:6px}
 .checklist-item{display:flex;align-items:center;gap:11px;padding:9px 12px;background:var(--surface);border:1px solid var(--border);border-radius:10px;font-size:13.5px;transition:.14s;cursor:pointer}
-.checklist-item:hover{border-color:var(--primary);transform:translateX(2px)}
 .checklist-item.done{opacity:.6;cursor:default}
 .checklist-item.done .checklist-text{text-decoration:line-through;color:var(--text-3)}
-.checklist-box{width:20px;height:20px;border-radius:6px;border:2px solid var(--border-strong);display:grid;place-items:center;font-size:11px;font-weight:800;flex:none;transition:.15s;color:transparent;background:var(--surface)}
+.checklist-box{width:20px;height:20px;border-radius:6px;border:2px solid var(--border-strong);display:grid;place-items:center;font-size:11px;font-weight:800;flex:none;color:transparent;background:var(--surface)}
 .checklist-item.done .checklist-box{background:var(--green-500);border-color:var(--green-500);color:#fff}
 .checklist-text{flex:1;min-width:0;font-weight:500}
 .modal-back{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);z-index:1000;display:grid;place-items:center;padding:20px;animation:fadeIn .16s ease;overflow-y:auto}
@@ -333,11 +328,9 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .paste-input{min-height:380px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.65}
 .paste-preview{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface-2);padding:14px;overflow-y:auto;max-height:460px;min-height:180px}
 .paste-preview h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);margin-bottom:10px;font-weight:700}
-.paste-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 13px;margin-bottom:8px;transition:.15s}
-.paste-item:hover{border-color:var(--border-strong)}
+.paste-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 13px;margin-bottom:8px}
 .paste-item-head{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px}
 .paste-item-title{flex:1;font-weight:600;font-size:13.5px;min-width:0;border:none;background:transparent;padding:0;font-family:inherit;color:var(--text)}
-.paste-item-title:focus{background:var(--surface-2);outline:1px solid var(--primary);border-radius:4px;padding:2px 4px}
 .paste-item-remove{width:24px;height:24px;border-radius:6px;color:var(--text-3);font-size:14px;flex:none;display:grid;place-items:center}
 .paste-item-remove:hover{background:var(--red-50);color:var(--red-600)}
 .paste-item-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:11.5px}
@@ -347,9 +340,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .format-badge.email{background:var(--sky-50);color:#0284c7;border-color:rgba(14,165,233,.3)}
 .format-badge.classroom{background:var(--green-50);color:var(--green-600);border-color:rgba(16,185,129,.3)}
 .format-badge.generic{background:var(--violet-50);color:var(--violet-600);border-color:rgba(139,92,246,.3)}
-.format-badge.ai{background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(99,102,241,.15));color:var(--violet-600);border-color:rgba(139,92,246,.4)}
-.format-badge.ai.working{animation:aiPulse 1.4s ease-in-out infinite}
-@keyframes aiPulse{0%,100%{opacity:1}50%{opacity:.6}}
 .howto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:16px 0}
 .howto-step{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:13px 14px;display:flex;gap:11px;align-items:flex-start}
 .howto-num{width:26px;height:26px;border-radius:8px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:800;flex:none}
@@ -389,7 +379,7 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .alert-success{background:var(--green-50);color:var(--green-600);border-color:rgba(16,185,129,.22)}
 .alert strong{font-weight:700}
 .drop-zone{border:2px dashed var(--border-strong);border-radius:16px;padding:32px 20px;text-align:center;transition:.18s;cursor:pointer;background:var(--surface-2)}
-.drop-zone:hover,.drop-zone.drag{border-color:var(--primary);background:var(--primary-soft)}
+.drop-zone.drag{border-color:var(--primary);background:var(--primary-soft)}
 .drop-zone-ico{font-size:40px;margin-bottom:10px;opacity:.7}
 .drop-zone-title{font-weight:700;font-size:15px;margin-bottom:4px}
 .drop-zone-sub{font-size:12.5px;color:var(--text-2);line-height:1.55}
@@ -478,13 +468,13 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
       <h1 class="auth-headline">Every assignment, test and effort report.<br>One calm dashboard.</h1>
       <p class="auth-sub">Paste anything — Classroom, an email, a message. StudentOS figures it out and plans around your week.</p>
       <ul class="auth-features">
-        <li><span class="tick">✓</span> <strong>Smart Paste</strong> — works with any source, optionally AI-powered</li>
+        <li><span class="tick">✓</span> <strong>Smart Paste</strong> — works with any source</li>
         <li><span class="tick">✓</span> <strong>Upload your effort report PDF</strong> — auto-reads every subject</li>
         <li><span class="tick">✓</span> <strong>Study planner</strong> — schedules around tutoring and sport</li>
       </ul>
       <div class="auth-badges">
         <span class="chip chip-glass">$0 to run</span>
-        <span class="chip chip-glass">No admin approval</span>
+        <span class="chip chip-glass">No accounts needed</span>
         <span class="chip chip-glass">Works offline</span>
       </div>
     </div>
@@ -494,7 +484,22 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
     <div class="auth-card">
       <div id="mode-badge" class="auth-mode-badge">⚡ Demo mode</div>
       <h2 class="auth-title" id="auth-heading">Welcome back</h2>
-      <p class="auth-lead" id="auth-subheading">Sign in to open your dashboard.</p>
+      <p class="auth-lead" id="auth-subheading">Sign in with your school Google account to get started.</p>
+
+      <button id="enter-btn" class="btn btn-google btn-block" style="padding:15px 20px;font-size:15.5px">
+        <svg width="22" height="22" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.7-6.7C35.6 2.6 30.2.5 24 .5 14.6.5 6.5 5.9 2.6 13.8l7.8 6.1C12.3 13.9 17.6 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/>
+          <path fill="#FBBC05" d="M10.4 28.1c-.5-1.5-.8-3-.8-4.6s.3-3.1.8-4.6l-7.8-6.1C1 16.2 0 19.5 0 23.5s1 7.3 2.6 10.7l7.8-6.1z"/>
+          <path fill="#34A853" d="M24 47c6.2 0 11.5-2.1 15.4-5.6l-7.5-5.8c-2.1 1.4-4.8 2.2-7.9 2.2-6.4 0-11.7-4.4-13.6-10.3l-7.8 6.1C6.5 41.6 14.6 47 24 47z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div id="google-error" class="alert alert-error" style="margin-top:14px" hidden></div>
+
+      <div class="auth-divider"><span>or use email</span></div>
+
       <div class="auth-tabs" role="tablist">
         <button type="button" class="auth-tab on" id="tab-signin" role="tab" aria-selected="true">Sign in</button>
         <button type="button" class="auth-tab" id="tab-signup" role="tab" aria-selected="false">Create account</button>
@@ -519,16 +524,6 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
         <button type="button" class="btn btn-ghost btn-sm btn-block" id="forgot-btn" style="margin-top:8px">Forgot password?</button>
       </form>
       <div id="auth-error" class="alert alert-error" style="margin-top:14px" hidden></div>
-      <div class="auth-divider"><span>or continue with</span></div>
-      <button id="enter-btn" class="btn btn-google btn-block">
-        <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
-          <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.7-6.7C35.6 2.6 30.2.5 24 .5 14.6.5 6.5 5.9 2.6 13.8l7.8 6.1C12.3 13.9 17.6 9.5 24 9.5z"/>
-          <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/>
-          <path fill="#FBBC05" d="M10.4 28.1c-.5-1.5-.8-3-.8-4.6s.3-3.1.8-4.6l-7.8-6.1C1 16.2 0 19.5 0 23.5s1 7.3 2.6 10.7l7.8-6.1z"/>
-          <path fill="#34A853" d="M24 47c6.2 0 11.5-2.1 15.4-5.6l-7.5-5.8c-2.1 1.4-4.8 2.2-7.9 2.2-6.4 0-11.7-4.4-13.6-10.3l-7.8 6.1C6.5 41.6 14.6 47 24 47z"/>
-        </svg>
-        Continue with Google
-      </button>
       <div class="auth-divider"><span>or</span></div>
       <button class="btn btn-ghost btn-block" id="demo-btn">Explore demo mode</button>
     </div>
@@ -616,7 +611,7 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 
 <script type="module">
 /* ================================================================
-   STUDENTOS v4.2 — AI-assisted Smart Paste
+   STUDENTOS v5.1 — smarter local Smart Paste + working Google auth
    ================================================================ */
 
 const LS_CONFIG = 'studentos.config.v1';
@@ -624,21 +619,6 @@ const LS_SESSION = 'studentos.session.v1';
 const LS_DATA = uid => `studentos.data.${uid}.v1`;
 const PDFJS_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
 const PDFJS_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-const AI_PROVIDER_INFO = {
-  gemini: {
-    name: 'Google Gemini',
-    keyUrl: 'https://aistudio.google.com/app/apikey',
-    defaultModel: 'gemini-2.0-flash',
-    hint: 'Free tier: 15 requests/minute, no card required.'
-  },
-  openai: {
-    name: 'OpenAI',
-    keyUrl: 'https://platform.openai.com/api-keys',
-    defaultModel: 'gpt-4o-mini',
-    hint: 'Pay-as-you-go — gpt-4o-mini is very cheap for this use.'
-  }
-};
 
 const DEFAULT_CONFIG = {
   firebase: {
@@ -671,10 +651,7 @@ const DEFAULT_SETTINGS = {
   notifyNewAssignment: true,
   notifyDueSoon: true,
   notifyNewTest: true,
-  onboardingSeen: false,
-  aiProvider: 'off',
-  aiApiKey: '',
-  aiModel: ''
+  onboardingSeen: false
 };
 
 const SUBJECT_ALIASES = {
@@ -690,29 +667,32 @@ const SUBJECT_ALIASES = {
   'physics': 'Physics','phys': 'Physics',
   'history': 'History','hist': 'History',
   'geography': 'Geography','geo': 'Geography',
-  'social studies': 'Social Studies','social science': 'Social Studies','social sciences': 'Social Studies','soc sci': 'Social Studies',
+  'social studies': 'Social Studies','social science': 'Social Studies','social sciences': 'Social Studies','soc sci': 'Social Studies','sst': 'Social Studies',
   'economics': 'Economics','econ': 'Economics','eco': 'Economics',
-  'accounting': 'Accounting','acc': 'Accounting','accnt': 'Accounting',
-  'business': 'Business','business studies': 'Business',
+  'accounting': 'Accounting','acc': 'Accounting','accnt': 'Accounting','acct': 'Accounting',
+  'business': 'Business','business studies': 'Business','busn': 'Business',
   'commerce': 'Commerce',
-  'media studies': 'Media Studies','media': 'Media Studies',
-  'classical studies': 'Classical Studies','classics': 'Classical Studies',
+  'media studies': 'Media Studies','media': 'Media Studies','med': 'Media Studies',
+  'classical studies': 'Classical Studies','classics': 'Classical Studies','cla': 'Classical Studies',
   'art': 'Art','visual art': 'Art','visual arts': 'Art',
-  'music': 'Music',
-  'drama': 'Drama',
+  'music': 'Music','mus': 'Music',
+  'drama': 'Drama','dra': 'Drama',
   'dance': 'Dance',
   'ict': 'Digital Technology','computing': 'Digital Technology','computer science': 'Digital Technology',
   'computer studies': 'Digital Technology','digital technology': 'Digital Technology','digital tech': 'Digital Technology','digital technologies': 'Digital Technology',
-  'technology': 'Technology','tech': 'Technology','hard materials': 'Technology','soft materials': 'Technology',
+  'dig': 'Digital Technology','dgt': 'Digital Technology','dtg': 'Digital Technology',
+  'technology': 'Technology','tech': 'Technology','tec': 'Technology','hard materials': 'Technology','soft materials': 'Technology',
   'food technology': 'Food Technology','food tech': 'Food Technology',
   'graphics': 'Design','design': 'Design','dvc': 'Design',
   'te reo': 'Te Reo Maori','te reo maori': 'Te Reo Maori','te reo māori': 'Te Reo Maori','maori': 'Te Reo Maori','māori': 'Te Reo Maori',
-  'french': 'French','spanish': 'Spanish','german': 'German','japanese': 'Japanese','chinese': 'Chinese',
-  're': 'Religious Education','r.e.': 'Religious Education','religious education': 'Religious Education','religious ed': 'Religious Education','theology': 'Religious Education',
+  'mri': 'Te Reo Maori','mao': 'Te Reo Maori','trm': 'Te Reo Maori',
+  'french': 'French','fre': 'French','spanish': 'Spanish','spa': 'Spanish',
+  'german': 'German','ger': 'German','japanese': 'Japanese','jap': 'Japanese','chinese': 'Chinese',
+  're': 'Religious Education','r.e.': 'Religious Education','religious education': 'Religious Education','religious ed': 'Religious Education','theology': 'Religious Education','rel': 'Religious Education',
   'stats': 'Statistics','statistics': 'Statistics',
   'homeroom': 'Homeroom','form class': 'Homeroom','tutor': 'Homeroom',
   'pastoral': 'Pastoral',
-  'outdoor education': 'Outdoor Education','outdoor ed': 'Outdoor Education',
+  'outdoor education': 'Outdoor Education','outdoor ed': 'Outdoor Education','out': 'Outdoor Education',
   'scholarship': 'Scholarship',
   'esol': 'ESOL','esl': 'ESOL',
   'reading': 'Reading','library': 'Library'
@@ -720,7 +700,7 @@ const SUBJECT_ALIASES = {
 
 function normalizeSubject(name){
   if (!name) return '';
-  const k = String(name).toLowerCase().trim().replace(/\s+/g, ' ');
+  const k = String(name).toLowerCase().trim().replace(/\s+/g, ' ').replace(/[.,;:]+$/,'');
   return SUBJECT_ALIASES[k] || String(name).trim();
 }
 
@@ -737,6 +717,25 @@ function detectSubject(text){
       idx = t.indexOf(alias, idx + 1);
     }
   }
+  return '';
+}
+
+function subjectFromCourseCode(input){
+  if (!input) return '';
+  const raw = String(input).trim();
+  if (!/[a-z]/i.test(raw)) return '';
+  let s = raw.toLowerCase();
+  s = s.replace(/^(?:y(?:ear)?\s*\d{1,2}|l(?:evel)?\s*\d{1,2}|\d{1,2})[\s\-_]*/i, '');
+  s = s.replace(/[\s\-_]*20\d{2}$/, '');
+  s = s.replace(/[\s\-_]+/g, ' ').trim();
+  if (!s || s.length < 2) return '';
+  const parts = s.split(' ');
+  for (let len = parts.length; len >= 1; len--){
+    const candidate = parts.slice(0, len).join(' ');
+    if (SUBJECT_ALIASES[candidate]) return SUBJECT_ALIASES[candidate];
+  }
+  const first = parts[0];
+  if (SUBJECT_ALIASES[first]) return SUBJECT_ALIASES[first];
   return '';
 }
 
@@ -964,9 +963,7 @@ const Store = {
   },
 
   async removeAll(){
-    for (const k of ['assignments','events','notifications','courses','studySessions','effortReports']){
-      this.cache[k] = [];
-    }
+    for (const k of ['assignments','events','notifications','courses','studySessions','effortReports']) this.cache[k] = [];
     this.cache.integrations = {};
     this.persistNow();
     if (this.mode === 'firebase' && FB.db){
@@ -1094,13 +1091,13 @@ async function dedupeExistingAssignments(){
 
 function detectType(text){
   const t = String(text || '').toLowerCase();
-  if (/\b(exam|exams|final exam|midterm|mid-term|end of year exam|assessment week)\b/.test(t)) return 'Exam';
-  if (/\b(test|tests|quiz|quizzes|spot test|unit test|topic test|assessment)\b/.test(t)) return 'Test';
-  if (/\b(project|portfolio|presentation|group project|inquiry)\b/.test(t)) return 'Project';
-  if (/\b(homework|home work|hw|worksheet|exercise|practice|revision|read chapter|reading)\b/.test(t)) return 'Homework';
-  if (/\b(assignment|coursework|task|activity|submit|hand in|hand-in|essay|report|lab report)\b/.test(t)) return 'Assignment';
+  if (/\b(exam|exams|final exam|midterm|mid-term|end of year exam|assessment week|ncea external|external exam)\b/.test(t)) return 'Exam';
+  if (/\b(test|tests|quiz|quizzes|spot test|unit test|topic test|assessment|internal|mock exam|practice exam|practice test)\b/.test(t)) return 'Test';
+  if (/\b(project|portfolio|presentation|group project|inquiry|investigation)\b/.test(t)) return 'Project';
+  if (/\b(homework|home work|hw|worksheet|exercise|practice|revision|read chapter|reading|due reading)\b/.test(t)) return 'Homework';
+  if (/\b(assignment|coursework|task|activity|submit|hand in|hand-in|essay|report|lab report|submission)\b/.test(t)) return 'Assignment';
   if (/\b(assembly|mufti|mufti day|sports day|athletics|carnival|excursion|trip|concert|production|fundraiser|book week|fete|open day|interview|holiday|term start|term end)\b/.test(t)) return 'Event';
-  if (/\b(due|deadline|remember|don't forget|dont forget)\b/.test(t)) return 'Reminder';
+  if (/\b(due|deadline|remember|don't forget|dont forget|action required)\b/.test(t)) return 'Reminder';
   return 'Assignment';
 }
 
@@ -1108,40 +1105,79 @@ const MONTH_MAP = { jan:0,january:0,feb:1,february:1,mar:2,march:2,apr:3,april:3
   jun:5,june:5,jul:6,july:6,aug:7,august:7,sep:8,sept:8,september:8,oct:9,october:9,
   nov:10,november:10,dec:11,december:11 };
 const DAY_ABBR = { sun:0, mon:1, tue:2, wed:3, thu:4, fri:5, sat:6 };
+const MONTH_ABBR_RE = 'jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december';
+const DOW_RE = 'sunday|sun|monday|mon|tuesday|tue|tues|wednesday|wed|thursday|thu|thur|thurs|friday|fri|saturday|sat';
 
 function parseDate(text, ref = new Date()){
   if (!text) return null;
   const t = String(text).toLowerCase();
+  const thisYear = ref.getFullYear();
+
   let m = t.match(/\b(\d{4})-(\d{2})-(\d{2})\b/);
-  if (m) return new Date(+m[1], +m[2]-1, +m[3], 23, 59).getTime();
-  m = t.match(/\b(\d{1,2})(?:st|nd|rd|th)?\s+(jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)\b/);
   if (m){
-    const d = new Date(ref.getFullYear(), MONTH_MAP[m[2]], +m[1], 23, 59);
-    if (d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
-    return d.getTime();
+    const d = new Date(+m[1], +m[2]-1, +m[3], 23, 59);
+    if (!isNaN(d.getTime())) return d.getTime();
   }
-  m = t.match(/\b(jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)\s+(\d{1,2})(?:st|nd|rd|th)?\b/);
+
+  m = t.match(/\b(\d{1,2})[\/\-\.](\d{1,2})(?:[\/\-\.](\d{2,4}))?\b/);
   if (m){
-    const d = new Date(ref.getFullYear(), MONTH_MAP[m[1]], +m[2], 23, 59);
-    if (d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
-    return d.getTime();
-  }
-  m = t.match(/\b(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?\b/);
-  if (m){
-    let yr = m[3] ? +m[3] : ref.getFullYear();
+    const a = +m[1], b = +m[2];
+    let yr = m[3] ? +m[3] : thisYear;
     if (yr < 100) yr += 2000;
-    const d = new Date(yr, +m[2]-1, +m[1], 23, 59);
+    let day = a, mon = b;
+    if (a > 12 && b <= 12){ day = a; mon = b; }
+    else if (b > 12 && a <= 12){ day = b; mon = a; }
+    if (day >= 1 && day <= 31 && mon >= 1 && mon <= 12){
+      const d = new Date(yr, mon-1, day, 23, 59);
+      if (!m[3] && d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
+      return d.getTime();
+    }
+  }
+
+  m = t.match(new RegExp(`\\b(?:(${DOW_RE})\\s+)?(\\d{1,2})(?:st|nd|rd|th)?\\s+(${MONTH_ABBR_RE})(?:[,\\s]+(\\d{2,4}))?\\b`));
+  if (m){
+    const mon = MONTH_MAP[m[3]];
+    let yr = m[4] ? +m[4] : thisYear;
+    if (yr < 100) yr += 2000;
+    const d = new Date(yr, mon, +m[2], 23, 59);
+    if (!m[4] && d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
+    return d.getTime();
+  }
+
+  m = t.match(new RegExp(`\\b(${MONTH_ABBR_RE})\\s+(\\d{1,2})(?:st|nd|rd|th)?(?:[,\\s]+(\\d{2,4}))?\\b`));
+  if (m){
+    const mon = MONTH_MAP[m[1]];
+    let yr = m[3] ? +m[3] : thisYear;
+    if (yr < 100) yr += 2000;
+    const d = new Date(yr, mon, +m[2], 23, 59);
     if (!m[3] && d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
     return d.getTime();
   }
-  if (/\btoday\b|\btonight\b/.test(t)) return new Date(ref.getFullYear(), ref.getMonth(), ref.getDate(), 23, 59).getTime();
-  if (/\btomorrow\b|\btmrw\b|\btmr\b/.test(t)){
-    const d = new Date(ref); d.setDate(d.getDate() + 1); d.setHours(23,59,0,0); return d.getTime();
+
+  if (/\b(today|tonight)\b/.test(t)){ const d = new Date(ref); d.setHours(23,59,0,0); return d.getTime(); }
+  if (/\b(tomorrow|tmrw|tmr)\b/.test(t)){ const d = new Date(ref); d.setDate(d.getDate()+1); d.setHours(23,59,0,0); return d.getTime(); }
+  if (/\bday\s+after\s+tomorrow\b/.test(t)){ const d = new Date(ref); d.setDate(d.getDate()+2); d.setHours(23,59,0,0); return d.getTime(); }
+  if (/\bnext\s+week\b|\bin\s+a\s+week\b/.test(t)){ const d = new Date(ref); d.setDate(d.getDate()+7); d.setHours(23,59,0,0); return d.getTime(); }
+  if (/\b(end\s+of\s+week|eow)\b/.test(t)){
+    const d = new Date(ref);
+    const delta = (5 - d.getDay() + 7) % 7;
+    d.setDate(d.getDate() + (delta || 7));
+    d.setHours(23,59,0,0);
+    return d.getTime();
   }
-  if (/\bnext week\b/.test(t)){
-    const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime();
+
+  m = t.match(/\bin\s+(\d+)\s+(day|days|week|weeks|month|months)\b/);
+  if (m){
+    const d = new Date(ref);
+    const n = +m[1];
+    if (/week/.test(m[2])) d.setDate(d.getDate() + n * 7);
+    else if (/month/.test(m[2])) d.setMonth(d.getMonth() + n);
+    else d.setDate(d.getDate() + n);
+    d.setHours(23,59,0,0);
+    return d.getTime();
   }
-  m = t.match(/\b(sunday|sun|monday|mon|tuesday|tue|tues|wednesday|wed|thursday|thu|thur|thurs|friday|fri|saturday|sat)\b/);
+
+  m = t.match(new RegExp(`\\b(${DOW_RE})\\b`));
   if (m){
     const target = DAY_ABBR[m[1].slice(0,3)];
     if (target !== undefined){
@@ -1182,210 +1218,58 @@ function estimateMinutes(item){
   }
 }
 
-/* ================================================================
-   AI PARSING
-   ================================================================ */
-function buildAiPrompt(text){
-  const now = new Date();
-  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const todayIso = now.toISOString().slice(0,10);
-  const dayName = dayNames[now.getDay()];
+/* ── Smart Paste ───────────────────────────────────────────── */
+const CLASSROOM_TYPE_MARKER = /^(assignment|material|quiz|question|exam|homework|short answer question|multiple choice question|submission|task)$/i;
+const CLASSROOM_SECTION_HEADER = /^(to-?dos?|missing|done|all classes|all topics|all work|topics?|next week|this week|later|today|tomorrow|yesterday|upcoming|recently assigned|assigned|posted|turned in|graded|returned|view|see all|view all|no due dates?|no due|due dates?)$/i;
 
-  const subjectList = [...new Set(Object.values(SUBJECT_ALIASES))].sort().join(', ');
-
-  return `You are a school assignment parser. Extract every assignment, test, exam, project, event or reminder from the text below.
-
-Return ONLY valid JSON in this exact shape:
-{
-  "items": [
-    {
-      "title": "concise assignment name",
-      "description": "optional extra context, empty string if none",
-      "type": "Assignment" | "Homework" | "Test" | "Exam" | "Project" | "Event" | "Reminder" | "Other",
-      "subject": "one of the canonical subject names listed below, or the course name from the text, or empty string",
-      "dueDate": "YYYY-MM-DD" or null
-    }
-  ]
+function looksLikeDateOnlyLine(line){
+  if (!line) return false;
+  const t = String(line).trim();
+  if (t.length > 50) return false;
+  if (new RegExp(`^(?:${DOW_RE})[\\s,]*\\d{1,2}(?:st|nd|rd|th)?[\\s,]+(?:${MONTH_ABBR_RE})(?:[,\\s]+\\d{2,4})?$`, 'i').test(t)) return true;
+  if (new RegExp(`^\\d{1,2}(?:st|nd|rd|th)?[\\s,]+(?:${MONTH_ABBR_RE})(?:[,\\s]+\\d{2,4})?$`, 'i').test(t)) return true;
+  if (new RegExp(`^(?:${MONTH_ABBR_RE})\\s+\\d{1,2}(?:st|nd|rd|th)?(?:[,\\s]+\\d{2,4})?$`, 'i').test(t)) return true;
+  if (new RegExp(`^${DOW_RE}$`, 'i').test(t)) return true;
+  if (/^(today|tonight|tomorrow|tmrw|tmr|next week|this week)$/i.test(t)) return true;
+  if (/^(due\s+)?\d{4}-\d{2}-\d{2}$/i.test(t)) return true;
+  if (/^(due\s+)?\d{1,2}[\/\-\.]\d{1,2}(?:[\/\-\.]\d{2,4})?$/i.test(t)) return true;
+  if (/^due\s+/i.test(t) && t.length < 50) return true;
+  if (/^(?:by|on)\s+/i.test(t) && t.length < 50) return true;
+  return false;
 }
 
-Today is ${dayName}, ${todayIso}.
-
-Canonical subject names (always use these when the text matches any of them, even if the text uses an abbreviation like "PE" or "Maths"):
-${subjectList}
-
-Rules:
-1. Resolve relative dates ("Friday", "tomorrow", "next week", "Monday 21 Sept") to actual calendar dates. If the resolved date is in the past and no year was given, assume next year.
-2. If a Classroom-style section header says "No due date", skip ALL items below it — they have no deadline.
-3. Skip section headers themselves: "Next week", "This week", "Later", "To-do", "Missing", "Done", "Upcoming".
-4. Google Classroom To-do items usually appear as three lines: title, course code (e.g. "10ENG" or "Y10 - Te Reo - 2026"), and a date. Use the first line as title, last as due date, middle as subject if it matches a known subject.
-5. For emails: use the Subject: header (without "Re:"/"Fwd:") as the title, and search the body for dates and context. If the body contains a bullet list of 2+ distinct tasks, return each bullet as its own item.
-6. Apply the full alias map: "PE", "P.E.", "Health", "Physical Education", "Phys Ed", "HPE" all become "PE & Health". "Maths", "Math", "Mathematics" all become "Mathematics". "RE", "Religious Ed", "Theology" all become "Religious Education". Follow the canonical list above for every subject.
-7. If no due date is stated, set dueDate to null. Do NOT invent one.
-8. If nothing useful is found, return { "items": [] }.
-9. Return ONLY the JSON. No markdown, no commentary.
-
-Text to parse:
----
-${text.slice(0, 20000)}
----`;
+function isNoiseLine(line){
+  if (!line) return true;
+  const t = line.trim();
+  if (!t) return true;
+  if (/^Loading\b/i.test(t)) return true;
+  if (/^more_vert|^more_horiz|^expand_more/i.test(t)) return true;
+  if (/^Open your work for/i.test(t)) return true;
+  if (/^Posted\s+\w+,\s+\w+\s+\d+/i.test(t)) return true;
+  if (/^Posted\s+on\b/i.test(t)) return true;
+  if (/^\d+\s*(?:comment|comments|student|students|attachment|attachments|submission|submissions|turned in|assigned)$/i.test(t)) return true;
+  if (/^\d+$/.test(t)) return true;
+  if (/^(calendar_today|schedule|attachment|insert_drive_file|check_circle|radio_button_unchecked)$/i.test(t)) return true;
+  if (/^(Turned in|Assigned|Missing|Graded|Returned|Viewed|Done|Not done)$/i.test(t)) return true;
+  if (/^\d{1,2}:\d{2}\s*(?:AM|PM)?$/i.test(t)) return true;
+  if (/^(1[0-2]|[1-9])\s*(?:AM|PM)$/i.test(t)) return true;
+  if (/^~?\d+\s*(?:min|mins|minute|minutes|hr|hrs|hour|hours)$/i.test(t)) return true;
+  if (/^\d+\s*(?:pt|pts|point|points|%)$/i.test(t)) return true;
+  if (/^(View|See|Open|Open instructions|Open assignment)$/i.test(t)) return true;
+  if (/^Click\s+to\s+/i.test(t)) return true;
+  if (/^(Edit|Delete|Duplicate|Move|Archive|Restore)$/i.test(t)) return true;
+  if (/^https?:\/\/\S+$/i.test(t)) return true;
+  return false;
 }
 
-function parseAiJson(raw){
-  if (!raw) return [];
-  let text = String(raw).trim();
-  text = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
-  let parsed;
-  try { parsed = JSON.parse(text); }
-  catch (e){
-    const m = text.match(/\{[\s\S]*\}/);
-    if (!m) throw new Error('AI returned non-JSON text');
-    try { parsed = JSON.parse(m[0]); }
-    catch { throw new Error('AI returned invalid JSON'); }
-  }
-  const items = Array.isArray(parsed) ? parsed : (parsed.items || []);
-  if (!Array.isArray(items)) throw new Error('AI response missing items array');
-  return items;
-}
-
-function normalizeAiItems(aiItems){
-  const out = [];
-  for (const raw of aiItems){
-    if (!raw || typeof raw !== 'object') continue;
-    let title = String(raw.title || '').trim();
-    if (!title || title.length < 2) continue;
-    title = sanitiseText(title, 200);
-    const validTypes = ['Assignment','Homework','Test','Exam','Project','Event','Reminder','Other'];
-    const type = validTypes.includes(raw.type) ? raw.type : 'Assignment';
-    const subject = normalizeSubject(String(raw.subject || '').trim());
-    let dueDate = null;
-    if (raw.dueDate){
-      const m = String(raw.dueDate).match(/^(\d{4})-(\d{2})-(\d{2})/);
-      if (m) dueDate = new Date(+m[1], +m[2]-1, +m[3], 23, 59).getTime();
-      else dueDate = parseDate(String(raw.dueDate));
-    }
-    out.push({
-      id: `ai-${uid()}`,
-      title,
-      description: sanitiseText(String(raw.description || ''), 2000),
-      type, subject, dueDate,
-      source: 'AI Paste', url: '',
-      sources: [{ source: 'AI Paste', url: '', addedAt: now() }],
-      completed: false, manual: false,
-      priority: computePriority({ type, dueDate }),
-      mergedCount: 1, createdAt: now()
-    });
-  }
-  return out;
-}
-
-async function fetchWithTimeout(url, options, ms = 45000){
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), ms);
-  try {
-    return await fetch(url, { ...options, signal: controller.signal });
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-async function aiParseGemini(prompt, apiKey, modelOverride){
-  const model = modelOverride || AI_PROVIDER_INFO.gemini.defaultModel;
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
-  const res = await fetchWithTimeout(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        responseMimeType: 'application/json',
-        temperature: 0.1,
-        maxOutputTokens: 4096
-      }
-    })
-  });
-  if (!res.ok){
-    const errText = await res.text().catch(() => '');
-    if (res.status === 400 && /API[_ ]?KEY[_ ]?INVALID/i.test(errText)) throw new Error('Invalid Gemini API key. Check Settings.');
-    if (res.status === 403) throw new Error('Gemini API access denied — check your key permissions.');
-    if (res.status === 429) throw new Error('Gemini rate limit hit. Wait a minute and try again.');
-    if (res.status >= 500) throw new Error('Gemini is having issues. Try again shortly.');
-    throw new Error(`Gemini ${res.status}: ${errText.slice(0, 140)}`);
-  }
-  const data = await res.json();
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-  return parseAiJson(text);
-}
-
-async function aiParseOpenAI(prompt, apiKey, modelOverride){
-  const model = modelOverride || AI_PROVIDER_INFO.openai.defaultModel;
-  const res = await fetchWithTimeout('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    },
-    body: JSON.stringify({
-      model,
-      messages: [
-        { role: 'system', content: 'You return only valid JSON. No prose.' },
-        { role: 'user', content: prompt }
-      ],
-      response_format: { type: 'json_object' },
-      temperature: 0.1
-    })
-  });
-  if (!res.ok){
-    const errText = await res.text().catch(() => '');
-    if (res.status === 401) throw new Error('Invalid OpenAI API key. Check Settings.');
-    if (res.status === 429) throw new Error('OpenAI rate limit hit. Wait a minute and try again.');
-    if (res.status >= 500) throw new Error('OpenAI is having issues. Try again shortly.');
-    throw new Error(`OpenAI ${res.status}: ${errText.slice(0, 140)}`);
-  }
-  const data = await res.json();
-  const content = data.choices?.[0]?.message?.content || '';
-  return parseAiJson(content);
-}
-
-async function aiParse(text, settings){
-  const provider = settings.aiProvider;
-  const apiKey = settings.aiApiKey;
-  if (!provider || provider === 'off' || !apiKey) return null;
-  const prompt = buildAiPrompt(text);
-  if (provider === 'gemini') return await aiParseGemini(prompt, apiKey, settings.aiModel);
-  if (provider === 'openai') return await aiParseOpenAI(prompt, apiKey, settings.aiModel);
-  throw new Error(`Unknown AI provider: ${provider}`);
-}
-
-/* ================================================================
-   SMART PASTE PARSERS (local fallback)
-   ================================================================ */
 function looksLikeEmail(text){
   if (!text) return false;
-  const lines = text.split(/\r?\n/).slice(0, 30);
+  const lines = text.split(/\r?\n/).slice(0, 40);
   let headerCount = 0;
   for (const line of lines){
     if (/^\s*(from|to|cc|bcc|sent|date|subject|reply-to)\s*:\s*\S/i.test(line)) headerCount++;
   }
   return headerCount >= 2;
-}
-
-const CLASSROOM_TYPE_MARKER = /^(assignment|material|quiz|question|exam|homework|short answer question|multiple choice question)$/i;
-const CLASSROOM_SECTION_HEADER = /^(to-?do|missing|done|all classes|all topics|next week|this week|later|today|tomorrow|yesterday|upcoming|recently assigned|assigned|posted|turned in|graded|view|see all|view all|no due date)$/i;
-const MONTH_ABBR = 'jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december';
-const DOW_ABBR = 'mon|tue|tues|wed|thu|thur|thurs|fri|sat|sun|monday|tuesday|wednesday|thursday|friday|saturday|sunday';
-
-function isDateLine(line){
-  if (!line) return false;
-  const t = String(line).trim();
-  if (t.length > 40) return false;
-  if (new RegExp(`^(?:${DOW_ABBR})\\s+\\d{1,2}(?:st|nd|rd|th)?\\s+(?:${MONTH_ABBR})$`, 'i').test(t)) return true;
-  if (new RegExp(`^\\d{1,2}(?:st|nd|rd|th)?\\s+(?:${MONTH_ABBR})$`, 'i').test(t)) return true;
-  if (new RegExp(`^(?:${DOW_ABBR})$`, 'i').test(t)) return true;
-  if (/^\d{4}-\d{2}-\d{2}$/.test(t)) return true;
-  if (/^\d{1,2}\/\d{1,2}(?:\/\d{2,4})?$/.test(t)) return true;
-  if (/^(today|tonight|tomorrow|tmrw|tmr|next week)$/i.test(t)) return true;
-  if (/^due\s+/i.test(t) && t.length < 40) return true;
-  return false;
 }
 
 function looksLikeClassroomPage(text){
@@ -1397,11 +1281,11 @@ function looksLikeClassroomPage(text){
   for (const line of lines.slice(0, 100)){
     if (CLASSROOM_TYPE_MARKER.test(line)) markerCount++;
     if (/^due\s+/i.test(line)) dueCount++;
-    if (isDateLine(line)) dateCount++;
+    if (looksLikeDateOnlyLine(line)) dateCount++;
   }
   if (markerCount >= 2 && (dateCount >= 1 || dueCount >= 1)) return true;
   if (markerCount >= 1 && dateCount >= 1) return true;
-  if (dueCount >= 1) return true;
+  if (dueCount >= 1 && dateCount >= 1) return true;
   return false;
 }
 
@@ -1412,96 +1296,133 @@ function detectPasteFormat(text){
   return 'generic';
 }
 
-function parseClassroomDue(raw){
+function parseDueLine(raw){
   if (!raw) return null;
   let t = String(raw).trim();
-  t = t.replace(/^due\s*/i, '').replace(/^(?:on|by|at)\s*/i, '').trim();
-  if (!t || t.length > 40) return null;
-  const ref = new Date();
-  if (/^today\b|^tonight\b/i.test(t)) { const d = new Date(ref); d.setHours(23,59,0,0); return d.getTime(); }
-  if (/^tomorrow\b|^tmrw\b|^tmr\b/i.test(t)) { const d = new Date(ref); d.setDate(d.getDate() + 1); d.setHours(23,59,0,0); return d.getTime(); }
-  if (/^next\s+week\b/i.test(t)) { const d = new Date(ref); d.setDate(d.getDate() + 7); d.setHours(23,59,0,0); return d.getTime(); }
-  let m = t.match(new RegExp(`^(?:(?:${DOW_ABBR})\\s+)?(\\d{1,2})(?:st|nd|rd|th)?\\s+(${MONTH_ABBR})$`, 'i'));
-  if (m){
-    const day = parseInt(m[1], 10);
-    const mon = MONTH_MAP[m[2].toLowerCase()];
-    let d = new Date(ref.getFullYear(), mon, day, 23, 59);
-    if (d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
-    return d.getTime();
-  }
-  m = t.match(new RegExp(`^(${DOW_ABBR})$`, 'i'));
-  if (m){
-    const target = DAY_ABBR[m[1].toLowerCase().slice(0,3)];
-    const d = new Date(ref);
-    let delta = (target - d.getDay() + 7) % 7;
-    if (delta === 0) delta = 7;
-    d.setDate(d.getDate() + delta);
-    d.setHours(23, 59, 0, 0);
-    return d.getTime();
-  }
+  t = t.replace(/^due(?:\s+date)?\s*[:\-]?\s*/i, '').replace(/^(?:on|by|at|before)\s*/i, '').trim();
+  if (!t || t.length > 60) return null;
   return parseDate(t);
+}
+
+function parseDateOnlyLine(raw){
+  if (!raw) return null;
+  return parseDate(String(raw).trim());
+}
+
+function extractInlineDue(text){
+  if (!text) return null;
+  const t = String(text);
+  let m = t.match(/\b(?:due|by|before|deadline|submit(?:\s+by)?|hand\s+in(?:\s+by)?)\s*[:\-]?\s*((?:on\s+|by\s+)?(?:today|tonight|tomorrow|tmrw|tmr|next\s+week|this\s+week|end\s+of\s+week|eow|(?:\d{1,2}[\/\-\.]\d{1,2}(?:[\/\-\.]\d{2,4})?)|(?:\d{4}-\d{2}-\d{2})|(?:(?:mon|tue|tues|wed|thu|thur|thurs|fri|sat|sun|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b(?:\s+\d{1,2}(?:st|nd|rd|th)?(?:\s+(?:jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december))?)?)|(?:\d{1,2}(?:st|nd|rd|th)?\s+(?:jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)(?:\s+\d{2,4})?)|(?:(?:jan|january|feb|february|mar|march|apr|april|may|jun|june|jul|july|aug|august|sep|sept|september|oct|october|nov|november|dec|december)\s+\d{1,2}(?:st|nd|rd|th)?)))/i);
+  if (m){
+    const date = parseDate(m[1]);
+    if (date){
+      return { date, matched: m[0], cleaned: t.replace(m[0], '').replace(/\s+/g, ' ').trim() };
+    }
+  }
+  const d = parseDate(t);
+  if (d) return { date: d, matched: '', cleaned: t };
+  return null;
 }
 
 function smartPasteClassroom(text){
   const rawLines = text.split(/\r?\n/).map(l => l.replace(/\s+/g,' ').trim()).filter(Boolean);
   if (!rawLines.length) return [];
+
   let cutoff = rawLines.length;
   for (let i = 0; i < rawLines.length; i++){
     const clean = rawLines[i].toLowerCase().replace(/[:\-–—]/g, '').trim();
-    if (clean === 'no due date'){ cutoff = i; break; }
+    if (/^(no due dates?|no due)$/.test(clean)){ cutoff = i; break; }
   }
-  const lines = rawLines.slice(0, cutoff).filter(l => !CLASSROOM_SECTION_HEADER.test(l));
+  const lines = rawLines.slice(0, cutoff);
+
   const blocks = [];
   let current = null;
   for (const line of lines){
     if (CLASSROOM_TYPE_MARKER.test(line)){
       if (current && current.lines.length) blocks.push(current);
       current = { marker: line.toLowerCase(), lines: [] };
-    } else if (current){ current.lines.push(line); }
+    } else if (current){
+      if (isNoiseLine(line)) continue;
+      current.lines.push(line);
+    }
   }
   if (current && current.lines.length) blocks.push(current);
 
   const results = [];
   const seen = new Set();
+
   for (const block of blocks){
-    const bl = block.lines;
+    const bl = block.lines.filter(l => !CLASSROOM_SECTION_HEADER.test(l));
     if (!bl.length) continue;
+
     let dueDate = null, dueIdx = -1;
     for (let i = bl.length - 1; i >= 0; i--){
-      const d = parseClassroomDue(bl[i]);
-      if (d){ dueDate = d; dueIdx = i; break; }
+      if (looksLikeDateOnlyLine(bl[i])){
+        const d = parseDueLine(bl[i]) || parseDateOnlyLine(bl[i]);
+        if (d){ dueDate = d; dueIdx = i; break; }
+      }
     }
-    let title, course;
-    if (dueIdx >= 0){
-      const before = bl.slice(0, dueIdx);
-      title = before[0] || '';
-      course = before.length > 1 ? before[before.length - 1] : '';
-    } else {
-      title = bl[0] || '';
-      course = bl.length > 1 ? bl[bl.length - 1] : '';
-    }
-    title = title.trim(); course = course.trim();
+
+    let titleIdx = 0;
+    while (titleIdx < bl.length && (titleIdx === dueIdx || isNoiseLine(bl[titleIdx]))) titleIdx++;
+    const title = (bl[titleIdx] || '').trim();
     if (!title || title.length < 2) continue;
-    const key = title.toLowerCase();
+
+    let course = '';
+    if (dueIdx > titleIdx + 1){
+      for (let i = titleIdx + 1; i < dueIdx; i++){
+        const candidate = bl[i].trim();
+        if (!candidate || isNoiseLine(candidate)) continue;
+        const fromCode = subjectFromCourseCode(candidate);
+        if (fromCode){ course = candidate; break; }
+        const detected = detectSubject(candidate);
+        if (detected){ course = candidate; break; }
+        if (/^[A-Za-z][A-Za-z0-9\s&\-'\.]{1,40}$/.test(candidate) && candidate.split(/\s+/).length <= 4){
+          if (!course) course = candidate;
+        }
+      }
+    }
+    if (!course){
+      const m = title.match(/\b(Y?\d{1,2}[A-Z]{2,6})\b/);
+      if (m) course = m[1];
+    }
+
+    let cleanTitle = title;
+    if (!dueDate){
+      const inline = extractInlineDue(title);
+      if (inline && inline.date){
+        dueDate = inline.date;
+        cleanTitle = inline.cleaned || title;
+      }
+    }
+    cleanTitle = cleanTitle.replace(/\s+/g, ' ').trim();
+    if (!cleanTitle) cleanTitle = title;
+    cleanTitle = cleanTitle.replace(/^(?:assignment|homework|task|quiz|test|exam|project|submission|material)\s*[:\-–—]\s*/i, '').trim();
+    if (!cleanTitle) continue;
+
+    const key = cleanTitle.toLowerCase();
     if (seen.has(key)) continue;
     seen.add(key);
+
     let type = 'Assignment';
-    const titleType = detectType(title);
+    const titleType = detectType(cleanTitle);
     if (titleType !== 'Assignment') type = titleType;
     else if (/quiz|question/i.test(block.marker)) type = 'Homework';
     else if (/exam/i.test(block.marker)) type = 'Exam';
     else if (/homework/i.test(block.marker)) type = 'Homework';
+
     let subject = '';
     if (course){
-      subject = detectSubject(course);
-      if (!subject && /^[A-Za-z][A-Za-z0-9\s&\-'\.]{1,60}$/.test(course)) subject = course;
+      subject = subjectFromCourseCode(course) || detectSubject(course);
+      if (!subject && /^[A-Za-z][A-Za-z0-9\s&\-'\.]{1,40}$/.test(course)) subject = course;
     }
-    if (!subject) subject = detectSubject(title);
+    if (!subject) subject = detectSubject(cleanTitle);
     subject = normalizeSubject(subject);
+
     results.push({
       id: `paste-${uid()}`,
-      title: sanitiseText(title, 200),
-      description: course ? `From ${course}` : '',
+      title: sanitiseText(cleanTitle, 200),
+      description: course && course !== subject ? `From ${course}` : '',
       type, subject, dueDate: dueDate || null,
       source: 'Google Classroom', url: '',
       sources: [{ source: 'Google Classroom', url: '', addedAt: now() }],
@@ -1514,6 +1435,29 @@ function smartPasteClassroom(text){
 }
 
 function stripReplyPrefix(s){ return String(s || '').replace(/^\s*(?:(?:re|fwd|fw|aw)\s*:\s*)+/i, '').trim(); }
+
+function cleanEmailBody(body){
+  const lines = body.split(/\r?\n/);
+  const kept = [];
+  let cutoff = lines.length;
+  for (let i = 0; i < lines.length; i++){
+    const line = lines[i];
+    if (/^\s*On\s+.{5,80}\s+wrote:\s*$/i.test(line)){ cutoff = i; break; }
+    if (/^\s*-----+\s*Original Message\s*-----+/i.test(line)){ cutoff = i; break; }
+    if (/^\s*_{5,}\s*$/.test(line) && i > 2){ cutoff = i; break; }
+    if (/^\s*--\s*$/.test(line) && i > 2){ cutoff = i; break; }
+    if (/^\s*Sent from my /i.test(line)){ cutoff = i; break; }
+    if (/^\s*(Kind|Best|Warm)\s+regards[,!]?\s*$/i.test(line)){ cutoff = i; break; }
+    if (/^\s*Thanks[,!]?\s*$/i.test(line) && i > lines.length - 6){ cutoff = i; break; }
+    if (/^\s*Ng[āa]\s+mihi[,!]?\s*$/i.test(line)){ cutoff = i; break; }
+  }
+  for (let i = 0; i < cutoff; i++){
+    const line = lines[i];
+    if (/^\s*>/.test(line)) continue;
+    kept.push(line);
+  }
+  return kept.join('\n').trim();
+}
 
 function smartPasteEmail(text){
   const lines = text.split(/\r?\n/);
@@ -1528,7 +1472,8 @@ function smartPasteEmail(text){
       else if (Object.keys(headers).length > 0){ bodyStart = i; inHeader = false; break; }
     }
   }
-  const body = lines.slice(bodyStart).join('\n').trim();
+  const rawBody = lines.slice(bodyStart).join('\n').trim();
+  const body = cleanEmailBody(rawBody);
   const subjectHeader = stripReplyPrefix(headers.subject || '');
   const haystack = `${subjectHeader}\n${body}`;
   const globalType = detectType(haystack);
@@ -1537,13 +1482,15 @@ function smartPasteEmail(text){
 
   const bulletItems = [];
   let currentBullet = null;
-  const bulletRe = /^\s*(?:[-*•·▪◦‣]|\d+[.)]|[a-z][.)])\s+(.+)$/;
+  const bulletRe = /^\s*(?:[-*•·▪◦‣○●◆■]|\d+[.)]|[a-z][.)])\s+(.+)$/i;
   for (const rawLine of body.split(/\r?\n/)){
     const m = rawLine.match(bulletRe);
     if (m){
       if (currentBullet) bulletItems.push(currentBullet);
       currentBullet = m[1].trim();
-    } else if (currentBullet && rawLine.trim()){ currentBullet += ' ' + rawLine.trim(); }
+    } else if (currentBullet && rawLine.trim() && !/^\s*$/.test(rawLine)){
+      if (/^\s{2,}/.test(rawLine) || rawLine.length < 80) currentBullet += ' ' + rawLine.trim();
+    }
   }
   if (currentBullet) bulletItems.push(currentBullet);
 
@@ -1551,13 +1498,17 @@ function smartPasteEmail(text){
     const results = [];
     const seen = new Set();
     for (const b of bulletItems){
-      const title = sanitiseText(stripReplyPrefix(b.split(/[.\n]/)[0]), 200);
+      const inline = extractInlineDue(b);
+      const itemDue = inline ? inline.date : globalDue;
+      let cleanBullet = inline && inline.cleaned ? inline.cleaned : b;
+      let title = cleanBullet.split(/[.\n]/)[0].trim();
+      if (title.length > 140) title = title.slice(0, 140).replace(/\s+\S*$/, '') + '…';
+      title = sanitiseText(stripReplyPrefix(title), 200);
       const key = title.toLowerCase();
       if (!title || key.length < 3 || seen.has(key)) continue;
       seen.add(key);
       const itemType = detectType(b) || globalType;
       const itemSubject = normalizeSubject(detectSubject(b)) || globalSubject;
-      const itemDue = parseDate(b) || globalDue;
       results.push({
         id: `email-${uid()}`,
         title, description: sanitiseText(b, 2000),
@@ -1575,7 +1526,8 @@ function smartPasteEmail(text){
 
   let title = subjectHeader;
   if (!title || title.length < 3){
-    const firstLine = body.split(/\n/).map(l => l.trim()).find(l => l.length > 3 && !/^(hi|hello|kia ora|dear|hey|good (morning|afternoon|evening))\b/i.test(l));
+    const firstLine = body.split(/\n/).map(l => l.trim())
+      .find(l => l.length > 3 && !/^(hi|hello|kia ora|dear|hey|good (morning|afternoon|evening)|greetings)\b/i.test(l));
     title = firstLine ? firstLine.split(/[.!?]/)[0] : 'Email item';
   }
   return [{
@@ -1595,41 +1547,63 @@ function smartPasteEmail(text){
 function smartPasteGeneral(text){
   if (!text || !text.trim()) return [];
   const lines = text.split(/\r?\n/);
-  const isNoise = l => {
-    const t = l.trim();
-    if (!t) return true;
-    if (/^Loading\b/i.test(t)) return true;
-    if (/^more_vert/i.test(t)) return true;
-    if (/^Open your work for/i.test(t)) return true;
-    if (/^Posted\s+\w+,\s+\w+\s+\d+/i.test(t)) return true;
-    if (/^\d+$/.test(t)) return true;
-    if (/^~?\d+\s*min$/i.test(t)) return true;
-    return false;
-  };
   const chunks = [];
-  let current = '';
-  const flush = () => { const c = current.trim(); if (c.length >= 3) chunks.push(c); current = ''; };
-  const isBullet = l => /^\s*(?:[-*•·▪◦‣]|\d+[.)]|[a-z][.)])\s+/.test(l);
-  for (const raw of lines){
-    if (isNoise(raw)){ flush(); continue; }
-    const line = raw.replace(/\s+/g, ' ').trim();
-    if (!line){ flush(); continue; }
-    if (isBullet(line)){ flush(); current = line.replace(/^\s*(?:[-*•·▪◦‣]|\d+[.)]|[a-z][.)])\s+/, ''); continue; }
-    current += (current ? ' ' : '') + line;
+  let current = [];
+  const isBulletStart = l => /^\s*(?:[-*•·▪◦‣○●◆■]|\d+[.)]|[a-z][.)])\s+/i.test(l);
+  const isHeaderLike = l => /^\s*(?:assignment|homework|task|todo|to-do|hwk|hw|test|exam|project|quiz)\s*[:\-–—]/i.test(l);
+  const pushCurrent = () => {
+    const c = current.join(' ').replace(/\s+/g, ' ').trim();
+    if (c.length >= 3) chunks.push(c);
+    current = [];
+  };
+  for (const rawLine of lines){
+    const line = rawLine.replace(/\s+$/, '');
+    if (!line.trim()){ pushCurrent(); continue; }
+    if (isNoiseLine(line)) continue;
+    if (isBulletStart(line)){
+      pushCurrent();
+      current.push(line.replace(/^\s*(?:[-*•·▪◦‣○●◆■]|\d+[.)]|[a-z][.)])\s+/, ''));
+      continue;
+    }
+    if (isHeaderLike(line)){
+      pushCurrent();
+      current.push(line);
+      continue;
+    }
+    if (current.length === 0){
+      current.push(line.trim());
+    } else {
+      const prev = current[current.length - 1];
+      if (/[.!?]$/.test(prev) && line.trim().length > 20){ pushCurrent(); current.push(line.trim()); }
+      else if (/^[A-Z]/.test(line.trim()) && current.join(' ').length > 120){ pushCurrent(); current.push(line.trim()); }
+      else current.push(line.trim());
+    }
   }
-  flush();
-  const seen = new Set();
+  pushCurrent();
+
   const results = [];
+  const seen = new Set();
   for (const chunk of chunks){
-    const type = detectType(chunk);
-    const subject = normalizeSubject(detectSubject(chunk));
-    const dueDate = parseDate(chunk);
-    let title = chunk.split(/\n|\.\s/)[0].trim().replace(/^(?:re|fwd|fw)\s*:\s*/i, '');
-    title = sanitiseText(title, 120);
+    if (chunk.length < 3) continue;
+    const inline = extractInlineDue(chunk);
+    let dueDate = inline ? inline.date : null;
+    let workingText = inline && inline.cleaned ? inline.cleaned : chunk;
+    workingText = workingText.replace(/^(?:assignment|homework|task|todo|to-do|hwk|hw|test|exam|project|quiz)\s*[:\-–—]\s*/i, '').trim();
+    const firstDateMatch = workingText.match(new RegExp(`^(?:${DOW_RE})[\\s,]*\\d{0,2}(?:st|nd|rd|th)?[\\s,]*(?:${MONTH_ABBR_RE})?[\\s,]*\\d{0,4}\\s*[\\-–—:]?\\s*`, 'i'));
+    if (firstDateMatch && firstDateMatch[0].length > 3){
+      const testDate = parseDate(firstDateMatch[0]);
+      if (testDate){ dueDate = dueDate || testDate; workingText = workingText.slice(firstDateMatch[0].length).trim(); }
+    }
+    let title = workingText.split(/(?<=[.!?])\s+/)[0].trim();
+    if (title.length > 140) title = title.slice(0, 140).replace(/\s+\S*$/, '') + '…';
+    title = sanitiseText(title, 200);
     if (!title || title.length < 3) continue;
+    if (isNoiseLine(title)) continue;
     const key = title.toLowerCase();
     if (seen.has(key)) continue;
     seen.add(key);
+    const type = detectType(chunk);
+    const subject = normalizeSubject(detectSubject(chunk));
     results.push({
       id: `paste-${uid()}`,
       title, description: sanitiseText(chunk, 2000),
@@ -1644,35 +1618,21 @@ function smartPasteGeneral(text){
   return results;
 }
 
-/* ── Smart Paste router — AI first, local fallback ───────────── */
-async function smartPaste(text){
+function smartPaste(text){
   if (!text || !text.trim()) return [];
-  const settings = Store.cache?.settings || {};
-  const aiOn = settings.aiProvider && settings.aiProvider !== 'off' && settings.aiApiKey;
-
-  if (aiOn){
-    try {
-      const raw = await aiParse(text, settings);
-      if (Array.isArray(raw)){
-        const items = normalizeAiItems(raw);
-        if (items.length) return items;
-      }
-      // AI returned empty — fall through to local
-    } catch (e){
-      console.warn('AI parse failed:', e);
-      toast(`AI parse failed — used built-in parser instead. (${e.message})`, 'warn', 'Smart Paste');
-    }
-  }
-
   const fmt = detectPasteFormat(text);
-  if (fmt === 'classroom'){ const items = smartPasteClassroom(text); if (items.length) return items; }
-  if (fmt === 'email'){ const items = smartPasteEmail(text); if (items.length) return items; }
+  if (fmt === 'classroom'){
+    const items = smartPasteClassroom(text);
+    if (items.length) return items;
+  }
+  if (fmt === 'email'){
+    const items = smartPasteEmail(text);
+    if (items.length) return items;
+  }
   return smartPasteGeneral(text);
 }
 
-/* ================================================================
-   EFFORT REPORT PDF PARSER (unchanged)
-   ================================================================ */
+/* ── PDF effort report ─────────────────────────────────────── */
 async function loadPdfJs(){
   if (window.pdfjsLib) return window.pdfjsLib;
   return new Promise((resolve, reject) => {
@@ -1745,7 +1705,7 @@ function parseEffortReportText(rawText){
   return { attendance, studentCode, ratings };
 }
 
-/* ── ACTIVITY & TIMETABLE PARSERS ─────────────────────────────── */
+/* ── Activity & timetable parsers ─────────────────────────── */
 function normalizeTimeInput(s){
   if (!s) return null;
   const parts = String(s).trim().split(':');
@@ -1802,7 +1762,7 @@ function parseTimetableText(text){
   return out;
 }
 
-/* ── DUPLICATE DETECTION & IMPORT ────────────────────────────── */
+/* ── Dedupe & import ────────────────────────────────────────── */
 function tokenSet(s){
   return new Set(String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 2 && !STOP_WORDS.has(w)));
 }
@@ -2007,7 +1967,7 @@ async function syncCalendarSubscriptions(){
   return { added: totalAdded, subs: subs.length, errors };
 }
 
-/* ── MASTER SYNC ─────────────────────────────────────────────── */
+/* ── Master sync ───────────────────────────────────────────── */
 let syncing = false;
 async function syncAll({ silent = false } = {}){
   if (syncing) return;
@@ -2039,7 +1999,7 @@ function setSyncUI(state, text){
   if (chip){ chip.classList.remove('ok','busy','err'); if (state) chip.classList.add(state); }
 }
 
-/* ── APP STATE ───────────────────────────────────────────────── */
+/* ── App state ────────────────────────────────────────────── */
 const App = {
   user: null, route: '#/dashboard',
   filters: { assignments: 'all', search: '', subject: 'all', sort: 'due' },
@@ -2223,8 +2183,7 @@ function renderWelcomeEmpty(){
     <div style="font-size:52px;margin-bottom:14px">🎒</div>
     <h2 style="font-size:22px;margin-bottom:10px">Let's get your school life in one place</h2>
     <p class="muted" style="max-width:520px;margin:0 auto 24px;font-size:14.5px;line-height:1.65">
-      <strong>Smart Paste</strong> handles Classroom To-do pages, school emails, or plain lists.
-      Optionally plug in an AI key in Settings for even smarter parsing.
+      <strong>Smart Paste</strong> handles Classroom To-do pages, school emails, or plain lists — with proper date parsing and subject recognition.
     </p>
     <div class="row" style="justify-content:center;flex-wrap:wrap;gap:10px">
       <button class="btn btn-primary" data-action="paste-classroom">✨ Smart Paste</button>
@@ -2554,7 +2513,7 @@ function viewEffort(){
   </section>`;
 }
 
-/* ── STUDY PLANNER ──────────────────────────────────────────── */
+/* ── Study planner ────────────────────────────────────────── */
 function findFreeSlots(dayKey, durationMin, activities){
   const dayOfWeek = new Date(dayKey).getDay();
   const dayActivities = activities
@@ -2719,18 +2678,15 @@ function viewPlanner(){
   </div>`;
 }
 
-/* ── INTEGRATIONS ───────────────────────────────────────────── */
+/* ── Integrations ─────────────────────────────────────────── */
 function viewIntegrations(){
   const subs = Store.cache.settings.calendarSubscriptions || [];
   const classroomItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'Google Classroom'));
   const emailItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'Email'));
-  const aiItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'AI Paste'));
-  const s = Store.cache.settings;
-  const aiOn = s.aiProvider && s.aiProvider !== 'off' && s.aiApiKey;
   return `
   <div class="page-head">
     <h1 class="page-title">Integrations</h1>
-    <p class="page-sub">Everything you need is built in. AI is optional for the smartest parsing.</p>
+    <p class="page-sub">Everything you need is built in — no setup required.</p>
   </div>
   <div class="stack">
     <section class="card card-pad int-card hero">
@@ -2739,22 +2695,19 @@ function viewIntegrations(){
         <div class="int-name">
           Smart Paste
           <span class="chip chip-green">Works instantly</span>
-          ${aiOn ? '<span class="chip chip-violet">🤖 AI-assisted</span>' : ''}
         </div>
         <div class="int-desc int-hero-body">
           Copy your Classroom <strong>To-do</strong> page, an email from school, or a plain list.
-          StudentOS detects the format and extracts every assignment with due dates, subjects and priorities.
-          ${aiOn ? '<strong>AI is currently enabled</strong> — paste anything and it will be parsed by your chosen model.' : ''}
+          StudentOS detects the format and extracts every assignment — with proper date parsing,
+          course-code recognition, and subject unification.
         </div>
         <div class="int-stats">
           ${classroomItems.length ? `<div class="int-stat"><b>${classroomItems.length}</b>from Classroom</div>` : ''}
           ${emailItems.length ? `<div class="int-stat"><b>${emailItems.length}</b>from email</div>` : ''}
-          ${aiItems.length ? `<div class="int-stat"><b>${aiItems.length}</b>from AI</div>` : ''}
         </div>
         <div class="int-hero-actions">
           <button class="btn btn-primary btn-lg" data-action="paste-classroom">✨ Smart Paste</button>
           <button class="btn btn-ghost" data-action="show-paste-help">How it works</button>
-          ${!aiOn ? `<button class="btn btn-ghost" data-nav="#/settings">Enable AI parsing</button>` : ''}
         </div>
       </div>
     </section>
@@ -2796,9 +2749,8 @@ function viewIntegrations(){
 
 function viewSettings(){
   const s = Store.cache.settings;
-  const aiInfo = AI_PROVIDER_INFO[s.aiProvider];
   return `
-  <div class="page-head"><h1 class="page-title">Settings</h1><p class="page-sub">Account, AI, privacy and appearance</p></div>
+  <div class="page-head"><h1 class="page-title">Settings</h1><p class="page-sub">Account, privacy and appearance</p></div>
   <div class="cols cols-2">
     <section class="card">
       <div class="card-head"><div class="card-title">👤 Account</div></div>
@@ -2829,46 +2781,6 @@ function viewSettings(){
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column:1/-1">
-      <div class="card-head">
-        <div class="card-title">🤖 AI-assisted Smart Paste <span class="chip ${s.aiProvider !== 'off' && s.aiApiKey ? 'chip-green' : 'chip-gray'}">${s.aiProvider !== 'off' && s.aiApiKey ? 'Active' : 'Optional'}</span></div>
-      </div>
-      <div class="card-body">
-        <p class="small muted" style="margin-bottom:14px;line-height:1.6">
-          By default Smart Paste uses built-in rules — fast, free, works offline.
-          You can optionally plug in an AI provider for even smarter parsing of messy or unusual text.
-          Your key is stored locally and only sent to the provider you choose — never to us.
-        </p>
-        <div class="set-row">
-          <div class="set-info">
-            <div class="set-name">AI provider</div>
-            <div class="set-desc">Choose "Off" to disable AI and use the built-in parser.</div>
-          </div>
-          <div class="set-control">
-            <select class="select" data-setting="aiProvider" style="width:200px">
-              <option value="off" ${s.aiProvider === 'off' ? 'selected' : ''}>Off (built-in)</option>
-              <option value="gemini" ${s.aiProvider === 'gemini' ? 'selected' : ''}>Google Gemini</option>
-              <option value="openai" ${s.aiProvider === 'openai' ? 'selected' : ''}>OpenAI</option>
-            </select>
-          </div>
-        </div>
-        <div class="set-row" id="ai-key-row" ${s.aiProvider === 'off' ? 'hidden' : ''}>
-          <div class="set-info">
-            <div class="set-name">API key</div>
-            <div class="set-desc">${aiInfo ? aiInfo.hint : ''}</div>
-          </div>
-          <div class="set-control" style="flex-direction:column;align-items:flex-end;gap:8px">
-            <input class="input" type="password" data-setting="aiApiKey" placeholder="Paste your API key" value="${escapeHtml(s.aiApiKey || '')}" style="width:280px;font-family:ui-monospace,monospace;font-size:12px">
-            <button class="btn btn-ghost btn-sm" data-action="test-ai">Test connection</button>
-          </div>
-        </div>
-        <div id="ai-hint" class="alert ${s.aiProvider === 'off' ? 'alert-info' : 'alert-success'}" style="margin-top:14px">
-          ${s.aiProvider === 'off'
-            ? '<span>💡</span><div><strong>Built-in parser active.</strong> Fast, free, works offline. Enable an AI provider above for smarter handling of messy text.</div>'
-            : `<span>🔑</span><div><strong>Get a key for ${escapeHtml(aiInfo?.name || '')}:</strong> <a href="${aiInfo?.keyUrl || '#'}" target="_blank" rel="noopener">${(aiInfo?.keyUrl || '').replace('https://','')}</a><br><span class="tiny">${escapeHtml(aiInfo?.hint || '')}</span></div>`}
-        </div>
-      </div>
-    </section>
     <section class="card">
       <div class="card-head"><div class="card-title">🔔 Notifications</div></div>
       <div class="card-body">
@@ -2894,7 +2806,7 @@ function viewSettings(){
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column:1/-1">
+    <section class="card">
       <div class="card-head"><div class="card-title">⌨️ Keyboard shortcuts</div></div>
       <div class="card-body">
         <div class="shortcut-grid">
@@ -3006,7 +2918,6 @@ function bindViewEvents(){
       case 'paste-classroom': openClassroomPasteModal(); break;
       case 'show-paste-help': openPasteHelpModal(); break;
       case 'sync-now': syncAll({ silent: false }); break;
-      case 'test-ai': await testAiConnection(); break;
       case 'cleanup-duplicates': {
         const removedEvents = await dedupeExistingEvents();
         const removedItems = await dedupeExistingAssignments();
@@ -3051,40 +2962,12 @@ function bindViewEvents(){
       Store.cache.settings[setting] = isBool ? e.target.checked : e.target.value;
       await Store.saveUserDoc();
       if (setting === 'theme') document.documentElement.dataset.theme = e.target.value;
-      if (setting === 'aiProvider'){ render(); return; }
       toast('Saved', 'success');
     }
   });
 }
 
-/* ── TEST AI CONNECTION ──────────────────────────────────────── */
-async function testAiConnection(){
-  const s = Store.cache.settings;
-  if (!s.aiProvider || s.aiProvider === 'off'){ toast('Choose an AI provider first', 'warn'); return; }
-  if (!s.aiApiKey){ toast('Paste your API key first', 'warn'); return; }
-
-  const sample = `assignment
-Chapter 5 questions
-10 Maths
-Monday 21 Sept`;
-  const btn = $('[data-action="test-ai"]');
-  if (btn){ btn.disabled = true; btn.textContent = 'Testing…'; }
-  try {
-    const raw = await aiParse(sample, s);
-    const items = normalizeAiItems(raw);
-    if (items.length){
-      toast(`AI is working! Test parsed ${items.length} item.`, 'success', 'Connection OK');
-    } else {
-      toast('AI responded but found no items', 'warn');
-    }
-  } catch (e){
-    toast(e.message, 'error', 'AI test failed');
-  } finally {
-    if (btn){ btn.disabled = false; btn.textContent = 'Test connection'; }
-  }
-}
-
-/* ── EFFORT UPLOAD MODAL ─────────────────────────────────────── */
+/* ── Effort upload modal ──────────────────────────────────── */
 function openEffortUploadModal(){
   let parsed = null;
   openModal({
@@ -3195,18 +3078,15 @@ function openEffortUploadModal(){
   });
 }
 
-/* ── PASTE HELP MODAL ────────────────────────────────────────── */
+/* ── Paste help modal ─────────────────────────────────────── */
 function openPasteHelpModal(){
-  const aiOn = Store.cache.settings.aiProvider && Store.cache.settings.aiProvider !== 'off' && Store.cache.settings.aiApiKey;
   openModal({
     title: '✨ How Smart Paste works',
     wide: true,
     body: `
       <p class="small" style="color:var(--text-2);line-height:1.65;margin-bottom:16px">
         Smart Paste figures out what you've pasted and sorts it into assignments automatically.
-        ${aiOn
-          ? '<strong>AI parsing is currently ON</strong> — your paste will be sent to your chosen AI provider for the smartest possible extraction.'
-          : 'You can optionally turn on AI parsing in Settings for even smarter handling of messy text.'}
+        No setup, no accounts, works entirely on your device.
       </p>
       <div class="howto-grid">
         <div class="howto-step">
@@ -3222,7 +3102,7 @@ function openPasteHelpModal(){
           <div class="howto-step-body">
             <strong>Any school email</strong>
             Select the whole email (including the <code>From:</code> / <code>Subject:</code> headers) and paste.
-            StudentOS uses the subject line as the title and pulls dates from the body.
+            StudentOS uses the subject line as the title, strips quoted replies, and pulls dates from the body.
           </div>
         </div>
         <div class="howto-step">
@@ -3233,27 +3113,27 @@ function openPasteHelpModal(){
           </div>
         </div>
       </div>
-      <div class="alert ${aiOn ? 'alert-success' : 'alert-info'}" style="margin-top:16px">
-        <span>${aiOn ? '🤖' : '💡'}</span>
+      <div class="alert alert-info" style="margin-top:16px">
+        <span>💡</span>
         <div>
-          ${aiOn
-            ? '<strong>AI is enabled.</strong> Messy text, screenshots, non-standard formats — all handled. Your API key stays in this browser and is only ever sent to your chosen provider.'
-            : '<strong>Fast, free, offline.</strong> The built-in parser handles the common cases instantly. Enable AI in Settings if you need smarter handling of messy input.'}
+          <strong>What makes it smart:</strong>
+          <ul style="margin:8px 0 0 18px;line-height:1.7;font-size:12.5px">
+            <li>Recognises dates in ~15 formats: <em>"21st Sept"</em>, <em>"21/09/26"</em>, <em>"next Monday"</em>, <em>"end of week"</em>, <em>"in 3 days"</em></li>
+            <li>Detects course codes: <em>10ENG</em> → English, <em>Y10MAT</em> → Mathematics</li>
+            <li>Unifies subjects: PE, Health, Physical Ed all become <em>PE &amp; Health</em></li>
+            <li>Strips email signatures, quoted replies, and forwarded chains</li>
+            <li>Skips the "No due date" section from Classroom automatically</li>
+          </ul>
         </div>
-      </div>
-      <div class="alert alert-success" style="margin-top:12px">
-        <span>✓</span>
-        <div><strong>Subjects are unified.</strong> "PE", "Health", "Physical Education" and "PE & Health" all become one subject.</div>
       </div>`,
     footer: `<button class="btn btn-ghost" data-close>Got it</button><button class="btn btn-primary" id="ph-go">Open Smart Paste</button>`,
     onMount(el, close){ $('#ph-go', el).addEventListener('click', () => { close(); openClassroomPasteModal(); }); }
   });
 }
 
-/* ── SMART PASTE MODAL ───────────────────────────────────────── */
+/* ── Smart Paste modal ───────────────────────────────────── */
 function openClassroomPasteModal(){
   let parsedItems = [];
-  let detectToken = 0;
   openModal({
     title: '✨ Smart Paste',
     subtitle: 'Paste anything — Classroom, email, or a list. StudentOS figures it out.',
@@ -3263,7 +3143,7 @@ function openClassroomPasteModal(){
         <span>💡</span>
         <div>
           <strong>Works with anything.</strong> Copy your Classroom To-do page, select an entire email,
-          or paste a simple list. ${Store.cache.settings.aiProvider !== 'off' && Store.cache.settings.aiApiKey ? '<strong>AI is on — the parser will use your key.</strong>' : ''}
+          or paste a simple list.
         </div>
       </div>
       <div class="paste-grid">
@@ -3310,12 +3190,11 @@ Or a list:
       const formatChip = $('#cp-format', el);
       const importBtn = $('#cp-import', el);
 
-      const setFormatChip = (fmt, working = false) => {
+      const setFormatChip = (fmt) => {
         formatChip.className = 'format-badge';
         if (fmt === 'classroom'){ formatChip.classList.add('classroom'); formatChip.textContent = '🎓 Classroom To-do'; }
         else if (fmt === 'email'){ formatChip.classList.add('email'); formatChip.textContent = '📧 Email'; }
         else if (fmt === 'generic'){ formatChip.classList.add('generic'); formatChip.textContent = '📝 Text'; }
-        else if (fmt === 'ai'){ formatChip.classList.add('ai'); if (working) formatChip.classList.add('working'); formatChip.textContent = working ? '🤖 Thinking…' : '🤖 AI-assisted'; }
         else { formatChip.textContent = '—'; }
       };
 
@@ -3363,8 +3242,7 @@ Or a list:
         });
       };
 
-      const detect = async () => {
-        const myToken = ++detectToken;
+      const detect = () => {
         const text = input.value;
         if (!text || !text.trim()){
           parsedItems = [];
@@ -3372,30 +3250,9 @@ Or a list:
           renderPreview();
           return;
         }
-
-        const s = Store.cache.settings;
-        const aiOn = s.aiProvider && s.aiProvider !== 'off' && s.aiApiKey;
-
-        if (aiOn){
-          setFormatChip('ai', true);
-          countChip.textContent = '…';
-          importBtn.disabled = true;
-          preview.innerHTML = `<div class="paste-empty"><span class="spinner" style="vertical-align:middle;margin-right:8px"></span>Asking AI…</div>`;
-        } else {
-          setFormatChip(detectPasteFormat(text));
-        }
-
-        try {
-          const result = await smartPaste(text);
-          if (myToken !== detectToken) return; // superseded
-          parsedItems = result;
-          if (aiOn) setFormatChip('ai', false);
-          renderPreview();
-        } catch (e){
-          if (myToken !== detectToken) return;
-          parsedItems = [];
-          renderPreview();
-        }
+        setFormatChip(detectPasteFormat(text));
+        parsedItems = smartPaste(text);
+        renderPreview();
       };
 
       $('#cp-detect', el).addEventListener('click', detect);
@@ -3633,7 +3490,7 @@ function openAddCalendarModal(){
   });
 }
 
-/* ── ONBOARDING ──────────────────────────────────────────────── */
+/* ── Onboarding ──────────────────────────────────────────── */
 let onbStep = 1;
 let onbData = { name: '', path: '' };
 
@@ -3697,7 +3554,7 @@ function renderOnb(){
       <p class="lead">Three things to know:</p>
       <div class="onb-feature-list">
         <div class="onb-feature"><div class="onb-feature-ico">✨</div>
-          <div><strong>Smart Paste</strong>Press <kbd>P</kbd> anywhere. Handles Classroom, emails, and any list. Turn on AI in Settings for even smarter parsing.</div></div>
+          <div><strong>Smart Paste</strong>Press <kbd>P</kbd> anywhere. Handles Classroom, emails, and any list.</div></div>
         <div class="onb-feature"><div class="onb-feature-ico">📊</div>
           <div><strong>Upload effort reports</strong>Press <kbd>E</kbd> to drop in this week's PDF.</div></div>
         <div class="onb-feature"><div class="onb-feature-ico">🎯</div>
@@ -3736,7 +3593,7 @@ function renderOnb(){
   });
 }
 
-/* ── NOTIFICATIONS ───────────────────────────────────────────── */
+/* ── Notifications ───────────────────────────────────────── */
 function renderNotifDot(){
   const unread = Store.all('notifications').filter(n => !n.read).length;
   const dot = $('#notif-dot');
@@ -3783,7 +3640,7 @@ function renderNotifPanel(){
   });
 }
 
-/* ── SEARCH ──────────────────────────────────────────────────── */
+/* ── Search ──────────────────────────────────────────────── */
 function runSearch(q){
   const box = $('#search-results');
   if (!box) return;
@@ -3811,7 +3668,7 @@ function runSearch(q){
   });
 }
 
-/* ── AUTH ────────────────────────────────────────────────────── */
+/* ── Auth ────────────────────────────────────────────────── */
 let authMode = 'signin';
 function setAuthMode(mode){
   authMode = mode;
@@ -3819,12 +3676,16 @@ function setAuthMode(mode){
   $('#tab-signin').classList.toggle('on', !isSignup);
   $('#tab-signup').classList.toggle('on', isSignup);
   $('#auth-heading').textContent = isSignup ? 'Create your account' : 'Welcome back';
-  $('#auth-subheading').textContent = isSignup ? 'Set up StudentOS in seconds.' : 'Sign in to open your dashboard.';
+  $('#auth-subheading').textContent = isSignup
+    ? 'Set up StudentOS in seconds — sign in with Google above, or create an email account.'
+    : 'Sign in with your school Google account to get started.';
   $('#name-field').hidden = !isSignup;
   $('#email-submit-label').textContent = isSignup ? 'Create account' : 'Sign in';
   $('#auth-error').hidden = true;
 }
+
 function showAuthError(m){ const b = $('#auth-error'); b.textContent = m; b.hidden = false; }
+
 async function submitEmailAuth(){
   const email = $('#auth-email').value.trim();
   const password = $('#auth-password').value;
@@ -3854,6 +3715,7 @@ async function submitEmailAuth(){
   } catch (err){ showAuthError(friendlyAuthError(err)); }
   finally { btn.disabled = false; spinner.hidden = true; label.textContent = orig; }
 }
+
 function friendlyAuthError(err){
   const code = err.code || '';
   switch(code){
@@ -3863,9 +3725,11 @@ function friendlyAuthError(err){
     case 'auth/user-not-found': return 'No account found. Create one instead?';
     case 'auth/wrong-password': case 'auth/invalid-credential': return 'Incorrect email or password.';
     case 'auth/too-many-requests': return 'Too many attempts. Wait a minute.';
+    case 'auth/operation-not-allowed': return 'Email sign-in is not enabled on this Firebase project.';
     default: return err.message || 'Sign-in failed.';
   }
 }
+
 async function resetPassword(){
   const email = $('#auth-email').value.trim();
   if (!FB.ready || !FB.auth){ showAuthError('Firebase is not configured.'); return; }
@@ -3873,18 +3737,26 @@ async function resetPassword(){
   try { await FB.mod.sendPasswordResetEmail(FB.auth, email); toast('Reset email sent', 'success'); }
   catch (err){ showAuthError(friendlyAuthError(err)); }
 }
+
 function showAuth(){
   $('#boot').classList.add('gone');
   $('#auth-screen').hidden = false;
   $('#app').hidden = true;
   $('#fab').hidden = true;
   const cfg = loadConfig();
-  const badge = $('#mode-badge');
   const live = isFirebaseConfigured(cfg);
-  badge.textContent = live ? '🔒 Connected to StudentOS cloud' : '⚡ Demo mode';
-  badge.classList.toggle('live', live);
+  const badge = $('#mode-badge');
+  if (live){
+    badge.hidden = true;
+  } else {
+    badge.hidden = false;
+    badge.textContent = '⚡ Demo mode';
+    badge.classList.remove('live');
+  }
   setAuthMode('signin');
   $('#email-form').reset();
+  $('#google-error').hidden = true;
+  $('#auth-error').hidden = true;
   $('#tab-signin').onclick = () => setAuthMode('signin');
   $('#tab-signup').onclick = () => setAuthMode('signup');
   $('#email-form').onsubmit = (e) => { e.preventDefault(); submitEmailAuth(); };
@@ -3892,6 +3764,7 @@ function showAuth(){
   $('#enter-btn').onclick = () => signInGoogle();
   $('#demo-btn').onclick = () => enterDemoMode();
 }
+
 function showApp(){
   $('#boot').classList.add('gone');
   $('#auth-screen').hidden = true;
@@ -3909,22 +3782,79 @@ function showApp(){
   $('#account-name').textContent = u.displayName || 'Student';
   $('#account-email').textContent = u.email || '';
 }
+
 async function signInGoogle(){
-  const errBox = $('#auth-error');
+  const errBox = $('#google-error');
   errBox.hidden = true;
-  if (!FB.ready || !FB.auth){ errBox.hidden = false; errBox.textContent = 'Firebase not configured.'; return; }
+  const btn = $('#enter-btn');
+
+  if (!FB.ready || !FB.auth){
+    errBox.hidden = false;
+    errBox.innerHTML = '<span>⚠️</span><div>Firebase is not initialised. Try reloading the page.</div>';
+    return;
+  }
+
+  const orig = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="sync-spinner" style="border-color:rgba(0,0,0,.2);border-top-color:#4285F4"></span> Opening Google…';
+
   try {
     const provider = new FB.mod.GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
     const result = await FB.mod.signInWithPopup(FB.auth, provider);
-    await onUserSignedIn({ uid: result.user.uid, displayName: result.user.displayName, email: result.user.email, photoURL: result.user.photoURL, real: true });
-  } catch (err){ errBox.hidden = false; errBox.textContent = `Sign-in failed: ${err.message}`; }
+    await onUserSignedIn({
+      uid: result.user.uid,
+      displayName: result.user.displayName,
+      email: result.user.email,
+      photoURL: result.user.photoURL,
+      real: true
+    });
+  } catch (err){
+    console.error('Google sign-in error:', err);
+    errBox.hidden = false;
+    const code = err.code || '';
+    let message = '';
+    switch (code){
+      case 'auth/popup-blocked':
+        message = 'Your browser blocked the sign-in popup. Allow popups for this site and try again.';
+        break;
+      case 'auth/popup-closed-by-user':
+        message = 'The sign-in window was closed before finishing. Try again when you\'re ready.';
+        break;
+      case 'auth/cancelled-popup-request':
+        message = 'Another sign-in is already in progress.';
+        break;
+      case 'auth/unauthorized-domain':
+        message = `This domain (${location.hostname}) is not yet authorised in Firebase. Ask whoever set up StudentOS to add it under Firebase Console → Authentication → Settings → Authorised domains.`;
+        break;
+      case 'auth/operation-not-allowed':
+        message = 'Google sign-in is not enabled on the Firebase project. Enable it under Firebase Console → Authentication → Sign-in method → Google.';
+        break;
+      case 'auth/account-exists-with-different-credential':
+        message = 'An account already exists with that email using a different sign-in method. Sign in with email/password instead.';
+        break;
+      case 'auth/network-request-failed':
+        message = 'Network problem reaching Google. Check your internet connection and try again.';
+        break;
+      case 'auth/internal-error':
+        message = 'Google returned an internal error. Try again, or use email/password.';
+        break;
+      default:
+        message = `Sign-in failed: ${err.message || code || 'unknown error'}`;
+    }
+    errBox.innerHTML = `<span>⚠️</span><div>${escapeHtml(message)}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = orig;
+  }
 }
+
 async function enterDemoMode(){
   const session = { uid: 'demo-user', displayName: 'Demo Student', email: 'demo@studentos.local', photoURL: '', real: false };
   try { localStorage.setItem(LS_SESSION, JSON.stringify(session)); } catch {}
   await onUserSignedIn(session);
 }
+
 async function onUserSignedIn(user){
   App.user = user;
   try { localStorage.setItem(LS_SESSION, JSON.stringify(user)); } catch {}
@@ -3937,6 +3867,7 @@ async function onUserSignedIn(user){
   setTimeout(() => { syncAll({ silent: true }); }, 800);
   if (!Store.cache.settings.onboardingSeen) setTimeout(() => showOnboarding(), 700);
 }
+
 async function signOut(){
   if (FB.auth){ try { await FB.mod.signOut(FB.auth); } catch {} }
   try { localStorage.removeItem(LS_SESSION); } catch {}
@@ -3945,7 +3876,7 @@ async function signOut(){
   location.reload();
 }
 
-/* ── DEMO DATA ───────────────────────────────────────────────── */
+/* ── Demo data ───────────────────────────────────────────── */
 function seedDemoData(){
   const d = emptyData();
   const day = 86400000;
@@ -3994,7 +3925,7 @@ function seedDemoData(){
   return d;
 }
 
-/* ── GLOBAL UI WIRING ────────────────────────────────────────── */
+/* ── Global UI wiring ────────────────────────────────────── */
 function wireGlobalUI(){
   $('#menu-btn')?.addEventListener('click', () => {
     const sb = $('#sidebar');
@@ -4156,7 +4087,7 @@ async function exportData(){
   toast('Downloaded', 'success');
 }
 
-/* ── BOOT ────────────────────────────────────────────────────── */
+/* ── Boot ────────────────────────────────────────────────── */
 async function boot(){
   const bootEl = $('#boot');
   const safety = setTimeout(() => { if (!bootEl.classList.contains('gone')){ console.warn('Boot timed out'); showAuth(); } }, 6000);
@@ -4202,17 +4133,16 @@ async function boot(){
 boot();
 
 window.StudentOS = {
-  version: '4.2.0',
+  version: '5.1.0',
   get state(){ return Store.cache; },
   get config(){ return loadConfig(); },
   syncAll, exportData,
   showOnboarding,
   openEffortUploadModal, openClassroomPasteModal, openActivitiesModal, openTimetableModal,
   dedupeExistingEvents, dedupeExistingAssignments,
-  smartPaste, aiParse, testAiConnection,
-  smartPasteClassroom, smartPasteEmail, smartPasteGeneral,
-  detectPasteFormat, detectSubject, normalizeSubject,
-  parseEffortReportText, parseActivitiesText, parseTimetableText
+  smartPaste, smartPasteClassroom, smartPasteEmail, smartPasteGeneral,
+  detectPasteFormat, detectSubject, normalizeSubject, subjectFromCourseCode,
+  parseDate, extractInlineDue, parseEffortReportText, parseActivitiesText, parseTimetableText
 };
 </script>
 </body>
