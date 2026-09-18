@@ -227,7 +227,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .page-sub{color:var(--text-2);font-size:14px}
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:24px}
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;position:relative;overflow:hidden;transition:.18s}
-.stat:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
 .stat::after{content:"";position:absolute;right:-26px;top:-26px;width:78px;height:78px;border-radius:50%;background:var(--primary-soft);opacity:.55}
 .stat-label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-bottom:8px;position:relative}
 .stat-value{font-size:29px;font-weight:800;letter-spacing:-.035em;line-height:1;position:relative}
@@ -414,7 +413,6 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 }
 .fab{position:fixed;right:24px;bottom:24px;z-index:700;width:56px;height:56px;border-radius:99px;background:linear-gradient(135deg,var(--indigo-500),var(--indigo-700));color:#fff;font-size:26px;font-weight:300;display:grid;place-items:center;box-shadow:0 12px 28px -8px rgba(79,70,229,.55),0 4px 12px rgba(79,70,229,.25);transition:.2s cubic-bezier(.2,.9,.3,1)}
 .fab:hover{transform:scale(1.08) translateY(-2px)}
-.fab:active{transform:scale(.96)}
 .fab.open{transform:rotate(45deg)}
 .fab-menu{position:fixed;right:24px;bottom:92px;z-index:690;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-xl);padding:8px;min-width:280px;animation:fabPop .18s cubic-bezier(.2,.9,.3,1);transform-origin:bottom right}
 @keyframes fabPop{from{opacity:0;transform:scale(.9) translateY(8px)}to{opacity:1;transform:none}}
@@ -466,16 +464,17 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
     <div class="auth-hero-inner">
       <div class="brand brand-light"><span class="brand-mark">S</span><span>StudentOS</span></div>
       <h1 class="auth-headline">Every assignment, test and effort report.<br>One calm dashboard.</h1>
-      <p class="auth-sub">Paste anything — Classroom, an email, a message. StudentOS figures it out and plans around your week.</p>
+      <p class="auth-sub">Sign in with Google to sync Classroom, Gmail, and your school calendar automatically.</p>
       <ul class="auth-features">
-        <li><span class="tick">✓</span> <strong>Smart Paste</strong> — works with any source</li>
+        <li><span class="tick">✓</span> <strong>Google Classroom sync</strong> — every assignment, automatically</li>
+        <li><span class="tick">✓</span> <strong>School email scanning</strong> — deadlines, tests, notices</li>
         <li><span class="tick">✓</span> <strong>Upload your effort report PDF</strong> — auto-reads every subject</li>
         <li><span class="tick">✓</span> <strong>Study planner</strong> — schedules around tutoring and sport</li>
       </ul>
       <div class="auth-badges">
         <span class="chip chip-glass">$0 to run</span>
-        <span class="chip chip-glass">No accounts needed</span>
-        <span class="chip chip-glass">Works offline</span>
+        <span class="chip chip-glass">Read-only access</span>
+        <span class="chip chip-glass">Revoke any time</span>
       </div>
     </div>
   </aside>
@@ -544,7 +543,7 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
       <button class="btn btn-primary btn-sm" id="smart-paste-btn" title="Smart Paste (P)">
         ✨ <span>Smart Paste</span>
       </button>
-      <button class="btn btn-ghost btn-sm" id="sync-btn" title="Sync school calendar">
+      <button class="btn btn-ghost btn-sm" id="sync-btn" title="Sync everything">
         <span class="sync-spinner" hidden></span>
         <span class="sync-label">Sync</span>
       </button>
@@ -611,7 +610,7 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 
 <script type="module">
 /* ================================================================
-   STUDENTOS v5.1 — smarter local Smart Paste + working Google auth
+   STUDENTOS v6.0 — Google Classroom + Gmail sync
    ================================================================ */
 
 const LS_CONFIG = 'studentos.config.v1';
@@ -619,6 +618,13 @@ const LS_SESSION = 'studentos.session.v1';
 const LS_DATA = uid => `studentos.data.${uid}.v1`;
 const PDFJS_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
 const PDFJS_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+const GOOGLE_SCOPES = [
+  'https://www.googleapis.com/auth/classroom.courses.readonly',
+  'https://www.googleapis.com/auth/classroom.coursework.me.readonly',
+  'https://www.googleapis.com/auth/classroom.announcements.readonly',
+  'https://www.googleapis.com/auth/gmail.readonly'
+];
 
 const DEFAULT_CONFIG = {
   firebase: {
@@ -651,7 +657,12 @@ const DEFAULT_SETTINGS = {
   notifyNewAssignment: true,
   notifyDueSoon: true,
   notifyNewTest: true,
-  onboardingSeen: false
+  onboardingSeen: false,
+  trustedDomains: [],
+  trustedSenders: [],
+  emailLookbackDays: 30,
+  enableClassroom: true,
+  enableGmail: true
 };
 
 const SUBJECT_ALIASES = {
@@ -896,6 +907,242 @@ async function initFirebase(cfg){
   return FB;
 }
 
+/* ── Google Services token manager ─────────────────────────── */
+const GoogleServices = {
+  accessToken: null,
+  expiresAt: 0,
+  scopes: [],
+
+  setToken(token, expiresIn, scopes){
+    this.accessToken = token;
+    this.expiresAt = now() + (Number(expiresIn || 3600) * 1000) - 30_000;
+    this.scopes = scopes || [];
+    try {
+      sessionStorage.setItem('studentos.gtoken', JSON.stringify({
+        t: token, e: this.expiresAt, s: this.scopes
+      }));
+    } catch {}
+  },
+
+  restore(){
+    try {
+      const raw = sessionStorage.getItem('studentos.gtoken');
+      if (!raw) return false;
+      const { t, e, s } = JSON.parse(raw);
+      if (e > now() + 5000){
+        this.accessToken = t;
+        this.expiresAt = e;
+        this.scopes = s || [];
+        return true;
+      }
+    } catch {}
+    return false;
+  },
+
+  clear(){
+    this.accessToken = null;
+    this.expiresAt = 0;
+    this.scopes = [];
+    try { sessionStorage.removeItem('studentos.gtoken'); } catch {}
+  },
+
+  has(scopes){
+    if (!this.accessToken) return false;
+    if (this.expiresAt <= now() + 5000) return false;
+    if (!scopes || !scopes.length) return true;
+    const have = new Set(this.scopes);
+    return scopes.every(s => have.has(s));
+  }
+};
+
+/* ── Google API fetcher ───────────────────────────────────── */
+async function gfetchJson(url, token){
+  const r = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+  if (r.status === 401) throw new Error('TOKEN_EXPIRED');
+  if (r.status === 403){
+    const txt = await r.text().catch(() => '');
+    if (/insufficient|scope|permission/i.test(txt)) throw new Error('INSUFFICIENT_SCOPE');
+    if (/disabled|blocked|denied|not.?enabled|forbidden/i.test(txt)) throw new Error('ACCESS_BLOCKED');
+    throw new Error(`Google API 403: ${txt.slice(0, 140)}`);
+  }
+  if (r.status === 429) throw new Error('RATE_LIMITED');
+  if (!r.ok){
+    const txt = await r.text().catch(() => '');
+    throw new Error(`Google API ${r.status}: ${txt.slice(0, 140)}`);
+  }
+  return r.json();
+}
+
+/* ── Classroom API sync ───────────────────────────────────── */
+async function syncClassroom(){
+  if (!GoogleServices.has()) throw new Error('NOT_SIGNED_IN');
+  const token = GoogleServices.accessToken;
+
+  const coursesResp = await gfetchJson(
+    'https://classroom.googleapis.com/v1/courses?courseStates=ACTIVE&pageSize=100',
+    token
+  );
+  const courses = coursesResp.courses || [];
+  Store.cache.courses = courses.map(c => ({
+    id: c.id, name: c.name, section: c.section || '',
+    room: c.room || '', ownerId: c.ownerId || '',
+    updatedAt: now()
+  }));
+
+  const raw = [];
+  for (const c of courses){
+    try {
+      let pageToken = '';
+      let pages = 0;
+      do {
+        const url = `https://classroom.googleapis.com/v1/courses/${c.id}/courseWork?courseWorkStates=PUBLISHED&pageSize=100${pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : ''}`;
+        const cw = await gfetchJson(url, token);
+        for (const w of (cw.courseWork || [])){
+          const due = w.dueDate
+            ? new Date(
+                w.dueDate.year,
+                (w.dueDate.month || 1) - 1,
+                w.dueDate.day || 1,
+                w.dueTime?.hours ?? 23,
+                w.dueTime?.minutes ?? 59
+              ).getTime()
+            : null;
+          raw.push({
+            id: `gc-${w.id}`,
+            externalId: w.id,
+            courseId: c.id,
+            title: w.title || 'Coursework',
+            description: w.description || '',
+            dueDate: due,
+            subject: normalizeSubject(c.name),
+            typeHint: mapWorkType(w.workType),
+            url: w.alternateLink || '',
+            source: 'Google Classroom'
+          });
+        }
+        pageToken = cw.nextPageToken || '';
+        pages++;
+      } while (pageToken && pages < 5);
+    } catch (e){
+      console.warn(`Failed to read course ${c.name}:`, e.message);
+    }
+  }
+
+  const r = await importItems(raw, 'Google Classroom');
+  Store.cache.integrations.classroom = {
+    id: 'classroom', connected: true, lastSync: now(), method: 'api',
+    imported: Store.all('assignments').filter(a => (a.sources||[]).some(s => s.source === 'Google Classroom')).length,
+    courses: courses.length
+  };
+  await Store.saveUserDoc();
+  return { added: r.added, merged: r.merged, courses: courses.length };
+}
+
+function mapWorkType(w){
+  switch (w){
+    case 'ASSIGNMENT': return 'Assignment';
+    case 'SHORT_ANSWER_QUESTION':
+    case 'MULTIPLE_CHOICE_QUESTION': return 'Homework';
+    default: return null;
+  }
+}
+
+/* ── Gmail API sync ───────────────────────────────────────── */
+function buildGmailQuery(){
+  const s = Store.cache.settings;
+  const parts = [];
+  if (s.trustedDomains?.length){
+    parts.push('(' + s.trustedDomains.map(d => `from:${d}`).join(' OR ') + ')');
+  } else if (s.trustedSenders?.length){
+    parts.push('(' + s.trustedSenders.map(d => `from:${d}`).join(' OR ') + ')');
+  } else {
+    parts.push('(subject:(homework OR assignment OR test OR exam OR quiz OR project OR due OR deadline OR notice OR reminder OR important OR newsletter OR assessment))');
+  }
+  parts.push(`newer_than:${Math.max(1, Number(s.emailLookbackDays) || 30)}d`);
+  return parts.join(' ');
+}
+
+function parseGmailMessage(msg){
+  const headers = msg.payload?.headers || [];
+  const get = n => headers.find(h => h.name.toLowerCase() === n.toLowerCase())?.value || '';
+  const subject = sanitiseText(get('Subject'), 220);
+  const from = sanitiseText(get('From'), 200);
+  const date = Number(msg.internalDate) || now();
+
+  let body = '';
+  const walk = part => {
+    if (!part) return;
+    if (part.mimeType === 'text/plain' && part.body?.data){
+      body += base64UrlDecode(part.body.data) + '\n';
+    } else if (part.parts){
+      part.parts.forEach(walk);
+    }
+  };
+  walk(msg.payload);
+  if (!body && msg.payload?.body?.data) body = base64UrlDecode(msg.payload.body.data);
+  if (!body && msg.snippet) body = msg.snippet;
+
+  return { subject, from, date, body: sanitiseText(body, 3000) };
+}
+
+function base64UrlDecode(data){
+  try {
+    const s = data.replace(/-/g, '+').replace(/_/g, '/');
+    const bin = atob(s);
+    const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+    return new TextDecoder('utf-8').decode(bytes);
+  } catch { return ''; }
+}
+
+async function syncGmail(){
+  if (!GoogleServices.has()) throw new Error('NOT_SIGNED_IN');
+  const token = GoogleServices.accessToken;
+  const q = buildGmailQuery();
+
+  const list = await gfetchJson(
+    `https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=40&q=${encodeURIComponent(q)}`,
+    token
+  );
+  const ids = (list.messages || []).map(m => m.id);
+
+  const rawAssignments = [];
+  for (const id of ids){
+    try {
+      const msg = await gfetchJson(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=full`, token);
+      const parsed = parseGmailMessage(msg);
+      if (!parsed) continue;
+      const haystack = `${parsed.subject} ${parsed.body}`;
+      const type = detectType(haystack);
+      const hasDeadline = /\b(due|deadline|by \w+day|hand in|submit|exam|test|assessment)\b/i.test(haystack);
+      if (!hasDeadline && !['Assignment','Homework','Test','Exam','Project','Reminder'].includes(type)) continue;
+
+      rawAssignments.push({
+        id: `gm-${id}`,
+        title: parsed.subject || 'Email',
+        description: (parsed.from ? `From ${parsed.from}\n\n` : '') + parsed.body.slice(0, 1500),
+        dueDate: parseDate(haystack, new Date(parsed.date)),
+        url: `https://mail.google.com/mail/u/0/#inbox/${id}`,
+        typeHint: type === 'Reminder' ? null : type,
+        subject: detectSubject(haystack),
+        source: 'Email'
+      });
+    } catch (e){
+      console.warn(`Failed to read message ${id}:`, e.message);
+    }
+  }
+
+  const r = await importItems(rawAssignments, 'Email');
+  Store.cache.integrations.email = {
+    id: 'email', connected: true, lastSync: now(),
+    imported: Store.all('assignments').filter(x => (x.sources||[]).some(s => s.source === 'Email')).length,
+    scanned: ids.length,
+    query: q
+  };
+  await Store.saveUserDoc();
+  return { added: r.added, merged: r.merged, scanned: ids.length };
+}
+
+/* ── Store ─────────────────────────────────────────────────── */
 const Store = {
   uid: null, mode: 'local', cache: null, _saveTimer: null,
 
@@ -926,6 +1173,8 @@ const Store = {
     if (!Array.isArray(d.settings.calendarSubscriptions)) d.settings.calendarSubscriptions = [];
     if (!Array.isArray(d.settings.timetable)) d.settings.timetable = [];
     if (!Array.isArray(d.settings.weeklyActivities)) d.settings.weeklyActivities = [];
+    if (!Array.isArray(d.settings.trustedDomains)) d.settings.trustedDomains = [];
+    if (!Array.isArray(d.settings.trustedSenders)) d.settings.trustedSenders = [];
     if (!d.profile) d.profile = {};
   },
 
@@ -1112,13 +1361,11 @@ function parseDate(text, ref = new Date()){
   if (!text) return null;
   const t = String(text).toLowerCase();
   const thisYear = ref.getFullYear();
-
   let m = t.match(/\b(\d{4})-(\d{2})-(\d{2})\b/);
   if (m){
     const d = new Date(+m[1], +m[2]-1, +m[3], 23, 59);
     if (!isNaN(d.getTime())) return d.getTime();
   }
-
   m = t.match(/\b(\d{1,2})[\/\-\.](\d{1,2})(?:[\/\-\.](\d{2,4}))?\b/);
   if (m){
     const a = +m[1], b = +m[2];
@@ -1133,7 +1380,6 @@ function parseDate(text, ref = new Date()){
       return d.getTime();
     }
   }
-
   m = t.match(new RegExp(`\\b(?:(${DOW_RE})\\s+)?(\\d{1,2})(?:st|nd|rd|th)?\\s+(${MONTH_ABBR_RE})(?:[,\\s]+(\\d{2,4}))?\\b`));
   if (m){
     const mon = MONTH_MAP[m[3]];
@@ -1143,7 +1389,6 @@ function parseDate(text, ref = new Date()){
     if (!m[4] && d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
     return d.getTime();
   }
-
   m = t.match(new RegExp(`\\b(${MONTH_ABBR_RE})\\s+(\\d{1,2})(?:st|nd|rd|th)?(?:[,\\s]+(\\d{2,4}))?\\b`));
   if (m){
     const mon = MONTH_MAP[m[1]];
@@ -1153,7 +1398,6 @@ function parseDate(text, ref = new Date()){
     if (!m[3] && d.getTime() < ref.getTime() - 30*86400000) d.setFullYear(d.getFullYear() + 1);
     return d.getTime();
   }
-
   if (/\b(today|tonight)\b/.test(t)){ const d = new Date(ref); d.setHours(23,59,0,0); return d.getTime(); }
   if (/\b(tomorrow|tmrw|tmr)\b/.test(t)){ const d = new Date(ref); d.setDate(d.getDate()+1); d.setHours(23,59,0,0); return d.getTime(); }
   if (/\bday\s+after\s+tomorrow\b/.test(t)){ const d = new Date(ref); d.setDate(d.getDate()+2); d.setHours(23,59,0,0); return d.getTime(); }
@@ -1165,7 +1409,6 @@ function parseDate(text, ref = new Date()){
     d.setHours(23,59,0,0);
     return d.getTime();
   }
-
   m = t.match(/\bin\s+(\d+)\s+(day|days|week|weeks|month|months)\b/);
   if (m){
     const d = new Date(ref);
@@ -1176,7 +1419,6 @@ function parseDate(text, ref = new Date()){
     d.setHours(23,59,0,0);
     return d.getTime();
   }
-
   m = t.match(new RegExp(`\\b(${DOW_RE})\\b`));
   if (m){
     const target = DAY_ABBR[m[1].slice(0,3)];
@@ -1362,7 +1604,6 @@ function smartPasteClassroom(text){
         if (d){ dueDate = d; dueIdx = i; break; }
       }
     }
-
     let titleIdx = 0;
     while (titleIdx < bl.length && (titleIdx === dueIdx || isNoiseLine(bl[titleIdx]))) titleIdx++;
     const title = (bl[titleIdx] || '').trim();
@@ -1762,7 +2003,7 @@ function parseTimetableText(text){
   return out;
 }
 
-/* ── Dedupe & import ────────────────────────────────────────── */
+/* ── Dedupe & import ───────────────────────────────────────── */
 function tokenSet(s){
   return new Set(String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 2 && !STOP_WORDS.has(w)));
 }
@@ -1893,7 +2134,7 @@ async function checkDueSoon(){
   }
 }
 
-/* ── ICS ─────────────────────────────────────────────────────── */
+/* ── ICS ───────────────────────────────────────────────────── */
 function parseICS(text){
   if (!text) return [];
   const events = [];
@@ -1975,17 +2216,51 @@ async function syncAll({ silent = false } = {}){
   setSyncUI('busy', 'Syncing…');
   const btn = $('#sync-btn');
   if (btn){ btn.disabled = true; $('.sync-spinner', btn).hidden = false; $('.sync-label', btn).textContent = 'Syncing…'; }
+
   const results = [], errors = [];
+  const s = Store.cache.settings;
+  const googleReady = GoogleServices.has();
+
+  // Calendar
   try {
     const r = await syncCalendarSubscriptions();
-    if (r.added) results.push(`Calendar: ${r.added} new events`);
+    if (r.added) results.push(`Calendar: ${r.added} new`);
     for (const e of r.errors) errors.push(e);
   } catch(e){ errors.push(`Calendar: ${e.message}`); }
+
+  // Classroom
+  if (googleReady && s.enableClassroom !== false){
+    try {
+      const r = await syncClassroom();
+      if (r.added || r.merged) results.push(`Classroom: ${r.added} new${r.merged ? `, ${r.merged} merged` : ''}`);
+    } catch (e){
+      if (e.message === 'TOKEN_EXPIRED' || e.message === 'NOT_SIGNED_IN') errors.push('Google session expired — sign in again to sync Classroom.');
+      else if (e.message === 'ACCESS_BLOCKED') errors.push('Classroom access blocked by your school admin.');
+      else if (e.message === 'INSUFFICIENT_SCOPE') errors.push('Classroom permissions missing — sign out and back in.');
+      else errors.push(`Classroom: ${e.message}`);
+    }
+  }
+
+  // Gmail
+  if (googleReady && s.enableGmail !== false){
+    try {
+      const r = await syncGmail();
+      if (r.added || r.merged) results.push(`Email: ${r.added} new${r.merged ? `, ${r.merged} merged` : ''}`);
+    } catch (e){
+      if (e.message === 'TOKEN_EXPIRED' || e.message === 'NOT_SIGNED_IN') errors.push('Google session expired — sign in again to sync Email.');
+      else if (e.message === 'ACCESS_BLOCKED') errors.push('Gmail access blocked by your school admin.');
+      else if (e.message === 'INSUFFICIENT_SCOPE') errors.push('Gmail permissions missing — sign out and back in.');
+      else errors.push(`Email: ${e.message}`);
+    }
+  }
+
   await dedupeExistingEvents();
   await dedupeExistingAssignments();
   await checkDueSoon();
+
   syncing = false;
   if (btn){ btn.disabled = false; $('.sync-spinner', btn).hidden = true; $('.sync-label', btn).textContent = 'Sync'; }
+
   if (results.length){ setSyncUI('ok', `Synced ${relativeTime(now())}`); if (!silent) toast(results.join(' · '), 'success', 'Sync complete'); }
   else if (!errors.length){ setSyncUI('ok', `Synced ${relativeTime(now())}`); if (!silent) toast('Everything is up to date.', 'success'); }
   for (const err of errors){ toast(err, 'error', 'Sync problem'); setSyncUI('err', 'Sync error'); }
@@ -2039,8 +2314,8 @@ function getChecklistState(){
   const d = Store.cache;
   return {
     account: true,
+    google: !!d.integrations?.classroom?.connected,
     firstItem: (d.assignments || []).length > 0,
-    calendar: (d.events || []).length > 0,
     effort: (d.effortReports || []).length > 0
   };
 }
@@ -2052,8 +2327,8 @@ function renderChecklist(){
   if (done >= total) return '';
   const items = [
     { key:'account', icon:'👤', text:'Create your account', done: true },
-    { key:'firstItem', icon:'✨', text:'Smart paste your first assignments', done: s.firstItem, action:'paste-classroom' },
-    { key:'calendar', icon:'📅', text:'School calendar synced', done: s.calendar, action:'sync-now' },
+    { key:'google', icon:'🔗', text:'Connect Google to sync Classroom & Email', done: s.google, action:'sync-now' },
+    { key:'firstItem', icon:'📝', text:'Import your first assignments', done: s.firstItem, action:'paste-classroom' },
     { key:'effort', icon:'📊', text:'Upload your first effort report', done: s.effort, action:'upload-effort' }
   ];
   return `
@@ -2183,14 +2458,12 @@ function renderWelcomeEmpty(){
     <div style="font-size:52px;margin-bottom:14px">🎒</div>
     <h2 style="font-size:22px;margin-bottom:10px">Let's get your school life in one place</h2>
     <p class="muted" style="max-width:520px;margin:0 auto 24px;font-size:14.5px;line-height:1.65">
-      <strong>Smart Paste</strong> handles Classroom To-do pages, school emails, or plain lists — with proper date parsing and subject recognition.
+      Sign in with Google and everything syncs automatically — <strong>Classroom assignments</strong>, <strong>school emails</strong>, and your calendar.
     </p>
     <div class="row" style="justify-content:center;flex-wrap:wrap;gap:10px">
-      <button class="btn btn-primary" data-action="paste-classroom">✨ Smart Paste</button>
+      <button class="btn btn-primary" data-action="sync-now">🔄 Sync now</button>
+      <button class="btn btn-ghost" data-action="paste-classroom">✨ Smart Paste</button>
       <button class="btn btn-ghost" data-action="upload-effort">📤 Upload effort report</button>
-    </div>
-    <div class="row" style="justify-content:center;gap:20px;flex-wrap:wrap;margin-top:24px;font-size:12.5px;color:var(--text-3)">
-      <span>Press <kbd>P</kbd> to paste</span><span>Press <kbd>E</kbd> for effort report</span><span>Press <kbd>N</kbd> for new task</span>
     </div>
   </div>`;
 }
@@ -2201,8 +2474,11 @@ function renderNextActions(){
     return `<div class="empty" style="padding:32px 12px">
       <div class="empty-ico">🌤️</div>
       <div class="empty-title">Nothing on your plate</div>
-      <div class="empty-sub">Smart paste your Classroom, an email, or any list to fill this in.</div>
-      <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="paste-classroom">✨ Smart Paste</button></div>
+      <div class="empty-sub">Sync Google or Smart Paste to fill this in.</div>
+      <div class="empty-actions">
+        <button class="btn btn-sm btn-primary" data-action="sync-now">🔄 Sync now</button>
+        <button class="btn btn-sm btn-ghost" data-action="paste-classroom">✨ Smart Paste</button>
+      </div>
     </div>`;
   }
   const scored = items.map(i => ({ i, score: plannerScore(i) })).sort((a,b) => b.score - a.score).slice(0, 5);
@@ -2332,6 +2608,7 @@ function viewAssignments(){
   <div class="page-head row-between wrap">
     <div><h1 class="page-title">Assignments</h1><p class="page-sub">${open} open · ${Store.all('assignments').length} total</p></div>
     <div class="row">
+      <button class="btn btn-ghost" data-action="sync-now">🔄 Sync</button>
       <button class="btn btn-primary" data-action="paste-classroom">✨ Smart Paste</button>
       <button class="btn btn-ghost" data-action="new-assignment">＋ New</button>
     </div>
@@ -2349,8 +2626,11 @@ function viewAssignments(){
     ${items.length ? items.map(renderAssignmentItem).join('') : `
       <div class="empty"><div class="empty-ico">📝</div>
         <div class="empty-title">No assignments yet</div>
-        <div class="empty-sub">Smart paste a Classroom To-do, an email, or any list.</div>
-        <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="paste-classroom">✨ Smart Paste</button></div>
+        <div class="empty-sub">Sync Google or Smart Paste a To-do list.</div>
+        <div class="empty-actions">
+          <button class="btn btn-sm btn-primary" data-action="sync-now">🔄 Sync now</button>
+          <button class="btn btn-sm btn-ghost" data-action="paste-classroom">✨ Smart Paste</button>
+        </div>
       </div>`}
   </div>`;
 }
@@ -2358,6 +2638,8 @@ function viewAssignments(){
 function renderAssignmentItem(a){
   const due = dueLabel(a.dueDate);
   const prio = { urgent:['chip-red','Urgent'], high:['chip-amber','High'], medium:['chip-sky','Medium'], low:['chip-gray','Low'] }[a.priority] || ['chip-gray','Low'];
+  const sources = a.sources && a.sources.length ? a.sources : [{ source: a.source, url: a.url }];
+  const uniqueSources = [...new Map(sources.map(s => [s.source, s])).values()];
   return `
   <div class="item ${a.completed ? 'done' : ''} ${!a.completed && a.dueDate && daysUntil(a.dueDate) < 0 ? 'overdue' : ''}">
     <div class="item-check ${a.completed ? 'on' : ''}" data-action="complete" data-id="${a.id}">${a.completed ? '✓' : ''}</div>
@@ -2372,6 +2654,7 @@ function renderAssignmentItem(a){
         ${a.subject ? `<span class="chip chip-indigo">${escapeHtml(a.subject)}</span>` : ''}
         <span class="chip chip-gray">${escapeHtml(a.type)}</span>
         <span class="chip ${prio[0]}">${prio[1]}</span>
+        ${uniqueSources.map(s => s.url ? `<a class="src-link" href="${escapeHtml(s.url)}" target="_blank" rel="noopener" style="font-size:11.5px;font-weight:600;color:var(--primary);text-decoration:none">↗ ${escapeHtml(s.source)}</a>` : `<span class="chip chip-gray">${escapeHtml(s.source || 'Manual')}</span>`).join('')}
       </div>
     </div>
     <div class="item-side">
@@ -2627,8 +2910,8 @@ function viewPlanner(){
             </div>`;
           }).join('') : `<div class="empty" style="padding:34px 12px">
             <div class="empty-ico">🎯</div><div class="empty-title">Nothing to plan yet</div>
-            <div class="empty-sub">Smart paste your Classroom work and StudentOS will rank everything automatically.</div>
-            <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="paste-classroom">✨ Smart Paste</button></div>
+            <div class="empty-sub">Sync Google or Smart Paste your Classroom work.</div>
+            <div class="empty-actions"><button class="btn btn-sm btn-primary" data-action="sync-now">🔄 Sync now</button></div>
           </div>`}
         </div>
       </section>
@@ -2681,29 +2964,85 @@ function viewPlanner(){
 /* ── Integrations ─────────────────────────────────────────── */
 function viewIntegrations(){
   const subs = Store.cache.settings.calendarSubscriptions || [];
+  const i = Store.cache.integrations || {};
+  const s = Store.cache.settings;
+  const googleReady = GoogleServices.has();
+  const classroomOn = i.classroom?.connected;
+  const emailOn = i.email?.connected;
   const classroomItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'Google Classroom'));
   const emailItems = Store.all('assignments').filter(a => (a.sources || []).some(s => s.source === 'Email'));
+  const courses = Store.all('courses');
+  const lastSync = Math.max(i.classroom?.lastSync || 0, i.email?.lastSync || 0) || 0;
+
   return `
   <div class="page-head">
     <h1 class="page-title">Integrations</h1>
-    <p class="page-sub">Everything you need is built in — no setup required.</p>
+    <p class="page-sub">Sync Google Classroom, Gmail, and your school calendar.</p>
   </div>
+
   <div class="stack">
+
+    <!-- Google sync status -->
+    <section class="card card-pad int-card" style="border:2px solid ${googleReady ? 'var(--green-500)' : 'var(--amber-500)'};background:${googleReady ? 'linear-gradient(135deg,var(--green-50) 0%,#fff 100%)' : 'linear-gradient(135deg,var(--amber-50) 0%,#fff 100%)'}">
+      <div class="int-logo" style="background:${googleReady ? 'linear-gradient(135deg,#10b981,#059669)' : 'linear-gradient(135deg,#f59e0b,#d97706)'};color:#fff;border:none;font-size:22px">🔗</div>
+      <div class="int-body">
+        <div class="int-name">
+          Google Account
+          <span class="status-pill ${googleReady ? 'on' : 'off'}"><span class="pdot"></span>${googleReady ? 'Connected' : 'Not connected'}</span>
+        </div>
+        <div class="int-desc">
+          ${googleReady
+            ? 'Signed in. StudentOS can read your Classroom courses, coursework, and school emails.'
+            : 'Sign out and sign back in with Google to grant Classroom and Gmail access.'}
+        </div>
+        ${googleReady ? `<div class="int-stats">
+          <div class="int-stat"><b>${courses.length}</b>Classroom courses</div>
+          <div class="int-stat"><b>${classroomItems.length}</b>Classroom items</div>
+          <div class="int-stat"><b>${emailItems.length}</b>Email items</div>
+          <div class="int-stat"><b>${relativeTime(lastSync)}</b>last sync</div>
+        </div>` : ''}
+        <div class="int-actions">
+          ${googleReady
+            ? `<button class="btn btn-primary btn-sm" data-action="sync-now">🔄 Sync now</button>
+               <button class="btn btn-ghost btn-sm" data-action="reconnect-google">Reconnect</button>`
+            : `<button class="btn btn-primary btn-sm" data-action="reconnect-google">Sign in with Google</button>`}
+        </div>
+      </div>
+    </section>
+
+    <!-- Classroom + Gmail toggles -->
+    ${googleReady ? `
+    <div class="cols cols-2">
+      <section class="card card-pad int-card">
+        <div class="int-logo" style="background:linear-gradient(135deg,#34a853,#0f9d58);color:#fff;border:none;font-size:20px">🎓</div>
+        <div class="int-body">
+          <div class="int-name">Google Classroom</div>
+          <div class="int-desc">Every published assignment and quiz from your active courses.</div>
+          <div class="int-actions">
+            <label class="checkbox"><input type="checkbox" data-setting="enableClassroom" ${s.enableClassroom !== false ? 'checked' : ''}> <span class="small">Include in sync</span></label>
+          </div>
+        </div>
+      </section>
+      <section class="card card-pad int-card">
+        <div class="int-logo" style="background:linear-gradient(135deg,#ea4335,#c5221f);color:#fff;border:none;font-size:20px">📧</div>
+        <div class="int-body">
+          <div class="int-name">School Emails</div>
+          <div class="int-desc">Reads school emails to find deadlines, tests, and reminders.</div>
+          <div class="int-actions">
+            <label class="checkbox"><input type="checkbox" data-setting="enableGmail" ${s.enableGmail !== false ? 'checked' : ''}> <span class="small">Include in sync</span></label>
+          </div>
+        </div>
+      </section>
+    </div>` : ''}
+
+    <!-- Smart Paste fallback -->
     <section class="card card-pad int-card hero">
       <div class="int-logo" style="background:linear-gradient(135deg,#6366f1,#4338ca);color:#fff;border:none;font-size:22px">✨</div>
       <div class="int-body">
-        <div class="int-name">
-          Smart Paste
-          <span class="chip chip-green">Works instantly</span>
-        </div>
+        <div class="int-name">Smart Paste <span class="chip chip-green">Always available</span></div>
         <div class="int-desc int-hero-body">
-          Copy your Classroom <strong>To-do</strong> page, an email from school, or a plain list.
-          StudentOS detects the format and extracts every assignment — with proper date parsing,
-          course-code recognition, and subject unification.
-        </div>
-        <div class="int-stats">
-          ${classroomItems.length ? `<div class="int-stat"><b>${classroomItems.length}</b>from Classroom</div>` : ''}
-          ${emailItems.length ? `<div class="int-stat"><b>${emailItems.length}</b>from email</div>` : ''}
+          Copy your Classroom To-do page, an email, or a plain list — StudentOS extracts every assignment.
+          Works even when Google sync is blocked or unavailable.
         </div>
         <div class="int-hero-actions">
           <button class="btn btn-primary btn-lg" data-action="paste-classroom">✨ Smart Paste</button>
@@ -2711,14 +3050,18 @@ function viewIntegrations(){
         </div>
       </div>
     </section>
+
+    <!-- Effort reports -->
     <section class="card card-pad int-card" style="border:2px solid var(--violet-500);background:linear-gradient(135deg,var(--violet-50) 0%,#fff 100%)">
       <div class="int-logo" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);color:#fff;border:none;font-size:22px">📤</div>
       <div class="int-body">
-        <div class="int-name">Upload effort report PDF <span class="chip chip-violet">Every Friday</span></div>
+        <div class="int-name">Upload effort report PDF</div>
         <div class="int-desc">Drop in your weekly PDF from school. StudentOS reads every subject, weekly rating and your year average.</div>
         <div class="int-hero-actions"><button class="btn btn-primary" data-action="upload-effort">📤 Upload report</button></div>
       </div>
     </section>
+
+    <!-- School calendars -->
     <section class="card">
       <div class="card-head">
         <div class="card-title">📆 School calendars</div>
@@ -2750,7 +3093,7 @@ function viewIntegrations(){
 function viewSettings(){
   const s = Store.cache.settings;
   return `
-  <div class="page-head"><h1 class="page-title">Settings</h1><p class="page-sub">Account, privacy and appearance</p></div>
+  <div class="page-head"><h1 class="page-title">Settings</h1><p class="page-sub">Account, sync, privacy and appearance</p></div>
   <div class="cols cols-2">
     <section class="card">
       <div class="card-head"><div class="card-title">👤 Account</div></div>
@@ -2781,6 +3124,37 @@ function viewSettings(){
         </div>
       </div>
     </section>
+
+    <section class="card">
+      <div class="card-head"><div class="card-title">📧 Email filtering</div></div>
+      <div class="card-body">
+        <p class="small muted" style="margin-bottom:14px">Narrow down which emails get scanned. If you leave these blank, StudentOS uses a broad keyword search across all recent emails.</p>
+        <div class="field" style="margin-bottom:12px">
+          <label class="label">Trusted domains (comma separated)</label>
+          <input class="input" data-setting="trustedDomainsCsv" value="${escapeHtml((s.trustedDomains||[]).join(', '))}" placeholder="e.g. sacredheart.school.nz, school.nz">
+          <div class="hint">Only emails from these domains will be scanned.</div>
+        </div>
+        <div class="field" style="margin-bottom:12px">
+          <label class="label">How far back to look</label>
+          <select class="select" data-setting="emailLookbackDays">
+            <option value="7" ${s.emailLookbackDays === 7 ? 'selected' : ''}>7 days</option>
+            <option value="14" ${s.emailLookbackDays === 14 ? 'selected' : ''}>14 days</option>
+            <option value="30" ${s.emailLookbackDays === 30 ? 'selected' : ''}>30 days</option>
+            <option value="60" ${s.emailLookbackDays === 60 ? 'selected' : ''}>60 days</option>
+            <option value="90" ${s.emailLookbackDays === 90 ? 'selected' : ''}>90 days</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><div class="card-title">🔄 Sync</div></div>
+      <div class="card-body">
+        ${notifRow('enableClassroom', 'Sync Google Classroom', 'Pull assignments from your active courses.')}
+        ${notifRow('enableGmail', 'Sync school emails', 'Read school emails to find deadlines and tests.')}
+      </div>
+    </section>
+
     <section class="card">
       <div class="card-head"><div class="card-title">🔔 Notifications</div></div>
       <div class="card-body">
@@ -2789,6 +3163,7 @@ function viewSettings(){
         ${notifRow('notifyNewTest', 'New tests and exams', 'Alert when a test or exam is detected.')}
       </div>
     </section>
+
     <section class="card">
       <div class="card-head"><div class="card-title">🛡️ Privacy &amp; data</div></div>
       <div class="card-body">
@@ -2804,9 +3179,14 @@ function viewSettings(){
           <div class="set-info"><div class="set-name">Delete all data</div><div class="set-desc">Permanently removes every item you or StudentOS created.</div></div>
           <div class="set-control"><button class="btn btn-danger-soft btn-sm" data-action="wipe-data">Delete</button></div>
         </div>
+        <div class="set-row">
+          <div class="set-info"><div class="set-name">Revoke Google access</div><div class="set-desc">Discards the access token held in this browser tab.</div></div>
+          <div class="set-control"><button class="btn btn-ghost btn-sm" data-action="revoke-google">Revoke</button></div>
+        </div>
       </div>
     </section>
-    <section class="card">
+
+    <section class="card" style="grid-column:1/-1">
       <div class="card-head"><div class="card-title">⌨️ Keyboard shortcuts</div></div>
       <div class="card-body">
         <div class="shortcut-grid">
@@ -2814,7 +3194,7 @@ function viewSettings(){
           <div class="shortcut-row"><span>Upload effort report</span><kbd>E</kbd></div>
           <div class="shortcut-row"><span>New assignment</span><kbd>N</kbd></div>
           <div class="shortcut-row"><span>Search</span><kbd>/</kbd></div>
-          <div class="shortcut-row"><span>Sync calendar</span><kbd>S</kbd></div>
+          <div class="shortcut-row"><span>Sync</span><kbd>S</kbd></div>
           <div class="shortcut-row"><span>Dashboard</span><kbd>G</kbd> <kbd>D</kbd></div>
         </div>
       </div>
@@ -2823,7 +3203,7 @@ function viewSettings(){
 }
 
 function notifRow(key, name, desc){
-  const on = Store.cache.settings[key];
+  const on = Store.cache.settings[key] !== false;
   return `
   <div class="set-row">
     <div class="set-info"><div class="set-name">${name}</div><div class="set-desc">${desc}</div></div>
@@ -2918,6 +3298,8 @@ function bindViewEvents(){
       case 'paste-classroom': openClassroomPasteModal(); break;
       case 'show-paste-help': openPasteHelpModal(); break;
       case 'sync-now': syncAll({ silent: false }); break;
+      case 'reconnect-google': await signInGoogle(); break;
+      case 'revoke-google': GoogleServices.clear(); toast('Google access revoked', 'success'); break;
       case 'cleanup-duplicates': {
         const removedEvents = await dedupeExistingEvents();
         const removedItems = await dedupeExistingAssignments();
@@ -2957,9 +3339,17 @@ function bindViewEvents(){
     const f = e.target.dataset.filter;
     if (f){ App.filters[f] = e.target.value; render(); return; }
     const setting = e.target.dataset.setting;
+    if (setting === 'trustedDomainsCsv'){
+      const val = e.target.value.split(',').map(s => s.trim()).filter(Boolean);
+      Store.cache.settings.trustedDomains = val;
+      await Store.saveUserDoc();
+      toast('Saved', 'success');
+      return;
+    }
     if (setting){
       const isBool = e.target.type === 'checkbox';
-      Store.cache.settings[setting] = isBool ? e.target.checked : e.target.value;
+      const val = isBool ? e.target.checked : (isNaN(e.target.value) ? e.target.value : Number(e.target.value));
+      Store.cache.settings[setting] = val;
       await Store.saveUserDoc();
       if (setting === 'theme') document.documentElement.dataset.theme = e.target.value;
       toast('Saved', 'success');
@@ -3085,8 +3475,7 @@ function openPasteHelpModal(){
     wide: true,
     body: `
       <p class="small" style="color:var(--text-2);line-height:1.65;margin-bottom:16px">
-        Smart Paste figures out what you've pasted and sorts it into assignments automatically.
-        No setup, no accounts, works entirely on your device.
+        Smart Paste figures out what you've pasted and sorts it into assignments automatically. Works even if Google sync is unavailable.
       </p>
       <div class="howto-grid">
         <div class="howto-step">
@@ -3141,10 +3530,7 @@ function openClassroomPasteModal(){
     body: `
       <div class="alert alert-info" style="margin-bottom:14px">
         <span>💡</span>
-        <div>
-          <strong>Works with anything.</strong> Copy your Classroom To-do page, select an entire email,
-          or paste a simple list.
-        </div>
+        <div><strong>Works with anything.</strong> Copy your Classroom To-do page, select an entire email, or paste a simple list.</div>
       </div>
       <div class="paste-grid">
         <div>
@@ -3330,20 +3716,18 @@ function openTimetableModal(){
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   openModal({
     title: '🗓️ Weekly timetable',
-    subtitle: 'Type each period, or paste a few lines at once',
     xl: true,
     body: `
       <div class="alert alert-info" style="margin-bottom:14px">
         <span>💡</span>
-        <div><strong>Fastest way:</strong> paste lines like <code>Monday 9:00-10:00 Maths M12</code> — one per period — and click <em>Auto-fill</em>.</div>
+        <div><strong>Fastest way:</strong> paste lines like <code>Monday 9:00-10:00 Maths M12</code> and click <em>Auto-fill</em>.</div>
       </div>
       <div class="field" style="margin-bottom:14px">
         <label class="label">Paste your timetable</label>
         <textarea class="textarea" id="tt-paste" placeholder="Monday 9:00-10:00 Maths M12
-Monday 10:05-11:05 English E7
-Tuesday 9:00-10:00 Science S3" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
+Monday 10:05-11:05 English E7" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
       </div>
-      <button class="btn btn-subtle btn-sm" id="tt-autofill">✨ Auto-fill from text</button>
+      <button class="btn btn-subtle btn-sm" id="tt-autofill">✨ Auto-fill</button>
       <div style="height:1px;background:var(--border);margin:18px 0"></div>
       <div id="tt-rows">
         ${tt.length ? tt.map((t, i) => ttRowHtml(t, i, days)).join('') : ttRowHtml({ day:1, start:'09:00', end:'10:00', subject:'', room:'' }, 0, days)}
@@ -3399,7 +3783,6 @@ function ttRowHtml(t, idx, days){
 function openActivitiesModal(){
   openModal({
     title: '🏃 Weekly activities',
-    subtitle: 'Tutoring, sport, music — the planner schedules around these',
     xl: true,
     body: `
       <div class="alert alert-info" style="margin-bottom:14px">
@@ -3409,10 +3792,9 @@ function openActivitiesModal(){
       <div class="field" style="margin-bottom:14px">
         <label class="label">Paste your weekly activities</label>
         <textarea class="textarea" id="act-paste" placeholder="Monday: Tutoring 4-4:30
-Tuesday: Tutoring 4-5
-Wednesday: Padel 3:15-4:00" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
+Tuesday: Tutoring 4-5" style="min-height:120px;font-family:ui-monospace,monospace;font-size:12px"></textarea>
       </div>
-      <button class="btn btn-subtle btn-sm" id="act-autofill">✨ Auto-fill from text</button>
+      <button class="btn btn-subtle btn-sm" id="act-autofill">✨ Auto-fill</button>
       <div style="height:1px;background:var(--border);margin:18px 0"></div>
       <div id="act-rows"></div>
       <button class="btn btn-ghost btn-sm" id="act-add" style="margin-top:12px">＋ Add activity</button>`,
@@ -3467,7 +3849,6 @@ Wednesday: Padel 3:15-4:00" style="min-height:120px;font-family:ui-monospace,mon
 function openAddCalendarModal(){
   openModal({
     title: 'Add a calendar',
-    subtitle: 'Paste any public ICS calendar URL',
     body: `
       <div class="field"><label class="label">Calendar name</label>
         <input class="input" id="cal-name" placeholder="e.g. Sports Fixtures"></div>
@@ -3534,13 +3915,13 @@ function renderOnb(){
       <h2>How would you like to start?</h2>
       <p class="lead">Both work on any school account.</p>
       <div class="onb-cards">
+        <button class="onb-card ${onbData.path === 'google' ? 'on' : ''}" data-onb-card="google">
+          <div class="onb-card-ico">🔗</div>
+          <div class="onb-card-body"><h4>Sync with Google</h4><p>Classroom assignments and school emails pulled in automatically.</p></div>
+        </button>
         <button class="onb-card ${onbData.path === 'paste' ? 'on' : ''}" data-onb-card="paste">
           <div class="onb-card-ico">✨</div>
           <div class="onb-card-body"><h4>Smart Paste</h4><p>Copy your Classroom To-do, an email, or a list. StudentOS sorts it out.</p></div>
-        </button>
-        <button class="onb-card ${onbData.path === 'effort' ? 'on' : ''}" data-onb-card="effort">
-          <div class="onb-card-ico">📊</div>
-          <div class="onb-card-body"><h4>Upload my effort report</h4><p>Drop in the Friday PDF — StudentOS reads every subject and rating.</p></div>
         </button>
       </div>
     </div>
@@ -3553,12 +3934,12 @@ function renderOnb(){
       <h2>You're all set 🎉</h2>
       <p class="lead">Three things to know:</p>
       <div class="onb-feature-list">
+        <div class="onb-feature"><div class="onb-feature-ico">🔄</div>
+          <div><strong>Sync</strong>Press <kbd>S</kbd> or use the Sync button to pull the latest.</div></div>
         <div class="onb-feature"><div class="onb-feature-ico">✨</div>
           <div><strong>Smart Paste</strong>Press <kbd>P</kbd> anywhere. Handles Classroom, emails, and any list.</div></div>
         <div class="onb-feature"><div class="onb-feature-ico">📊</div>
           <div><strong>Upload effort reports</strong>Press <kbd>E</kbd> to drop in this week's PDF.</div></div>
-        <div class="onb-feature"><div class="onb-feature-ico">🎯</div>
-          <div><strong>Study planner</strong>Add your activities once and the planner schedules around them.</div></div>
       </div>
     </div>
     <div class="onb-actions">
@@ -3585,8 +3966,8 @@ function renderOnb(){
       if (action === 'next' && onbStep === 2){ onbStep = 3; renderOnb(); return; }
       if (action === 'finish'){
         closeOnboarding();
-        if (onbData.path === 'paste'){ location.hash = '#/dashboard'; setTimeout(() => openClassroomPasteModal(), 400); }
-        else if (onbData.path === 'effort'){ location.hash = '#/effort'; setTimeout(() => openEffortUploadModal(), 400); }
+        if (onbData.path === 'google'){ location.hash = '#/integrations'; setTimeout(() => syncAll({ silent: false }), 400); }
+        else if (onbData.path === 'paste'){ location.hash = '#/dashboard'; setTimeout(() => openClassroomPasteModal(), 400); }
         else location.hash = '#/dashboard';
       }
     }
@@ -3683,7 +4064,6 @@ function setAuthMode(mode){
   $('#email-submit-label').textContent = isSignup ? 'Create account' : 'Sign in';
   $('#auth-error').hidden = true;
 }
-
 function showAuthError(m){ const b = $('#auth-error'); b.textContent = m; b.hidden = false; }
 
 async function submitEmailAuth(){
@@ -3715,7 +4095,6 @@ async function submitEmailAuth(){
   } catch (err){ showAuthError(friendlyAuthError(err)); }
   finally { btn.disabled = false; spinner.hidden = true; label.textContent = orig; }
 }
-
 function friendlyAuthError(err){
   const code = err.code || '';
   switch(code){
@@ -3725,11 +4104,10 @@ function friendlyAuthError(err){
     case 'auth/user-not-found': return 'No account found. Create one instead?';
     case 'auth/wrong-password': case 'auth/invalid-credential': return 'Incorrect email or password.';
     case 'auth/too-many-requests': return 'Too many attempts. Wait a minute.';
-    case 'auth/operation-not-allowed': return 'Email sign-in is not enabled on this Firebase project.';
+    case 'auth/operation-not-allowed': return 'Email sign-in is not enabled on this project.';
     default: return err.message || 'Sign-in failed.';
   }
 }
-
 async function resetPassword(){
   const email = $('#auth-email').value.trim();
   if (!FB.ready || !FB.auth){ showAuthError('Firebase is not configured.'); return; }
@@ -3737,7 +4115,6 @@ async function resetPassword(){
   try { await FB.mod.sendPasswordResetEmail(FB.auth, email); toast('Reset email sent', 'success'); }
   catch (err){ showAuthError(friendlyAuthError(err)); }
 }
-
 function showAuth(){
   $('#boot').classList.add('gone');
   $('#auth-screen').hidden = false;
@@ -3746,13 +4123,8 @@ function showAuth(){
   const cfg = loadConfig();
   const live = isFirebaseConfigured(cfg);
   const badge = $('#mode-badge');
-  if (live){
-    badge.hidden = true;
-  } else {
-    badge.hidden = false;
-    badge.textContent = '⚡ Demo mode';
-    badge.classList.remove('live');
-  }
+  if (live) badge.hidden = true;
+  else { badge.hidden = false; badge.textContent = '⚡ Demo mode'; badge.classList.remove('live'); }
   setAuthMode('signin');
   $('#email-form').reset();
   $('#google-error').hidden = true;
@@ -3764,7 +4136,6 @@ function showAuth(){
   $('#enter-btn').onclick = () => signInGoogle();
   $('#demo-btn').onclick = () => enterDemoMode();
 }
-
 function showApp(){
   $('#boot').classList.add('gone');
   $('#auth-screen').hidden = true;
@@ -3800,8 +4171,18 @@ async function signInGoogle(){
 
   try {
     const provider = new FB.mod.GoogleAuthProvider();
-    provider.setCustomParameters({ prompt: 'select_account' });
+    for (const scope of GOOGLE_SCOPES) provider.addScope(scope);
+    provider.setCustomParameters({ prompt: 'consent select_account' });
     const result = await FB.mod.signInWithPopup(FB.auth, provider);
+
+    // Extract the OAuth access token for Classroom + Gmail API calls
+    try {
+      const credential = FB.mod.GoogleAuthProvider.credentialFromResult(result);
+      if (credential?.accessToken){
+        GoogleServices.setToken(credential.accessToken, 3600, GOOGLE_SCOPES);
+      }
+    } catch (e){ console.warn('Could not capture access token:', e); }
+
     await onUserSignedIn({
       uid: result.user.uid,
       displayName: result.user.displayName,
@@ -3860,16 +4241,23 @@ async function onUserSignedIn(user){
   try { localStorage.setItem(LS_SESSION, JSON.stringify(user)); } catch {}
   await Store.init(user);
   if (Store.mode === 'firebase') await Store.loadFromFirestore();
+  GoogleServices.restore();
   await dedupeExistingEvents();
   await dedupeExistingAssignments();
   document.documentElement.dataset.theme = Store.cache.settings.theme || 'light';
   showApp(); render(); checkDueSoon();
-  setTimeout(() => { syncAll({ silent: true }); }, 800);
+  // Auto-sync everything (calendar, Classroom, Gmail) shortly after load
+  if (GoogleServices.has()){
+    setTimeout(() => { syncAll({ silent: true }); }, 900);
+  } else {
+    setTimeout(() => { syncCalendarSubscriptions().then(() => render()); }, 900);
+  }
   if (!Store.cache.settings.onboardingSeen) setTimeout(() => showOnboarding(), 700);
 }
 
 async function signOut(){
   if (FB.auth){ try { await FB.mod.signOut(FB.auth); } catch {} }
+  GoogleServices.clear();
   try { localStorage.removeItem(LS_SESSION); } catch {}
   App.user = null; Store.uid = null; Store.cache = null;
   location.hash = '';
@@ -4021,30 +4409,32 @@ function toggleFab(){
 }
 function renderFabMenu(){
   $('#fab-menu').innerHTML = `
+    <button class="fab-item highlight" data-quick="sync-now">
+      <span class="fab-ico">🔄</span><span>Sync everything</span><kbd>S</kbd>
+    </button>
     <button class="fab-item highlight" data-quick="paste-classroom">
       <span class="fab-ico">✨</span><span>Smart Paste</span><kbd>P</kbd>
     </button>
-    <button class="fab-item highlight" data-quick="upload-effort">
+    <div class="menu-sep"></div>
+    <button class="fab-item" data-quick="upload-effort">
       <span class="fab-ico">📤</span><span>Upload effort report</span><kbd>E</kbd>
     </button>
-    <div class="menu-sep"></div>
     <button class="fab-item" data-quick="new-assignment"><span class="fab-ico">📝</span><span>Assignment</span><kbd>N</kbd></button>
     <button class="fab-item" data-quick="new-test"><span class="fab-ico">📊</span><span>Test or exam</span></button>
     <button class="fab-item" data-quick="new-event"><span class="fab-ico">📅</span><span>Event</span></button>
     <div class="menu-sep"></div>
-    <button class="fab-item" data-quick="edit-activities"><span class="fab-ico">🏃</span><span>Weekly activities</span></button>
-    <button class="fab-item" data-quick="sync-now"><span class="fab-ico">🔄</span><span>Sync calendar</span></button>`;
+    <button class="fab-item" data-quick="edit-activities"><span class="fab-ico">🏃</span><span>Weekly activities</span></button>`;
   $$('#fab-menu .fab-item').forEach(btn => {
     btn.addEventListener('click', () => {
       const q = btn.dataset.quick;
       toggleFab();
-      if (q === 'paste-classroom') openClassroomPasteModal();
+      if (q === 'sync-now') syncAll({ silent: false });
+      else if (q === 'paste-classroom') openClassroomPasteModal();
       else if (q === 'upload-effort') openEffortUploadModal();
       else if (q === 'new-assignment') openAssignmentModal(null, 'Assignment');
       else if (q === 'new-test') openAssignmentModal(null, 'Test');
       else if (q === 'new-event') openAssignmentModal(null, 'Event');
       else if (q === 'edit-activities') openActivitiesModal();
-      else if (q === 'sync-now') syncAll({ silent: false });
     });
   });
 }
@@ -4053,11 +4443,11 @@ function openHelpModal(){
     title: 'Keyboard shortcuts',
     subtitle: 'Press ? anytime to see this',
     body: `<div class="shortcut-grid">
+      <div class="shortcut-row"><span>Sync everything</span><kbd>S</kbd></div>
       <div class="shortcut-row"><span>Smart Paste</span><kbd>P</kbd></div>
       <div class="shortcut-row"><span>Upload effort report</span><kbd>E</kbd></div>
       <div class="shortcut-row"><span>New assignment</span><kbd>N</kbd></div>
       <div class="shortcut-row"><span>Search</span><kbd>/</kbd></div>
-      <div class="shortcut-row"><span>Sync calendar</span><kbd>S</kbd></div>
       <div class="shortcut-row"><span>Dashboard</span><kbd>G</kbd> <kbd>D</kbd></div>
       <div class="shortcut-row"><span>Assignments</span><kbd>G</kbd> <kbd>A</kbd></div>
       <div class="shortcut-row"><span>Planner</span><kbd>G</kbd> <kbd>P</kbd></div>
@@ -4133,10 +4523,11 @@ async function boot(){
 boot();
 
 window.StudentOS = {
-  version: '5.1.0',
+  version: '6.0.0',
   get state(){ return Store.cache; },
   get config(){ return loadConfig(); },
   syncAll, exportData,
+  syncClassroom, syncGmail, GoogleServices,
   showOnboarding,
   openEffortUploadModal, openClassroomPasteModal, openActivitiesModal, openTimetableModal,
   dedupeExistingEvents, dedupeExistingAssignments,
