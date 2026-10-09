@@ -469,7 +469,7 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 
 <script type="module">
 /* ================================================================
-   STUDENTOS v7.0 — Google-only, auto-syncing
+   STUDENTOS v7.1 — email filters + calendar management
    ================================================================ */
 
 const LS_CONFIG = 'studentos.config.v1';
@@ -496,15 +496,22 @@ const DEFAULT_CONFIG = {
   }
 };
 
+const SACRED_HEART_CALENDAR = {
+  id: 'sacred-heart',
+  name: 'Sacred Heart College',
+  url: 'https://kamar.sacredheart.school.kiwi/index.php/ics/school.ics'
+};
+
 const DEFAULT_SETTINGS = {
   theme: 'light',
-  timetable: [],
-  weeklyActivities: [],
   notifyNewAssignment: true,
   notifyDueSoon: true,
   notifyNewTest: true,
   onboardingSeen: false,
-  emailLookbackDays: 30
+  emailLookbackDays: 30,
+  trustedDomains: [],
+  trustedSenders: [],
+  calendarSubscriptions: []
 };
 
 const SUBJECT_ALIASES = {
@@ -694,7 +701,6 @@ function sanitiseText(input, maxLen = 4000){
 }
 function fmtDate(ts){ if (!ts) return ''; return new Date(ts).toLocaleDateString(undefined, { day:'numeric', month:'short' }); }
 function fmtDateLong(ts){ if (!ts) return ''; return new Date(ts).toLocaleDateString(undefined, { weekday:'short', day:'numeric', month:'long' }); }
-function fmtTime(ts){ if (!ts) return ''; return new Date(ts).toLocaleTimeString(undefined, { hour:'numeric', minute:'2-digit' }); }
 function relativeTime(ts){
   if (!ts) return 'never';
   const diff = now() - ts;
@@ -899,6 +905,9 @@ const Store = {
     d.settings = { ...DEFAULT_SETTINGS, ...d.settings };
     if (!Array.isArray(d.settings.timetable)) d.settings.timetable = [];
     if (!Array.isArray(d.settings.weeklyActivities)) d.settings.weeklyActivities = [];
+    if (!Array.isArray(d.settings.trustedDomains)) d.settings.trustedDomains = [];
+    if (!Array.isArray(d.settings.trustedSenders)) d.settings.trustedSenders = [];
+    if (!Array.isArray(d.settings.calendarSubscriptions)) d.settings.calendarSubscriptions = [];
     if (!Array.isArray(d.deletedIds)) d.deletedIds = [];
     if (!d.profile) d.profile = {};
   },
@@ -987,7 +996,6 @@ const Store = {
   async loadFromFirestore(){
     if (this.mode !== 'firebase' || !FB.db) return this.cache;
     const { collection, getDocs, query, limit } = FB.mod.fs;
-    // First fetch user doc to get tombstones
     try {
       const { doc: fdoc, getDoc } = FB.mod.fs;
       const s = await getDoc(fdoc(FB.db, 'users', this.uid));
@@ -1000,7 +1008,6 @@ const Store = {
       }
     } catch(e){ console.warn('Failed to read user doc', e); }
 
-    // Then fetch each collection, filtering out tombstones
     const cols = ['assignments','events','notifications','courses','studySessions','effortReports'];
     for (const c of cols){
       try {
@@ -1037,6 +1044,98 @@ function emptyData(){
     integrations: {}, settings: { ...DEFAULT_SETTINGS }, profile: {},
     deletedIds: []
   };
+}
+
+/* ── Calendar sync ────────────────────────────────────────── */
+async function fetchCalendarUrl(url){
+  try {
+    const r = await fetch(url, { redirect: 'follow' });
+    if (r.ok) return r;
+    if (r.status >= 400 && r.status < 500) throw new Error(`HTTP ${r.status}`);
+  } catch(e){}
+  try {
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+    const r2 = await fetch(proxyUrl, { redirect: 'follow' });
+    if (r2.ok) return r2;
+    throw new Error(`HTTP ${r2.status} (via proxy)`);
+  } catch(e2){
+    throw new Error(`Could not reach the calendar. ${e2.message}`);
+  }
+}
+
+function parseICS(text){
+  if (!text) return [];
+  const events = [];
+  const unfolded = text.replace(/\r?\n[ \t]/g, '');
+  const blocks = unfolded.split(/BEGIN:VEVENT/i).slice(1);
+  for (const block of blocks){
+    const ev = {};
+    for (const line of block.split(/\r?\n/)){
+      const m = line.match(/^([A-Z-]+)(?:;[^:]*)?:(.*)$/);
+      if (!m) continue;
+      const [, key, value] = m;
+      if (key === 'SUMMARY') ev.title = value;
+      else if (key === 'DESCRIPTION') ev.description = value;
+      else if (key === 'DTSTART') ev.start = parseICSDate(value);
+      else if (key === 'DTEND') ev.end = parseICSDate(value);
+      else if (key === 'URL') ev.url = value;
+      else if (key === 'UID') ev.uid = value;
+      else if (key === 'LOCATION') ev.location = value;
+    }
+    if (ev.title && ev.start) events.push(ev);
+  }
+  return events;
+}
+
+function parseICSDate(v){
+  const m = String(v).match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2}))?(Z?)$/);
+  if (!m) return null;
+  const [, y, mo, d, h='00', mi='00', s='00', z] = m;
+  return (z ? new Date(Date.UTC(+y, +mo-1, +d, +h, +mi, +s)) : new Date(+y, +mo-1, +d, +h, +mi, +s)).getTime();
+}
+
+function eventExists(title, start, excludeId = null){
+  if (!start) return false;
+  const dayKey = startOfDay(new Date(start));
+  const norm = normalizeTitle(title);
+  return Store.all('events').some(e => e.id !== excludeId && e.start && startOfDay(new Date(e.start)) === dayKey && normalizeTitle(e.title) === norm);
+}
+
+async function syncCalendarSubscriptions(){
+  const subs = Store.cache.settings.calendarSubscriptions || [];
+  if (!subs.length) return { added: 0, subs: 0, errors: [] };
+  let totalAdded = 0;
+  const errors = [];
+  for (const sub of subs){
+    try {
+      const r = await fetchCalendarUrl(sub.url);
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const text = await r.text();
+      const events = parseICS(text);
+      let added = 0;
+      for (const ev of events){
+        if (ev.start < now() - 90*86400000) continue;
+        const existing = Store.all('events').find(e => e.icsUid === ev.uid && e.icsSource === sub.url);
+        if (!existing && eventExists(ev.title, ev.start)) continue;
+        const record = {
+          id: existing ? existing.id : `ics-${uid()}`,
+          title: sanitiseText(ev.title, 200),
+          description: sanitiseText(ev.description || '', 2000),
+          start: ev.start, end: ev.end || null,
+          location: sanitiseText(ev.location || '', 200),
+          source: sub.name || 'Calendar', url: ev.url || '',
+          icsUid: ev.uid, icsSource: sub.url, manual: false,
+          createdAt: existing ? existing.createdAt : now()
+        };
+        await Store.put('events', record);
+        if (!existing) added++;
+      }
+      totalAdded += added;
+      sub.lastSync = now(); sub.count = events.length; sub.error = null;
+    } catch (e){ sub.error = e.message; errors.push(`${sub.name || sub.url}: ${e.message}`); }
+  }
+  await Store.saveUserDoc();
+  return { added: totalAdded, subs: subs.length, errors };
 }
 
 /* ── Classroom sync ───────────────────────────────────────── */
@@ -1100,11 +1199,25 @@ function mapWorkType(w){
   }
 }
 
-/* ── Gmail sync ───────────────────────────────────────────── */
+/* ── Gmail sync (with filtering) ──────────────────────────── */
 function buildGmailQuery(){
   const s = Store.cache.settings;
   const parts = [];
-  parts.push('(subject:(homework OR assignment OR test OR exam OR quiz OR project OR due OR deadline OR notice OR reminder OR important OR newsletter OR assessment OR NCEA))');
+
+  // If trusted domains are set, restrict to those
+  if (s.trustedDomains?.length){
+    parts.push('(' + s.trustedDomains.map(d => `from:${d}`).join(' OR ') + ')');
+  }
+  // If trusted senders are set, restrict to those
+  if (s.trustedSenders?.length){
+    const senderClause = '(' + s.trustedSenders.map(d => `from:${d}`).join(' OR ') + ')';
+    if (parts.length) parts.push(senderClause);
+    else parts.push(senderClause);
+  }
+  // If no filters, use a broad keyword search
+  if (!parts.length){
+    parts.push('(subject:(homework OR assignment OR test OR exam OR quiz OR project OR due OR deadline OR notice OR reminder OR important OR newsletter OR assessment OR NCEA))');
+  }
   parts.push(`newer_than:${Math.max(1, Number(s.emailLookbackDays) || 30)}d`);
   return parts.join(' ');
 }
@@ -1320,33 +1433,35 @@ async function syncAll({ silent = false } = {}){
   setSyncUI('busy', 'Syncing…');
   const results = [], errors = [];
 
-  if (!GoogleServices.has()){
-    syncing = false;
-    setSyncUI('', 'Sign in to sync');
-    return { results, errors };
-  }
-
+  // Calendar (works without Google sign-in)
   try {
-    const r = await syncClassroom();
-    if (r.added || r.merged) results.push(`Classroom: ${r.added} new${r.merged ? `, ${r.merged} merged` : ''}`);
-  } catch (e){
-    if (e.message === 'TOKEN_EXPIRED' || e.message === 'NOT_SIGNED_IN'){
-      errors.push('Google session expired — sign out and back in.');
-      setSyncUI('err', 'Session expired');
-    } else if (e.message === 'ACCESS_BLOCKED'){
-      errors.push('Classroom access blocked by your school admin.');
-      setSyncUI('err', 'Access blocked');
-    } else {
-      errors.push(`Classroom: ${e.message}`);
+    const r = await syncCalendarSubscriptions();
+    if (r.added) results.push(`Calendar: ${r.added} new`);
+    for (const e of r.errors) errors.push(e);
+  } catch (e){ errors.push(`Calendar: ${e.message}`); }
+
+  // Google services (require sign-in)
+  if (GoogleServices.has()){
+    try {
+      const r = await syncClassroom();
+      if (r.added || r.merged) results.push(`Classroom: ${r.added} new${r.merged ? `, ${r.merged} merged` : ''}`);
+    } catch (e){
+      if (e.message === 'TOKEN_EXPIRED' || e.message === 'NOT_SIGNED_IN'){
+        errors.push('Google session expired — sign out and back in.');
+      } else if (e.message === 'ACCESS_BLOCKED'){
+        errors.push('Classroom access blocked by your school admin.');
+      } else {
+        errors.push(`Classroom: ${e.message}`);
+      }
     }
-  }
 
-  try {
-    const r = await syncGmail();
-    if (r.added || r.merged) results.push(`Email: ${r.added} new${r.merged ? `, ${r.merged} merged` : ''}`);
-  } catch (e){
-    if (e.message !== 'TOKEN_EXPIRED' && e.message !== 'ACCESS_BLOCKED'){
-      errors.push(`Email: ${e.message}`);
+    try {
+      const r = await syncGmail();
+      if (r.added || r.merged) results.push(`Email: ${r.added} new${r.merged ? `, ${r.merged} merged` : ''}`);
+    } catch (e){
+      if (e.message !== 'TOKEN_EXPIRED' && e.message !== 'ACCESS_BLOCKED'){
+        errors.push(`Email: ${e.message}`);
+      }
     }
   }
 
@@ -1469,7 +1584,7 @@ function viewDashboard(){
     <div style="font-size:52px;margin-bottom:14px">🎒</div>
     <h2 style="font-size:22px;margin-bottom:10px">Syncing your school life…</h2>
     <p class="muted" style="max-width:480px;margin:0 auto;font-size:14.5px;line-height:1.65">
-      We're pulling your Classroom assignments and school emails. This usually takes a few seconds.
+      We're pulling your Classroom assignments, school emails, and calendar. This usually takes a few seconds.
     </p>
   </div>` : `
   <div class="stat-grid">
@@ -1658,12 +1773,15 @@ function viewCalendar(){
   for (const a of Store.all('assignments')){
     if (a.dueDate) allEvents.push({ date: a.dueDate, title: a.title, kind: (a.type === 'Test' || a.type === 'Exam') ? 'test' : 'work', id: a.id });
   }
+  for (const e of Store.all('events')){
+    if (e.start) allEvents.push({ date: e.start, title: e.title, kind: 'event', id: e.id, source: e.source });
+  }
   const todayTs = startOfDay();
   const upcoming = allEvents.filter(e => startOfDay(new Date(e.date)) >= todayTs).sort((a,b) => a.date - b.date).slice(0, 14);
 
   return `
   <div class="page-head row-between wrap">
-    <div><h1 class="page-title">Calendar</h1><p class="page-sub">Deadlines and tests</p></div>
+    <div><h1 class="page-title">Calendar</h1><p class="page-sub">Deadlines, tests and school events</p></div>
     <div class="row">
       <button class="btn btn-ghost btn-sm" data-action="cal-prev">←</button>
       <div class="strong" style="min-width:170px;text-align:center">${monthName}</div>
@@ -1701,7 +1819,7 @@ function viewCalendar(){
             </div>
             <div style="flex:1;min-width:0">
               <div class="small strong truncate">${escapeHtml(e.title)}</div>
-              <div class="tiny muted">${e.kind === 'test' ? 'Test / Exam' : 'Assignment'}</div>
+              <div class="tiny muted">${e.kind === 'test' ? 'Test / Exam' : e.kind === 'event' ? (e.source || 'Event') : 'Assignment'}</div>
             </div>
             <span class="due ${cls}" style="font-size:11px">${d === 0 ? 'Today' : d === 1 ? 'Tomorrow' : `in ${d}d`}</span>
           </div>`;
@@ -1808,13 +1926,18 @@ function viewPlanner(){
   </section>`;
 }
 
+/* ── Settings with email filters + calendar management ────── */
 function viewSettings(){
   const s = Store.cache.settings;
   const i = Store.cache.integrations || {};
   const googleConnected = GoogleServices.has();
+  const subs = s.calendarSubscriptions || [];
+
   return `
   <div class="page-head"><h1 class="page-title">Settings</h1><p class="page-sub">Account, sync, and appearance</p></div>
   <div class="cols cols-2">
+
+    <!-- Account -->
     <section class="card">
       <div class="card-head"><div class="card-title">👤 Account</div></div>
       <div class="card-body">
@@ -1843,19 +1966,82 @@ function viewSettings(){
             </select>
           </div>
         </div>
-        <div class="set-row">
-          <div class="set-info"><div class="set-name">Email lookback</div><div class="set-desc">How far back to scan school emails.</div></div>
-          <div class="set-control">
-            <select class="select" data-setting="emailLookbackDays" style="width:130px">
-              <option value="7" ${s.emailLookbackDays === 7 ? 'selected' : ''}>7 days</option>
-              <option value="14" ${s.emailLookbackDays === 14 ? 'selected' : ''}>14 days</option>
-              <option value="30" ${s.emailLookbackDays === 30 ? 'selected' : ''}>30 days</option>
-              <option value="60" ${s.emailLookbackDays === 60 ? 'selected' : ''}>60 days</option>
-            </select>
-          </div>
-        </div>
       </div>
     </section>
+
+    <!-- Email filtering -->
+    <section class="card">
+      <div class="card-head"><div class="card-title">📧 Email filters</div></div>
+      <div class="card-body">
+        <p class="small muted" style="margin-bottom:14px">
+          Control which emails get scanned. Leave blank to scan everything school-related.
+        </p>
+        <div class="field" style="margin-bottom:14px">
+          <label class="label">Trusted domains</label>
+          <input class="input" id="trusted-domains-input" value="${escapeHtml((s.trustedDomains||[]).join(', '))}" placeholder="e.g. sacredheart.school.nz, school.nz">
+          <div class="hint">Only emails from these domains will be scanned.</div>
+        </div>
+        <div class="field" style="margin-bottom:14px">
+          <label class="label">Trusted senders</label>
+          <input class="input" id="trusted-senders-input" value="${escapeHtml((s.trustedSenders||[]).join(', '))}" placeholder="e.g. teacher@school.nz, admin@school.nz">
+          <div class="hint">Specific email addresses to always include.</div>
+        </div>
+        <div class="field" style="margin-bottom:14px">
+          <label class="label">How far back to look</label>
+          <select class="select" data-setting="emailLookbackDays">
+            <option value="7" ${s.emailLookbackDays === 7 ? 'selected' : ''}>7 days</option>
+            <option value="14" ${s.emailLookbackDays === 14 ? 'selected' : ''}>14 days</option>
+            <option value="30" ${s.emailLookbackDays === 30 ? 'selected' : ''}>30 days</option>
+            <option value="60" ${s.emailLookbackDays === 60 ? 'selected' : ''}>60 days</option>
+            <option value="90" ${s.emailLookbackDays === 90 ? 'selected' : ''}>90 days</option>
+          </select>
+        </div>
+        <button class="btn btn-primary btn-sm" data-action="save-email-filters">Save filters</button>
+      </div>
+    </section>
+
+    <!-- Calendars -->
+    <section class="card" style="grid-column:1/-1">
+      <div class="card-head">
+        <div class="card-title">📅 Calendars</div>
+        <button class="btn btn-sm btn-ghost" data-action="add-calendar">＋ Add</button>
+      </div>
+      <div class="card-body">
+        <p class="small muted" style="margin-bottom:14px">
+          Add ICS calendar feeds to pull in school events automatically.
+        </p>
+
+        <!-- Quick-add row -->
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:16px">
+          <div style="font-weight:600;font-size:13.5px;margin-bottom:8px">Quick add</div>
+          <div class="row" style="gap:8px;flex-wrap:wrap">
+            <button class="btn btn-primary btn-sm" data-action="add-sacred-heart">🏫 Sacred Heart College</button>
+          </div>
+        </div>
+
+        <!-- Subscribed calendars -->
+        ${subs.length ? subs.map(sub => `
+          <div class="set-row">
+            <div class="set-info">
+              <div class="set-name">
+                ${escapeHtml(sub.name)}
+                ${sub.error ? '<span class="chip chip-red" style="margin-left:6px">Error</span>' : ''}
+              </div>
+              <div class="set-desc truncate">${escapeHtml(sub.error || sub.url)}</div>
+              ${sub.lastSync ? `<div class="tiny muted" style="margin-top:4px">Last synced ${relativeTime(sub.lastSync)}</div>` : ''}
+            </div>
+            <div class="set-control">
+              <button class="btn btn-ghost btn-sm" data-action="sync-calendar" data-id="${sub.id}">Sync</button>
+              <button class="btn btn-danger-soft btn-sm" data-action="remove-calendar" data-id="${sub.id}">Remove</button>
+            </div>
+          </div>`).join('') : `<div class="empty" style="padding:26px 10px">
+            <div class="empty-title">No calendars yet</div>
+            <div class="empty-sub">Add the Sacred Heart calendar above, or paste any public ICS URL.</div>
+          </div>`}
+      </div>
+    </section>
+
+    <!-- Notifications -->
     <section class="card">
       <div class="card-head"><div class="card-title">🔔 Notifications</div></div>
       <div class="card-body">
@@ -1864,6 +2050,8 @@ function viewSettings(){
         ${notifRow('notifyNewTest', 'Tests and exams', 'Alert when a test or exam is detected.')}
       </div>
     </section>
+
+    <!-- Privacy -->
     <section class="card">
       <div class="card-head"><div class="card-title">🛡️ Privacy &amp; data</div></div>
       <div class="card-body">
@@ -1952,6 +2140,98 @@ function bindViewEvents(){
         }
         break;
       }
+      case 'save-email-filters': {
+        const domainsInput = $('#trusted-domains-input');
+        const sendersInput = $('#trusted-senders-input');
+        if (domainsInput){
+          Store.cache.settings.trustedDomains = domainsInput.value
+            .split(',').map(s => s.trim()).filter(Boolean);
+        }
+        if (sendersInput){
+          Store.cache.settings.trustedSenders = sendersInput.value
+            .split(',').map(s => s.trim()).filter(Boolean);
+        }
+        await Store.saveUserDoc();
+        toast('Email filters saved', 'success');
+        break;
+      }
+      case 'add-sacred-heart': {
+        const s = Store.cache.settings;
+        if (!Array.isArray(s.calendarSubscriptions)) s.calendarSubscriptions = [];
+        const exists = s.calendarSubscriptions.some(c => c.id === SACRED_HEART_CALENDAR.id);
+        if (exists){
+          toast('Sacred Heart calendar is already added', 'warn');
+          break;
+        }
+        s.calendarSubscriptions.push({
+          id: SACRED_HEART_CALENDAR.id,
+          name: SACRED_HEART_CALENDAR.name,
+          url: SACRED_HEART_CALENDAR.url,
+          builtin: false,
+          lastSync: null,
+          count: 0,
+          error: null
+        });
+        await Store.saveUserDoc();
+        toast('Adding Sacred Heart calendar…', 'success');
+        render();
+        await syncCalendarSubscriptions();
+        render();
+        break;
+      }
+      case 'add-calendar': openAddCalendarModal(); break;
+      case 'sync-calendar': {
+        const sub = Store.cache.settings.calendarSubscriptions.find(c => c.id === id);
+        if (!sub) break;
+        try {
+          const r = await fetchCalendarUrl(sub.url);
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          const text = await r.text();
+          const events = parseICS(text);
+          let added = 0;
+          for (const ev of events){
+            if (ev.start < now() - 90*86400000) continue;
+            const existing = Store.all('events').find(x => x.icsUid === ev.uid && x.icsSource === sub.url);
+            if (!existing && eventExists(ev.title, ev.start)) continue;
+            await Store.put('events', {
+              id: existing ? existing.id : `ics-${uid()}`,
+              title: sanitiseText(ev.title, 200),
+              description: sanitiseText(ev.description || '', 2000),
+              start: ev.start, end: ev.end || null,
+              location: sanitiseText(ev.location || '', 200),
+              source: sub.name || 'Calendar', url: ev.url || '',
+              icsUid: ev.uid, icsSource: sub.url, manual: false,
+              createdAt: existing ? existing.createdAt : now()
+            });
+            if (!existing) added++;
+          }
+          sub.lastSync = now();
+          sub.count = events.length;
+          sub.error = null;
+          await Store.saveUserDoc();
+          toast(`${added} new event${added===1?'':'s'}`, 'success', 'Calendar synced');
+          render();
+        } catch (e){
+          sub.error = e.message;
+          await Store.saveUserDoc();
+          toast(e.message, 'error', 'Sync failed');
+          render();
+        }
+        break;
+      }
+      case 'remove-calendar': {
+        const subs = Store.cache.settings.calendarSubscriptions;
+        const idx = subs.findIndex(c => c.id === id);
+        if (idx >= 0){
+          if (await confirmDialog('Remove this calendar?', 'Its events will no longer sync.', 'Remove', true)){
+            subs.splice(idx, 1);
+            await Store.saveUserDoc();
+            toast('Calendar removed', 'success');
+            render();
+          }
+        }
+        break;
+      }
     }
   });
 
@@ -1966,6 +2246,38 @@ function bindViewEvents(){
       await Store.saveUserDoc();
       if (setting === 'theme') document.documentElement.dataset.theme = e.target.value;
       toast('Saved', 'success');
+    }
+  });
+}
+
+/* ── Add calendar modal ───────────────────────────────────── */
+function openAddCalendarModal(){
+  openModal({
+    title: 'Add a calendar',
+    subtitle: 'Paste a public ICS calendar URL',
+    body: `
+      <div class="field"><label class="label">Calendar name</label>
+        <input class="input" id="cal-name" placeholder="e.g. Sports Fixtures"></div>
+      <div class="field"><label class="label">ICS URL</label>
+        <input class="input" id="cal-url" placeholder="https://…/school.ics" style="font-family:ui-monospace,monospace;font-size:12px">
+        <div class="hint">Must be an .ics feed. Try the school's calendar URL if you have one.</div>
+      </div>`,
+    footer: `<button class="btn btn-ghost" data-close>Cancel</button><button class="btn btn-primary" id="cal-add">Add calendar</button>`,
+    onMount(el, close){
+      $('#cal-add', el).addEventListener('click', async () => {
+        const name = $('#cal-name', el).value.trim() || 'Calendar';
+        const url = $('#cal-url', el).value.trim();
+        if (!url || !/^https?:\/\//.test(url)){ toast('Please paste a valid URL', 'error'); return; }
+        Store.cache.settings.calendarSubscriptions.push({
+          id: uid(), name, url, builtin: false, lastSync: null, count: 0, error: null
+        });
+        await Store.saveUserDoc();
+        close();
+        toast('Calendar added — syncing…', 'success');
+        render();
+        await syncCalendarSubscriptions();
+        render();
+      });
     }
   });
 }
@@ -2351,7 +2663,6 @@ async function onUserSignedIn(user){
   render();
   checkDueSoon();
 
-  // Auto-sync on load
   if (GoogleServices.has()){
     setSyncUI('busy', 'Syncing…');
     setTimeout(() => syncAll({ silent: true }), 400);
@@ -2445,6 +2756,7 @@ async function exportData(){
     user: { email: App.user?.email, name: App.user?.displayName },
     data: {
       assignments: Store.all('assignments'),
+      events: Store.all('events'),
       notifications: Store.all('notifications'),
       effortReports: Store.all('effortReports'),
       settings: Store.cache.settings
@@ -2513,10 +2825,10 @@ async function boot(){
 boot();
 
 window.StudentOS = {
-  version: '7.0.0',
+  version: '7.1.0',
   get state(){ return Store.cache; },
   get config(){ return loadConfig(); },
-  syncAll, exportData, GoogleServices
+  syncAll, exportData, GoogleServices, syncCalendarSubscriptions
 };
 </script>
 </body>
