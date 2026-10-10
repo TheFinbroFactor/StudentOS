@@ -478,7 +478,11 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 
 <script type="module">
 /* ================================================================
-   STUDENTOS v7.2 — email sync fixes + diagnostics
+   STUDENTOS v7.3
+   - clamped emailLookbackDays (fixes 1e+22d)
+   - Classroom notification emails excluded from Gmail sync
+   - title prefix stripping for better dedupe
+   - wide probe in diagnostics
    ================================================================ */
 
 const LS_CONFIG = 'studentos.config.v1';
@@ -750,7 +754,25 @@ function ratingClass(r){
   if (r === 4) return 'r4';
   return 'r5';
 }
-function normalizeTitle(s){ return String(s || '').toLowerCase().trim().replace(/\s+/g, ' ').replace(/[^\w\s]/g, ''); }
+
+// Strip classroom prefixes like "[Mathematics] New assignment: X" → "X"
+const TITLE_PREFIX_RE = /^\s*(?:re|fw|fwd)\s*:\s*|^\s*\[[^\]]{1,60}\]\s*|^\s*(?:new|updated)\s+(?:assignment|material|announcement|question|quiz|test)\s*(?:posted|created|added)?\s*:?\s*/gi;
+function stripTitlePrefixes(s){
+  let t = String(s || '');
+  for (let i = 0; i < 3; i++){
+    const next = t.replace(TITLE_PREFIX_RE, '');
+    if (next === t) break;
+    t = next;
+  }
+  return t.trim();
+}
+function normalizeTitle(s){
+  return stripTitlePrefixes(s)
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .replace(/[^\w\s]/g, '')
+    .trim();
+}
 
 function toast(msg, type='info', title=''){
   const el = document.createElement('div');
@@ -908,6 +930,10 @@ const Store = {
     if (!d.integrations || typeof d.integrations !== 'object') d.integrations = {};
     if (!d.settings) d.settings = { ...DEFAULT_SETTINGS };
     d.settings = { ...DEFAULT_SETTINGS, ...d.settings };
+    // Sanitise lookback on every load so an old 1e22 value can never poison us again.
+    let lb = Number(d.settings.emailLookbackDays);
+    if (!Number.isFinite(lb) || lb <= 0) lb = 30;
+    d.settings.emailLookbackDays = Math.min(365, Math.max(1, Math.round(lb)));
     if (!Array.isArray(d.settings.trustedDomains)) d.settings.trustedDomains = [];
     if (!Array.isArray(d.settings.trustedSenders)) d.settings.trustedSenders = [];
     if (!Array.isArray(d.settings.calendarSubscriptions)) d.settings.calendarSubscriptions = [];
@@ -1202,29 +1228,38 @@ function mapWorkType(w){
   }
 }
 
-/* ── Gmail sync (broader query) ───────────────────────────── */
+/* ── Gmail sync ───────────────────────────────────────────── */
+function getLookbackDays(){
+  let n = Number(Store.cache.settings.emailLookbackDays);
+  if (!Number.isFinite(n) || n <= 0) n = 30;
+  n = Math.min(365, Math.max(1, Math.round(n)));
+  return n;
+}
+
 function buildGmailQuery(){
   const s = Store.cache.settings;
+  const days = getLookbackDays();
   const parts = [];
 
-  if (s.trustedDomains?.length){
-    parts.push('(' + s.trustedDomains.map(d => `from:${d}`).join(' OR ') + ')');
-  }
-  if (s.trustedSenders?.length){
-    const senderClause = '(' + s.trustedSenders.map(d => `from:${d}`).join(' OR ') + ')';
-    parts.push(senderClause);
-  }
+  const domainList = (s.trustedDomains || []).map(d => String(d).trim()).filter(Boolean);
+  const senderList = (s.trustedSenders || []).map(d => String(d).trim()).filter(Boolean);
+
+  if (domainList.length) parts.push('(' + domainList.map(d => `from:${d}`).join(' OR ') + ')');
+  if (senderList.length) parts.push('(' + senderList.map(d => `from:${d}`).join(' OR ') + ')');
 
   if (s.emailKeywords && s.emailKeywords.trim()){
-    const kw = s.emailKeywords.split(/[,\s]+/).filter(Boolean).map(k => k.trim()).filter(Boolean);
-    if (kw.length){
-      parts.push('(' + kw.join(' OR ') + ')');
-    }
+    const kw = s.emailKeywords.split(/[,\s]+/).map(k => k.trim()).filter(Boolean);
+    if (kw.length) parts.push('(' + kw.join(' OR ') + ')');
   } else if (!parts.length){
     parts.push('(homework OR assignment OR test OR exam OR quiz OR project OR due OR deadline OR submit OR hand-in OR assessment OR notice OR reminder OR important OR newsletter OR NCEA OR term OR class OR teacher)');
   }
 
-  parts.push(`newer_than:${Math.max(1, Number(s.emailLookbackDays) || 30)}d`);
+  // Never pull Google Classroom notification emails — the Classroom API is
+  // already the source of truth for the same information.
+  parts.push('-from:classroom.google.com');
+  parts.push('-from:no-reply@classroom.google.com');
+
+  parts.push(`newer_than:${days}d`);
   return parts.join(' ');
 }
 
@@ -1270,6 +1305,7 @@ async function syncGmail(){
   console.log(`[StudentOS] Gmail found ${ids.length} matching messages`);
 
   const rawAssignments = [];
+  let skippedClassroom = 0;
   for (const id of ids){
     try {
       const localId = `gm-${id}`;
@@ -1277,6 +1313,22 @@ async function syncGmail(){
       const msg = await gfetchJson(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=full`, token);
       const parsed = parseGmailMessage(msg);
       if (!parsed) continue;
+
+      // Belt-and-braces: skip anything that looks like a Classroom notification,
+      // even if it arrived through a different From address.
+      const fromLower = (parsed.from || '').toLowerCase();
+      const bodyLower = (parsed.body || '').toLowerCase();
+      const looksLikeClassroomNotification =
+        fromLower.includes('classroom.google.com') ||
+        fromLower.includes('classroom-noreply@') ||
+        (/\bnew (assignment|material|announcement|question)\b/i.test(parsed.subject) &&
+         bodyLower.includes('classroom.google.com'));
+      if (looksLikeClassroomNotification){
+        console.log(`[StudentOS] Skipping Classroom notification: "${parsed.subject}"`);
+        skippedClassroom++;
+        continue;
+      }
+
       const haystack = `${parsed.subject} ${parsed.body}`;
       const type = detectType(haystack);
       const hasDeadline = /\b(due|deadline|by \w+day|hand in|submit|exam|test|assessment|reminder)\b/i.test(haystack);
@@ -1298,17 +1350,18 @@ async function syncGmail(){
       });
     } catch (e){ console.warn(`Failed to read message ${id}:`, e.message); }
   }
-  console.log(`[StudentOS] Gmail passing filter: ${rawAssignments.length}`);
+  console.log(`[StudentOS] Gmail passing filter: ${rawAssignments.length} (skipped ${skippedClassroom} Classroom notifications)`);
   const r = await importItems(rawAssignments, 'Email');
   Store.cache.integrations.email = {
     id: 'email', connected: true, lastSync: now(),
     imported: Store.all('assignments').filter(x => (x.sources||[]).some(s => s.source === 'Email')).length,
     scanned: ids.length,
     accepted: rawAssignments.length,
+    skippedClassroom,
     query: q
   };
   await Store.saveUserDoc();
-  return { added: r.added, merged: r.merged, scanned: ids.length, accepted: rawAssignments.length };
+  return { added: r.added, merged: r.merged, scanned: ids.length, accepted: rawAssignments.length, skippedClassroom };
 }
 
 /* ── Dedupe & import ──────────────────────────────────────── */
@@ -2107,6 +2160,7 @@ function viewSettings(){
   const subs = s.calendarSubscriptions || [];
   const profile = Store.cache.profile || {};
   const isDark = s.theme === 'dark';
+  const days = getLookbackDays();
 
   return `
   <div class="page-head">
@@ -2185,15 +2239,15 @@ function viewSettings(){
       <div class="card-body">
         <div class="set-row">
           <div class="set-info"><div class="set-name">Lookback window</div>
-            <div class="set-desc">Only scan emails from the last N days.</div></div>
+            <div class="set-desc">Only scan emails from the last N days (1–365).</div></div>
           <div class="set-control">
             <input class="input" type="number" min="1" max="365" style="width:90px"
-                   data-setting="emailLookbackDays" value="${Number(s.emailLookbackDays) || 30}">
+                   data-setting="emailLookbackDays" value="${days}">
           </div>
         </div>
         <div class="set-row">
           <div class="set-info"><div class="set-name">Trusted domains</div>
-            <div class="set-desc">Only pull emails from these sender domains. Comma-separated.</div></div>
+            <div class="set-desc">Only pull emails from these sender domains. Comma-separated. Leaving this blank uses the broad keyword search.</div></div>
           <div class="set-control" style="flex-direction:column;align-items:stretch;width:100%">
             <input class="input" data-setting-list="trustedDomains"
                    placeholder="school.kiwi, kamar.school.nz"
@@ -2413,7 +2467,13 @@ function bindViewEvents(){
       const key = el.dataset.setting;
       let val;
       if (el.type === 'checkbox') val = el.checked;
-      else if (el.type === 'number') val = Math.max(1, Number(el.value) || 30);
+      else if (el.type === 'number') {
+        let n = Number(el.value);
+        if (!Number.isFinite(n) || n <= 0) n = 30;
+        n = Math.min(365, Math.max(1, Math.round(n)));
+        val = n;
+        el.value = String(n);
+      }
       else val = el.value;
       Store.cache.settings[key] = val;
       await Store.saveUserDoc();
@@ -2690,6 +2750,9 @@ async function openDiagnostics(){
     }
   }
 
+  const days = getLookbackDays();
+  results.push({ ok: true, label: 'Lookback window', detail: `${days} day${days === 1 ? '' : 's'}.` });
+
   if (GoogleServices.has()){
     const q = buildGmailQuery();
     results.push({ ok: true, label: 'Gmail query', detail: `<code>${escapeHtml(q)}</code>` });
@@ -2704,10 +2767,28 @@ async function openDiagnostics(){
         label: 'Messages matched',
         detail: n > 0
           ? `${n} message${n === 1 ? '' : 's'} matched your query.`
-          : 'No messages matched. Try widening the lookback window or clearing trusted senders.'
+          : 'No messages matched. See the wide probe below to tell whether this is your filter or your inbox.'
       });
     } catch (e){
       results.push({ ok: false, label: 'Gmail API call', detail: e.message });
+    }
+
+    // Wide probe — no sender/keyword filter, just the time window.
+    try {
+      const wide = await gfetchJson(
+        `https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=1&q=${encodeURIComponent(`newer_than:${days}d`)}`,
+        GoogleServices.accessToken
+      );
+      const estimate = wide.resultSizeEstimate ?? (wide.messages || []).length;
+      results.push({
+        ok: estimate > 0,
+        label: 'Wide probe (time window only)',
+        detail: estimate > 0
+          ? `~${estimate} message(s) in the last ${days} days. The inbox itself is fine — any zero result above is your keyword or sender filter.`
+          : `0 messages in the last ${days} days. Your lookback window or the account you signed in with is the problem.`
+      });
+    } catch (e){
+      results.push({ ok: false, label: 'Wide probe', detail: e.message });
     }
   }
 
@@ -2729,6 +2810,15 @@ async function openDiagnostics(){
     label: 'Local data',
     detail: `${Store.all('assignments').length} assignments · ${Store.all('events').length} events · ${Store.all('notifications').length} notifications.`
   });
+
+  const emailInt = Store.cache.integrations?.email;
+  if (emailInt){
+    results.push({
+      ok: true,
+      label: 'Last email sync',
+      detail: `Scanned ${emailInt.scanned ?? '?'}, accepted ${emailInt.accepted ?? '?'}, skipped ${emailInt.skippedClassroom ?? 0} Classroom notification(s).`
+    });
+  }
 
   const ints = Object.values(Store.cache.integrations || {});
   const lastSync = ints.map(i => i.lastSync).filter(Boolean).sort((a, b) => b - a)[0];
