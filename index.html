@@ -75,7 +75,7 @@ img{max-width:100%;display:block}
 .stack{display:flex;flex-direction:column;gap:14px}
 .only-mobile{display:none}
 .truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 15px;border-radius:var(--radius-sm);font-weight:600;font-size:13.5px;border:1px solid transparent;transition:.16s;white-space:nowrap;user-select:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 15px;border-radius:var(--radius-sm);font-weight:600;font-size:13.5px;border:1px solid transparent;transition:.16s;white-space:nowrap;user-select:none;line-height:1}
 .btn:active{transform:translateY(1px)}
 .btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
 .btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow-xs)}
@@ -94,8 +94,9 @@ img{max-width:100%;display:block}
 .btn-google{background:#fff;color:#3c4043;border:1px solid #dadce0;font-weight:600;font-size:15px;padding:15px 20px;box-shadow:var(--shadow-xs)}
 .btn-google:hover:not(:disabled){background:#f8f9fa;border-color:#c6c9cc}
 [data-theme="dark"] .btn-google{background:#fff;color:#202124}
-.icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:var(--radius-sm);font-size:17px;color:var(--text-2);transition:.15s;position:relative;flex:none}
+.icon-btn{width:38px;height:38px;display:grid;place-items:center;border-radius:var(--radius-sm);color:var(--text-2);transition:.15s;position:relative;flex:none}
 .icon-btn:hover{background:var(--surface-2);color:var(--text)}
+.icon-btn svg{width:18px;height:18px}
 .field{display:flex;flex-direction:column;gap:6px}
 .label{font-size:12.5px;font-weight:600;color:var(--text-2)}
 .input,.select,.textarea{width:100%;padding:9px 12px;border-radius:var(--radius-sm);border:1px solid var(--border-strong);background:var(--surface);color:var(--text);transition:.15s;font-size:14px}
@@ -123,6 +124,7 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .card-pad{padding:18px 20px}
 .card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 20px;border-bottom:1px solid var(--border)}
 .card-title{font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card-title svg{color:var(--text-3);flex:none}
 .card-body{padding:18px 20px}
 .boot{position:fixed;inset:0;z-index:9000;display:grid;place-content:center;justify-items:center;gap:18px;background:var(--bg);transition:opacity .35s,visibility .35s}
 .boot.gone{opacity:0;visibility:hidden;pointer-events:none}
@@ -149,15 +151,14 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .auth-title{font-size:25px;margin-bottom:6px}
 .auth-lead{color:var(--text-2);font-size:14.5px;margin-bottom:26px}
 .auth-fineprint{margin-top:22px;font-size:11.5px;color:var(--text-3);line-height:1.6}
-.auth-divider{display:flex;align-items:center;gap:12px;margin:22px 0;color:var(--text-3);font-size:12px;font-weight:600}
-.auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--border)}
 .demo-link{display:block;text-align:center;font-size:12.5px;color:var(--text-3);margin-top:18px;background:none;border:none;width:100%}
 .demo-link:hover{color:var(--text-2);text-decoration:underline}
 .app{min-height:100vh;display:flex;flex-direction:column}
 .topbar{position:sticky;top:0;z-index:600;height:var(--topbar-h);flex:none;display:flex;align-items:center;gap:12px;padding:0 18px;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--border)}
 .topbar-search{position:relative;flex:1;max-width:420px;margin-left:8px}
-.search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:16px;pointer-events:none}
-.topbar-search .input{padding-left:34px;background:var(--surface-2);border-color:transparent;height:38px}
+.search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-3);pointer-events:none;display:grid;place-items:center}
+.search-ico svg{width:15px;height:15px}
+.topbar-search .input{padding-left:36px;background:var(--surface-2);border-color:transparent;height:38px}
 .topbar-search .input:focus{background:var(--surface);border-color:var(--primary)}
 .topbar-search kbd{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:11px;pointer-events:none}
 .topbar-search .input:focus ~ kbd{opacity:0}
@@ -178,6 +179,8 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .menu-item.danger{color:var(--red-600)}
 .menu-item.danger:hover{background:var(--red-50)}
 .menu-item kbd{margin-left:auto}
+.menu-item svg{width:15px;height:15px;color:var(--text-3)}
+.menu-item.danger svg{color:var(--red-500)}
 .menu-sep{height:1px;background:var(--border);margin:6px 4px}
 .account-head{display:flex;gap:12px;align-items:center;padding:10px 11px 12px}
 .account-meta{min-width:0}
@@ -189,8 +192,9 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .notif-item:last-child{border-bottom:none}
 .notif-item:hover{background:var(--surface-2)}
 .notif-item.unread{background:var(--primary-soft)}
-.notif-ico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:14px;flex:none;background:var(--gray-100)}
+.notif-ico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none;background:var(--gray-100);color:var(--text-2)}
 [data-theme="dark"] .notif-ico{background:var(--surface-2)}
+.notif-ico svg{width:15px;height:15px}
 .notif-body{min-width:0;flex:1}
 .notif-title{font-size:13.5px;font-weight:600;margin-bottom:2px}
 .notif-meta{font-size:11.5px;color:var(--text-3)}
@@ -202,7 +206,8 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .nav-item{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:9px;color:var(--text-2);font-size:13.8px;font-weight:500;transition:.14s;position:relative}
 .nav-item:hover{background:var(--surface-2);color:var(--text);text-decoration:none}
 .nav-item.active{background:var(--primary-soft);color:var(--primary);font-weight:600}
-.nav-ico{font-size:15px;width:19px;text-align:center;flex:none;transition:.14s}
+.nav-ico{width:18px;height:18px;display:grid;place-items:center;flex:none;color:currentColor}
+.nav-ico svg{width:16px;height:16px}
 .nav-badge{margin-left:auto;background:var(--red-500);color:#fff;font-size:10.5px;font-weight:700;padding:1.5px 7px;border-radius:99px;min-width:20px;text-align:center}
 .sidebar-foot{margin-top:auto;padding:0 4px}
 .sync-chip{display:flex;align-items:center;gap:8px;padding:9px 11px;border-radius:9px;background:var(--surface-2);font-size:11.5px;color:var(--text-2)}
@@ -211,6 +216,7 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .sync-chip.busy .sync-dot{background:var(--amber-500);animation:blink 1s infinite}
 @keyframes blink{50%{opacity:.3}}
 .sync-chip.err .sync-dot{background:var(--red-500)}
+.sync-chip.err .sync-text{color:var(--red-600)}
 .view{flex:1;min-width:0;padding:26px 30px 100px;max-width:1320px;width:100%}
 .scrim{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:550;backdrop-filter:blur(2px)}
 .page-head{margin-bottom:24px}
@@ -232,7 +238,8 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .item:last-child{border-bottom:none}
 .item:hover{background:var(--surface-2)}
 .item-check{width:19px;height:19px;border-radius:6px;border:2px solid var(--border-strong);flex:none;margin-top:2px;display:grid;place-items:center;cursor:pointer;transition:.15s;background:var(--surface)}
-.item-check.on{background:var(--green-500);border-color:var(--green-500);color:#fff;font-size:11px;font-weight:800}
+.item-check.on{background:var(--green-500);border-color:var(--green-500);color:#fff}
+.item-check svg{width:11px;height:11px;stroke-width:3}
 .item-main{flex:1;min-width:0}
 .item-title{font-weight:600;font-size:14.2px;margin-bottom:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .item.done .item-title{text-decoration:line-through;color:var(--text-3)}
@@ -242,7 +249,8 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .due{font-size:12px;font-weight:700;white-space:nowrap}
 .due.overdue{color:var(--red-600)}.due.soon{color:var(--amber-600)}.due.ok{color:var(--text-2)}
 .empty{padding:52px 24px;text-align:center;color:var(--text-3)}
-.empty-ico{font-size:36px;margin-bottom:12px;opacity:.65}
+.empty-ico{width:48px;height:48px;margin:0 auto 14px;display:grid;place-items:center;border-radius:14px;background:var(--surface-2);color:var(--text-3)}
+.empty-ico svg{width:24px;height:24px}
 .empty-title{font-weight:600;color:var(--text-2);margin-bottom:4px;font-size:14.5px}
 .empty-sub{font-size:13px;max-width:380px;margin:0 auto;line-height:1.6}
 .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
@@ -290,21 +298,30 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .modal-sub{font-size:13px;color:var(--text-2);margin-top:4px}
 .modal-body{padding:20px 24px;overflow-y:auto;flex:1}
 .modal-foot{padding:14px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;background:var(--surface-2);border-radius:0 0 var(--radius-xl) var(--radius-xl)}
-.modal-close{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--text-3);font-size:19px;flex:none}
+.modal-close{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--text-3);font-size:20px;line-height:1;flex:none}
 .modal-close:hover{background:var(--surface-2);color:var(--text)}
 .set-row{display:flex;gap:16px;padding:15px 0;border-bottom:1px solid var(--border);align-items:flex-start}
 .set-row:last-child{border-bottom:none}
+.set-row.stacked{flex-direction:column;align-items:stretch;gap:8px}
 .set-info{flex:1;min-width:0}
 .set-name{font-weight:600;font-size:14px;margin-bottom:3px}
 .set-desc{font-size:12.5px;color:var(--text-2);line-height:1.55}
 .set-control{flex:none;display:flex;gap:8px;align-items:center}
+.set-row.stacked .set-control{width:100%}
+.set-row.stacked .set-control .input{width:100%}
 @media(max-width:640px){.set-row{flex-direction:column;gap:10px}.set-control{width:100%}}
-code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5px;background:var(--gray-100);padding:2px 6px;border-radius:5px}
+code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5px;background:var(--gray-100);padding:2px 6px;border-radius:5px;word-break:break-all}
 [data-theme="dark"] code{background:var(--surface-2)}
 .spinner{width:15px;height:15px;border:2px solid var(--border-strong);border-top-color:var(--primary);border-radius:99px;animation:spin .7s linear infinite;flex:none;display:inline-block}
-.sync-spinner{width:12px;height:12px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:99px;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+.sync-btn{min-width:80px;transition:.16s}
+.sync-btn .sync-spinner{display:none;width:14px;height:14px;border:2px solid var(--border-strong);border-top-color:var(--primary);border-radius:99px;animation:spin .7s linear infinite}
+.sync-btn.busy .sync-spinner{display:inline-block}
+.sync-btn.busy .sync-label{display:none}
+.sync-label{display:inline-flex;align-items:center;gap:7px}
+.sync-label svg{width:13px;height:13px}
 .alert{padding:12px 15px;border-radius:var(--radius);font-size:13px;line-height:1.55;border:1px solid transparent;display:flex;gap:10px;align-items:flex-start}
+.alert svg{width:16px;height:16px;flex:none;margin-top:1px}
 .alert-error{background:var(--red-50);color:var(--red-600);border-color:rgba(239,68,68,.22)}
 .alert-warn{background:var(--amber-50);color:var(--amber-600);border-color:rgba(245,158,11,.25)}
 .alert-info{background:var(--sky-50);color:#0284c7;border-color:rgba(14,165,233,.22)}
@@ -312,14 +329,17 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .alert strong{font-weight:700}
 .drop-zone{border:2px dashed var(--border-strong);border-radius:16px;padding:32px 20px;text-align:center;transition:.18s;cursor:pointer;background:var(--surface-2)}
 .drop-zone.drag{border-color:var(--primary);background:var(--primary-soft)}
-.drop-zone-ico{font-size:40px;margin-bottom:10px;opacity:.7}
+.drop-zone-ico{width:52px;height:52px;margin:0 auto 12px;display:grid;place-items:center;border-radius:14px;background:var(--surface);color:var(--text-3);border:1px solid var(--border)}
+.drop-zone-ico svg{width:24px;height:24px}
 .drop-zone-title{font-weight:700;font-size:15px;margin-bottom:4px}
 .drop-zone-sub{font-size:12.5px;color:var(--text-2);line-height:1.55}
 .diag-row{display:flex;gap:12px;padding:10px 12px;background:var(--surface-2);border-radius:9px;font-size:12.5px;align-items:flex-start;margin-bottom:6px;line-height:1.5}
-.diag-ico{font-size:14px;flex:none;line-height:1.4}
+.diag-ico{width:18px;height:18px;flex:none;display:grid;place-items:center;color:var(--green-600);margin-top:1px}
+.diag-ico.bad{color:var(--amber-600)}
+.diag-ico svg{width:15px;height:15px}
 .diag-body{flex:1;min-width:0}
 .diag-body strong{display:block;margin-bottom:2px;font-size:13px;color:var(--text)}
-.diag-body code{font-size:11px;word-break:break-all}
+.diag-body code{font-size:11px}
 .toasts{position:fixed;bottom:22px;left:22px;z-index:2000;display:flex;flex-direction:column;gap:10px;pointer-events:none}
 .toast{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--primary);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:12px 16px;min-width:270px;max-width:380px;display:flex;gap:11px;align-items:flex-start;pointer-events:auto;animation:toastIn .24s cubic-bezier(.2,.9,.3,1)}
 @keyframes toastIn{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
@@ -328,7 +348,11 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 .toast.success{border-left-color:var(--green-500)}
 .toast.error{border-left-color:var(--red-500)}
 .toast.warn{border-left-color:var(--amber-500)}
-.toast-ico{font-size:16px;line-height:1.3;flex:none}
+.toast-ico{flex:none;margin-top:1px;color:var(--primary)}
+.toast.success .toast-ico{color:var(--green-600)}
+.toast.error .toast-ico{color:var(--red-600)}
+.toast.warn .toast-ico{color:var(--amber-600)}
+.toast-ico svg{width:16px;height:16px}
 .toast-title{font-weight:600;font-size:13.5px;margin-bottom:1px}
 .toast-msg{font-size:12.5px;color:var(--text-2);line-height:1.5}
 @media(max-width:960px){.auth{grid-template-columns:1fr}.auth-hero{display:none}.auth-panel{padding:32px 20px}}
@@ -367,10 +391,10 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
       <h1 class="auth-headline">Your school life.<br>All in one place.</h1>
       <p class="auth-sub">Sign in with Google once. Everything syncs automatically — Classroom assignments, school emails, deadlines.</p>
       <ul class="auth-features">
-        <li><span class="tick">✓</span> <strong>Google Classroom</strong> — every assignment, pulled in automatically</li>
-        <li><span class="tick">✓</span> <strong>School emails</strong> — deadlines, tests, and notices extracted</li>
-        <li><span class="tick">✓</span> <strong>Effort reports</strong> — track your Friday ratings over time</li>
-        <li><span class="tick">✓</span> <strong>Study planner</strong> — schedules around your tutoring and sport</li>
+        <li><span class="tick">1</span> <strong>Google Classroom</strong> — every assignment, pulled in automatically</li>
+        <li><span class="tick">2</span> <strong>School emails</strong> — deadlines, tests, and notices extracted</li>
+        <li><span class="tick">3</span> <strong>Effort reports</strong> — track your Friday ratings over time</li>
+        <li><span class="tick">4</span> <strong>Study planner</strong> — schedules around your tutoring and sport</li>
       </ul>
       <div class="auth-badges">
         <span class="chip chip-glass">Read-only access</span>
@@ -408,22 +432,30 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 
 <div id="app" class="app" hidden>
   <header class="topbar">
-    <button class="icon-btn only-mobile" id="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
+    <button class="icon-btn only-mobile" id="menu-btn" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <a class="brand" href="#/dashboard"><span class="brand-mark">S</span><span class="brand-text">StudentOS</span></a>
     <div class="topbar-search">
-      <span class="search-ico">⌕</span>
+      <span class="search-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
       <input id="global-search" class="input" type="search" placeholder="Search assignments, tests…" aria-label="Search" autocomplete="off">
       <kbd>/</kbd>
       <div id="search-results" class="search-results" hidden></div>
     </div>
     <div class="topbar-actions">
-      <button class="btn btn-ghost btn-sm" id="sync-btn" title="Sync now">
-        <span class="sync-spinner" hidden></span>
-        <span class="sync-label">Sync</span>
+      <button class="btn btn-ghost btn-sm sync-btn" id="sync-btn" title="Sync now" aria-label="Sync now">
+        <span class="sync-spinner"></span>
+        <span class="sync-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          <span>Sync</span>
+        </span>
       </button>
       <div class="dropdown">
         <button class="icon-btn" id="notif-btn" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
-          🔔<span id="notif-dot" class="dot" hidden></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span id="notif-dot" class="dot" hidden></span>
         </button>
         <div id="notif-panel" class="dropdown-panel notif-panel" hidden></div>
       </div>
@@ -440,9 +472,15 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
             </div>
           </div>
           <div class="menu-sep"></div>
-          <button class="menu-item" data-nav="#/settings">⚙️ <span>Settings</span></button>
+          <button class="menu-item" data-nav="#/settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Settings</span>
+          </button>
           <div class="menu-sep"></div>
-          <button class="menu-item danger" id="signout-btn">↩︎ <span>Sign out</span></button>
+          <button class="menu-item danger" id="signout-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span>Sign out</span>
+          </button>
         </div>
       </div>
     </div>
@@ -452,18 +490,18 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
     <nav id="sidebar" class="sidebar" aria-label="Main">
       <div class="sidebar-group">
         <div class="sidebar-label">Overview</div>
-        <a class="nav-item" href="#/dashboard"><span class="nav-ico">🏠</span><span>Dashboard</span></a>
-        <a class="nav-item" href="#/assignments"><span class="nav-ico">📝</span><span>Assignments</span><span class="nav-badge" id="badge-assignments" hidden></span></a>
-        <a class="nav-item" href="#/calendar"><span class="nav-ico">📅</span><span>Calendar</span></a>
+        <a class="nav-item" href="#/dashboard"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span>Dashboard</span></a>
+        <a class="nav-item" href="#/assignments"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></span><span>Assignments</span><span class="nav-badge" id="badge-assignments" hidden></span></a>
+        <a class="nav-item" href="#/calendar"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span>Calendar</span></a>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-label">Organise</div>
-        <a class="nav-item" href="#/planner"><span class="nav-ico">🎯</span><span>Study Planner</span></a>
-        <a class="nav-item" href="#/effort"><span class="nav-ico">📊</span><span>Effort Reports</span></a>
+        <a class="nav-item" href="#/planner"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span><span>Study Planner</span></a>
+        <a class="nav-item" href="#/effort"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span>Effort Reports</span></a>
       </div>
       <div class="sidebar-group">
         <div class="sidebar-label">Account</div>
-        <a class="nav-item" href="#/settings"><span class="nav-ico">⚙️</span><span>Settings</span></a>
+        <a class="nav-item" href="#/settings"><span class="nav-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span>Settings</span></a>
       </div>
       <div class="sidebar-foot">
         <div class="sync-chip" id="sync-status"><span class="sync-dot"></span><span class="sync-text">Loading…</span></div>
@@ -478,11 +516,12 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 
 <script type="module">
 /* ================================================================
-   STUDENTOS v7.3
-   - clamped emailLookbackDays (fixes 1e+22d)
-   - Classroom notification emails excluded from Gmail sync
-   - title prefix stripping for better dedupe
-   - wide probe in diagnostics
+   STUDENTOS v7.4
+   - emoji removal (SVG icons)
+   - sync button spinner-only busy state
+   - stacked email sync settings layout
+   - DST-safe days-overdue calculator
+   - persistent Google sign-in (localStorage token + silent reauth)
    ================================================================ */
 
 const LS_CONFIG = 'studentos.config.v1';
@@ -669,6 +708,32 @@ function parseDate(text, ref = new Date()){
   return null;
 }
 
+/* ── DST-safe day arithmetic ─────────────────────────────── */
+function startOfDay(d = new Date()){ const x = new Date(d); x.setHours(0,0,0,0); return x.getTime(); }
+
+// Rewritten to use Date.UTC so DST and timezone drift can't shift the count
+function daysUntil(ts){
+  if (!ts) return null;
+  const a = new Date();
+  const b = new Date(ts);
+  const aDay = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  const bDay = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+  return Math.round((bDay - aDay) / 86400000);
+}
+
+function dueLabel(ts){
+  const d = daysUntil(ts);
+  if (d === null) return { text:'No due date', cls:'ok' };
+  if (d < 0){
+    const n = Math.abs(d);
+    return { text: n === 1 ? '1 day overdue' : `${n} days overdue`, cls:'overdue' };
+  }
+  if (d === 0) return { text:'Due today', cls:'overdue' };
+  if (d === 1) return { text:'Due tomorrow', cls:'soon' };
+  if (d <= 7) return { text:`Due in ${d} days`, cls:'soon' };
+  return { text:`Due ${fmtDate(ts)}`, cls:'ok' };
+}
+
 function computePriority(item){
   const d = daysUntil(item.dueDate);
   let p = 'low';
@@ -694,6 +759,37 @@ function estimateMinutes(item){
     default: return 25;
   }
 }
+
+/* ── Icons (Lucide-style, no emoji) ──────────────────────── */
+const S = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
+const ICON = {
+  home: `<svg ${S}><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+  file: `<svg ${S}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>`,
+  calendar: `<svg ${S}><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  target: `<svg ${S}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
+  chart: `<svg ${S}><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+  settings: `<svg ${S}><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+  bell: `<svg ${S}><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
+  search: `<svg ${S}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+  logout: `<svg ${S}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>`,
+  refresh: `<svg ${S}><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>`,
+  link: `<svg ${S}><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+  upload: `<svg ${S}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`,
+  pin: `<svg ${S}><line x1="12" y1="17" x2="12" y2="22"/><path d="M5 17h14l-1.5-6V5a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v6z"/></svg>`,
+  user: `<svg ${S}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  palette: `<svg ${S}><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>`,
+  mail: `<svg ${S}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
+  alert: `<svg ${S}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  edit: `<svg ${S}><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`,
+  trash: `<svg ${S}><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`,
+  zap: `<svg ${S}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  book: `<svg ${S}><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+  bulb: `<svg ${S}><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A6 6 0 1 0 7.5 11.5c.76.76 1.23 1.52 1.41 2.5"/></svg>`,
+  folder: `<svg ${S}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`,
+  check: `<svg ${S}><polyline points="20 6 9 17 4 12"/></svg>`,
+  info: `<svg ${S}><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`,
+  fileText: `<svg ${S}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`,
+};
 
 /* ── Helpers ─────────────────────────────────────────────── */
 const $  = (sel, root=document) => root.querySelector(sel);
@@ -727,17 +823,6 @@ function relativeTime(ts){
   if (d < 7) return `${d} day${d>1?'s':''} ago`;
   return fmtDate(ts);
 }
-function startOfDay(d = new Date()){ const x = new Date(d); x.setHours(0,0,0,0); return x.getTime(); }
-function daysUntil(ts){ if (!ts) return null; return Math.round((startOfDay(new Date(ts)) - startOfDay()) / 86400000); }
-function dueLabel(ts){
-  const d = daysUntil(ts);
-  if (d === null) return { text:'No due date', cls:'ok' };
-  if (d < 0)  return { text:`${Math.abs(d)} day${Math.abs(d)>1?'s':''} overdue`, cls:'overdue' };
-  if (d === 0) return { text:'Due today', cls:'overdue' };
-  if (d === 1) return { text:'Due tomorrow', cls:'soon' };
-  if (d <= 7) return { text:`Due in ${d} days`, cls:'soon' };
-  return { text:`Due ${fmtDate(ts)}`, cls:'ok' };
-}
 function monthMatrix(year, month){
   const first = new Date(year, month, 1);
   const start = new Date(first);
@@ -755,7 +840,6 @@ function ratingClass(r){
   return 'r5';
 }
 
-// Strip classroom prefixes like "[Mathematics] New assignment: X" → "X"
 const TITLE_PREFIX_RE = /^\s*(?:re|fw|fwd)\s*:\s*|^\s*\[[^\]]{1,60}\]\s*|^\s*(?:new|updated)\s+(?:assignment|material|announcement|question|quiz|test)\s*(?:posted|created|added)?\s*:?\s*/gi;
 function stripTitlePrefixes(s){
   let t = String(s || '');
@@ -777,8 +861,8 @@ function normalizeTitle(s){
 function toast(msg, type='info', title=''){
   const el = document.createElement('div');
   el.className = `toast ${type}`;
-  const icons = { info:'ℹ️', success:'✅', error:'⚠️', warn:'⏳' };
-  el.innerHTML = `<div class="toast-ico">${icons[type]||'ℹ️'}</div>
+  const icon = type === 'success' ? ICON.check : type === 'error' ? ICON.alert : type === 'warn' ? ICON.info : ICON.info;
+  el.innerHTML = `<div class="toast-ico">${icon}</div>
     <div>${title ? `<div class="toast-title">${escapeHtml(title)}</div>` : ''}<div class="toast-msg">${escapeHtml(msg)}</div></div>`;
   $('#toasts').appendChild(el);
   setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 220); }, type === 'error' ? 9000 : 4500);
@@ -792,7 +876,7 @@ function openModal({ title, subtitle='', body, footer='', wide=false, xl=false, 
     <div class="modal ${xl ? 'xl' : wide ? 'wide' : ''}" role="dialog" aria-modal="true">
       <div class="modal-head">
         <div style="flex:1"><h3>${escapeHtml(title)}</h3>${subtitle ? `<div class="modal-sub">${escapeHtml(subtitle)}</div>` : ''}</div>
-        <button class="modal-close" data-close aria-label="Close">✕</button>
+        <button class="modal-close" data-close aria-label="Close">×</button>
       </div>
       <div class="modal-body">${body}</div>
       ${footer ? `<div class="modal-foot">${footer}</div>` : ''}
@@ -840,33 +924,41 @@ async function initFirebase(cfg){
   FB.mod = { ...appMod, ...authMod, ...fsMod };
   FB.app = appMod.initializeApp(cfg.firebase);
   FB.auth = authMod.getAuth(FB.app);
+  // LOCAL persistence so the user stays signed in across tabs & restarts.
+  try { await authMod.setPersistence(FB.auth, authMod.browserLocalPersistence); } catch (e){ console.warn('Persistence set failed', e); }
   FB.db = fsMod.getFirestore(FB.app);
   FB.mod.fs = fsMod;
   FB.ready = true;
   return FB;
 }
 
-/* ── Google token manager ─────────────────────────────────── */
+/* ── Google token manager (persistent) ────────────────────── */
 const GoogleServices = {
   accessToken: null, expiresAt: 0, scopes: [],
+  _KEY: 'studentos.gtoken.v2',
   setToken(token, expiresIn, scopes){
     this.accessToken = token;
     this.expiresAt = now() + (Number(expiresIn || 3600) * 1000) - 30_000;
     this.scopes = scopes || [];
-    try { sessionStorage.setItem('studentos.gtoken', JSON.stringify({ t: token, e: this.expiresAt, s: this.scopes })); } catch {}
+    try { localStorage.setItem(this._KEY, JSON.stringify({ t: token, e: this.expiresAt, s: this.scopes })); } catch {}
   },
   restore(){
     try {
-      const raw = sessionStorage.getItem('studentos.gtoken');
+      const raw = localStorage.getItem(this._KEY);
       if (!raw) return false;
       const { t, e, s } = JSON.parse(raw);
-      if (e > now() + 5000){ this.accessToken = t; this.expiresAt = e; this.scopes = s || []; return true; }
+      if (e > now() + 5000){
+        this.accessToken = t; this.expiresAt = e; this.scopes = s || [];
+        return true;
+      }
+      // Expired — clean up so we don't keep stale data
+      localStorage.removeItem(this._KEY);
     } catch {}
     return false;
   },
   clear(){
     this.accessToken = null; this.expiresAt = 0; this.scopes = [];
-    try { sessionStorage.removeItem('studentos.gtoken'); } catch {}
+    try { localStorage.removeItem(this._KEY); } catch {}
   },
   has(scopes){
     if (!this.accessToken) return false;
@@ -875,13 +967,8 @@ const GoogleServices = {
     const have = new Set(this.scopes);
     return scopes.every(s => have.has(s));
   },
-  hasScope(scope){
-    return this.scopes.includes(scope);
-  },
-  timeLeft(){
-    if (!this.accessToken) return 0;
-    return Math.max(0, this.expiresAt - now());
-  }
+  hasScope(scope){ return this.scopes.includes(scope); },
+  timeLeft(){ return this.accessToken ? Math.max(0, this.expiresAt - now()) : 0; }
 };
 
 async function gfetchJson(url, token){
@@ -899,6 +986,28 @@ async function gfetchJson(url, token){
     throw new Error(`Google API ${r.status}: ${txt.slice(0, 140)}`);
   }
   return r.json();
+}
+
+// Silent reauth using Firebase. Called on user-initiated sync clicks
+// so we don't fight popup blockers on page load.
+async function ensureGoogleToken(){
+  if (GoogleServices.has()) return true;
+  if (!FB.auth?.currentUser) return false;
+  try {
+    const provider = new FB.mod.GoogleAuthProvider();
+    for (const scope of GOOGLE_SCOPES) provider.addScope(scope);
+    // No prompt param — Google silently returns if the user has already
+    // granted consent, which is the common case here.
+    const result = await FB.mod.reauthenticateWithPopup(FB.auth.currentUser, provider);
+    const credential = FB.mod.GoogleAuthProvider.credentialFromResult(result);
+    if (credential?.accessToken){
+      GoogleServices.setToken(credential.accessToken, 3600, GOOGLE_SCOPES);
+      return true;
+    }
+  } catch (e){
+    console.warn('Silent Google reauth failed:', e?.code || e?.message || e);
+  }
+  return false;
 }
 
 /* ── Store ────────────────────────────────────────────────── */
@@ -930,7 +1039,6 @@ const Store = {
     if (!d.integrations || typeof d.integrations !== 'object') d.integrations = {};
     if (!d.settings) d.settings = { ...DEFAULT_SETTINGS };
     d.settings = { ...DEFAULT_SETTINGS, ...d.settings };
-    // Sanitise lookback on every load so an old 1e22 value can never poison us again.
     let lb = Number(d.settings.emailLookbackDays);
     if (!Number.isFinite(lb) || lb <= 0) lb = 30;
     d.settings.emailLookbackDays = Math.min(365, Math.max(1, Math.round(lb)));
@@ -1232,8 +1340,7 @@ function mapWorkType(w){
 function getLookbackDays(){
   let n = Number(Store.cache.settings.emailLookbackDays);
   if (!Number.isFinite(n) || n <= 0) n = 30;
-  n = Math.min(365, Math.max(1, Math.round(n)));
-  return n;
+  return Math.min(365, Math.max(1, Math.round(n)));
 }
 
 function buildGmailQuery(){
@@ -1254,8 +1361,6 @@ function buildGmailQuery(){
     parts.push('(homework OR assignment OR test OR exam OR quiz OR project OR due OR deadline OR submit OR hand-in OR assessment OR notice OR reminder OR important OR newsletter OR NCEA OR term OR class OR teacher)');
   }
 
-  // Never pull Google Classroom notification emails — the Classroom API is
-  // already the source of truth for the same information.
   parts.push('-from:classroom.google.com');
   parts.push('-from:no-reply@classroom.google.com');
 
@@ -1314,8 +1419,6 @@ async function syncGmail(){
       const parsed = parseGmailMessage(msg);
       if (!parsed) continue;
 
-      // Belt-and-braces: skip anything that looks like a Classroom notification,
-      // even if it arrived through a different From address.
       const fromLower = (parsed.from || '').toLowerCase();
       const bodyLower = (parsed.body || '').toLowerCase();
       const looksLikeClassroomNotification =
@@ -1518,7 +1621,7 @@ async function syncAll({ silent = false } = {}){
       if (r.added || r.merged) results.push(`Classroom: ${r.added} new${r.merged ? `, ${r.merged} merged` : ''}`);
     } catch (e){
       if (e.message === 'TOKEN_EXPIRED' || e.message === 'NOT_SIGNED_IN'){
-        errors.push('Google session expired — sign out and back in.');
+        errors.push('Google session expired — click Sync to reconnect.');
       } else if (e.message === 'ACCESS_BLOCKED'){
         errors.push('Classroom access blocked by your school admin.');
       } else {
@@ -1533,9 +1636,9 @@ async function syncAll({ silent = false } = {}){
       else results.push(`Email: scanned ${r.scanned}, 0 new`);
     } catch (e){
       if (e.message === 'GMAIL_SCOPE_MISSING'){
-        errors.push('Gmail permission missing — sign out and back in to grant it.');
+        errors.push('Gmail permission missing — click Sync to reconnect.');
       } else if (e.message === 'TOKEN_EXPIRED'){
-        errors.push('Google session expired — sign out and back in.');
+        errors.push('Google session expired — click Sync to reconnect.');
       } else if (e.message === 'ACCESS_BLOCKED'){
         errors.push('Gmail access blocked by your school admin.');
       } else {
@@ -1543,7 +1646,7 @@ async function syncAll({ silent = false } = {}){
       }
     }
   } else {
-    if (!silent) errors.push('Not signed in with Google — sign out and back in.');
+    if (!silent) errors.push('Not connected to Google — click Sync to reconnect.');
   }
 
   await dedupeExistingAssignments();
@@ -1557,7 +1660,7 @@ async function syncAll({ silent = false } = {}){
     if (!silent && results.length) toast(results.join(' · '), 'success', 'Sync complete');
     else if (!silent) toast('Everything up to date', 'success');
   } else {
-    setSyncUI('err', 'Sync issue');
+    setSyncUI('err', GoogleServices.has() ? 'Sync issue' : 'Reconnect Google');
   }
   render();
   return { results, errors };
@@ -1643,33 +1746,33 @@ function viewDashboard(){
   const effortCard = latestEffort ? `
     <section class="card">
       <div class="card-head">
-        <div class="card-title">📊 Latest effort report</div>
+        <div class="card-title">${ICON.chart} Latest effort report</div>
         <a class="btn btn-sm btn-ghost" href="#/effort">All</a>
       </div>
       <div class="card-body">${renderEffortSummaryMini(latestEffort)}</div>
     </section>` : `
     <section class="card">
-      <div class="card-head"><div class="card-title">📊 Effort reports</div></div>
+      <div class="card-head"><div class="card-title">${ICON.chart} Effort reports</div></div>
       <div class="card-body">
         <p class="small muted" style="margin-bottom:14px">Upload your weekly PDF from school — StudentOS reads every subject and rating.</p>
-        <button class="btn btn-primary btn-sm" data-action="upload-effort">📤 Upload report</button>
+        <button class="btn btn-primary btn-sm" data-action="upload-effort">${ICON.upload} Upload report</button>
       </div>
     </section>`;
 
   return `
   <div class="page-head">
-    <h1 class="page-title">${greet}, ${escapeHtml(name)} 👋</h1>
+    <h1 class="page-title">${greet}, ${escapeHtml(name)}</h1>
     <p class="page-sub">${new Date().toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'})} · ${open.length} open item${open.length===1?'':'s'}</p>
   </div>
 
   ${isEmpty ? `
   <div class="card card-pad" style="text-align:center;padding:52px 24px">
-    <div style="font-size:52px;margin-bottom:14px">🎒</div>
+    <div class="empty-ico" style="margin-bottom:18px">${ICON.target}</div>
     <h2 style="font-size:22px;margin-bottom:10px">Syncing your school life…</h2>
     <p class="muted" style="max-width:480px;margin:0 auto 20px;font-size:14.5px;line-height:1.65">
       We're pulling your Classroom assignments, school emails, and calendar. If nothing appears after a few seconds, open Settings → Sync diagnostics.
     </p>
-    <button class="btn btn-primary" data-action="open-diagnostics">🔍 Open diagnostics</button>
+    <button class="btn btn-primary" data-action="open-diagnostics">${ICON.search} Open diagnostics</button>
   </div>` : `
   <div class="stat-grid">
     <div class="stat ${overdue.length ? 'warn' : ''}">
@@ -1688,12 +1791,12 @@ function viewDashboard(){
   <div class="cols cols-main">
     <div class="stack">
       <section class="card">
-        <div class="card-head"><div class="card-title">🎯 What should I do next?</div>
+        <div class="card-head"><div class="card-title">${ICON.target} What should I do next?</div>
           <a class="btn btn-sm btn-ghost" href="#/planner">Planner</a></div>
         <div class="card-body" style="padding-top:6px;padding-bottom:10px">${renderNextActions()}</div>
       </section>
       <section class="card">
-        <div class="card-head"><div class="card-title">📌 Today</div>
+        <div class="card-head"><div class="card-title">${ICON.pin} Today</div>
           <span class="chip chip-gray">${dueToday.length + overdue.length} item${(dueToday.length+overdue.length)===1?'':'s'}</span></div>
         ${renderTodaySection([...dueToday, ...overdue])}
       </section>
@@ -1726,7 +1829,7 @@ function renderNextActions(){
   const items = Store.all('assignments').filter(a => !a.completed);
   if (!items.length){
     return `<div class="empty" style="padding:32px 12px">
-      <div class="empty-ico">🌤️</div>
+      <div class="empty-ico">${ICON.check}</div>
       <div class="empty-title">Nothing on your plate</div>
       <div class="empty-sub">New work will appear here as it comes in.</div>
     </div>`;
@@ -1767,13 +1870,13 @@ function plannerScore(i){
 function renderTodaySection(items){
   if (!items.length){
     return `<div class="empty" style="padding:34px 20px">
-      <div class="empty-ico">✅</div><div class="empty-title">Nothing due today</div>
+      <div class="empty-ico">${ICON.check}</div><div class="empty-title">Nothing due today</div>
       <div class="empty-sub">A good moment to get ahead on something from this week.</div></div>`;
   }
   return items.map(a => {
     const due = dueLabel(a.dueDate);
     return `<div class="item ${a.completed ? 'done' : ''}">
-      <div class="item-check ${a.completed ? 'on' : ''}" data-action="complete" data-id="${a.id}">${a.completed ? '✓' : ''}</div>
+      <div class="item-check ${a.completed ? 'on' : ''}" data-action="complete" data-id="${a.id}">${a.completed ? ICON.check : ''}</div>
       <div class="item-main"><div class="item-title">${escapeHtml(a.title)}</div>
         ${a.description ? `<div class="item-desc">${escapeHtml(a.description)}</div>` : ''}
         <div class="item-meta">
@@ -1803,7 +1906,7 @@ function viewAssignments(){
   return `
   <div class="page-head row-between wrap">
     <div><h1 class="page-title">Assignments</h1><p class="page-sub">${open} open · ${Store.all('assignments').length} total</p></div>
-    <button class="btn btn-ghost" data-action="new-assignment">＋ New</button>
+    <button class="btn btn-ghost" data-action="new-assignment">+ New</button>
   </div>
   <div class="filters">
     <div class="seg">${seg('all','All')}${seg('open','Open')}${seg('overdue','Overdue')}${seg('week','This week')}${seg('tests','Tests')}${seg('done','Done')}</div>
@@ -1816,7 +1919,7 @@ function viewAssignments(){
   </div>
   <div class="card">
     ${items.length ? items.map(renderAssignmentItem).join('') : `
-      <div class="empty"><div class="empty-ico">📝</div>
+      <div class="empty"><div class="empty-ico">${ICON.file}</div>
         <div class="empty-title">No assignments match</div>
         <div class="empty-sub">Try a different filter, or wait for the next sync.</div>
       </div>`}
@@ -1828,7 +1931,7 @@ function renderAssignmentItem(a){
   const prio = { urgent:['chip-red','Urgent'], high:['chip-amber','High'], medium:['chip-sky','Medium'], low:['chip-gray','Low'] }[a.priority] || ['chip-gray','Low'];
   return `
   <div class="item ${a.completed ? 'done' : ''} ${!a.completed && a.dueDate && daysUntil(a.dueDate) < 0 ? 'overdue' : ''}">
-    <div class="item-check ${a.completed ? 'on' : ''}" data-action="complete" data-id="${a.id}">${a.completed ? '✓' : ''}</div>
+    <div class="item-check ${a.completed ? 'on' : ''}" data-action="complete" data-id="${a.id}">${a.completed ? ICON.check : ''}</div>
     <div class="item-main">
       <div class="item-title">${escapeHtml(a.title)}</div>
       ${a.description ? `<div class="item-desc">${escapeHtml(a.description)}</div>` : ''}
@@ -1836,14 +1939,14 @@ function renderAssignmentItem(a){
         ${a.subject ? `<span class="chip chip-indigo">${escapeHtml(a.subject)}</span>` : ''}
         <span class="chip chip-gray">${escapeHtml(a.type)}</span>
         <span class="chip ${prio[0]}">${prio[1]}</span>
-        ${a.url ? `<a href="${escapeHtml(a.url)}" target="_blank" rel="noopener" class="chip chip-gray" style="text-decoration:none">↗ Open</a>` : ''}
+        ${a.url ? `<a href="${escapeHtml(a.url)}" target="_blank" rel="noopener" class="chip chip-gray" style="text-decoration:none">Open ↗</a>` : ''}
       </div>
     </div>
     <div class="item-side">
       <span class="due ${due.cls}">${escapeHtml(due.text)}</span>
       <div class="row" style="gap:4px">
-        <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="edit-assignment" data-id="${a.id}">✏️</button>
-        <button class="icon-btn" style="width:30px;height:30px;font-size:14px" data-action="delete-assignment" data-id="${a.id}">🗑️</button>
+        <button class="icon-btn" style="width:30px;height:30px" data-action="edit-assignment" data-id="${a.id}" aria-label="Edit">${ICON.edit}</button>
+        <button class="icon-btn" style="width:30px;height:30px" data-action="delete-assignment" data-id="${a.id}" aria-label="Delete">${ICON.trash}</button>
       </div>
     </div>
   </div>`;
@@ -1867,9 +1970,9 @@ function viewCalendar(){
   <div class="page-head row-between wrap">
     <div><h1 class="page-title">Calendar</h1><p class="page-sub">Deadlines, tests and school events</p></div>
     <div class="row">
-      <button class="btn btn-ghost btn-sm" data-action="cal-prev">←</button>
+      <button class="btn btn-ghost btn-sm" data-action="cal-prev" aria-label="Previous month">←</button>
       <div class="strong" style="min-width:170px;text-align:center">${monthName}</div>
-      <button class="btn btn-ghost btn-sm" data-action="cal-next">→</button>
+      <button class="btn btn-ghost btn-sm" data-action="cal-next" aria-label="Next month">→</button>
       <button class="btn btn-subtle btn-sm" data-action="cal-today">Today</button>
     </div>
   </div>
@@ -1894,7 +1997,7 @@ function viewCalendar(){
     </div>
     <div class="card">
       <div class="card-head">
-        <div class="card-title">📅 Upcoming</div>
+        <div class="card-title">${ICON.calendar} Upcoming</div>
         <span class="chip chip-gray">${upcoming.length}</span>
       </div>
       ${upcoming.length ? upcoming.map(e => {
@@ -1912,7 +2015,7 @@ function viewCalendar(){
           <div class="item-side"><span class="due ${due.cls}">${escapeHtml(due.text)}</span></div>
         </div>`;
       }).join('') : `<div class="empty" style="padding:34px 20px">
-        <div class="empty-ico">📭</div>
+        <div class="empty-ico">${ICON.calendar}</div>
         <div class="empty-title">Nothing coming up</div>
         <div class="empty-sub">New deadlines and events will show here.</div>
       </div>`}
@@ -1937,7 +2040,7 @@ function viewEffort(){
       <h1 class="page-title">Effort Reports</h1>
       <p class="page-sub">${reports.length} report${reports.length === 1 ? '' : 's'} uploaded</p>
     </div>
-    <button class="btn btn-primary" data-action="upload-effort">📤 Upload report</button>
+    <button class="btn btn-primary" data-action="upload-effort">${ICON.upload} Upload report</button>
   </div>
 
   ${reports.length ? `
@@ -1956,7 +2059,7 @@ function viewEffort(){
   ${latest ? `
   <section class="card" style="margin-bottom:20px">
     <div class="card-head">
-      <div class="card-title">📊 Latest report — ${fmtDateLong(latest.date)}</div>
+      <div class="card-title">${ICON.chart} Latest report — ${fmtDateLong(latest.date)}</div>
       <span class="effort-avg"><b>${latestAvg.toFixed(1)}</b>/ 5</span>
     </div>
     <div class="card-body">
@@ -1973,7 +2076,7 @@ function viewEffort(){
 
   ${subjects.length ? `
   <section class="card" style="margin-bottom:20px">
-    <div class="card-head"><div class="card-title">📈 Subject averages</div></div>
+    <div class="card-head"><div class="card-title">${ICON.chart} Subject averages</div></div>
     <div class="card-body">
       <div class="effort-bars">
         ${subjects.map(s => {
@@ -1991,7 +2094,7 @@ function viewEffort(){
 
   ${reports.length > 1 ? `
   <section class="card">
-    <div class="card-head"><div class="card-title">🗂️ History</div></div>
+    <div class="card-head"><div class="card-title">${ICON.folder} History</div></div>
     ${reports.slice(0, 15).map(r => {
       const a = r.ratings?.length ? r.ratings.reduce((s, x) => s + x.rating, 0) / r.ratings.length : 0;
       return `<div class="item">
@@ -2003,8 +2106,7 @@ function viewEffort(){
           </div>
         </div>
         <div class="item-side">
-          <button class="icon-btn" style="width:30px;height:30px;font-size:14px"
-                  data-action="delete-effort" data-id="${r.id}">🗑️</button>
+          <button class="icon-btn" style="width:30px;height:30px" data-action="delete-effort" data-id="${r.id}" aria-label="Delete">${ICON.trash}</button>
         </div>
       </div>`;
     }).join('')}
@@ -2012,12 +2114,12 @@ function viewEffort(){
 
   ${!reports.length ? `
   <div class="card card-pad" style="text-align:center;padding:52px 24px">
-    <div style="font-size:52px;margin-bottom:14px">📄</div>
+    <div class="empty-ico" style="margin-bottom:18px">${ICON.fileText}</div>
     <h2 style="font-size:20px;margin-bottom:10px">No effort reports yet</h2>
     <p class="muted" style="max-width:460px;margin:0 auto 20px;font-size:14px;line-height:1.65">
       Upload the weekly PDF from your school. StudentOS will read every subject and rating automatically.
     </p>
-    <button class="btn btn-primary" data-action="upload-effort">📤 Upload your first report</button>
+    <button class="btn btn-primary" data-action="upload-effort">${ICON.upload} Upload your first report</button>
   </div>` : ''}
   `;
 }
@@ -2033,7 +2135,7 @@ function viewPlanner(){
       <p class="page-sub">A smart order for everything you have to do</p>
     </div>
     <div class="card card-pad" style="text-align:center;padding:52px 24px">
-      <div style="font-size:52px;margin-bottom:14px">🎯</div>
+      <div class="empty-ico" style="margin-bottom:18px">${ICON.target}</div>
       <h2 style="font-size:20px;margin-bottom:10px">Nothing to plan</h2>
       <p class="muted" style="max-width:460px;margin:0 auto 20px;font-size:14px;line-height:1.65">
         Once assignments and tests land in StudentOS, your study plan shows up here.
@@ -2067,7 +2169,7 @@ function viewPlanner(){
     <div class="stack">
       <section class="card">
         <div class="card-head">
-          <div class="card-title">⚡ Recommended order</div>
+          <div class="card-title">${ICON.zap} Recommended order</div>
           <span class="chip chip-gray">${scored.length} items</span>
         </div>
         <div class="card-body" style="padding-top:6px;padding-bottom:10px">
@@ -2094,7 +2196,7 @@ function viewPlanner(){
       </section>
 
       <section class="card">
-        <div class="card-head"><div class="card-title">🗓️ This week</div></div>
+        <div class="card-head"><div class="card-title">${ICON.calendar} This week</div></div>
         <div class="card-body">
           ${plan.map(({ dayTs, items: dayItems }, idx) => {
             const d = new Date(dayTs);
@@ -2122,7 +2224,7 @@ function viewPlanner(){
 
     <div class="stack">
       <section class="card">
-        <div class="card-head"><div class="card-title">📚 By subject</div></div>
+        <div class="card-head"><div class="card-title">${ICON.book} By subject</div></div>
         <div class="card-body">
           ${(() => {
             const bySubj = {};
@@ -2144,7 +2246,7 @@ function viewPlanner(){
       </section>
 
       <section class="card">
-        <div class="card-head"><div class="card-title">💡 Tips</div></div>
+        <div class="card-head"><div class="card-title">${ICON.bulb} Tips</div></div>
         <div class="card-body small muted" style="line-height:1.7">
           • Start with the highest-ranked item — it's the one most likely to bite you.<br>
           • Tests and exams get bumped up automatically, because they need spaced revision.<br>
@@ -2158,7 +2260,6 @@ function viewPlanner(){
 function viewSettings(){
   const s = Store.cache.settings;
   const subs = s.calendarSubscriptions || [];
-  const profile = Store.cache.profile || {};
   const isDark = s.theme === 'dark';
   const days = getLookbackDays();
 
@@ -2171,7 +2272,7 @@ function viewSettings(){
   <div class="cols cols-2">
 
     <section class="card">
-      <div class="card-head"><div class="card-title">👤 Account</div></div>
+      <div class="card-head"><div class="card-title">${ICON.user} Account</div></div>
       <div class="card-body">
         <div class="row" style="gap:14px">
           <img class="avatar avatar-lg" src="${escapeHtml(App.user?.photoURL || '')}" alt="" referrerpolicy="no-referrer">
@@ -2184,14 +2285,14 @@ function viewSettings(){
           </div>
         </div>
         <div class="row" style="margin-top:16px;gap:8px;flex-wrap:wrap">
-          <button class="btn btn-ghost btn-sm" data-action="force-sync">🔄 Force sync now</button>
-          <button class="btn btn-ghost btn-sm" data-action="reconnect-google">🔗 Reconnect Google</button>
+          <button class="btn btn-ghost btn-sm" data-action="force-sync">${ICON.refresh} Force sync now</button>
+          <button class="btn btn-ghost btn-sm" data-action="reconnect-google">${ICON.link} Reconnect Google</button>
         </div>
       </div>
     </section>
 
     <section class="card">
-      <div class="card-head"><div class="card-title">🎨 Appearance</div></div>
+      <div class="card-head"><div class="card-title">${ICON.palette} Appearance</div></div>
       <div class="card-body">
         <div class="set-row">
           <div class="set-info">
@@ -2200,7 +2301,7 @@ function viewSettings(){
           </div>
           <div class="set-control">
             <button class="btn ${isDark ? 'btn-primary' : 'btn-ghost'} btn-sm" data-action="toggle-theme">
-              ${isDark ? '🌙 On' : '☀️ Off'}
+              ${isDark ? 'On' : 'Off'}
             </button>
           </div>
         </div>
@@ -2208,7 +2309,7 @@ function viewSettings(){
     </section>
 
     <section class="card">
-      <div class="card-head"><div class="card-title">🔔 Notifications</div></div>
+      <div class="card-head"><div class="card-title">${ICON.bell} Notifications</div></div>
       <div class="card-body">
         <div class="set-row">
           <div class="set-info"><div class="set-name">New assignments</div>
@@ -2235,81 +2336,95 @@ function viewSettings(){
     </section>
 
     <section class="card">
-      <div class="card-head"><div class="card-title">📧 Email sync</div></div>
+      <div class="card-head"><div class="card-title">${ICON.mail} Email sync</div></div>
       <div class="card-body">
-        <div class="set-row">
-          <div class="set-info"><div class="set-name">Lookback window</div>
-            <div class="set-desc">Only scan emails from the last N days (1–365).</div></div>
+
+        <div class="set-row stacked">
+          <div class="set-info">
+            <div class="set-name">Lookback window</div>
+            <div class="set-desc">Only scan emails from the last N days (1–365).</div>
+          </div>
           <div class="set-control">
-            <input class="input" type="number" min="1" max="365" style="width:90px"
+            <input class="input" type="number" min="1" max="365"
                    data-setting="emailLookbackDays" value="${days}">
           </div>
         </div>
-        <div class="set-row">
-          <div class="set-info"><div class="set-name">Trusted domains</div>
-            <div class="set-desc">Only pull emails from these sender domains. Comma-separated. Leaving this blank uses the broad keyword search.</div></div>
-          <div class="set-control" style="flex-direction:column;align-items:stretch;width:100%">
+
+        <div class="set-row stacked">
+          <div class="set-info">
+            <div class="set-name">Trusted domains</div>
+            <div class="set-desc">Only pull emails from these sender domains. Comma-separated. Leave blank for the broad keyword search.</div>
+          </div>
+          <div class="set-control">
             <input class="input" data-setting-list="trustedDomains"
                    placeholder="school.kiwi, kamar.school.nz"
                    value="${escapeHtml((s.trustedDomains || []).join(', '))}">
           </div>
         </div>
-        <div class="set-row">
-          <div class="set-info"><div class="set-name">Trusted senders</div>
-            <div class="set-desc">Specific sender addresses. Comma-separated.</div></div>
-          <div class="set-control" style="flex-direction:column;align-items:stretch;width:100%">
+
+        <div class="set-row stacked">
+          <div class="set-info">
+            <div class="set-name">Trusted senders</div>
+            <div class="set-desc">Specific sender addresses. Comma-separated.</div>
+          </div>
+          <div class="set-control">
             <input class="input" data-setting-list="trustedSenders"
                    placeholder="teacher@school.kiwi"
                    value="${escapeHtml((s.trustedSenders || []).join(', '))}">
           </div>
         </div>
-        <div class="set-row">
-          <div class="set-info"><div class="set-name">Custom keywords</div>
-            <div class="set-desc">Override the default keyword search. Leave blank for the broad default.</div></div>
-          <div class="set-control" style="flex-direction:column;align-items:stretch;width:100%">
+
+        <div class="set-row stacked">
+          <div class="set-info">
+            <div class="set-name">Custom keywords</div>
+            <div class="set-desc">Override the default keyword search. Leave blank for the broad default.</div>
+          </div>
+          <div class="set-control">
             <input class="input" data-setting="emailKeywords"
                    placeholder="e.g. homework, NCEA, assessment"
                    value="${escapeHtml(s.emailKeywords || '')}">
           </div>
         </div>
+
         <div class="set-row">
-          <div class="set-info"><div class="set-name">Test email access</div>
-            <div class="set-desc">Run a quick diagnostic against the Gmail API.</div></div>
+          <div class="set-info">
+            <div class="set-name">Test email access</div>
+            <div class="set-desc">Run a quick diagnostic against the Gmail API.</div>
+          </div>
           <div class="set-control">
-            <button class="btn btn-ghost btn-sm" data-action="open-diagnostics">🔍 Run diagnostics</button>
+            <button class="btn btn-ghost btn-sm" data-action="open-diagnostics">${ICON.search} Run diagnostics</button>
           </div>
         </div>
+
       </div>
     </section>
 
     <section class="card">
-      <div class="card-head"><div class="card-title">📅 Calendar feeds</div></div>
+      <div class="card-head"><div class="card-title">${ICON.calendar} Calendar feeds</div></div>
       <div class="card-body">
         ${subs.length ? subs.map((sub, i) => `
           <div class="set-row">
             <div class="set-info">
               <div class="set-name">${escapeHtml(sub.name || 'Calendar')}</div>
               <div class="set-desc truncate">${escapeHtml(sub.url)}</div>
-              ${sub.error ? `<div class="tiny" style="color:var(--red-600);margin-top:4px">⚠️ ${escapeHtml(sub.error)}</div>` : ''}
+              ${sub.error ? `<div class="tiny" style="color:var(--red-600);margin-top:4px">${escapeHtml(sub.error)}</div>` : ''}
               ${sub.lastSync ? `<div class="tiny muted" style="margin-top:4px">Last sync ${relativeTime(sub.lastSync)} · ${sub.count || 0} events</div>` : ''}
             </div>
             <div class="set-control">
-              <button class="icon-btn" style="width:30px;height:30px;font-size:14px"
-                      data-action="remove-calendar" data-index="${i}">🗑️</button>
+              <button class="icon-btn" style="width:30px;height:30px"
+                      data-action="remove-calendar" data-index="${i}" aria-label="Remove feed">${ICON.trash}</button>
             </div>
           </div>
         `).join('') : `<p class="small muted" style="margin-bottom:12px">No calendar feeds yet.</p>`}
         <div class="row" style="gap:8px;margin-top:14px;flex-wrap:wrap">
-          <button class="btn btn-ghost btn-sm" data-action="add-calendar">＋ Add feed</button>
-          <button class="btn btn-ghost btn-sm" data-action="add-sacred-heart">
-            ＋ Add Sacred Heart calendar
-          </button>
+          <button class="btn btn-ghost btn-sm" data-action="add-calendar">+ Add feed</button>
+          <button class="btn btn-ghost btn-sm" data-action="add-sacred-heart">+ Add Sacred Heart calendar</button>
         </div>
       </div>
     </section>
 
     <section class="card">
-      <div class="card-head"><div class="card-title">⚠️ Danger zone</div></div>
+      <div class="card-head"><div class="card-title">${ICON.alert} Danger zone</div></div>
       <div class="card-body">
         <div class="set-row">
           <div class="set-info"><div class="set-name">Clear all synced data</div>
@@ -2391,13 +2506,14 @@ function bindViewEvents(){
       }
       case 'open-diagnostics': openDiagnostics(); break;
       case 'force-sync': {
+        if (!GoogleServices.has()) await ensureGoogleToken();
         await syncAll({ silent: false });
         break;
       }
       case 'reconnect-google': {
-        GoogleServices.clear();
-        toast('Signing you out to refresh Google permissions…', 'info');
-        setTimeout(() => signOut(), 900);
+        const ok = await ensureGoogleToken();
+        if (ok){ toast('Google reconnected', 'success'); await syncAll({ silent: false }); }
+        else toast('Could not reconnect. Sign out and back in.', 'error');
         break;
       }
       case 'toggle-theme': {
@@ -2593,7 +2709,7 @@ function openEffortUpload(){
     subtitle: 'PDF exported from your school portal',
     body: `
       <div class="drop-zone" id="effort-drop">
-        <div class="drop-zone-ico">📄</div>
+        <div class="drop-zone-ico">${ICON.fileText}</div>
         <div class="drop-zone-title">Drop PDF here or click to browse</div>
         <div class="drop-zone-sub">StudentOS reads subject names and effort ratings from the PDF.</div>
         <input type="file" id="effort-file" accept="application/pdf" hidden>
@@ -2724,6 +2840,7 @@ async function openDiagnostics(){
     onMount(el, closeFn){
       el.querySelector('#diag-resync').addEventListener('click', async () => {
         closeFn();
+        if (!GoogleServices.has()) await ensureGoogleToken();
         await syncAll({ silent: false });
         openDiagnostics();
       });
@@ -2734,9 +2851,9 @@ async function openDiagnostics(){
   const results = [];
 
   if (!GoogleServices.accessToken){
-    results.push({ ok: false, label: 'Google sign-in', detail: 'No access token in this session. Sign out and back in.' });
+    results.push({ ok: false, label: 'Google sign-in', detail: 'No access token in this session. Click Sync or Reconnect Google to refresh.' });
   } else if (GoogleServices.expiresAt <= now()){
-    results.push({ ok: false, label: 'Google token', detail: 'Token expired. Sign out and back in.' });
+    results.push({ ok: false, label: 'Google token', detail: 'Token expired. Click Sync — we will try to refresh silently.' });
   } else {
     const mins = Math.round(GoogleServices.timeLeft() / 60000);
     results.push({ ok: true, label: 'Google token', detail: `Valid for ~${mins} more minute${mins === 1 ? '' : 's'}.` });
@@ -2773,7 +2890,6 @@ async function openDiagnostics(){
       results.push({ ok: false, label: 'Gmail API call', detail: e.message });
     }
 
-    // Wide probe — no sender/keyword filter, just the time window.
     try {
       const wide = await gfetchJson(
         `https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=1&q=${encodeURIComponent(`newer_than:${days}d`)}`,
@@ -2830,7 +2946,7 @@ async function openDiagnostics(){
 
   body.innerHTML = results.map(r => `
     <div class="diag-row">
-      <div class="diag-ico">${r.ok ? '✅' : '⚠️'}</div>
+      <div class="diag-ico ${r.ok ? '' : 'bad'}">${r.ok ? ICON.check : ICON.alert}</div>
       <div class="diag-body">
         <strong>${escapeHtml(r.label)}</strong>
         <div>${r.detail}</div>
@@ -2858,7 +2974,7 @@ function renderNotifPanel(){
   const panel = $('#notif-panel');
   if (!panel) return;
   const list = Store.all('notifications').sort((a, b) => b.createdAt - a.createdAt).slice(0, 30);
-  const icons = { test: '🧪', assignment: '📝', due: '⏰', event: '📅' };
+  const icons = { test: ICON.target, assignment: ICON.file, due: ICON.bell, event: ICON.calendar };
   panel.innerHTML = `
     <div class="notif-head">
       <div class="strong" style="font-size:14px">Notifications</div>
@@ -2867,14 +2983,14 @@ function renderNotifPanel(){
     <div class="notif-list">
       ${list.length ? list.map(n => `
         <div class="notif-item ${n.read ? '' : 'unread'}" data-id="${n.id}" data-link="${escapeHtml(n.link || '')}">
-          <div class="notif-ico">${icons[n.kind] || '🔔'}</div>
+          <div class="notif-ico">${icons[n.kind] || ICON.bell}</div>
           <div class="notif-body">
             <div class="notif-title">${escapeHtml(n.title)}</div>
             ${n.body ? `<div class="small muted">${escapeHtml(n.body)}</div>` : ''}
             <div class="notif-meta">${relativeTime(n.createdAt)}</div>
           </div>
         </div>
-      `).join('') : `<div class="notif-empty">You're all caught up 🎉</div>`}
+      `).join('') : `<div class="notif-empty">You're all caught up</div>`}
     </div>`;
   panel.querySelectorAll('.notif-item').forEach(item => {
     item.addEventListener('click', async () => {
@@ -2955,7 +3071,6 @@ function showAuthScreen(){
   $('#auth-screen').hidden = false;
   $('#app').hidden = true;
 }
-
 function showAppScreen(){
   $('#auth-screen').hidden = true;
   $('#app').hidden = false;
@@ -3035,7 +3150,10 @@ async function onUserSignedIn(user){
     setSyncUI('busy', 'Syncing…');
     setTimeout(() => syncAll({ silent: true }), 500);
   } else {
-    setSyncUI('', 'Not connected');
+    // Firebase session is still active — the user just needs to grant Google
+    // permissions again. We don't auto-popup on boot because popup blockers
+    // will kill it. The Sync button will trigger a silent reauth instead.
+    setSyncUI('', 'Tap Sync to connect');
   }
 }
 
@@ -3168,16 +3286,26 @@ function seedDemoData(){
   const syncBtn = $('#sync-btn');
   if (syncBtn){
     syncBtn.addEventListener('click', async () => {
-      const spinner = syncBtn.querySelector('.sync-spinner');
-      const label = syncBtn.querySelector('.sync-label');
-      if (spinner) spinner.hidden = false;
-      if (label) label.textContent = 'Syncing…';
+      // First, make sure we have a fresh Google token. If ours expired,
+      // Firebase can silently reauth without forcing the user to sign
+      // out and back in.
+      if (!GoogleServices.has()){
+        syncBtn.classList.add('busy');
+        syncBtn.disabled = true;
+        const ok = await ensureGoogleToken();
+        syncBtn.classList.remove('busy');
+        syncBtn.disabled = false;
+        if (!ok){
+          toast('Could not reconnect to Google. Sign out and back in.', 'error');
+          return;
+        }
+      }
+      syncBtn.classList.add('busy');
       syncBtn.disabled = true;
       try { await syncAll({ silent: false }); }
       finally {
+        syncBtn.classList.remove('busy');
         syncBtn.disabled = false;
-        if (spinner) spinner.hidden = true;
-        if (label) label.textContent = 'Sync';
       }
     });
   }
