@@ -262,7 +262,6 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .seg button.on{background:var(--primary);color:#fff;box-shadow:var(--shadow-xs)}
 .filters .select{width:auto;min-width:140px}
 
-/* ── Calendar grid (blowout fix) ─────────────────────────── */
 .cal-head{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-bottom:6px}
 .cal-dow{text-align:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);padding:6px 0;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
@@ -283,6 +282,8 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .next-item.low .next-rank{background:var(--gray-400)}
 .effort-avg{display:inline-flex;align-items:baseline;gap:4px;padding:6px 14px;border-radius:99px;background:var(--surface);font-size:13px;font-weight:700;color:var(--text);border:1px solid var(--border)}
 .effort-avg b{font-size:20px;color:var(--violet-600);letter-spacing:-.02em}
+
+/* effort bars (dashboard mini + planner) */
 .effort-bars{display:flex;flex-direction:column;gap:9px}
 .effort-bar-row{display:flex;align-items:center;gap:12px}
 .effort-bar-subject{width:150px;flex:none;font-size:13px;font-weight:600}
@@ -295,12 +296,18 @@ kbd{display:inline-block;padding:1px 6px;font-family:ui-monospace,Menlo,Consolas
 .effort-bar-fill.r5{background:linear-gradient(90deg,#10b981,#34d399)}
 .effort-bar-val{width:40px;flex:none;text-align:right;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
 
-/* ── Effort chart ────────────────────────────────────────── */
-.effort-chart-wrap{width:100%;overflow-x:auto}
+/* ── Line chart ──────────────────────────────────────────── */
+.effort-chart-wrap{width:100%;overflow-x:auto;overflow-y:hidden}
 .effort-chart-svg{display:block;width:100%;min-width:520px;height:auto}
-.effort-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:11.5px;color:var(--text-2)}
+.effort-chart-svg text{font-family:var(--font);font-variant-numeric:tabular-nums}
+.effort-chart-svg .dot{transition:r .12s ease}
+.effort-chart-svg .dot:hover{r:6}
+.effort-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px;font-size:11.5px;color:var(--text-2)}
 .effort-legend span{display:inline-flex;align-items:center;gap:6px}
 .effort-legend i{width:10px;height:10px;border-radius:99px;display:inline-block;flex:none}
+.effort-legend button{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:99px;font-size:11.5px;font-weight:600;color:var(--text-2);transition:.14s;border:1px solid transparent}
+.effort-legend button:hover{background:var(--surface-2)}
+.effort-legend button.off{opacity:.35;text-decoration:line-through}
 
 .modal-back{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);z-index:1000;display:grid;place-items:center;padding:20px;animation:fadeIn .16s ease;overflow-y:auto}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -531,11 +538,10 @@ code{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12.5p
 
 <script type="module">
 /* ================================================================
-   STUDENTOS v7.5
-   - manual effort entry + effort line chart
-   - calendar grid blowout fix (minmax(0,1fr) + min-width:0)
-   - multi-proxy fallback for calendar fetch (fixes HTTP 400)
-   - SVG icon size fixes for card titles & buttons
+   STUDENTOS v7.6
+   - effort reports now use a proper line graph (all sections)
+   - clickable legend to toggle subject series
+   - mini sparkline on dashboard summary
    ================================================================ */
 
 const LS_CONFIG = 'studentos.config.v1';
@@ -776,6 +782,7 @@ function estimateMinutes(item){
 const S = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
 const ICON = {
   chart: `<svg ${S}><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+  trend: `<svg ${S}><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg>`,
   bell: `<svg ${S}><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
   search: `<svg ${S}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
   link: `<svg ${S}><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
@@ -847,6 +854,17 @@ function ratingClass(r){
   if (r === 3) return 'r3';
   if (r === 4) return 'r4';
   return 'r5';
+}
+function ratingColor(v){
+  const n = Math.round(v || 0);
+  if (n <= 1) return '#ef4444';
+  if (n === 2) return '#f97316';
+  if (n === 3) return '#eab308';
+  if (n === 4) return '#84cc16';
+  return '#10b981';
+}
+function svgPointColor(r){
+  return ratingColor(r);
 }
 
 const TITLE_PREFIX_RE = /^\s*(?:re|fw|fwd)\s*:\s*|^\s*\[[^\]]{1,60}\]\s*|^\s*(?:new|updated)\s+(?:assignment|material|announcement|question|quiz|test)\s*(?:posted|created|added)?\s*:?\s*/gi;
@@ -1186,10 +1204,8 @@ function emptyData(){
   };
 }
 
-/* ── Calendar sync (multi-proxy fallback) ─────────────────── */
+/* ── Calendar sync ────────────────────────────────────────── */
 async function fetchCalendarUrl(url){
-  // Order matters: direct first (some hosts have permissive CORS on the ICS file),
-  // then each proxy in turn. We only fall through on failure.
   const attempts = [
     { name: 'direct',     fn: () => fetch(url, { redirect: 'follow' }) },
     { name: 'allorigins', fn: () => fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, { redirect: 'follow' }) },
@@ -1197,7 +1213,6 @@ async function fetchCalendarUrl(url){
     { name: 'codetabs',   fn: () => fetch(`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`, { redirect: 'follow' }) },
     { name: 'jina',       fn: () => fetch(`https://r.jina.ai/${url}`, { redirect: 'follow' }) },
   ];
-
   const errors = [];
   for (const { name, fn } of attempts){
     try {
@@ -1709,7 +1724,8 @@ function setSyncUI(state, text){
 const App = {
   user: null, route: '#/dashboard',
   filters: { assignments: 'all', search: '', subject: 'all', sort: 'due' },
-  calMonth: new Date().getMonth(), calYear: new Date().getFullYear()
+  calMonth: new Date().getMonth(), calYear: new Date().getFullYear(),
+  hiddenSeries: new Set()
 };
 
 function render(){
@@ -1739,7 +1755,153 @@ function updateBadges(){
   if (dot) dot.hidden = unread === 0;
 }
 
-/* ── Views ────────────────────────────────────────────────── */
+/* ================================================================
+   CHART ENGINE — line graphs
+   ================================================================ */
+
+const SERIES_COLORS = [
+  '#4f46e5','#10b981','#f59e0b','#ef4444','#8b5cf6','#0ea5e9',
+  '#ec4899','#14b8a6','#f97316','#6366f1','#84cc16','#eab308',
+  '#06b6d4','#a855f7','#22c55e','#f43f5e'
+];
+
+function colorForIndex(i){ return SERIES_COLORS[i % SERIES_COLORS.length]; }
+
+/**
+ * Render a line chart as inline SVG.
+ * @param {Object} opts
+ * @param {Array}  opts.series   [{ name, color, points: [{ x:number, y:number, meta?:string }] }]
+ * @param {Array}  opts.xLabels  X-axis tick labels (index-aligned with x values)
+ * @param {number} opts.yMin     Y-axis minimum (default 1)
+ * @param {number} opts.yMax     Y-axis maximum (default 5)
+ * @param {number} opts.height   viewBox height (default 260)
+ * @param {string} opts.aria     aria-label
+ * @param {boolean} opts.showDots (default true)
+ */
+function renderLineChart({ series, xLabels, yMin = 1, yMax = 5, height = 260, aria = 'Line chart', showDots = true }){
+  const W = 800;
+  const H = height;
+  const PAD = { top: 20, right: 24, bottom: 48, left: 34 };
+  const innerW = W - PAD.left - PAD.right;
+  const innerH = H - PAD.top - PAD.bottom;
+  const n = Math.max(1, xLabels.length);
+  const xStep = n > 1 ? innerW / (n - 1) : 0;
+  const xFor = i => PAD.left + (n > 1 ? i * xStep : innerW / 2);
+  const yFor = v => PAD.top + innerH - ((v - yMin) / (yMax - yMin || 1)) * innerH;
+
+  // Y grid (integers only between 1-5 when range is standard)
+  const yTicks = [];
+  for (let v = yMin; v <= yMax; v++) yTicks.push(v);
+  const yGrid = yTicks.map(v => `
+    <line x1="${PAD.left}" y1="${yFor(v).toFixed(1)}" x2="${(W - PAD.right).toFixed(1)}" y2="${yFor(v).toFixed(1)}" stroke="var(--border)" stroke-width="1" stroke-dasharray="${v === yMin || v === yMax ? '0' : '3 4'}"/>
+    <text x="${PAD.left - 8}" y="${(yFor(v) + 3.5).toFixed(1)}" font-size="10" fill="var(--text-3)" text-anchor="end">${v}</text>
+  `).join('');
+
+  // X labels — thin out when many
+  const maxLabels = 8;
+  const step = Math.max(1, Math.ceil(n / maxLabels));
+  const xAxis = xLabels.map((lbl, i) => {
+    if (i % step !== 0 && i !== n - 1) return '';
+    return `<text x="${xFor(i).toFixed(1)}" y="${H - 16}" font-size="10" fill="var(--text-3)" text-anchor="middle">${escapeHtml(lbl)}</text>`;
+  }).join('');
+
+  // Series polylines + dots
+  const seriesSvg = series.map(s => {
+    if (!s.points.length) return '';
+    const pts = s.points;
+    const polyline = pts.length > 1
+      ? `<polyline points="${pts.map(p => `${xFor(p.x).toFixed(1)},${yFor(p.y).toFixed(1)}`).join(' ')}"
+                    fill="none" stroke="${s.color}" stroke-width="2.25"
+                    stroke-linejoin="round" stroke-linecap="round"/>`
+      : '';
+    const dots = showDots ? pts.map(p => {
+      const title = `${s.name}: ${p.y}${p.meta ? ' — ' + p.meta : ''}`;
+      return `<circle class="dot" cx="${xFor(p.x).toFixed(1)}" cy="${yFor(p.y).toFixed(1)}" r="4"
+                      fill="${s.color}" stroke="var(--surface)" stroke-width="2"
+                      style="cursor:pointer">
+                <title>${escapeHtml(title)}</title>
+              </circle>`;
+    }).join('') : '';
+    return polyline + dots;
+  }).join('');
+
+  return `
+    <svg class="effort-chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${escapeHtml(aria)}">
+      ${yGrid}
+      ${xAxis}
+      ${seriesSvg}
+    </svg>`;
+}
+
+/* Small legend with clickable toggles */
+function renderChartLegend(series){
+  return `
+    <div class="effort-legend">
+      ${series.map(s => `
+        <button type="button" data-series="${escapeHtml(s.name)}" class="${App.hiddenSeries.has(s.name) ? 'off' : ''}">
+          <i style="background:${s.color}"></i>${escapeHtml(s.name)}
+        </button>
+      `).join('')}
+    </div>`;
+}
+
+/* Build series for "ratings over time" — one line per subject */
+function buildTimeSeries(reports){
+  const valid = reports.filter(r => r.ratings?.length).sort((a, b) => a.date - b.date);
+  if (!valid.length) return { series: [], xLabels: [] };
+  const subjects = [...new Set(valid.flatMap(r => r.ratings.map(x => x.subject)))].sort();
+  const xLabels = valid.map(r => fmtDate(r.date));
+
+  const series = subjects.map((subj, si) => {
+    if (App.hiddenSeries.has(subj)) return { name: subj, color: colorForIndex(si), points: [] };
+    const points = [];
+    valid.forEach((r, i) => {
+      const rating = r.ratings.find(x => x.subject === subj);
+      if (rating) points.push({ x: i, y: rating.rating, meta: fmtDateLong(r.date) });
+    });
+    return { name: subj, color: colorForIndex(si), points };
+  });
+  return { series, xLabels };
+}
+
+/* Build series for a single report — line across subjects */
+function buildReportSeries(report){
+  if (!report?.ratings?.length) return { series: [], xLabels: [] };
+  const ratings = [...report.ratings].sort((a, b) => a.subject.localeCompare(b.subject));
+  const xLabels = ratings.map(r => r.subject);
+  const points = ratings.map((r, i) => ({ x: i, y: r.rating }));
+  return {
+    series: [{ name: fmtDateLong(report.date), color: '#4f46e5', points }],
+    xLabels
+  };
+}
+
+/* Build series for subject averages — line across subjects */
+function buildAveragesSeries(reports){
+  const allRatings = reports.flatMap(r => r.ratings || []);
+  if (!allRatings.length) return { series: [], xLabels: [] };
+  const bySubj = {};
+  for (const r of allRatings){
+    if (!bySubj[r.subject]) bySubj[r.subject] = [];
+    bySubj[r.subject].push(r.rating);
+  }
+  const subjects = Object.keys(bySubj).sort();
+  const xLabels = subjects;
+  const points = subjects.map((s, i) => ({
+    x: i,
+    y: +(bySubj[s].reduce((a, b) => a + b, 0) / bySubj[s].length).toFixed(2),
+    meta: `${bySubj[s].length} report${bySubj[s].length === 1 ? '' : 's'}`
+  }));
+  return {
+    series: [{ name: 'Average', color: '#8b5cf6', points }],
+    xLabels
+  };
+}
+
+/* ================================================================
+   VIEWS
+   ================================================================ */
+
 function viewDashboard(){
   const assignments = Store.all('assignments');
   const open = assignments.filter(a => !a.completed);
@@ -1757,13 +1919,13 @@ function viewDashboard(){
   const effortCard = latestEffort ? `
     <section class="card">
       <div class="card-head">
-        <div class="card-title">${ICON.chart} Latest effort report</div>
+        <div class="card-title">${ICON.trend} Latest effort report</div>
         <a class="btn btn-sm btn-ghost" href="#/effort">All</a>
       </div>
       <div class="card-body">${renderEffortSummaryMini(latestEffort)}</div>
     </section>` : `
     <section class="card">
-      <div class="card-head"><div class="card-title">${ICON.chart} Effort reports</div></div>
+      <div class="card-head"><div class="card-title">${ICON.trend} Effort reports</div></div>
       <div class="card-body">
         <p class="small muted" style="margin-bottom:14px">Upload your weekly PDF or enter ratings manually.</p>
         <div class="row" style="gap:8px;flex-wrap:wrap">
@@ -1822,21 +1984,21 @@ function viewDashboard(){
 function renderEffortSummaryMini(report){
   if (!report || !report.ratings?.length) return '<div class="muted small">No ratings recorded.</div>';
   const avg = report.ratings.reduce((s, r) => s + r.rating, 0) / report.ratings.length;
+  const ratings = [...report.ratings].sort((a, b) => a.subject.localeCompare(b.subject));
+  const xLabels = ratings.map(r => r.subject);
+  const series = [{ name: fmtDateLong(report.date), color: '#4f46e5', points: ratings.map((r, i) => ({ x: i, y: r.rating })) }];
+
   return `
     <div class="row-between" style="margin-bottom:12px">
-      <div><div class="small muted">${fmtDateLong(report.date)}</div>
-        <div class="strong" style="font-size:15px;margin-top:2px">${report.ratings.length} subjects rated</div></div>
+      <div>
+        <div class="small muted">${fmtDateLong(report.date)}</div>
+        <div class="strong" style="font-size:15px;margin-top:2px">${report.ratings.length} subjects rated</div>
+      </div>
       <div class="effort-avg"><b>${avg.toFixed(1)}</b>/ 5</div>
     </div>
-    <div class="effort-bars">
-      ${report.ratings.slice(0, 5).map(r => `
-        <div class="effort-bar-row">
-          <div class="effort-bar-subject truncate">${escapeHtml(r.subject)}</div>
-          <div class="effort-bar-track"><div class="effort-bar-fill ${ratingClass(r.rating)}" style="width:${r.rating/5*100}%"></div></div>
-          <div class="effort-bar-val">${r.rating}</div>
-        </div>`).join('')}
-    </div>
-    ${report.ratings.length > 5 ? `<div class="tiny muted" style="margin-top:8px">+${report.ratings.length - 5} more</div>` : ''}`;
+    <div class="effort-chart-wrap">
+      ${renderLineChart({ series, xLabels, height: 190, aria: 'Latest effort ratings by subject' })}
+    </div>`;
 }
 
 function renderNextActions(){
@@ -2037,84 +2199,6 @@ function viewCalendar(){
   </div>`;
 }
 
-/* ── Effort chart ─────────────────────────────────────────── */
-function renderEffortChart(reports){
-  const valid = reports.filter(r => r.ratings?.length).sort((a,b) => a.date - b.date);
-  if (valid.length < 2) return '';
-  const subjects = [...new Set(valid.flatMap(r => r.ratings.map(x => x.subject)))].sort();
-  if (!subjects.length) return '';
-
-  const W = 800, H = 280;
-  const PAD = { top: 24, right: 24, bottom: 42, left: 40 };
-  const innerW = W - PAD.left - PAD.right;
-  const innerH = H - PAD.top - PAD.bottom;
-  const xStep = valid.length > 1 ? innerW / (valid.length - 1) : 0;
-  const xFor = i => PAD.left + i * xStep;
-  const yFor = v => PAD.top + innerH - ((v - 1) / 4) * innerH;
-
-  const gridLines = [1,2,3,4,5].map(v => `
-    <line x1="${PAD.left}" y1="${yFor(v).toFixed(1)}" x2="${W - PAD.right}" y2="${yFor(v).toFixed(1)}" stroke="var(--border)" stroke-width="1"/>
-    <text x="${PAD.left - 8}" y="${yFor(v).toFixed(1) + 4}" font-size="10" fill="var(--text-3)" text-anchor="end">${v}</text>
-  `).join('');
-
-  const xLabels = valid.map((r, i) => `
-    <text x="${xFor(i).toFixed(1)}" y="${H - 14}" font-size="9.5" fill="var(--text-3)" text-anchor="middle">${fmtDate(r.date)}</text>
-  `).join('');
-
-  const colors = ['#4f46e5','#10b981','#f59e0b','#ef4444','#8b5cf6','#0ea5e9','#ec4899','#14b8a6','#f97316','#6366f1','#84cc16','#eab308'];
-
-  const series = subjects.map((subj, si) => {
-    const color = colors[si % colors.length];
-    const pts = valid.map((r, i) => {
-      const rating = r.ratings.find(x => x.subject === subj);
-      return rating ? { x: xFor(i), y: yFor(rating.rating), rating: rating.rating } : null;
-    });
-    const continuous = [];
-    for (const p of pts){
-      if (p) continuous.push(p);
-      else continuous.push(null);
-    }
-    // Build line segments skipping nulls
-    const segments = [];
-    let cur = [];
-    for (const p of continuous){
-      if (p) cur.push(p);
-      else if (cur.length){ segments.push(cur); cur = []; }
-    }
-    if (cur.length) segments.push(cur);
-
-    const paths = segments.map(seg => seg.length > 1
-      ? `<polyline points="${seg.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ')}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`
-      : ''
-    ).join('');
-
-    const dots = continuous.filter(Boolean).map(p =>
-      `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.5" fill="${color}" stroke="var(--surface)" stroke-width="2"><title>${escapeHtml(subj)}: ${p.rating}</title></circle>`
-    ).join('');
-
-    return paths + dots;
-  }).join('');
-
-  const legend = subjects.map((s, si) => `
-    <span><i style="background:${colors[si % colors.length]}"></i>${escapeHtml(s)}</span>
-  `).join('');
-
-  return `
-    <section class="card" style="margin-bottom:20px">
-      <div class="card-head"><div class="card-title">${ICON.chart} Progress over time</div></div>
-      <div class="card-body">
-        <div class="effort-chart-wrap">
-          <svg class="effort-chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Effort ratings over time">
-            ${gridLines}
-            ${xLabels}
-            ${series}
-          </svg>
-        </div>
-        <div class="effort-legend">${legend}</div>
-      </div>
-    </section>`;
-}
-
 function viewEffort(){
   const reports = Store.all('effortReports').sort((a, b) => b.date - a.date);
   const latest = reports[0];
@@ -2126,11 +2210,20 @@ function viewEffort(){
     ? (latest.ratings.reduce((s, r) => s + r.rating, 0) / latest.ratings.length)
     : 0;
 
+  // Charts
+  const timeData = buildTimeSeries(reports);
+  const latestData = buildReportSeries(latest);
+  const avgData = buildAveragesSeries(reports);
+
+  const hasMultiReport = reports.filter(r => r.ratings?.length).length >= 2;
+  const hasLatest = !!latest?.ratings?.length;
+  const hasAvg = Object.keys(allRatings).length > 0;
+
   return `
   <div class="page-head row-between wrap">
     <div>
       <h1 class="page-title">Effort Reports</h1>
-      <p class="page-sub">${reports.length} report${reports.length === 1 ? '' : 's'} uploaded</p>
+      <p class="page-sub">${reports.length} report${reports.length === 1 ? '' : 's'} · ratings out of 5</p>
     </div>
     <div class="row" style="gap:8px;flex-wrap:wrap">
       <button class="btn btn-ghost" data-action="add-effort-manual">${ICON.edit} Enter manually</button>
@@ -2151,40 +2244,57 @@ function viewEffort(){
       <div class="stat-sub">${latest.ratings?.length || 0} ratings</div></div>
   </div>` : ''}
 
-  ${renderEffortChart(reports)}
+  ${hasMultiReport ? `
+  <section class="card" style="margin-bottom:20px">
+    <div class="card-head">
+      <div class="card-title">${ICON.trend} Progress over time</div>
+      <span class="chip chip-gray">one line per subject</span>
+    </div>
+    <div class="card-body">
+      <div class="effort-chart-wrap">
+        ${renderLineChart({
+          series: timeData.series,
+          xLabels: timeData.xLabels,
+          height: 300,
+          aria: 'Effort ratings over time, one line per subject'
+        })}
+      </div>
+      ${renderChartLegend(timeData.series)}
+    </div>
+  </section>` : ''}
 
-  ${latest ? `
+  ${hasLatest ? `
   <section class="card" style="margin-bottom:20px">
     <div class="card-head">
       <div class="card-title">${ICON.chart} Latest report — ${fmtDateLong(latest.date)}</div>
       <span class="effort-avg"><b>${latestAvg.toFixed(1)}</b>/ 5</span>
     </div>
     <div class="card-body">
-      <div class="effort-bars">
-        ${latest.ratings.map(r => `
-          <div class="effort-bar-row">
-            <div class="effort-bar-subject truncate">${escapeHtml(r.subject)}</div>
-            <div class="effort-bar-track"><div class="effort-bar-fill ${ratingClass(r.rating)}" style="width:${r.rating / 5 * 100}%"></div></div>
-            <div class="effort-bar-val">${r.rating}</div>
-          </div>`).join('')}
+      <div class="effort-chart-wrap">
+        ${renderLineChart({
+          series: latestData.series,
+          xLabels: latestData.xLabels,
+          height: 260,
+          aria: 'Latest report — effort rating per subject'
+        })}
       </div>
     </div>
   </section>` : ''}
 
-  ${subjects.length ? `
+  ${hasAvg ? `
   <section class="card" style="margin-bottom:20px">
-    <div class="card-head"><div class="card-title">${ICON.chart} Subject averages</div></div>
+    <div class="card-head">
+      <div class="card-title">${ICON.trend} Subject averages</div>
+      <span class="chip chip-gray">across all reports</span>
+    </div>
     <div class="card-body">
-      <div class="effort-bars">
-        ${subjects.map(s => {
-          const rs = allRatings.filter(r => r.subject === s);
-          const a = rs.reduce((sum, r) => sum + r.rating, 0) / rs.length;
-          return `<div class="effort-bar-row">
-            <div class="effort-bar-subject truncate">${escapeHtml(s)}</div>
-            <div class="effort-bar-track"><div class="effort-bar-fill ${ratingClass(a)}" style="width:${a / 5 * 100}%"></div></div>
-            <div class="effort-bar-val">${a.toFixed(1)}</div>
-          </div>`;
-        }).join('')}
+      <div class="effort-chart-wrap">
+        ${renderLineChart({
+          series: avgData.series,
+          xLabels: avgData.xLabels,
+          height: 260,
+          aria: 'Average effort rating per subject'
+        })}
       </div>
     </div>
   </section>` : ''}
@@ -2554,6 +2664,16 @@ function bindViewEvents(){
   if (!view) return;
 
   view.onclick = async (e) => {
+    // Legend toggle (effort chart)
+    const legendBtn = e.target.closest('.effort-legend button[data-series]');
+    if (legendBtn){
+      const name = legendBtn.dataset.series;
+      if (App.hiddenSeries.has(name)) App.hiddenSeries.delete(name);
+      else App.hiddenSeries.add(name);
+      render();
+      return;
+    }
+
     const el = e.target.closest('[data-action]');
     if (!el) return;
     const action = el.dataset.action;
@@ -3100,7 +3220,7 @@ async function openDiagnostics(){
   results.push({
     ok: true,
     label: 'Local data',
-    detail: `${Store.all('assignments').length} assignments · ${Store.all('events').length} events · ${Store.all('notifications').length} notifications.`
+    detail: `${Store.all('assignments').length} assignments · ${Store.all('events').length} events · ${Store.all('effortReports').length} effort reports.`
   });
 
   const emailInt = Store.cache.integrations?.email;
@@ -3297,6 +3417,7 @@ async function signOut(){
   Store.uid = null;
   Store.cache = null;
   App.user = null;
+  App.hiddenSeries.clear();
   localStorage.removeItem(LS_SESSION);
   showAuthScreen();
 }
@@ -3304,6 +3425,7 @@ async function signOut(){
 async function onUserSignedIn(user){
   App.user = user;
   Store.uid = user.uid;
+  App.hiddenSeries.clear();
 
   await Store.init(user);
   applyTheme();
